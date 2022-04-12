@@ -41,7 +41,6 @@ export class AlertService{
 
   static confirmMessage(title = 'Are you sure?', text = 'Are you realy sure?',
   confirmedText = 'Confirm') {
-
     Swal.fire({
         title: title,
         text: text,
