@@ -3,15 +3,18 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import App from './App'
 import configureStore from './configureStore'
+import './index.css'
 
 const store = configureStore();
 
 const rootElement = document.getElementById('root');
 
 render(
-    <Provider store={store}>
+  <Provider store={store}>
+    <React.StrictMode>
       <App />
-    </Provider>,
+    </React.StrictMode>
+  </Provider>,
   rootElement
 );
 

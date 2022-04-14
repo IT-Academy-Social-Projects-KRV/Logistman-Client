@@ -1,0 +1,65 @@
+.body {
+    height: 100vh;
+    overflow-x: hidden;
+    background-color: #093545;
+}
+
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: white;
+    text-align: center;
+}
+
+.title {
+    font-size: 55pt;
+    margin-bottom: 50px;
+    margin-top: 0px;
+}
+
+.textInput input[type="text"],
+.passwordInput input[type="password"],
+.passwordInput input[type="text"] {
+    background-color: #224957;
+    border-radius: 10px;
+    border: none;
+    outline-width: 0;
+    color: white;
+    height: 40px;
+    width: 80%;
+    margin: 10px 0px;
+    font-size: 15pt;
+    padding: 0px 15px;
+}
+
+.passwordInput {
+    margin-left: 8px;
+    margin-right: -8px;
+}
+
+.submitButton {
+    background-color: #20DF7F;
+    border-width: 0px;
+    border-radius: 10px;
+    color: white;
+    height: 40px;
+    width: 88%;
+    margin: 10px 0px;
+    font-size: 13pt;
+    padding: 0px 15px;
+    margin-top: 30px;
+}
+
+.textInput ::placeholder,
+.passwordInput ::placeholder {
+    color: white;
+    opacity: .7;
+    font-size: medium;
+}
+
+.form {
+    margin-top: 30px;
+}
