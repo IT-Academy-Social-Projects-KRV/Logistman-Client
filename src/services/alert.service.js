@@ -10,13 +10,12 @@ export class AlertService {
     })
   }
 
-  static successMessage(title = 'Success') {
+  static successMessage(title = 'Success', timer = 1500) {
     Swal.fire({
       position: 'center',
       icon: 'success',
       title: title,
-      showConfirmButton: false,
-      timer: 1500
+      showConfirmButton: false
     })
   }
 

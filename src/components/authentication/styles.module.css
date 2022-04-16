@@ -1,4 +1,6 @@
 .body {
+    height: 100vh;
+    background-color: #093545;
     overflow-x: hidden;
 }
 
@@ -14,9 +16,14 @@
 }
 
 .title {
-    font-size: 55pt;
+    font-size: 72px;
     margin-bottom: 50px;
     margin-top: 0px;
+}
+
+.form {
+    margin-top: 30px;
+    width: 380px;
 }
 
 .textInput input[type="text"],
@@ -30,7 +37,7 @@
     height: 40px;
     width: 80%;
     margin: 10px 0px;
-    font-size: 15pt;
+    font-size: 20px;
     padding: 0px 15px;
 }
 
@@ -43,6 +50,13 @@
     margin-left: 10px;
 }
 
+.textInput ::placeholder,
+.passwordInput ::placeholder {
+    color: white;
+    opacity: .7;
+    font-size: medium;
+}
+
 .submitButton {
     background-color: #17a15c;
     border-width: 0px;
@@ -51,24 +65,12 @@
     height: 40px;
     width: 88%;
     margin: 10px 0px;
-    font-size: 13pt;
+    font-size: 16px;
     margin-top: 30px;
-}
-
-.textInput ::placeholder,
-.passwordInput ::placeholder {
-    color: white;
-    opacity: .7;
-    font-size: medium;
-}
-
-.form {
-    margin-top: 30px;
-    width: 45vh;
 }
 
 .linkDiv {
-    width: 28vh;
+    width: 280px;
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
@@ -83,32 +85,29 @@
     text-decoration: underline;
 }
 
+/* media queries */
+
 @media only screen and (min-width: 600px) and (max-width: 1199px) {
     .title {
-        font-size: 41pt;
-        margin-bottom: 37px;
+        font-size: 54px;
+        margin-bottom: 38px;
     }
 
     p {
-        font-size: 12px;
+        font-size: 14px;
+    }
+
+    .form {
+        margin-top: 23px;
     }
 
     .textInput input[type="text"],
     .passwordInput input[type="password"],
     .passwordInput input[type="text"] {
         border-radius: 8px;
-        height: 30px;
-        font-size: 11pt;
+        height: 34px;
+        font-size: 12px;
         padding: 0px 11px;
-    }
-
-    .submitButton {
-        border-radius: 8px;
-        height: 30px;
-        font-size: 10pt;
-        padding: 0px 11px;
-        margin-top: 23px;
-        width: 86%;
     }
 
     .textInput ::placeholder,
@@ -116,33 +115,39 @@
         font-size: small;
     }
 
-    .form {
-        margin-top: 23px;
+    .passwordInput svg {
+        height: 14px;
+        margin-left: 8px;
     }
 
-    .passwordInput svg {
-        height: 12px;
+    .submitButton {
+        border-radius: 8px;
+        height: 34px;
+        font-size: 14px;
+        margin-top: 23px;
+        width: 86%;
     }
 
     .linkDiv {
-        width: 26vh;
-        margin-top: 11px;
-        font-size: 12px;
-    }
-
-    .passwordInput svg {
-        margin-left: 8px;
+        width: 210px;
+        margin-top: 8px;
+        font-size: 14px;
     }
 }
 
 @media only screen and (max-width: 599px) {
     .title {
-        font-size: 33pt;
-        margin-bottom: 30px;
+        font-size: 35px;
+        margin-bottom: 25px;
     }
 
     p {
-        font-size: 12pt;
+        font-size: 12px;
+    }
+
+    .form {
+        margin-top: 18px;
+        width: 280px;
     }
 
     .textInput input[type="text"],
@@ -156,21 +161,18 @@
         padding: 0px 9px;
     }
 
+    .textInput {
+        margin-left: -2px;
+    }
+
     .passwordInput {
         margin-left: 10px;
         margin-right: -10px;
     }
 
-    .textInput {
-        margin-left: -2px;
-    }
-
-    .submitButton {
-        border-radius: 6px;
-        height: 36px;
-        margin: 6px 0px;
-        font-size: 12pt;
-        margin-top: 18px;
+    .passwordInput svg {
+        height: 14px;
+        margin-left: 6px;
     }
 
     .textInput ::placeholder,
@@ -178,27 +180,20 @@
         font-size: small;
     }
 
-    .form {
-        margin-top: 18px;
-    }
-
-    .passwordInput svg {
-        height: 14px;
-    }
-
     .submitButton {
+        border-radius: 6px;
+        height: 36px;
+        margin: 6px 0px;
+        font-size: 14px;
         width: 90%;
+        margin-top: 26px;
     }
 
     .linkDiv {
-        width: 25vh;
-        margin-top: 9px;
+        width: 190px;
+        margin-top: 10px;
         font-size: 15px;
-    }
-
-    .passwordInput svg {
-        margin-left: 6px;
     }
 }
 
-/*( > 1200  ) ( 1199 - 600 ) ( 599 < ) - sizes of screen*/ 
+/*( < 599 ] [ 600 - 1199 ] [ 1200 < ) - sizes of screen*/
