@@ -12,76 +12,97 @@
     height: 100vh;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: white;
-    text-align: center;
 }
 
 .title {
     font-size: 72px;
-    margin-bottom: 50px;
-    margin-top: 0px;
+    margin-bottom: 45px;
 }
 
-.form {
-    margin-top: 30px;
-    width: 380px;
+.center form {
+    width: 280px;
+    margin-top: 25px;
+    margin-bottom: 5px;
 }
 
-.textInput input[type="text"],
-.passwordInput input[type="password"],
-.passwordInput input[type="text"] {
-    background-color: #224957;
+.textForm input[type="text"] {
+    height: 40px;
     border-radius: 10px;
+}
+
+/*for error message from input */
+.textForm div,
+.passwordForm div {
+    color: rgb(211, 19, 19);
+    width: 280px;
+}
+
+.passwordForm svg {
+    color: white;
+}
+
+.textForm input[type="text"],
+.passwordForm input[type="password"],
+.passwordForm input[type="text"] {
+    background-color: #224957 !important;
     border: none;
     outline-width: 0;
     color: white;
-    height: 40px;
-    width: 80%;
-    margin: 10px 0px;
-    font-size: 20px;
-    padding: 0px 15px;
+    font-size: 18px;
+    padding: 0px 10px;
 }
 
 .passwordInput {
-    margin-left: 13px;
-    margin-right: -13px;
+    background-color: #224957 !important;
+    border-radius: 10px !important;
+    border: none !important;
+    outline-width: 0;
+    color: white;
+    height: 40px;
+    font-size: 18px;
+    width: 280px !important;
+    padding: 0px 10px;
 }
 
-.passwordInput svg {
-    margin-left: 10px;
-}
-
-.textInput ::placeholder,
-.passwordInput ::placeholder {
+.textForm ::placeholder,
+.passwordForm ::placeholder {
     color: white;
     opacity: .7;
     font-size: medium;
 }
 
-.submitButton {
-    background-color: #17a15c;
-    border-width: 0px;
-    border-radius: 10px;
-    color: white;
-    height: 40px;
-    width: 88%;
-    margin: 10px 0px;
-    font-size: 16px;
-    margin-top: 30px;
+.submitItem div {
+    height: 40px !important;
 }
 
-.linkDiv {
+.submitItem {
+    margin-bottom: 10px !important;
+    margin-top: 35px !important;
+}
+
+.submitButton {
+    background-color: #17a15c !important;
+    border: none !important;
+    height: 40px !important;
+    width: 280px;
+    font-size: 16px !important;
+    margin-bottom: 10px;
+    border-radius: 10px !important;
+}
+
+.linksDiv {
     width: 280px;
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
+    padding: 0 28px;
 }
 
-.linkDiv a {
+.linksDiv a {
     text-decoration: none;
     color: #20DF7F;
 }
 
-.linkDiv a:hover {
+.linksDiv a:hover {
     text-decoration: underline;
 }
 
@@ -97,102 +118,73 @@
         font-size: 14px;
     }
 
-    .form {
+    .center form {
         margin-top: 23px;
     }
 
-    .textInput input[type="text"],
-    .passwordInput input[type="password"],
-    .passwordInput input[type="text"] {
+    .textForm input[type="text"] {
         border-radius: 8px;
         height: 34px;
         font-size: 12px;
-        padding: 0px 11px;
     }
 
-    .textInput ::placeholder,
-    .passwordInput ::placeholder {
+    .passwordInput {
+        border-radius: 8px !important;
+        height: 34px;
+        font-size: 12px;
+    }
+
+    .textForm ::placeholder,
+    .passwordForm ::placeholder {
         font-size: small;
     }
 
-    .passwordInput svg {
+    .passwordForm svg {
         height: 14px;
-        margin-left: 8px;
+    }
+
+    /*for error message from input */
+    .textForm div,
+    .passwordForm div {
+        font-size: 13px;
+    }
+
+    .submitItem div {
+        height: 34px !important;
     }
 
     .submitButton {
-        border-radius: 8px;
-        height: 34px;
-        font-size: 14px;
-        margin-top: 23px;
-        width: 86%;
+        height: 34px !important;
+        font-size: 14px !important;
+        border-radius: 8px !important;
     }
 
-    .linkDiv {
-        width: 210px;
-        margin-top: 8px;
-        font-size: 14px;
+    .linksDiv {
+        margin-top: 6px;
     }
 }
 
 @media only screen and (max-width: 599px) {
     .title {
-        font-size: 35px;
-        margin-bottom: 25px;
+        font-size: 38px;
+        margin-bottom: 28px;
     }
 
     p {
         font-size: 12px;
     }
 
-    .form {
+    .center form {
         margin-top: 18px;
-        width: 280px;
     }
 
-    .textInput input[type="text"],
-    .passwordInput input[type="password"],
-    .passwordInput input[type="text"] {
-        border-radius: 6px;
-        height: 36px;
-        margin: 8px 0px;
-        font-size: 11pt;
-        width: 84%;
-        padding: 0px 9px;
+    .submitButton,
+    .submitItem div {
+        height: 36px !important;
     }
 
-    .textInput {
-        margin-left: -2px;
-    }
-
-    .passwordInput {
-        margin-left: 10px;
-        margin-right: -10px;
-    }
-
-    .passwordInput svg {
-        height: 14px;
-        margin-left: 6px;
-    }
-
-    .textInput ::placeholder,
-    .passwordInput ::placeholder {
-        font-size: small;
-    }
-
-    .submitButton {
-        border-radius: 6px;
-        height: 36px;
-        margin: 6px 0px;
-        font-size: 14px;
-        width: 90%;
-        margin-top: 26px;
-    }
-
-    .linkDiv {
-        width: 190px;
-        margin-top: 10px;
-        font-size: 15px;
+    .linksDiv {
+        margin-top: 6px;
     }
 }
 

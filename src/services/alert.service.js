@@ -15,6 +15,7 @@ export class AlertService {
       position: 'center',
       icon: 'success',
       title: title,
+      timer: timer,
       showConfirmButton: false
     })
   }

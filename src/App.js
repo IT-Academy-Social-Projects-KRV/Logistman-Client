@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Registration from './components/authentication/registration';
+import 'antd/dist/antd.css';
 
 export default function App() {
   return (
