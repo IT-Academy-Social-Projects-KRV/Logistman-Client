@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, Checkbox } from "antd";
 import { Link } from "react-router-dom";
 import { errorMessages } from "../../../constants/errorMessages";
 import { inputRegexes } from "../../../constants/inputRegexes";
@@ -13,6 +13,10 @@ function Login() {
     const onFinish = (values) => {
         login(values, history);
     };
+
+    function onChange(e) {
+        console.log(`remember me = ${e.target.checked}`);
+    }
 
     return (
         <div className={styles.body}>
@@ -67,6 +71,11 @@ function Login() {
                             placeholder="Password"
                         />
                     </Form.Item>
+
+                    <div className={styles.helperForm}>
+                        <Checkbox className={styles.checkboxForm} onChange={onChange}>Remember me</Checkbox>
+                        <Link to="/forgotPassword">Forgot password</Link>
+                    </div>
 
                     <Form.Item className={styles.submitItem}>
                         <Button
