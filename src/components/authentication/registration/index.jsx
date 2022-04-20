@@ -1,21 +1,18 @@
-import React, { useEffect } from "react";
-import styles from '../styles.module.css';
+import React from "react";
+import { useHistory } from "react-router-dom";
 import { Form, Input, Button } from 'antd';
 import { register } from '../../../services/authentication';
 import { Link } from 'react-router-dom';
+import { errorMessages } from "../../../constants/errorMessages";
+import { inputRegexes } from "../../../constants/inputRegexes";
+import styles from '../styles.module.css';
 
 function Registration() {
 
-    useEffect(() => {
-        document.title = "Logistman";
-    });
+    let history = useHistory();
 
     const onFinish = (values) => {
-        register(values);
-    };
-
-    const onFinishFailed = () => {
-        //trigger the error alert (?)
+        register(values, history);
     };
 
     return (
@@ -31,7 +28,6 @@ function Registration() {
                     initialValues={{ remember: true }}
                     autoComplete="off"
                     onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
                     scrollToFirstError
                 >
                     <Form.Item
@@ -40,12 +36,12 @@ function Registration() {
                         rules={[
                             {
                                 type: 'string',
-                                pattern: new RegExp(/^[A-Z][a-z]{1,51}$/),
-                                message: 'The input is not valid name!'
+                                pattern: new RegExp(inputRegexes.NAME),
+                                message: errorMessages.NOT_VALID_NAME_MESSAGE
                             },
                             {
                                 required: true,
-                                message: 'Please input your name!'
+                                message: errorMessages.EMPTY_NAME_MESSAGE
                             }
                         ]}
                     >
@@ -58,12 +54,12 @@ function Registration() {
                         rules={[
                             {
                                 type: 'string',
-                                pattern: new RegExp(/^[A-Z][a-z]{1,51}$/),
-                                message: 'The input is not valid surname!',
+                                pattern: new RegExp(inputRegexes.SURNAME),
+                                message: errorMessages.NOT_VALID_SURNAME_MESSAGE
                             },
                             {
                                 required: true,
-                                message: 'Please input your surname!'
+                                message: errorMessages.EMPTY_SURNAME_MESSAGE
                             }
                         ]}
                     >
@@ -76,12 +72,11 @@ function Registration() {
                         rules={[
                             {
                                 type: 'email',
-                                message: 'The input is not valid e-mail!',
-                                maxLength: 3
+                                message: errorMessages.NOT_VALID_EMAIL_MESSAGE
                             },
                             {
                                 required: true,
-                                message: 'Please input your e-mail!'
+                                message: errorMessages.EMPTY_EMAIL_MESSAGE
                             }
                         ]}
                     >
@@ -94,12 +89,12 @@ function Registration() {
                         rules={[
                             {
                                 type: 'string',
-                                pattern: new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{7,51}$/),
-                                message: 'The input is not valid password!'
+                                pattern: new RegExp(inputRegexes.PASSWORD),
+                                message: errorMessages.NOT_VALID_PASSWORD_MESSAGE
                             },
                             {
                                 required: true,
-                                message: 'Please input your password!'
+                                message: errorMessages.EMPTY_PASSWORD_MESSAGE
                             }
                         ]}
                     >
@@ -112,7 +107,7 @@ function Registration() {
                         rules={[
                             {
                                 required: true,
-                                message: 'Please confirm your password!',
+                                message: errorMessages.CONFIRM_PASSWORD,
                             },
                             ({ getFieldValue }) => ({
                                 validator(_, value) {
@@ -123,7 +118,7 @@ function Registration() {
                                     return Promise.reject(
                                         new Error
                                             (
-                                                'The two passwords that you entered do not match!'
+                                                errorMessages.PASSWORD_DONT_MATCH
                                             )
                                     );
                                 },
