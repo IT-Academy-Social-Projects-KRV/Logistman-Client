@@ -1,23 +1,23 @@
-import React from 'react';
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Registration from './components/authentication/registration';
-import 'antd/dist/antd.css';
+import Registration from "./components/authentication/registration";
+import Login from "./components/authentication/login";
 import { createBrowserHistory } from "history";
+import "antd/dist/antd.css";
 
 const history = createBrowserHistory();
 
 export default function App() {
-  return (
-    <Router history={history}>
-      <Switch>
+    return (
+        <Router history={history}>
+            <Switch>
+                <Route exact path="/registration" component={Registration} />
+                <Route exact path="/login" component={Login} />
 
-        <Route exact path="/registration" component={Registration} />
-
-        <Route path="/" >
-          <>Home</>
-        </Route>
-
-      </Switch>
-    </Router>
-  );
+                <Route path="/">
+                    <>Home</>
+                </Route>
+            </Switch>
+        </Router>
+    );
 }
