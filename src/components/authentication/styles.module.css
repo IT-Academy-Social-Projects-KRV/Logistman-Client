@@ -106,8 +106,14 @@
     text-decoration: underline;
 }
 
+.helperForm {
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+}
+
 .checkboxForm {
-    color: #fff;
+    color: #fff !important;
 }
 
 /* media queries */

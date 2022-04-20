@@ -73,7 +73,12 @@ function Login() {
                     </Form.Item>
 
                     <div className={styles.helperForm}>
-                        <Checkbox className={styles.checkboxForm} onChange={onChange}>Remember me</Checkbox>
+                        <Checkbox
+                            className={styles.checkboxForm}
+                            onChange={onChange}
+                        >
+                            Remember me
+                        </Checkbox>
                         <Link to="/forgotPassword">Forgot password</Link>
                     </div>
 
