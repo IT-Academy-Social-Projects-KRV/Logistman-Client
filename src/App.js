@@ -1,8 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { createBrowserHistory } from "history";
 import Registration from "./components/authentication/registration";
 import Login from "./components/authentication/login";
-import { createBrowserHistory } from "history";
+import MainPage from "./components/mainPage";
+import PrivateRoute from './privateRoute';
+import { userRoles } from './constants/userRoles';
 import "antd/dist/antd.css";
 
 const history = createBrowserHistory();
@@ -11,11 +14,13 @@ export default function App() {
     return (
         <Router history={history}>
             <Switch>
+
+                <PrivateRoute exact path="/main" allowedRoles={[userRoles.USER]}>
+                    <MainPage />
+                </PrivateRoute>
+
                 <Route exact path="/registration" component={Registration} />
                 <Route exact path="/login" component={Login} />
-                <Route exact path="/main">
-                    Main
-                </Route>
 
                 <Route path="/">
                     <>Home</>
