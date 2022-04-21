@@ -67,7 +67,7 @@
 .textForm ::placeholder,
 .passwordForm ::placeholder {
     color: white;
-    opacity: .7;
+    opacity: 0.7;
     font-size: medium;
 }
 
@@ -99,11 +99,21 @@
 
 .linksDiv a {
     text-decoration: none;
-    color: #20DF7F;
+    color: #20df7f;
 }
 
 .linksDiv a:hover {
     text-decoration: underline;
+}
+
+.helperForm {
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+}
+
+.checkboxForm {
+    color: #fff !important;
 }
 
 /* media queries */
