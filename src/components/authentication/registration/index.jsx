@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Form, Input, Button } from "antd";
 import { register } from "../../../services/authentication";
 import { Link } from "react-router-dom";
-import { errorMessages } from "../../../constants/errorMessages";
+import { inputValidationErrors } from "../../../constants/errors/inputValidationErrors";
 import { inputRegexes } from "../../../constants/inputRegexes";
 import styles from "../styles.module.css";
 
@@ -36,11 +36,13 @@ function Registration() {
                             {
                                 type: "string",
                                 pattern: new RegExp(inputRegexes.NAME),
-                                message: errorMessages.NOT_VALID_NAME_MESSAGE,
+                                message:
+                                    inputValidationErrors.NOT_VALID_NAME_MESSAGE,
                             },
                             {
                                 required: true,
-                                message: errorMessages.EMPTY_NAME_MESSAGE,
+                                message:
+                                    inputValidationErrors.EMPTY_NAME_MESSAGE,
                             },
                         ]}
                     >
@@ -55,11 +57,12 @@ function Registration() {
                                 type: "string",
                                 pattern: new RegExp(inputRegexes.SURNAME),
                                 message:
-                                    errorMessages.NOT_VALID_SURNAME_MESSAGE,
+                                    inputValidationErrors.NOT_VALID_SURNAME_MESSAGE,
                             },
                             {
                                 required: true,
-                                message: errorMessages.EMPTY_SURNAME_MESSAGE,
+                                message:
+                                    inputValidationErrors.EMPTY_SURNAME_MESSAGE,
                             },
                         ]}
                     >
@@ -72,11 +75,13 @@ function Registration() {
                         rules={[
                             {
                                 type: "email",
-                                message: errorMessages.NOT_VALID_EMAIL_MESSAGE,
+                                message:
+                                    inputValidationErrors.NOT_VALID_EMAIL_MESSAGE,
                             },
                             {
                                 required: true,
-                                message: errorMessages.EMPTY_EMAIL_MESSAGE,
+                                message:
+                                    inputValidationErrors.EMPTY_EMAIL_MESSAGE,
                             },
                         ]}
                     >
@@ -91,11 +96,12 @@ function Registration() {
                                 type: "string",
                                 pattern: new RegExp(inputRegexes.PASSWORD),
                                 message:
-                                    errorMessages.NOT_VALID_PASSWORD_MESSAGE,
+                                    inputValidationErrors.NOT_VALID_PASSWORD_MESSAGE,
                             },
                             {
                                 required: true,
-                                message: errorMessages.EMPTY_PASSWORD_MESSAGE,
+                                message:
+                                    inputValidationErrors.EMPTY_PASSWORD_MESSAGE,
                             },
                         ]}
                     >
@@ -111,16 +117,19 @@ function Registration() {
                         rules={[
                             {
                                 required: true,
-                                message: errorMessages.CONFIRM_PASSWORD,
+                                message: inputValidationErrors.CONFIRM_PASSWORD,
                             },
                             ({ getFieldValue }) => ({
                                 validator(_, value) {
-                                    if (!value || getFieldValue('password') === value) {
+                                    if (
+                                        !value ||
+                                        getFieldValue("password") === value
+                                    ) {
                                         return Promise.resolve();
                                     }
                                     return Promise.reject(
                                         new Error(
-                                            errorMessages.PASSWORD_DONT_MATCH
+                                            inputValidationErrors.PASSWORD_DONT_MATCH
                                         )
                                     );
                                 },

@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { Form, Input, Button, Checkbox } from "antd";
 import { Link } from "react-router-dom";
-import { errorMessages } from "../../../constants/errorMessages";
+import { inputValidationErrors } from "../../../constants/errors/inputValidationErrors";
 import { inputRegexes } from "../../../constants/inputRegexes";
 import { login } from "../../../services/authentication";
 import styles from "../styles.module.css";
@@ -35,11 +35,11 @@ function Login() {
                         rules={[
                             {
                                 type: "email",
-                                message: errorMessages.NOT_VALID_EMAIL_MESSAGE,
+                                message: inputValidationErrors.NOT_VALID_EMAIL_MESSAGE,
                             },
                             {
                                 required: true,
-                                message: errorMessages.EMPTY_EMAIL_MESSAGE,
+                                message: inputValidationErrors.EMPTY_EMAIL_MESSAGE,
                             },
                         ]}
                     >
@@ -54,11 +54,11 @@ function Login() {
                                 type: "string",
                                 pattern: new RegExp(inputRegexes.PASSWORD),
                                 message:
-                                    errorMessages.NOT_VALID_PASSWORD_MESSAGE,
+                                inputValidationErrors.NOT_VALID_PASSWORD_MESSAGE,
                             },
                             {
                                 required: true,
-                                message: errorMessages.EMPTY_PASSWORD_MESSAGE,
+                                message: inputValidationErrors.EMPTY_PASSWORD_MESSAGE,
                             },
                         ]}
                     >

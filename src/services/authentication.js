@@ -1,6 +1,6 @@
 import authenticationService from "../api/authentication";
 import { AlertService } from "./alert.service";
-import { errorMessages } from "../constants/errorMessages";
+import { authErrors } from "../constants/errors/authErrors";
 
 export function register(values, history) {
     var model = {
@@ -19,19 +19,19 @@ export function register(values, history) {
             (err) => {
                 err.response.status == 400
                     ? AlertService.errorMessage(
-                          errorMessages.REGISTRATION_FAILED,
-                          errorMessages.REGISTRATION_FAILED_USER_ALREADY_EXIST
+                          authErrors.REGISTRATION_FAILED,
+                          authErrors.REGISTRATION_FAILED_USER_ALREADY_EXIST
                       )
                     : AlertService.errorMessage(
-                          errorMessages.REGISTRATION_FAILED,
-                          errorMessages.REGISTRATION_FAILED_SOMETHING_WENT_WRONG
+                          authErrors.REGISTRATION_FAILED,
+                          authErrors.REGISTRATION_FAILED_SOMETHING_WENT_WRONG
                       );
             }
         )
         .catch(() => {
             AlertService.errorMessage(
-                errorMessages.REGISTRATION_FAILED,
-                errorMessages.REGISTRATION_FAILED_SOMETHING_WENT_WRONG
+                authErrors.REGISTRATION_FAILED,
+                authErrors.REGISTRATION_FAILED_SOMETHING_WENT_WRONG
             );
         });
 }
@@ -51,19 +51,19 @@ export function login(values, history) {
             (err) => {
                 err.response.status == 400
                     ? AlertService.errorMessage(
-                          errorMessages.LOGIN_FAILED,
-                          errorMessages.LOGIN_FAILED_USER_ALREADY_EXIST
+                          authErrors.LOGIN_FAILED,
+                          authErrors.LOGIN_FAILED_USER_ALREADY_EXIST
                       )
                     : AlertService.errorMessage(
-                          errorMessages.LOGIN_FAILED,
-                          errorMessages.LOGIN_FAILED_SOMETHING_WENT_WRONG
+                          authErrors.LOGIN_FAILED,
+                          authErrors.LOGIN_FAILED_SOMETHING_WENT_WRONG
                       );
             }
         )
         .catch(() => {
             AlertService.errorMessage(
-                errorMessages.LOGIN_FAILED,
-                errorMessages.LOGIN_FAILED_SOMETHING_WENT_WRONG
+                authErrors.LOGIN_FAILED,
+                authErrors.LOGIN_FAILED_SOMETHING_WENT_WRONG
             );
         });
 }
