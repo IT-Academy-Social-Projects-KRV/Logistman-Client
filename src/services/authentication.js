@@ -1,5 +1,6 @@
 import authenticationService from "../api/authentication";
 import { AlertService } from "./alert.service";
+import { errorMessages } from "../constants/errorMessages";
 
 export function register(values, history) {
     var model = {
@@ -50,19 +51,19 @@ export function login(values, history) {
             (err) => {
                 err.response.status == 400
                     ? AlertService.errorMessage(
-                          "Login failed",
-                          "There is already a user with this e-mail!"
+                          errorMessages.LOGIN_FAILED,
+                          errorMessages.LOGIN_FAILED_USER_ALREADY_EXIST
                       )
                     : AlertService.errorMessage(
-                          "Login failed",
-                          "Something went wrong, try again!"
+                          errorMessages.LOGIN_FAILED,
+                          errorMessages.LOGIN_FAILED_SOMETHING_WENT_WRONG
                       );
             }
         )
         .catch(() => {
             AlertService.errorMessage(
-                "Login failed",
-                "Something went wrong, try again!"
+                errorMessages.LOGIN_FAILED,
+                errorMessages.LOGIN_FAILED_SOMETHING_WENT_WRONG
             );
         });
 }

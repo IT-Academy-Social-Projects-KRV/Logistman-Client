@@ -14,10 +14,6 @@ function Login() {
         login(values, history);
     };
 
-    function onChange(e) {
-        console.log(`remember me = ${e.target.checked}`);
-    }
-
     return (
         <div className={styles.body}>
             <div className={styles.center}>
@@ -73,10 +69,7 @@ function Login() {
                     </Form.Item>
 
                     <div className={styles.helperForm}>
-                        <Checkbox
-                            className={styles.checkboxForm}
-                            onChange={onChange}
-                        >
+                        <Checkbox className={styles.checkboxForm}>
                             Remember me
                         </Checkbox>
                         <Link to="/forgotPassword">Forgot password</Link>
