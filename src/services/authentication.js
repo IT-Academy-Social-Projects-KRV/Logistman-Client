@@ -46,7 +46,7 @@ export function login(values, history) {
         .loginUser(model)
         .then(
             () => {
-                history.push("/home");
+                history.push("/main");
             },
             (err) => {
                 err.response.status == 400

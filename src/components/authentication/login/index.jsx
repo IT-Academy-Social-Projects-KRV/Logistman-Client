@@ -35,11 +35,13 @@ function Login() {
                         rules={[
                             {
                                 type: "email",
-                                message: inputValidationErrors.NOT_VALID_EMAIL_MESSAGE,
+                                message:
+                                    inputValidationErrors.NOT_VALID_EMAIL_MESSAGE,
                             },
                             {
                                 required: true,
-                                message: inputValidationErrors.EMPTY_EMAIL_MESSAGE,
+                                message:
+                                    inputValidationErrors.EMPTY_EMAIL_MESSAGE,
                             },
                         ]}
                     >
@@ -54,11 +56,12 @@ function Login() {
                                 type: "string",
                                 pattern: new RegExp(inputRegexes.PASSWORD),
                                 message:
-                                inputValidationErrors.NOT_VALID_PASSWORD_MESSAGE,
+                                    inputValidationErrors.NOT_VALID_PASSWORD_MESSAGE,
                             },
                             {
                                 required: true,
-                                message: inputValidationErrors.EMPTY_PASSWORD_MESSAGE,
+                                message:
+                                    inputValidationErrors.EMPTY_PASSWORD_MESSAGE,
                             },
                         ]}
                     >
