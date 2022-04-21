@@ -9,9 +9,19 @@ const intialState = {
 const authReducer = (state = intialState, action) => {
     switch (action.type) {
 
+        case types.SET_USER_ROLE: {
+
+            return {
+                ...state,
+                role: userRoles.USER,
+                isAuthUser: true
+            }
+        }
+
         case types.LOGOUT: {
 
-            // delete tokens
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("refreshToken");
 
             return {
                 ...state,

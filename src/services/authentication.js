@@ -2,7 +2,7 @@ import authenticationService from "../api/authentication";
 import { AlertService } from "./alert.service";
 import { authErrors } from "../constants/errors/authErrors";
 import store from "../index";
-import { logout } from "../reduxActions/auth";
+import { setUserRole, logout } from "../reduxActions/auth";
 
 export function register(values, history) {
     var model = {
@@ -19,7 +19,7 @@ export function register(values, history) {
                 history.push("/login");
             },
             (err) => {
-                err.response.status == 400
+                err.response.status === 400
                     ? AlertService.errorMessage(
                         authErrors.REGISTRATION_FAILED,
                         authErrors.REGISTRATION_FAILED_USER_ALREADY_EXIST
@@ -47,11 +47,15 @@ export function login(values, history) {
     authenticationService
         .loginUser(model)
         .then(
-            () => {
+            (response) => {
+                localStorage.setItem("accessToken", response.data.token);
+                localStorage.setItem("refreshToken", response.data.refreshToken);
+                store.dispatch(setUserRole());
+
                 history.push("/main");
             },
             (err) => {
-                err.response.status == 400
+                err.response.status === 400
                     ? AlertService.errorMessage(
                         authErrors.LOGIN_FAILED,
                         authErrors.LOGIN_FAILED_USER_ALREADY_EXIST
@@ -82,7 +86,6 @@ export function logoutUser() {
                 store.dispatch(logout());
             },
             (err) => {
-                console.log(err, err.response);
                 AlertService.errorMessage(
                     authErrors.LOGOUT_FAILED,
                     authErrors.SOMETHING_WENT_WRONG
