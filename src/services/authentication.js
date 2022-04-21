@@ -19,19 +19,19 @@ export function register(values, history) {
             (err) => {
                 err.response.status == 400
                     ? AlertService.errorMessage(
-                          "Registration failed",
-                          "There is already a user with this e-mail!"
+                          errorMessages.REGISTRATION_FAILED,
+                          errorMessages.REGISTRATION_FAILED_USER_ALREADY_EXIST
                       )
                     : AlertService.errorMessage(
-                          "Registration failed",
-                          "Something went wrong, try again!"
+                          errorMessages.REGISTRATION_FAILED,
+                          errorMessages.REGISTRATION_FAILED_SOMETHING_WENT_WRONG
                       );
             }
         )
         .catch(() => {
             AlertService.errorMessage(
-                "Registration failed",
-                "Something went wrong, try again!"
+                errorMessages.REGISTRATION_FAILED,
+                errorMessages.REGISTRATION_FAILED_SOMETHING_WENT_WRONG
             );
         });
 }
