@@ -1,15 +1,15 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { ExportOutlined } from '@ant-design/icons';
-import { logout } from "../../reduxActions/auth";
 import styles from './styles.module.css';
+import { logoutUser } from "../../services/authentication";
 
 function MainPage() {
 
-    const dispatch = useDispatch();
+    let history = useHistory();
 
     const logOut = () => {
-        dispatch(logout());
+        logoutUser(history);
     };
 
     return (

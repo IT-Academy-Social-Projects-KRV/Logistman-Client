@@ -11,4 +11,8 @@ export default class authenticationService {
     static loginUser(model) {
         return axios.post(URL + "login", model);
     }
+
+    static logoutUser(model) {
+        return axios.post(URL + "logout", model);
+    }
 }

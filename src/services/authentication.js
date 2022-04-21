@@ -1,6 +1,8 @@
 import authenticationService from "../api/authentication";
 import { AlertService } from "./alert.service";
 import { authErrors } from "../constants/errors/authErrors";
+import store from "../index";
+import { logout } from "../reduxActions/auth";
 
 export function register(values, history) {
     var model = {
@@ -19,19 +21,19 @@ export function register(values, history) {
             (err) => {
                 err.response.status == 400
                     ? AlertService.errorMessage(
-                          authErrors.REGISTRATION_FAILED,
-                          authErrors.REGISTRATION_FAILED_USER_ALREADY_EXIST
-                      )
+                        authErrors.REGISTRATION_FAILED,
+                        authErrors.REGISTRATION_FAILED_USER_ALREADY_EXIST
+                    )
                     : AlertService.errorMessage(
-                          authErrors.REGISTRATION_FAILED,
-                          authErrors.REGISTRATION_FAILED_SOMETHING_WENT_WRONG
-                      );
+                        authErrors.REGISTRATION_FAILED,
+                        authErrors.SOMETHING_WENT_WRONG
+                    );
             }
         )
         .catch(() => {
             AlertService.errorMessage(
                 authErrors.REGISTRATION_FAILED,
-                authErrors.REGISTRATION_FAILED_SOMETHING_WENT_WRONG
+                authErrors.SOMETHING_WENT_WRONG
             );
         });
 }
@@ -51,19 +53,46 @@ export function login(values, history) {
             (err) => {
                 err.response.status == 400
                     ? AlertService.errorMessage(
-                          authErrors.LOGIN_FAILED,
-                          authErrors.LOGIN_FAILED_USER_ALREADY_EXIST
-                      )
+                        authErrors.LOGIN_FAILED,
+                        authErrors.LOGIN_FAILED_USER_ALREADY_EXIST
+                    )
                     : AlertService.errorMessage(
-                          authErrors.LOGIN_FAILED,
-                          authErrors.LOGIN_FAILED_SOMETHING_WENT_WRONG
-                      );
+                        authErrors.LOGIN_FAILED,
+                        authErrors.SOMETHING_WENT_WRONG
+                    );
             }
         )
         .catch(() => {
             AlertService.errorMessage(
                 authErrors.LOGIN_FAILED,
-                authErrors.LOGIN_FAILED_SOMETHING_WENT_WRONG
+                authErrors.SOMETHING_WENT_WRONG
+            );
+        });
+}
+
+export function logoutUser() {
+    var model = {
+        refreshToken: window.localStorage.getItem('refreshToken')
+    };
+
+    authenticationService
+        .logoutUser(model)
+        .then(
+            () => {
+                store.dispatch(logout());
+            },
+            (err) => {
+                console.log(err, err.response);
+                AlertService.errorMessage(
+                    authErrors.LOGOUT_FAILED,
+                    authErrors.SOMETHING_WENT_WRONG
+                );
+            }
+        )
+        .catch(() => {
+            AlertService.errorMessage(
+                authErrors.LOGOUT_FAILED,
+                authErrors.SOMETHING_WENT_WRONG
             );
         });
 }
