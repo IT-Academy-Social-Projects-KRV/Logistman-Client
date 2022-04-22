@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import Registration from "./components/authentication/registration";
 import Login from "./components/authentication/login";
@@ -20,11 +20,16 @@ export default function App() {
                 </PrivateRoute>
 
                 <Route exact path="/registration" component={Registration} />
-                <Route exact path="/login" component={Login} />
+                <Route path="/login" component={Login} />
+
+                <Route exact path="/home">
+                    <>Home page</>
+                </Route>
 
                 <Route path="/">
-                    <>Home</>
+                    <Redirect to="/login" />
                 </Route>
+
             </Switch>
         </Router>
     );

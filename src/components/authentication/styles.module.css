@@ -1,10 +1,10 @@
-.body {
+.authBody {
     height: 100vh;
     background-color: #093545;
     overflow-x: hidden;
 }
 
-.center {
+.authBody .center {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,186 +14,195 @@
     color: white;
 }
 
-.title {
+.authBody .title {
     font-size: 72px;
     margin-bottom: 45px;
 }
 
-.center form {
-    width: 280px;
+.authBody .form {
+    max-width: 280px;
     margin-top: 25px;
     margin-bottom: 5px;
 }
 
-.textForm input[type="text"] {
+.authBody .textForm input[type="text"] {
     height: 40px;
     border-radius: 10px;
 }
 
 /*for error message from input */
-.textForm div,
-.passwordForm div {
+.authBody .textForm div,
+.authBody .passwordForm div {
     color: rgb(211, 19, 19);
     width: 280px;
 }
 
-.passwordForm svg {
+.authBody .passwordForm svg {
     color: white;
 }
 
-.textForm input[type="text"],
-.passwordForm input[type="password"],
-.passwordForm input[type="text"] {
-    background-color: #224957 !important;
+.authBody .textForm input[type="text"],
+.authBody .passwordForm input[type="password"],
+.authBody .passwordForm input[type="text"] {
     border: none;
     outline-width: 0;
     color: white;
     font-size: 18px;
+}
+
+.authBody .textForm input[type="text"] {
     padding: 0px 10px;
 }
 
-.passwordInput {
-    background-color: #224957 !important;
-    border-radius: 10px !important;
-    border: none !important;
+.authBody .passwordInput {
+    border-radius: 10px;
+    border: none;
     outline-width: 0;
     color: white;
     height: 40px;
     font-size: 18px;
-    width: 280px !important;
-    padding: 0px 10px;
+    width: 280px;
 }
 
-.textForm ::placeholder,
-.passwordForm ::placeholder {
+.authBody input {
+    background-color: #224957;
+}
+
+.authBody .textForm ::placeholder,
+.authBody .passwordForm ::placeholder {
     color: white;
     opacity: 0.7;
     font-size: medium;
 }
 
-.submitItem div {
-    height: 40px !important;
+.authBody .submitItem div {
+    height: 40px;
 }
 
-.submitItem {
-    margin-bottom: 10px !important;
-    margin-top: 35px !important;
-}
-
-.submitButton {
-    background-color: #17a15c !important;
-    border: none !important;
-    height: 40px !important;
-    width: 280px;
-    font-size: 16px !important;
+.authBody .submitItem {
     margin-bottom: 10px;
-    border-radius: 10px !important;
+    margin-top: 35px;
 }
 
-.linksDiv {
+.authBody .submitButton {
+    background-color: #17a15c;
+    border: none;
+    height: 40px;
+    width: 280px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.authBody .submitButton:hover,
+.authBody .submitButton:focus {
+    background-color: #17a15c;
+}
+
+.authBody .linksDiv {
     width: 280px;
     display: flex;
     justify-content: space-between;
     padding: 0 28px;
 }
 
-.linksDiv a {
+.authBody .linksDiv a {
     text-decoration: none;
     color: #20df7f;
 }
 
-.linksDiv a:hover {
+.authBody .linksDiv a:hover {
     text-decoration: underline;
 }
 
-.helperForm {
+.authBody .helperForm {
     display: flex;
     flex-direction: row;
     gap: 25px;
 }
 
-.checkboxForm {
-    color: #fff !important;
+.authBody .checkboxForm {
+    color: #fff;
 }
 
 /* media queries */
 
 @media only screen and (min-width: 600px) and (max-width: 1199px) {
-    .title {
+    .authBody .title {
         font-size: 54px;
         margin-bottom: 38px;
     }
 
-    p {
+    .authBody p {
         font-size: 14px;
     }
 
-    .center form {
+    .authBody .center .form {
         margin-top: 23px;
     }
 
-    .textForm input[type="text"] {
+    .authBody .textForm input[type="text"] {
         border-radius: 8px;
         height: 34px;
         font-size: 12px;
     }
 
-    .passwordInput {
-        border-radius: 8px !important;
+    .authBody .passwordInput {
+        border-radius: 8px;
         height: 34px;
         font-size: 12px;
     }
 
-    .textForm ::placeholder,
-    .passwordForm ::placeholder {
+    .authBody .textForm ::placeholder,
+    .authBody .passwordForm ::placeholder {
         font-size: small;
     }
 
-    .passwordForm svg {
+    .authBody .passwordForm svg {
         height: 14px;
     }
 
     /*for error message from input */
-    .textForm div,
-    .passwordForm div {
+    .authBody .textForm div,
+    .authBody .passwordForm div {
         font-size: 13px;
     }
 
-    .submitItem div {
-        height: 34px !important;
+    .authBody .submitItem div {
+        height: 34px;
     }
 
-    .submitButton {
-        height: 34px !important;
-        font-size: 14px !important;
-        border-radius: 8px !important;
+    .authBody .submitButton {
+        height: 34px;
+        font-size: 14px;
+        border-radius: 8px;
     }
 
-    .linksDiv {
+    .authBody .linksDiv {
         margin-top: 6px;
     }
 }
 
 @media only screen and (max-width: 599px) {
-    .title {
+    .authBody .title {
         font-size: 38px;
         margin-bottom: 28px;
     }
 
-    p {
+    .authBody p {
         font-size: 12px;
     }
 
-    .center form {
+    .authBody .center form {
         margin-top: 18px;
     }
 
-    .submitButton,
-    .submitItem div {
-        height: 36px !important;
+    .authBody .submitButton,
+    .authBody .submitItem div {
+        height: 40px;
     }
 
-    .linksDiv {
+    .authBody .linksDiv {
         margin-top: 6px;
     }
 }

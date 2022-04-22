@@ -4,7 +4,7 @@ import { withRouter, Route, Redirect } from "react-router-dom";
 
 const PrivateRoute = props => {
     const { isAuthUser, role, allowedRoles } = props;
-    console.log(isAuthUser, role, allowedRoles);
+    
     if (isAuthUser && allowedRoles.includes(role)) return props.children;
     if (isAuthUser && !allowedRoles.includes(role)) return <Route component={() => <Redirect to="/login" />} />;
     if (!isAuthUser) return <Route component={() => <Redirect to="/login" />} />;
