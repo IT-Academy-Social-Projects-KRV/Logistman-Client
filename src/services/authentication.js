@@ -1,6 +1,6 @@
 import authenticationService from "../api/authentication";
 import { AlertService } from "./alert.service";
-import { authErrors } from "../constants/errors/authErrors";
+import { authErrors } from "../constants/messages/authMessages";
 import store from "../index";
 import { setUserRole, logout } from "../reduxActions/auth";
 
@@ -16,6 +16,10 @@ export function register(values, history) {
         .registerUser(model)
         .then(
             () => {
+                AlertService.successMessage(
+                    authErrors.REGISTRATION_SUCCESS
+                )
+
                 history.push("/login");
             },
             (err) => {
