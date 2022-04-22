@@ -10,7 +10,8 @@ export const inputValidationErrors = Object.freeze({
         "and continue with lowercase letters!!\nAnd only Latin letters!",
     NOT_VALID_EMAIL_MESSAGE: "Invalid e-mail entered!",
     NOT_VALID_PASSWORD_MESSAGE: "Password must contain one or more uppercase " +
-        "and lowercase letters, one or more digits and special characters!",
+        "and lowercase letters, one or more digits and special characters!\n" +
+        "The password must be between 8 and 50 symbols!",
 
     CONFIRM_PASSWORD: "Please confirm your password!",
     PASSWORD_DONT_MATCH: "The two passwords that you entered do not match!",

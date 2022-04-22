@@ -107,13 +107,12 @@ function Registration() {
                                 type: "string",
                                 pattern:
                                     new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@$%^&*(){}:;<>,.?+_=|'~\\-])[A-Za-z0-9!@$%^&*(){}:;<>,.?+_=|'~\\-]{7,51}$"),
-                                message:
-                                    inputValidationErrors.NOT_VALID_PASSWORD_MESSAGE
+                                message: inputValidationErrors.NOT_VALID_PASSWORD_MESSAGE
                             },
                             {
                                 required: true,
                                 message: inputValidationErrors.EMPTY_PASSWORD_MESSAGE
-                            },
+                            }
                         ]}
                     >
                         <Input.Password

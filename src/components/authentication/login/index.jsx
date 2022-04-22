@@ -65,7 +65,7 @@ function Login() {
                             {
                                 required: true,
                                 message: inputValidationErrors.EMPTY_PASSWORD_MESSAGE
-                            },
+                            }
                         ]}
                     >
                         <Input.Password
