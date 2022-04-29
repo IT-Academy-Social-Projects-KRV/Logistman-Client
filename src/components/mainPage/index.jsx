@@ -1,7 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { ExportOutlined } from '@ant-design/icons';
-import styles from './styles.module.css';
 import { logoutUser } from "../../services/authentication";
 
 function MainPage() {
@@ -13,7 +12,7 @@ function MainPage() {
     };
 
     return (
-        <div className={styles.body}>
+        <div className="mainPageBody">
             <header>
                 <div onClick={logOut}>
                     <ExportOutlined />

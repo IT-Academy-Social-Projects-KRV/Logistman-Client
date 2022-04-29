@@ -1,0 +1,11 @@
+@import '../variables/colors';
+
+.submitButton {
+    background-color: $green_color;
+    border: none;
+
+    &:hover,
+    &:focus {
+        background-color: $green_color;
+    }
+}

@@ -1,0 +1,194 @@
+@use '../components/input';
+@use '../components/submitButton';
+
+@import '../variables/colors';
+@import '../variables/others';
+
+$form_width: 280px;
+$large_font_size: 18px;
+$large_form_size: 40px;
+$large_border_radius_size: 10px;
+$medium_font_size: 16px;
+$medium_form_size: 38px;
+$medium_border_radius_size: 8px;
+
+.authBody {
+    height: 100vh;
+    background-color: $body_color;
+
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        font-family: $general_font;
+        color: white;
+    }
+
+    .title {
+        font-size: 72px;
+        margin-bottom: 45px;
+    }
+
+    .form {
+        max-width: $form_width;
+        margin-top: 25px;
+        margin-bottom: 5px;
+    }
+
+    .textForm {
+        input[type=text] {
+            height: $large_form_size;
+            border-radius: $large_border_radius_size;
+            font-size: $large_font_size;
+            padding: 0px 10px;
+        }
+
+        div {
+            width: $form_width;
+        }
+
+        &::placeholder {
+            font-size: medium;
+        }
+    }
+
+    .passwordForm {
+        div {
+            width: $form_width;
+        }
+
+        .passwordInput {
+            border-radius: $large_border_radius_size;
+            height: $large_form_size;
+            width: $form_width;
+
+            input[type=password],
+            input[type=text] {
+                font-size: $large_font_size;
+            }
+
+            &::placeholder {
+                font-size: medium;
+            }
+        }
+    }
+
+    .submitItem {
+        margin-bottom: 10px;
+        margin-top: 35px;
+
+        div {
+            height: $large_form_size;
+        }
+    }
+
+    .submitButton {
+        height: $large_form_size;
+        width: $form_width;
+        font-size: $large_font_size;
+        margin-bottom: 10px;
+        border-radius: 10px;
+    }
+
+    .linksDiv {
+        width: $form_width;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 28px;
+
+        a {
+            text-decoration: none;
+            color: $green_color;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .helperForm {
+        display: flex;
+        flex-direction: row;
+        gap: 25px;
+    }
+
+    .checkboxForm {
+        color: white;
+    }
+
+    @media only screen and (min-width: $max_phone_size) and (max-width: $max_tablet_size) {
+        .title {
+            font-size: 54px;
+            margin-bottom: 38px;
+        }
+
+        .form {
+            margin-top: 23px;
+        }
+
+        .textForm {
+            input[type=text] {
+                height: $medium_form_size;
+                border-radius: $medium_border_radius_size;
+                font-size: $medium_font_size;
+            }
+
+            div {
+                font-size: 13px;
+            }
+
+            &::placeholder {
+                font-size: small;
+            }
+        }
+
+        .passwordForm {
+            font-size: $medium_font_size;
+
+            .passwordInput {
+                border-radius: $medium_border_radius_size;
+                height: $medium_form_size;
+
+                svg {
+                    font-size: $medium_font_size;
+                }
+
+                input[type=password],
+                input[type=text] {
+                    font-size: $medium_font_size;
+                }
+
+                &::placeholder {
+                    font-size: small;
+                }
+            }
+        }
+
+        .ant-form-item {
+            margin-bottom: 20px;
+        }
+
+        .submitButton {
+            height: $medium_form_size;
+            font-size: $medium_font_size;
+            border-radius: $medium_border_radius_size;
+        }
+
+        .linksDiv {
+            margin-top: 6px;
+        }
+    }
+
+    @media only screen and (max-width: $max_phone_size) {
+        .title {
+            font-size: 46px;
+            margin-bottom: 28px;
+        }
+
+        .linksDiv {
+            margin-top: 6px;
+        }
+    }
+}

@@ -4,7 +4,6 @@ import { Form, Input, Button, Checkbox } from "antd";
 import { Link } from "react-router-dom";
 import { inputValidationErrors } from "../../../constants/messages/inputValidationErrors";
 import { login } from "../../../services/authentication";
-import styles from "../styles.module.css";
 import { AlertService } from './../../../services/alert.service';
 
 function Login() {
@@ -19,13 +18,13 @@ function Login() {
     };
 
     return (
-        <div className={styles.authBody}>
-            <div className={styles.center}>
-                <p className={styles.title}>Logistman</p>
+        <div className="authBody">
+            <div className="center">
+                <p className="title">Logistman</p>
                 <p>Sign in and start managing your offers!</p>
 
                 <Form
-                    className={styles.form}
+                    className="form"
                     labelCol={{ span: 8 }}
                     wrapperCol={{ span: 16 }}
                     initialValues={{ remember: true }}
@@ -36,7 +35,7 @@ function Login() {
                 >
                     <Form.Item
                         name="email"
-                        className={styles.textForm}
+                        className="textForm"
                         rules={[
                             {
                                 type: "email",
@@ -53,7 +52,7 @@ function Login() {
 
                     <Form.Item
                         name="password"
-                        className={styles.passwordForm}
+                        className="passwordForm"
                         rules={[
                             {
                                 type: "string",
@@ -69,30 +68,30 @@ function Login() {
                         ]}
                     >
                         <Input.Password
-                            className={styles.passwordInput}
+                            className="passwordInput"
                             placeholder="Password"
                         />
                     </Form.Item>
 
-                    <div className={styles.helperForm}>
-                        <Checkbox className={styles.checkboxForm}>
+                    <div className="helperForm">
+                        <Checkbox className="checkboxForm">
                             Remember me
                         </Checkbox>
                         <Link to="/forgotPassword">Forgot password</Link>
                     </div>
 
-                    <Form.Item className={styles.submitItem}>
+                    <Form.Item className="submitItem">
                         <Button
                             type="primary"
                             htmlType="submit"
-                            className={styles.submitButton}
+                            className="submitButton"
                         >
                             Login
                         </Button>
                     </Form.Item>
                 </Form>
 
-                <div className={styles.linksDiv}>
+                <div className="linksDiv">
                     <Link to="/home">Home</Link>
                     <Link to="/registration">Registration</Link>
                 </div>
