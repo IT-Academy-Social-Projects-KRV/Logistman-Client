@@ -4,7 +4,6 @@ import { Form, Input, Button } from "antd";
 import { register } from "../../../services/authentication";
 import { Link } from "react-router-dom";
 import { inputValidationErrors } from "../../../constants/messages/inputValidationErrors";
-import styles from "../styles.module.css";
 import { AlertService } from './../../../services/alert.service';
 
 function Registration() {
@@ -19,13 +18,13 @@ function Registration() {
     };
 
     return (
-        <div className={styles.authBody}>
-            <div className={styles.center}>
-                <p className={styles.title}>Logistman</p>
+        <div className="authBody">
+            <div className="center">
+                <p className="title">Logistman</p>
                 <p>Sign up and start managing your offers!</p>
 
                 <Form
-                    className={styles.form}
+                    className="form"
                     labelCol={{ span: 8 }}
                     wrapperCol={{ span: 16 }}
                     initialValues={{ remember: true }}
@@ -35,7 +34,7 @@ function Registration() {
                     scrollToFirstError
                 >
                     <Form.Item
-                        className={styles.textForm}
+                        className="textForm"
                         name="name"
                         rules={[
                             {
@@ -59,7 +58,7 @@ function Registration() {
                     </Form.Item>
 
                     <Form.Item
-                        className={styles.textForm}
+                        className="textForm"
                         name="surname"
                         rules={[
                             {
@@ -84,7 +83,7 @@ function Registration() {
 
                     <Form.Item
                         name="email"
-                        className={styles.textForm}
+                        className="textForm"
                         rules={[
                             {
                                 type: "email",
@@ -101,7 +100,7 @@ function Registration() {
 
                     <Form.Item
                         name="password"
-                        className={styles.passwordForm}
+                        className="passwordForm"
                         rules={[
                             {
                                 type: "string",
@@ -116,14 +115,14 @@ function Registration() {
                         ]}
                     >
                         <Input.Password
-                            className={styles.passwordInput}
+                            className="passwordInput"
                             placeholder="Password"
                         />
                     </Form.Item>
 
                     <Form.Item
                         name="confirmedPassword"
-                        className={styles.passwordForm}
+                        className="passwordForm"
                         rules={[
                             {
                                 required: true,
@@ -147,23 +146,23 @@ function Registration() {
                         ]}
                     >
                         <Input.Password
-                            className={styles.passwordInput}
+                            className="passwordInput"
                             placeholder="Confirm password"
                         />
                     </Form.Item>
 
-                    <Form.Item className={styles.submitItem}>
+                    <Form.Item className="submitItem">
                         <Button
                             type="primary"
                             htmlType="submit"
-                            className={styles.submitButton}
+                            className="submitButton"
                         >
                             Register
                         </Button>
                     </Form.Item>
                 </Form>
 
-                <div className={styles.linksDiv}>
+                <div className="linksDiv">
                     <Link to="/home">Home</Link>
                     <Link to="/login">Login</Link>
                 </div>

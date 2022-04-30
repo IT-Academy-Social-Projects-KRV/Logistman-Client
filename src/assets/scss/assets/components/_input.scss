@@ -1,0 +1,63 @@
+@import '../variables/colors';
+
+.ant-input {
+    background-color: $input_color;
+}
+
+.textForm {
+    input[type=text] {
+        border: none;
+        outline-width: 0;
+        color: white;
+    }
+
+    div {
+        color: $input_error_message_color;
+    }
+
+    &::placeholder {
+        font-size: medium;
+    }
+}
+
+.passwordForm {
+    svg {
+        color: white;
+    }
+
+    div {
+        color: $input_error_message_color;
+    }
+
+    .passwordInput {
+        border: none;
+        outline-width: 0;
+        color: white;
+
+        input[type=password],
+        input[type=text] {
+            border: none;
+            outline-width: 0;
+            color: white;
+        }
+
+        &::placeholder {
+            color: white;
+            opacity: 0.7;
+        }
+    }
+}
+
+.ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input:focus,
+.ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input-focused,
+.ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input,
+.ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input:hover {
+    background-color: $input_color;
+}
+
+.ant-input-affix-wrapper,
+.ant-input-affix-wrapper-status-error:not(.ant-input-affix-wrapper-disabled):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper,
+.ant-input-affix-wrapper-status-error:not(.ant-input-affix-wrapper-disabled):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper:hover {
+    background-color: $input_color;
+    border: none;
+}

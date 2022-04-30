@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "antd": "^4.19.5",
     "axios": "^0.26.1",
+    "node-sass": "^7.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.8",
@@ -20,10 +21,14 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "start-dev": "concurrently \"npm:sass-dev\" \"npm:start\"",
+    "start-prod": "concurrently \"npm:sass-prod\" \"npm:start\"",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "sass-dev": "sass --watch --update --style=expanded src/assets/scss:src/assets/css",
+    "sass-prod": "sass --no-source-map --style=compressed src/assets/scss:src/assets/css"
   },
   "eslintConfig": {
     "extends": [
@@ -42,5 +47,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "sass": "^1.51.0",
+    "sass-loader": "^12.6.0",
+    "webpack": "^5.72.0"
   }
 }

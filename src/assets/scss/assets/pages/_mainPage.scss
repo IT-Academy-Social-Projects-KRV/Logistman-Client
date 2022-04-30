@@ -1,0 +1,19 @@
+@import '../variables/colors';
+
+.mainPageBody {
+    height: 100vh;
+    background-color: $body_color;
+
+    header {
+        background-color: $header_color;
+        height: 54px;
+        text-align: end;
+    }
+
+    div {
+        display: inline-block;
+        width: 200px;
+        color: white;
+        margin: 5px 20px;
+    }
+}
