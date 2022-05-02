@@ -2,18 +2,34 @@
 
 .mainPageBody {
     height: 100vh;
-    background-color: $body_color;
+    background-color: #fff;
 
     header {
-        background-color: $header_color;
-        height: 54px;
-        text-align: end;
-    }
+        height: 65px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: $main_header_color;
 
-    div {
-        display: inline-block;
-        width: 200px;
-        color: white;
-        margin: 5px 20px;
+        h1{
+            margin-left: 10%;
+        }
+
+        button{
+            border: none;
+            background-color: $main_header_color;
+        }
+
+        .support_block{
+            width: 10%;
+            display: flex;
+            gap: 10%;
+        }
+
+        img{
+            width: 40px;
+            margin-left: 10px;
+        }
+        
     }
 }
