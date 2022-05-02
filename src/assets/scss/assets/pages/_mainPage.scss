@@ -3,33 +3,4 @@
 .mainPageBody {
     height: 100vh;
     background-color: #fff;
-
-    header {
-        height: 65px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: $main_header_color;
-
-        h1{
-            margin-left: 10%;
-        }
-
-        button{
-            border: none;
-            background-color: $main_header_color;
-        }
-
-        .support_block{
-            width: 10%;
-            display: flex;
-            gap: 10%;
-        }
-
-        img{
-            width: 40px;
-            margin-left: 10px;
-        }
-        
-    }
 }

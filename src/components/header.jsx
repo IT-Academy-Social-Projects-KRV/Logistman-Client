@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Menu from "./menu.jsx";
 
 export default function Header() {
     // For languages
@@ -23,20 +24,30 @@ export default function Header() {
         else setTheme(whiteTheme);
     };
 
+    const [isOpen, setIsOpen] = useState(false);
+
     return (
         <header>
-            <button>
+            <button
+                className="material-icons menu-btn"
+                onClick={() => setIsOpen(true)}
+            >
                 <img
                     src="https://cdn-icons-png.flaticon.com/512/1828/1828664.png"
                     alt="burger-menu"
                 />
             </button>
-            <h1>Logistman Service</h1>
+            <Menu isOpen={isOpen} onChange={setIsOpen}></Menu>
+
+            {/* <button>
+                
+            </button> */}
+            <h1 id="page-wrap">Logistman Service</h1>
             <div className="support_block">
                 <button onClick={changeLanguage}>
                     <img src={language} alt="language-icon" />
                 </button>
-                <button onClick={changeTheme}>
+                <button onClick={changeTheme} id="change-theme">
                     <img src={theme} alt="theme-icon" />
                 </button>
             </div>
