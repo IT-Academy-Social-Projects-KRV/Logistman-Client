@@ -8,7 +8,7 @@ header {
     align-items: center;
     background-color: $main_header_color;
     gap: 30%;
-
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     h1{
         margin-left: 10%;
         font-size: 20px;
@@ -52,7 +52,7 @@ header {
             font-size: 18px;
             margin: 0%;
         }
-        #change-theme{
+        #change-theme img{
             width: 0px;
         }
         .support_block{

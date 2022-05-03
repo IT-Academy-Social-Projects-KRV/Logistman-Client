@@ -1,56 +1,162 @@
-.sidebar {
-    position: fixed;
-    top: 0;
+@import '../variables/colors';
+@import '../variables/others';
+
+.Menu {
+    position:fixed;
+    display: grid;
+    place-items: center;
+    width: 20%;
+    height: 90vh;
     left: 0;
-    height: 100vh;
-    width: 320px;
-    background-color: #fff;
+    bottom: 0;
+    z-index: 1;
+    background: #FFF6F6;
+    transform: translate(-100%);
+    transition: all 0.45s;
+}
 
-    &__logo {
-        display: grid;
-        place-items: center;
-        height: 120px;
-        font-size: 1.5rem;
-        font-weight: 700;
-        font-family: 'Mochiy Pop P one', sans-serif;
+.Menu.open {
+    transform: translate(0);
+}
+
+.Menu > .Menu-items {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.Menu > .Menu-items > a {
+    color: black;
+    font-size: 20px;
+    text-decoration: none;
+    position: relative;
+    padding: 10px;
+    width: 240px;
+    border-radius: 10px;
+    background-color: #DDFBE7;
+    margin-top: 10px;
+
+}
+
+.user-profile{
+    display: flex;
+    width: 240px;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #D0FFE0;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#menu-icon{
+    width: 35px;
+}
+
+#menu-user-icon{
+    width: 50px;
+}
+
+.logout{
+    width: 240px;
+    color: #fff;
+    background-color: black;
+    height: 50px;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+.Menu > .Menu-items > a::after {
+    content: "";
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background: #ffffff;
+    transform: scaleX(0);
+    transition: all 0.45s;
+}
+
+.Menu > .Menu-items > a:hover::after {
+    transform: scaleX(1);
+}
+
+.Menu.open .Menu-items > a:nth-child(1) {
+    animation: animate ease-in-out;
+    animation-duration: 0.7s;
+}
+
+.Menu.open .Menu-items > a:nth-child(2) {
+    animation: animate ease-in-out;
+    animation-duration: 0.85s;
+}
+
+.Menu.open .Menu-items > a:nth-child(3) {
+    animation: animate ease-in-out;
+    animation-duration: 1s;
+}
+
+.Menu.open .Menu-items > a:nth-child(4) {
+    animation: animate ease-in-out;
+    animation-duration: 1.15s;
+}
+
+.Menu.open .Menu-items > a:nth-child(5) {
+    animation: animate ease-in-out;
+    animation-duration: 1.3s;
+}
+
+@keyframes animate {
+    0% {
+        opacity: 0;
+        transform: translateY(90px);
     }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-    &__menu {
-        position: relative;
+// Big monitor
 
-        &__item {
-            display: flex;
-            align-items: center;
-            place-content: flex-start;
-            padding: 1rem 3rem;
-            font-size: 1.25rem;
-            font-weight: 500;
-            color: #555555;
-            transition: color 0.3s ease-in-out;
+@media only screen and (min-width: $min_max_monitor_size)  {
+    .Menu{
+        height: 92vh;
+    }
+}
 
-            &.active {
-                color: #fff;
-            }
+// Tablet
+@media only screen and (min-width: $max_phone_size) and (max-width: $max_tablet_size) {
+ .Menu{
+     width: 40%;
+     overflow-block: scroll;
+     height: 87vh;
+     
+     .logout{
+         margin-top: 25px;
+     }
+ }
+}
 
-            &__icon {
-                margin-right: 1rem;
-
-                i {
-                    font-size: 1.75rem;
-                }
-            }
-        }
-
-        &__indicator {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            width: calc(100% - 40px);
-            border-radius: 10px;
-            background-color: #308efe;
-            z-index: -1;
-            transform: translateX(-50%);
-            transition: 0.3s ease-in-out;
-        }
+// Mobile
+@media only screen and (max-width: $max_phone_size) {
+    .Menu{
+     overflow-block: scroll;
+     width: 100%;
+     height: 88vh;
+     .user-profile{
+         width: 70%;
+     }
+     .Menu-items{
+         width: 100%;
+         display: flex;
+         align-items: center;
+         a{
+             width: 70%;
+         }
+     }
+     .logout{
+         margin-top: 25px;
+     }
     }
 }

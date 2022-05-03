@@ -30,7 +30,7 @@ export default function Header() {
         <header>
             <button
                 className="material-icons menu-btn"
-                onClick={() => setIsOpen(true)}
+                onClick={() => setIsOpen(!isOpen)}
             >
                 <img
                     src="https://cdn-icons-png.flaticon.com/512/1828/1828664.png"
@@ -42,7 +42,9 @@ export default function Header() {
             {/* <button>
                 
             </button> */}
-            <h1 id="page-wrap">Logistman Service</h1>
+            <h1 id="page-wrap" onClick={() => setIsOpen(false)}>
+                Logistman Service
+            </h1>
             <div className="support_block">
                 <button onClick={changeLanguage}>
                     <img src={language} alt="language-icon" />
