@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import Menu from "./menu";
-import { getUserName } from "../../services/userService";
 import ukraine_language from "../../assets/images/ukraine_language.png";
 import english_language from "../../assets/images/english_language.png";
 import white_theme from "../../assets/images/white_theme.png";
 import dark_theme from "../../assets/images/dark_theme.png";
 import burger_menu from "../../assets/images/burger_menu.png";
+import { UserContext } from "../context/user.context";
+import { GetUserName } from "../../services/userService";
 
 export default function Header() {
     const [language, setLanguage] = useState(ukraine_language);
     const [theme, setTheme] = useState(white_theme);
 
     const [isOpen, setIsOpen] = useState(false);
-    const [data, setData] = useState("Null ");
 
     const changeLanguage = () => {
         if (language === ukraine_language) setLanguage(english_language);
@@ -24,10 +24,9 @@ export default function Header() {
         else setTheme(white_theme);
     };
 
-    useEffect(() => {
-        var name = getUserName();
-        setData(name);
-    }, []);
+    const { username } = useContext(UserContext);
+
+    GetUserName();
 
     return (
         <>
@@ -51,12 +50,7 @@ export default function Header() {
                     </button>
                 </div>
             </header>
-            <Menu
-                isOpen={isOpen}
-                onChange={setIsOpen}
-                name={data}
-                surname={data}
-            ></Menu>
+            <Menu isOpen={isOpen} onChange={setIsOpen} name={username}></Menu>
         </>
     );
 }
