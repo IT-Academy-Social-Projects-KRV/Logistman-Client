@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { items } from "./menuItems";
+import { logoutUser } from "../services/authentication";
+import { useHistory } from "react-router-dom";
 import "../assets/scss/assets/components/_menu.scss";
 
-function Menu({ isOpen }) {
+function Menu({ isOpen, name, surname }) {
+    let history = useHistory();
+
+    const logOut = () => {
+        logoutUser(history);
+    };
+
     return (
         <div className={`Menu ${isOpen && "open"}`}>
             <div className="user-profile">
@@ -11,7 +19,9 @@ function Menu({ isOpen }) {
                     alt="user-icon"
                     id="menu-user-icon"
                 />
-                <h2>Вадим Чорний</h2>
+                <h2 className="user-name">
+                    {name} {surname}
+                </h2>
             </div>
             <div className="Menu-items">
                 {items.map((item, index) => (
@@ -21,7 +31,9 @@ function Menu({ isOpen }) {
                     </a>
                 ))}
             </div>
-            <button className="logout">Logout</button>
+            <button className="logout" onClick={logOut}>
+                Logout
+            </button>
         </div>
     );
 }

@@ -3,7 +3,7 @@ export const items = [
         itemIcon:
             "https://cdn-icons.flaticon.com/png/512/2211/premium/2211642.png?token=exp=1651566256~hmac=2aa22f2509cf5c41bb5c15f81f6e025f",
         itemText: "Change role",
-        itemLink: "/changeRole",
+        itemLink: "/main",
     },
     {
         itemIcon:

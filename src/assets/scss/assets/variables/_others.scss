@@ -6,3 +6,7 @@ sans-serif;
 $max_phone_size: 600px;
 $max_tablet_size: 1200px;
 $min_max_monitor_size: 1745px;
+
+
+$header_height: 65px;
+$left_menu_height: calc(100vh - $header_height);

@@ -5,14 +5,15 @@
     position:fixed;
     display: grid;
     place-items: center;
-    width: 20%;
-    height: 90vh;
+    width: 300px;
+    height: $left_menu_height;
     left: 0;
     bottom: 0;
     z-index: 1;
-    background: #FFF6F6;
+    background: $white_light_gray;
     transform: translate(-100%);
     transition: all 0.45s;
+    padding: 0 20px;
 }
 
 .Menu.open {
@@ -23,6 +24,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+    width: 100%;
 }
 
 .Menu > .Menu-items > a {
@@ -31,21 +33,24 @@
     text-decoration: none;
     position: relative;
     padding: 10px;
-    width: 240px;
+    width: 100%;
     border-radius: 10px;
-    background-color: #DDFBE7;
+    background-color: $white_gray;
     margin-top: 10px;
-
 }
 
 .user-profile{
     display: flex;
-    width: 240px;
+    width: 100%;
     justify-content: space-around;
     align-items: center;
-    background-color: #D0FFE0;
+    background-color: $white_gray;
     border-radius: 10px;
     padding: 10px;
+}
+
+.user-name{
+    margin-top: 10px;
 }
 
 #menu-icon{
@@ -57,12 +62,13 @@
 }
 
 .logout{
-    width: 240px;
-    color: #fff;
-    background-color: black;
+    width: 100%;
+    color: $white;
+    background-color: $black;
     height: 50px;
     font-size: 20px;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .Menu > .Menu-items > a::after {
@@ -72,7 +78,7 @@
     position: absolute;
     left: 0;
     bottom: 0;
-    background: #ffffff;
+    background: $white;
     transform: scaleX(0);
     transition: all 0.45s;
 }
@@ -119,18 +125,19 @@
 
 // Big monitor
 
-@media only screen and (min-width: $min_max_monitor_size)  {
+@media only screen and (min-width: 1600px) and (max-width: $min_max_monitor_size) {
     .Menu{
-        height: 92vh;
+        width: 40%;
     }
 }
 
 // Tablet
 @media only screen and (min-width: $max_phone_size) and (max-width: $max_tablet_size) {
  .Menu{
-     width: 40%;
+     width: 40%;  // variable
      overflow-block: scroll;
-     height: 87vh;
+     height: calc(100vh - 65px);
+     overflow-y: scroll;
      
      .logout{
          margin-top: 25px;
@@ -141,19 +148,17 @@
 // Mobile
 @media only screen and (max-width: $max_phone_size) {
     .Menu{
-     overflow-block: scroll;
      width: 100%;
-     height: 88vh;
+     overflow-y: scroll;
+
      .user-profile{
-         width: 70%;
-     }
-     .Menu-items{
-         width: 100%;
+         height: 50px;
          display: flex;
          align-items: center;
-         a{
-             width: 70%;
-         }
+     }
+     .Menu-items{
+         display: flex;
+         align-items: center;
      }
      .logout{
          margin-top: 25px;

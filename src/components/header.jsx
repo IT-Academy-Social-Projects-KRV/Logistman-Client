@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Menu from "./menu.jsx";
+import { userService } from "../api/user";
 
 export default function Header() {
     // For languages
@@ -26,33 +27,45 @@ export default function Header() {
 
     const [isOpen, setIsOpen] = useState(false);
 
-    return (
-        <header>
-            <button
-                className="material-icons menu-btn"
-                onClick={() => setIsOpen(!isOpen)}
-            >
-                <img
-                    src="https://cdn-icons-png.flaticon.com/512/1828/1828664.png"
-                    alt="burger-menu"
-                />
-            </button>
-            <Menu isOpen={isOpen} onChange={setIsOpen}></Menu>
+    const [data, setData] = useState("Null");
 
-            {/* <button>
-                
-            </button> */}
-            <h1 id="page-wrap" onClick={() => setIsOpen(false)}>
-                Logistman Service
-            </h1>
-            <div className="support_block">
-                <button onClick={changeLanguage}>
-                    <img src={language} alt="language-icon" />
+    useEffect(() => {
+        userService.getUser().then((res) => {
+            setData(res.data);
+        });
+    }, []);
+
+    return (
+        <>
+            <header>
+                <button
+                    className="material-icons menu-btn"
+                    onClick={() => setIsOpen(!isOpen)}
+                >
+                    <img
+                        src="https://cdn-icons-png.flaticon.com/512/1828/1828664.png"
+                        alt="burger-menu"
+                    />
                 </button>
-                <button onClick={changeTheme} id="change-theme">
-                    <img src={theme} alt="theme-icon" />
-                </button>
-            </div>
-        </header>
+
+                <h1 id="page-wrap" onClick={() => setIsOpen(false)}>
+                    Logistman Service
+                </h1>
+                <div className="support_block">
+                    <button onClick={changeLanguage}>
+                        <img src={language} alt="language-icon" />
+                    </button>
+                    <button onClick={changeTheme} id="change-theme">
+                        <img src={theme} alt="theme-icon" />
+                    </button>
+                </div>
+            </header>
+            <Menu
+                isOpen={isOpen}
+                onChange={setIsOpen}
+                name={data.name}
+                surname={data.surname}
+            ></Menu>
+        </>
     );
 }

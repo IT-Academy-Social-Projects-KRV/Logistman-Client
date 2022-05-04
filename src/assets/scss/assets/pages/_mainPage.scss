@@ -2,5 +2,70 @@
 
 .mainPageBody {
     height: 100vh;
-    background-color: #fff;
+    background-color: $white;
+    .status{
+        text-align: center;
+        margin-top: 8%;
+    }
+}
+
+.role-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 3%;
+}
+
+.role-block{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.role{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    height: 250px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 20px;
+    background-size: cover;
+
+}
+
+.block-sender{
+    background-image: url('https://kufer.media/wp-content/uploads/2020/07/72239050_2483513021766295_8043596575647203328_o.jpg');
+}
+
+.block-recipiante{
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTj8cOHNbNl6SmIzIG-kvw9h-0QKj_dyTO57KeAFSRDiPRYrCyNfKAaY74MNXUk4CzWCGo&usqp=CAU');
+
+}
+
+.block-driver{
+    background-image: url('https://www.betterteam.com/images/driver-job-description-5558x3706-2020123.jpeg?crop=40:21,smart&width=1200&dpr=2');
+    width: 530px;
+}
+
+@media only screen and (max-width: $max_phone_size) {
+
+    .mainPageBody{
+        .status{
+            margin-top: 25%;
+        }
+    }
+    .role-block{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .block-driver{
+        width: 250px;
+    }
 }
