@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
 import { items } from "./menuItems";
-import { logoutUser } from "../services/authentication";
+import { logoutUser } from "../../services/authentication";
 import { useHistory } from "react-router-dom";
-import "../assets/scss/assets/components/_menu.scss";
 
 function Menu({ isOpen, name, surname }) {
     let history = useHistory();
@@ -12,7 +10,7 @@ function Menu({ isOpen, name, surname }) {
     };
 
     return (
-        <div className={`Menu ${isOpen && "open"}`}>
+        <div className={`menu ${isOpen && "open"}`}>
             <div className="user-profile">
                 <img
                     src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png"
@@ -23,7 +21,7 @@ function Menu({ isOpen, name, surname }) {
                     {name} {surname}
                 </h2>
             </div>
-            <div className="Menu-items">
+            <div className="menu-items">
                 {items.map((item, index) => (
                     <a href={item.itemLink} key={index}>
                         <img src={item.itemIcon} id="menu-icon" />{" "}

@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from "react";
-import Header from "../header";
-import { userService } from "../../api/user";
+import Header from "../navigation/header";
 
 function MainPage() {
-    
     return (
         <div className="mainPageBody">
             <Header />

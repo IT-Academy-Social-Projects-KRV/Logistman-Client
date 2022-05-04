@@ -1,33 +1,28 @@
 import React, { useState, useEffect } from "react";
-import Menu from "./menu.jsx";
-import { userService } from "../api/user";
+import Menu from "./menu";
+import { userService } from "../../api/user";
+import ukraine_language from "../../assets/images/ukraine_language.png";
+import english_language from "../../assets/images/english_language.png";
+import white_theme from "../../assets/images/white_theme.png";
+import dark_theme from "../../assets/images/dark_theme.png";
+import burger_menu from "../../assets/images/burger_menu.png";
 
 export default function Header() {
-    // For languages
-    var ua = "https://cdn-icons-png.flaticon.com/512/330/330540.png";
-    var en = "https://cdn-icons-png.flaticon.com/512/330/330425.png";
+    const [language, setLanguage] = useState(ukraine_language);
+    const [theme, setTheme] = useState(white_theme);
 
-    // For theme
-    var whiteTheme = "https://cdn-icons-png.flaticon.com/512/3094/3094156.png";
-    var darkTheme =
-        "https://cdn-icons.flaticon.com/png/512/3258/premium/3258157.png?token=exp=1651497410~hmac=b36f81fc5652c4d107d102a31eba8ee4";
-
-    const [language, setLanguage] = useState(ua);
-    const [theme, setTheme] = useState(whiteTheme);
+    const [isOpen, setIsOpen] = useState(false);
+    const [data, setData] = useState("Null");
 
     const changeLanguage = () => {
-        if (language === ua) setLanguage(en);
-        else setLanguage(ua);
+        if (language === ukraine_language) setLanguage(english_language);
+        else setLanguage(ukraine_language);
     };
 
     const changeTheme = () => {
-        if (theme === whiteTheme) setTheme(darkTheme);
-        else setTheme(whiteTheme);
+        if (theme === white_theme) setTheme(dark_theme);
+        else setTheme(white_theme);
     };
-
-    const [isOpen, setIsOpen] = useState(false);
-
-    const [data, setData] = useState("Null");
 
     useEffect(() => {
         userService.getUser().then((res) => {
@@ -42,10 +37,7 @@ export default function Header() {
                     className="material-icons menu-btn"
                     onClick={() => setIsOpen(!isOpen)}
                 >
-                    <img
-                        src="https://cdn-icons-png.flaticon.com/512/1828/1828664.png"
-                        alt="burger-menu"
-                    />
+                    <img src={burger_menu} alt="burger-menu" />
                 </button>
 
                 <h1 id="page-wrap" onClick={() => setIsOpen(false)}>

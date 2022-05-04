@@ -1,5 +1,8 @@
 @import '../variables/colors';
 
+@import "../components/header";
+@import "../components/menu";
+
 .mainPageBody {
     height: 100vh;
     background-color: $white;
@@ -39,16 +42,16 @@
 }
 
 .block-sender{
-    background-image: url('https://kufer.media/wp-content/uploads/2020/07/72239050_2483513021766295_8043596575647203328_o.jpg');
+    background-image: url('/src/assets/images/sender.png');
 }
 
 .block-recipiante{
-    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTj8cOHNbNl6SmIzIG-kvw9h-0QKj_dyTO57KeAFSRDiPRYrCyNfKAaY74MNXUk4CzWCGo&usqp=CAU');
+    background-image: url('/src/assets/images/recipiant.png');
 
 }
 
 .block-driver{
-    background-image: url('https://www.betterteam.com/images/driver-job-description-5558x3706-2020123.jpeg?crop=40:21,smart&width=1200&dpr=2');
+    background-image: url('/src/assets/images/driver.png');
     width: 530px;
 }
 

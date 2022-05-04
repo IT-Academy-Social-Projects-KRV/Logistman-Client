@@ -5,8 +5,8 @@ sans-serif;
 
 $max_phone_size: 600px;
 $max_tablet_size: 1200px;
-$min_max_monitor_size: 1745px;
+$min_big_monitor_size: 1745px;
+$max_laptop_size: 1600px;
 
-
-$header_height: 65px;
+$header_height: 65.5px;
 $left_menu_height: calc(100vh - $header_height);
