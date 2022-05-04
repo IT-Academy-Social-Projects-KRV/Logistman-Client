@@ -6,7 +6,6 @@ import white_theme from "../../assets/images/white_theme.png";
 import dark_theme from "../../assets/images/dark_theme.png";
 import burger_menu from "../../assets/images/burger_menu.png";
 import { UserContext } from "../context/user.context";
-import { GetUserName } from "../../services/userService";
 
 export default function Header() {
     const [language, setLanguage] = useState(ukraine_language);
@@ -27,7 +26,6 @@ export default function Header() {
     const { name } = useContext(UserContext);
     const { surname } = useContext(UserContext);
 
-    GetUserName();
 
     return (
         <>

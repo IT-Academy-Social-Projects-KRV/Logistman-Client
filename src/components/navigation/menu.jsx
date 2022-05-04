@@ -10,6 +10,7 @@ function Menu({ isOpen, name, surname }) {
         logoutUser(history);
     };
 
+
     return (
         <div className={`menu ${isOpen && "open"}`}>
             <div className="user-profile">

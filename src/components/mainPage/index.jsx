@@ -1,6 +1,9 @@
 import Header from "../navigation/header";
+import { GetUserName } from "../../services/userService";
 
 function MainPage() {
+    GetUserName();
+
     return (
         <div className="mainPageBody">
             <Header />
