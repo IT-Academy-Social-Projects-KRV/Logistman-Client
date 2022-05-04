@@ -3,11 +3,12 @@ import userService from "../api/user";
 import { UserContext } from "../components/context/user.context";
 
 export function GetUserName() {
-    const { setUsername } = useContext(UserContext);
+    const { setName } = useContext(UserContext);
+    const { setSurname } = useContext(UserContext);
 
     userService.getUser().then((res) => {
-        console.log(res.data.name);
-        setUsername(res.data.name);
+        setName(res.data.name);
+        setSurname(res.data.surname);
     });
 }
 

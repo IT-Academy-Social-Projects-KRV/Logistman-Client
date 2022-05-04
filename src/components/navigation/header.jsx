@@ -24,7 +24,8 @@ export default function Header() {
         else setTheme(white_theme);
     };
 
-    const { username } = useContext(UserContext);
+    const { name } = useContext(UserContext);
+    const { surname } = useContext(UserContext);
 
     GetUserName();
 
@@ -50,7 +51,12 @@ export default function Header() {
                     </button>
                 </div>
             </header>
-            <Menu isOpen={isOpen} onChange={setIsOpen} name={username}></Menu>
+            <Menu
+                isOpen={isOpen}
+                onChange={setIsOpen}
+                name={name}
+                surname={surname}
+            ></Menu>
         </>
     );
 }
