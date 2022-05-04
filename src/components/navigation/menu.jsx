@@ -1,6 +1,7 @@
 import { items } from "./menuItems";
 import { logoutUser } from "../../services/authentication";
 import { useHistory } from "react-router-dom";
+import user_icon from "../../assets/images/user.png";
 
 function Menu({ isOpen, name, surname }) {
     let history = useHistory();
@@ -12,11 +13,7 @@ function Menu({ isOpen, name, surname }) {
     return (
         <div className={`menu ${isOpen && "open"}`}>
             <div className="user-profile">
-                <img
-                    src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png"
-                    alt="user-icon"
-                    id="menu-user-icon"
-                />
+                <img src={user_icon} alt="user-icon" id="menu-user-icon" />
                 <h2 className="user-name">
                     {name} {surname}
                 </h2>

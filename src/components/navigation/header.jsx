@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Menu from "./menu";
-import { userService } from "../../api/user";
+import { getUserName } from "../../services/userService";
 import ukraine_language from "../../assets/images/ukraine_language.png";
 import english_language from "../../assets/images/english_language.png";
 import white_theme from "../../assets/images/white_theme.png";
@@ -12,7 +12,7 @@ export default function Header() {
     const [theme, setTheme] = useState(white_theme);
 
     const [isOpen, setIsOpen] = useState(false);
-    const [data, setData] = useState("Null");
+    const [data, setData] = useState("Null ");
 
     const changeLanguage = () => {
         if (language === ukraine_language) setLanguage(english_language);
@@ -25,9 +25,8 @@ export default function Header() {
     };
 
     useEffect(() => {
-        userService.getUser().then((res) => {
-            setData(res.data);
-        });
+        var name = getUserName();
+        setData(name);
     }, []);
 
     return (
@@ -55,8 +54,8 @@ export default function Header() {
             <Menu
                 isOpen={isOpen}
                 onChange={setIsOpen}
-                name={data.name}
-                surname={data.surname}
+                name={data}
+                surname={data}
             ></Menu>
         </>
     );

@@ -63,8 +63,8 @@
 
 .logout{
     width: 100%;
-    color: $white;
-    background-color: $black;
+    color: white;
+    background-color: black;
     height: 50px;
     font-size: 20px;
     border-radius: 10px;
@@ -78,7 +78,7 @@
     position: absolute;
     left: 0;
     bottom: 0;
-    background: $white;
+    background: white;
     transform: scaleX(0);
     transition: all 0.45s;
 }
