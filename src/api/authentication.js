@@ -1,18 +1,16 @@
-import axios from "axios";
-import { SERVER_URL } from "../constants/url";
-
-const URL = `${SERVER_URL}/Authentication/`;
+import { AUTHENTICATION_URLS } from "../constants/url";
+import instance from "./configurations";
 
 export default class authenticationService {
     static registerUser(model) {
-        return axios.post(URL + "register", model);
+        return instance.post(AUTHENTICATION_URLS.REGISTRATION, model);
     }
 
     static loginUser(model) {
-        return axios.post(URL + "login", model);
+        return instance.post(AUTHENTICATION_URLS.LOGIN, model);
     }
 
     static logoutUser(model) {
-        return axios.post(URL + "logout", model);
+        return instance.post(AUTHENTICATION_URLS.LOGOUT, model);
     }
 }

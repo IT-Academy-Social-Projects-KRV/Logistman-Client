@@ -1,5 +1,6 @@
 import { userRoles } from '../constants/userRoles';
 import * as types from '../reduxActions/auth/types';
+import tokenService from "../services/token.service";
 
 const intialState = {
     role: userRoles.GUEST,
@@ -20,8 +21,7 @@ const authReducer = (state = intialState, action) => {
 
         case types.LOGOUT: {
 
-            localStorage.removeItem("accessToken");
-            localStorage.removeItem("refreshToken");
+            tokenService.deleteTokens();
 
             return {
                 ...state,

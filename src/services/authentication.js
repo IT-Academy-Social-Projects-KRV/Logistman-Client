@@ -4,6 +4,7 @@ import { authErrors } from "../constants/messages/authMessages";
 import store from "../index";
 import { setUserRole, logout } from "../reduxActions/auth";
 import { generalErrorMessages } from "../constants/messages/general";
+import tokenService from "../services/token.service";
 
 export function register(values, history) {
     var model = {
@@ -53,8 +54,8 @@ export function login(values, history) {
         .loginUser(model)
         .then(
             (response) => {
-                localStorage.setItem("accessToken", response.data.token);
-                localStorage.setItem("refreshToken", response.data.refreshToken);
+                tokenService.setLocalAccessToken(response.data.token);
+                tokenService.setLocalRefreshToken(response.data.refreshToken);
                 
                 store.dispatch(setUserRole());
 
@@ -82,7 +83,7 @@ export function login(values, history) {
 
 export function logoutUser() {
     var model = {
-        refreshToken: window.localStorage.getItem('refreshToken')
+        refreshToken: tokenService.getLocalRefrehsToken()
     };
 
     authenticationService
