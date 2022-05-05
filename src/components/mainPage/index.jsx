@@ -1,24 +1,24 @@
-import React from "react";
-import { useHistory } from "react-router-dom";
-import { ExportOutlined } from '@ant-design/icons';
-import { logoutUser } from "../../services/authentication";
+import Header from "../navigation/header";
 
 function MainPage() {
-
-    let history = useHistory();
-
-    const logOut = () => {
-        logoutUser(history);
-    };
-
+    
     return (
         <div className="mainPageBody">
-            <header>
-                <div onClick={logOut}>
-                    <ExportOutlined />
-                    <p>Log out</p>
+            <Header />
+            <h2 className="status">What do you want to do?</h2>
+            <div className="role-container">
+                <div className="role-block">
+                    <div className="role block-sender">
+                        <span>I can donate some goods</span>
+                    </div>
+                    <div className="role block-recipiant">
+                        <span>I need help</span>
+                    </div>
                 </div>
-            </header>
+                <div className="role block-driver">
+                    <span>I can deliver goods</span>
+                </div>
+            </div>
         </div>
     );
 }

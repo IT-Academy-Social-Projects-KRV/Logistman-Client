@@ -1,11 +1,16 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Redirect,
+} from "react-router-dom";
 import { createBrowserHistory } from "history";
 import Registration from "./components/authentication/registration";
 import Login from "./components/authentication/login";
 import MainPage from "./components/mainPage";
-import PrivateRoute from './privateRoute';
-import { userRoles } from './constants/userRoles';
+import PrivateRoute from "./privateRoute";
+import { userRoles } from "./constants/userRoles";
 import "antd/dist/antd.css";
 
 const history = createBrowserHistory();
@@ -14,8 +19,11 @@ export default function App() {
     return (
         <Router history={history}>
             <Switch>
-
-                <PrivateRoute exact path="/main" allowedRoles={[userRoles.USER]}>
+                <PrivateRoute
+                    exact
+                    path="/main"
+                    allowedRoles={[userRoles.USER]}
+                >
                     <MainPage />
                 </PrivateRoute>
 
@@ -29,7 +37,6 @@ export default function App() {
                 <Route path="/">
                     <Redirect to="/login" />
                 </Route>
-
             </Switch>
         </Router>
     );
