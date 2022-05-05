@@ -7,12 +7,10 @@ import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 function UserProfilePage() {
 
     const [userData, setUserData] = useState({});
-    const [fullName, setFullName] = useState();
 
     useEffect(async () => {
         var userData = await getUserProfileInfo();
         setUserData(userData);
-        setFullName(userData.name + ' ' + userData.surname);
     }, []);
 
     return (
@@ -25,7 +23,7 @@ function UserProfilePage() {
                         <p> Full name </p>
                     </div>
                     <div className="infoInput">
-                        <Input value={fullName} />
+                        <Input value={userData.name + ' ' + userData.surname} />
                     </div>
                 </div>
 
