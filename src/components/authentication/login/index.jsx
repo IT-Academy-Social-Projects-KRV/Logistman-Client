@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { inputValidationErrors } from "../../../constants/messages/inputValidationErrors";
 import { login } from "../../../services/authentication";
 import { AlertService } from './../../../services/alert.service';
+import { authErrors } from "../../../constants/messages/authMessages";
+import { generalErrorMessages } from "../../../constants/messages/general";
 
 function Login() {
     let history = useHistory();
@@ -14,7 +16,10 @@ function Login() {
     };
 
     const onFinishFailed = () => {
-        AlertService.errorMessage("Log in is blocked!", "First, correct all comments!")
+        AlertService.errorMessage(
+            authErrors.LOGIN_BLOCKED, 
+            generalErrorMessages.CORRECT_ALL_COMMENTS
+        );
     };
 
     return (

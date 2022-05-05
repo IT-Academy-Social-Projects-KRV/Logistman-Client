@@ -11,6 +11,7 @@ import Login from "./components/authentication/login";
 import MainPage from "./components/mainPage";
 import PrivateRoute from "./privateRoute";
 import { userRoles } from "./constants/userRoles";
+import UserProfilePage from "./components/userProfile";
 import "antd/dist/antd.css";
 
 const history = createBrowserHistory();
@@ -25,6 +26,14 @@ export default function App() {
                     allowedRoles={[userRoles.USER]}
                 >
                     <MainPage />
+                </PrivateRoute>
+
+                <PrivateRoute 
+                    exact 
+                    path="/profile" 
+                    allowedRoles={[userRoles.USER]}
+                >
+                    <UserProfilePage />
                 </PrivateRoute>
 
                 <Route exact path="/registration" component={Registration} />
