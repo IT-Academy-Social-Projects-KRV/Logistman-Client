@@ -1,18 +1,25 @@
 import userService from "../api/user";
+import { AlertService } from "./alert.service";
+import { userError } from "../constants/messages/user";
 
 export function getUserName() {
     return userService
         .getUser()
         .then(
             (response) => {
-                console.log(response.data.name + " " + response.data.surname);
                 return response.data.name + " " + response.data.surname;
             },
             (err) => {
-                console.error(err);
+                AlertService.errorMessage(
+                    userError.GET_USER_INFO_FAILED,
+                    userError.SOMETHING_WENT_WRONG
+                );
             }
         )
         .catch((err) => {
-            console.error(err);
+            AlertService.errorMessage(
+                userError.GET_USER_INFO_FAILED,
+                userError.SOMETHING_WENT_WRONG
+            );
         });
 }
