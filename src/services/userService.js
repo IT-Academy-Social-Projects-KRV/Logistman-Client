@@ -1,25 +1,32 @@
-import userService from "../api/user";
-import { AlertService } from "./alert.service";
-import { userError } from "../constants/messages/user";
+import { userErrorMessages } from '../constants/messages/user';
+import { AlertService } from './alert.service';
+import { generalErrorMessages } from './../constants/messages/general';
+import userService from './../api/user';
 
-export function getUserName() {
+export async function getUserName() {
+    var userInfo = await getUserProfileInfo();
+    return userInfo.name + ' ' + userInfo.surname;
+}
+
+export function getUserProfileInfo() {
     return userService
         .getUser()
         .then(
             (response) => {
-                return response.data.name + " " + response.data.surname;
+
+                return response.data;
             },
-            (err) => {
+            () => {
                 AlertService.errorMessage(
-                    userError.GET_USER_INFO_FAILED,
-                    userError.SOMETHING_WENT_WRONG
+                    userErrorMessages.GET_USER_INFO_FAILED,
+                    generalErrorMessages.SOMETHING_WENT_WRONG
                 );
             }
         )
-        .catch((err) => {
+        .catch(() => {
             AlertService.errorMessage(
-                userError.GET_USER_INFO_FAILED,
-                userError.SOMETHING_WENT_WRONG
+                userErrorMessages.GET_USER_INFO_FAILED,
+                generalErrorMessages.SOMETHING_WENT_WRONG
             );
         });
 }

@@ -3,6 +3,7 @@ import { AlertService } from "./alert.service";
 import { authErrors } from "../constants/messages/authMessages";
 import store from "../index";
 import { setUserRole, logout } from "../reduxActions/auth";
+import { generalErrorMessages } from "../constants/messages/general";
 
 export function register(values, history) {
     var model = {
@@ -30,14 +31,14 @@ export function register(values, history) {
                     )
                     : AlertService.errorMessage(
                         authErrors.REGISTRATION_FAILED,
-                        authErrors.SOMETHING_WENT_WRONG
+                        generalErrorMessages.SOMETHING_WENT_WRONG
                     );
             }
         )
         .catch(() => {
             AlertService.errorMessage(
                 authErrors.REGISTRATION_FAILED,
-                authErrors.SOMETHING_WENT_WRONG
+                generalErrorMessages.SOMETHING_WENT_WRONG
             );
         });
 }
@@ -54,6 +55,7 @@ export function login(values, history) {
             (response) => {
                 localStorage.setItem("accessToken", response.data.token);
                 localStorage.setItem("refreshToken", response.data.refreshToken);
+                
                 store.dispatch(setUserRole());
 
                 history.push("/main");
@@ -66,14 +68,14 @@ export function login(values, history) {
                     )
                     : AlertService.errorMessage(
                         authErrors.LOGIN_FAILED,
-                        authErrors.SOMETHING_WENT_WRONG
+                        generalErrorMessages.SOMETHING_WENT_WRONG
                     );
             }
         )
         .catch(() => {
             AlertService.errorMessage(
                 authErrors.LOGIN_FAILED,
-                authErrors.SOMETHING_WENT_WRONG
+                generalErrorMessages.SOMETHING_WENT_WRONG
             );
         });
 }
@@ -89,17 +91,17 @@ export function logoutUser() {
             () => {
                 store.dispatch(logout());
             },
-            (err) => {
+            () => {
                 AlertService.errorMessage(
                     authErrors.LOGOUT_FAILED,
-                    authErrors.SOMETHING_WENT_WRONG
+                    generalErrorMessages.SOMETHING_WENT_WRONG
                 );
             }
         )
         .catch(() => {
             AlertService.errorMessage(
                 authErrors.LOGOUT_FAILED,
-                authErrors.SOMETHING_WENT_WRONG
+                generalErrorMessages.SOMETHING_WENT_WRONG
             );
         });
 }

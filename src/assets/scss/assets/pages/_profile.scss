@@ -1,0 +1,27 @@
+.profilePageBody {
+    padding: 105px 40px 0px 40px;
+    background-color: white;
+
+    #infoBlock {
+        padding: 40px 40px 25px 40px;
+        border: 2px solid rgb(0 0 0 / 15%);
+        border-radius: 10px;
+        background: white;
+
+        .info {
+            div {
+                display: inline-block;
+            }
+
+            margin-bottom: 15px;
+        }
+
+        .infoName {
+            width: 40%;
+        }
+
+        .infoInput {
+            width: 60%;
+        }
+    }
+}

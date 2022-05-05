@@ -191,4 +191,22 @@ $medium_border_radius_size: 8px;
             margin-top: 6px;
         }
     }
+
+    .ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input:focus,
+    .ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input-focused,
+    .ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input,
+    .ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input:hover {
+        background-color: $input_color;
+    }
+
+    .ant-input-affix-wrapper,
+    .ant-input-affix-wrapper-status-error:not(.ant-input-affix-wrapper-disabled):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper,
+    .ant-input-affix-wrapper-status-error:not(.ant-input-affix-wrapper-disabled):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper:hover {
+        background-color: $input_color;
+        border: none;
+    }
+
+    .ant-input {
+        background-color: $input_color;
+    }
 }
