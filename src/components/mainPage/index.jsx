@@ -1,19 +1,23 @@
 import Header from "../navigation/header";
-import { GetUserName } from "../../services/userService";
 
 function MainPage() {
-    GetUserName();
-
+    
     return (
         <div className="mainPageBody">
             <Header />
-            <h2 className="status">Just select your role!</h2>
+            <h2 className="status">What do you want to do?</h2>
             <div className="role-container">
                 <div className="role-block">
-                    <div className="role block-sender">Sender</div>
-                    <div className="role block-recipiante">Recipiant</div>
+                    <div className="role block-sender">
+                        <span>I can donate some goods</span>
+                    </div>
+                    <div className="role block-recipiant">
+                        <span>I need help</span>
+                    </div>
                 </div>
-                <div className="role block-driver">Driver</div>
+                <div className="role block-driver">
+                    <span>I can deliver goods</span>
+                </div>
             </div>
         </div>
     );

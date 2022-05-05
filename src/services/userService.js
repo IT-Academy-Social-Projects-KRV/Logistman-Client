@@ -1,15 +1,18 @@
-import { useContext } from "react";
 import userService from "../api/user";
-import { UserContext } from "../components/context/user.context";
 
-export function GetUserName() {
-    const { setName } = useContext(UserContext);
-    const { setSurname } = useContext(UserContext);
-
-    userService.getUser().then((res) => {
-        setName(res.data.name);
-        setSurname(res.data.surname);
-    });
+export function getUserName() {
+    return userService
+        .getUser()
+        .then(
+            (response) => {
+                console.log(response.data.name + " " + response.data.surname);
+                return response.data.name + " " + response.data.surname;
+            },
+            (err) => {
+                console.error(err);
+            }
+        )
+        .catch((err) => {
+            console.error(err);
+        });
 }
-
-export default GetUserName;

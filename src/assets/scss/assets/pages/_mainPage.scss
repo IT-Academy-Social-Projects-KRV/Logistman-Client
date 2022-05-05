@@ -38,15 +38,21 @@
     color: #fff;
     font-size: 20px;
     background-size: cover;
+    cursor: pointer;
+    z-index: 0;
+}
 
+.role:hover{
+    transform: scale(1.1);
+    transition: 0.5s;
 }
 
 .block-sender{
     background-image: url('/src/assets/images/sender.png');
 }
 
-.block-recipiante{
-    background-image: url('/src/assets/images/recipiant.png');
+.block-recipiant{
+    background-image: url('/src/assets/images/recipiant_grandma.jpg');
 
 }
 
