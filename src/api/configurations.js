@@ -25,8 +25,8 @@ instance.interceptors.request.use(
 );
 
 instance.interceptors.response.use(
-  (responce) => {
-    return responce;
+  (response) => {
+    return response;
   },
   async (error) => {
     if (error.response.status === statusCode.UNAUTHORIZED) {
@@ -57,7 +57,8 @@ instance.interceptors.response.use(
     }
 
     if (
-      error.response.status === statusCode.NOT_FOUND &&
+      (error.response.status === statusCode.NOT_FOUND ||
+        error.response.status === statusCode.INTERNAL_SERVER_ERROR) &&
       error.config.url == AUTHENTICATION_URLS.REFRESH_TOKEN
     ) {
       store.dispatch(logout());
