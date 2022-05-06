@@ -4,7 +4,7 @@ import { Form, Input, Button } from "antd";
 import { register } from "../../../services/authentication";
 import { Link } from "react-router-dom";
 import { inputValidationErrors } from "../../../constants/messages/inputValidationErrors";
-import { AlertService } from './../../../services/alert.service';
+import { errorMessage } from "../../../services/alert.service";
 
 function Registration() {
     let history = useHistory();
@@ -14,7 +14,10 @@ function Registration() {
     };
 
     const onFinishFailed = () => {
-        AlertService.errorMessage("Registration is blocked!", "First, correct all comments!")
+        errorMessage(
+            "Registration is blocked!",
+            "First, correct all comments!"
+        );
     };
 
     return (
@@ -40,18 +43,21 @@ function Registration() {
                             {
                                 type: "string",
                                 pattern: new RegExp("^[A-Z][a-z]+$"),
-                                message: inputValidationErrors.NOT_VALID_NAME_MESSAGE
+                                message:
+                                    inputValidationErrors.NOT_VALID_NAME_MESSAGE,
                             },
                             {
                                 type: "string",
                                 min: 2,
                                 max: 50,
-                                message: "The name must be between 1 and 50 letters!"
+                                message:
+                                    "The name must be between 1 and 50 letters!",
                             },
                             {
                                 required: true,
-                                message: inputValidationErrors.EMPTY_NAME_MESSAGE
-                            }
+                                message:
+                                    inputValidationErrors.EMPTY_NAME_MESSAGE,
+                            },
                         ]}
                     >
                         <Input placeholder="Name" />
@@ -64,18 +70,21 @@ function Registration() {
                             {
                                 type: "string",
                                 pattern: new RegExp("^[A-Z][a-z]+$"),
-                                message: inputValidationErrors.NOT_VALID_SURNAME_MESSAGE
+                                message:
+                                    inputValidationErrors.NOT_VALID_SURNAME_MESSAGE,
                             },
                             {
                                 type: "string",
                                 min: 2,
                                 max: 50,
-                                message: "The name must be between 1 and 50 letters!"
+                                message:
+                                    "The name must be between 1 and 50 letters!",
                             },
                             {
                                 required: true,
-                                message: inputValidationErrors.EMPTY_SURNAME_MESSAGE
-                            }
+                                message:
+                                    inputValidationErrors.EMPTY_SURNAME_MESSAGE,
+                            },
                         ]}
                     >
                         <Input placeholder="Surname" />
@@ -87,12 +96,14 @@ function Registration() {
                         rules={[
                             {
                                 type: "email",
-                                message: inputValidationErrors.NOT_VALID_EMAIL_MESSAGE
+                                message:
+                                    inputValidationErrors.NOT_VALID_EMAIL_MESSAGE,
                             },
                             {
                                 required: true,
-                                message: inputValidationErrors.EMPTY_EMAIL_MESSAGE
-                            }
+                                message:
+                                    inputValidationErrors.EMPTY_EMAIL_MESSAGE,
+                            },
                         ]}
                     >
                         <Input placeholder="Email" />
@@ -104,14 +115,17 @@ function Registration() {
                         rules={[
                             {
                                 type: "string",
-                                pattern:
-                                    new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@$%^&*(){}:;<>,.?+_=|'~\\-])[A-Za-z0-9!@$%^&*(){}:;<>,.?+_=|'~\\-]{7,51}$"),
-                                message: inputValidationErrors.NOT_VALID_PASSWORD_MESSAGE
+                                pattern: new RegExp(
+                                    "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@$%^&*(){}:;<>,.?+_=|'~\\-])[A-Za-z0-9!@$%^&*(){}:;<>,.?+_=|'~\\-]{7,51}$"
+                                ),
+                                message:
+                                    inputValidationErrors.NOT_VALID_PASSWORD_MESSAGE,
                             },
                             {
                                 required: true,
-                                message: inputValidationErrors.EMPTY_PASSWORD_MESSAGE
-                            }
+                                message:
+                                    inputValidationErrors.EMPTY_PASSWORD_MESSAGE,
+                            },
                         ]}
                     >
                         <Input.Password

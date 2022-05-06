@@ -4,7 +4,7 @@ import { Form, Input, Button, Checkbox } from "antd";
 import { Link } from "react-router-dom";
 import { inputValidationErrors } from "../../../constants/messages/inputValidationErrors";
 import { login } from "../../../services/authentication";
-import { AlertService } from './../../../services/alert.service';
+import { errorMessage } from "../../../services/alert.service";
 import { authErrors } from "../../../constants/messages/authMessages";
 import { generalErrorMessages } from "../../../constants/messages/general";
 
@@ -16,8 +16,8 @@ function Login() {
     };
 
     const onFinishFailed = () => {
-        AlertService.errorMessage(
-            authErrors.LOGIN_BLOCKED, 
+        errorMessage(
+            authErrors.LOGIN_BLOCKED,
             generalErrorMessages.CORRECT_ALL_COMMENTS
         );
     };
@@ -44,12 +44,14 @@ function Login() {
                         rules={[
                             {
                                 type: "email",
-                                message: inputValidationErrors.NOT_VALID_EMAIL_MESSAGE
+                                message:
+                                    inputValidationErrors.NOT_VALID_EMAIL_MESSAGE,
                             },
                             {
                                 required: true,
-                                message: inputValidationErrors.EMPTY_EMAIL_MESSAGE
-                            }
+                                message:
+                                    inputValidationErrors.EMPTY_EMAIL_MESSAGE,
+                            },
                         ]}
                     >
                         <Input placeholder="Email" />
@@ -61,15 +63,17 @@ function Login() {
                         rules={[
                             {
                                 type: "string",
-                                pattern:
-                                    new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@$%^&*(){}:;<>,.?+_=|'~\\-])[A-Za-z0-9!@$%^&*(){}:;<>,.?+_=|'~\\-]{7,51}$"),
+                                pattern: new RegExp(
+                                    "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@$%^&*(){}:;<>,.?+_=|'~\\-])[A-Za-z0-9!@$%^&*(){}:;<>,.?+_=|'~\\-]{7,51}$"
+                                ),
                                 message:
-                                    inputValidationErrors.NOT_VALID_PASSWORD_MESSAGE
+                                    inputValidationErrors.NOT_VALID_PASSWORD_MESSAGE,
                             },
                             {
                                 required: true,
-                                message: inputValidationErrors.EMPTY_PASSWORD_MESSAGE
-                            }
+                                message:
+                                    inputValidationErrors.EMPTY_PASSWORD_MESSAGE,
+                            },
                         ]}
                     >
                         <Input.Password

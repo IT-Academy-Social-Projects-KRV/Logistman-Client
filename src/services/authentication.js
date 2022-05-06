@@ -1,5 +1,5 @@
 import authenticationService from "../api/authentication";
-import { AlertService } from "./alert.service";
+import { successMessage, errorMessage } from "./alert.service";
 import { authErrors } from "../constants/messages/authMessages";
 import store from "../index";
 import { setUserRole, logout } from "../reduxActions/auth";
@@ -18,26 +18,24 @@ export function register(values, history) {
         .registerUser(model)
         .then(
             () => {
-                AlertService.successMessage(
-                    authErrors.REGISTRATION_SUCCESS
-                )
+                successMessage(authErrors.REGISTRATION_SUCCESS);
 
                 history.push("/login");
             },
             (err) => {
                 err.response.status === 400
-                    ? AlertService.errorMessage(
-                        authErrors.REGISTRATION_FAILED,
-                        authErrors.REGISTRATION_FAILED_USER_ALREADY_EXIST
-                    )
-                    : AlertService.errorMessage(
-                        authErrors.REGISTRATION_FAILED,
-                        generalErrorMessages.SOMETHING_WENT_WRONG
-                    );
+                    ? errorMessage(
+                          authErrors.REGISTRATION_FAILED,
+                          authErrors.REGISTRATION_FAILED_USER_ALREADY_EXIST
+                      )
+                    : errorMessage(
+                          authErrors.REGISTRATION_FAILED,
+                          generalErrorMessages.SOMETHING_WENT_WRONG
+                      );
             }
         )
         .catch(() => {
-            AlertService.errorMessage(
+            errorMessage(
                 authErrors.REGISTRATION_FAILED,
                 generalErrorMessages.SOMETHING_WENT_WRONG
             );
@@ -56,25 +54,24 @@ export function login(values, history) {
             (response) => {
                 tokenService.setLocalAccessToken(response.data.token);
                 tokenService.setLocalRefreshToken(response.data.refreshToken);
-                
                 store.dispatch(setUserRole());
 
                 history.push("/main");
             },
             (err) => {
                 err.response.status === 400
-                    ? AlertService.errorMessage(
-                        authErrors.LOGIN_FAILED,
-                        authErrors.LOGIN_FAILED_USER_ALREADY_EXIST
-                    )
-                    : AlertService.errorMessage(
-                        authErrors.LOGIN_FAILED,
-                        generalErrorMessages.SOMETHING_WENT_WRONG
-                    );
+                    ? errorMessage(
+                          authErrors.LOGIN_FAILED,
+                          authErrors.LOGIN_FAILED_USER_ALREADY_EXIST
+                      )
+                    : errorMessage(
+                          authErrors.LOGIN_FAILED,
+                          generalErrorMessages.SOMETHING_WENT_WRONG
+                      );
             }
         )
         .catch(() => {
-            AlertService.errorMessage(
+            errorMessage(
                 authErrors.LOGIN_FAILED,
                 generalErrorMessages.SOMETHING_WENT_WRONG
             );
@@ -93,14 +90,14 @@ export function logoutUser() {
                 store.dispatch(logout());
             },
             () => {
-                AlertService.errorMessage(
+                errorMessage(
                     authErrors.LOGOUT_FAILED,
                     generalErrorMessages.SOMETHING_WENT_WRONG
                 );
             }
         )
         .catch(() => {
-            AlertService.errorMessage(
+            errorMessage(
                 authErrors.LOGOUT_FAILED,
                 generalErrorMessages.SOMETHING_WENT_WRONG
             );
