@@ -6,11 +6,16 @@ import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 
 function UserProfilePage() {
 
-    const [userData, setUserData] = useState({});
+    const [userData, setUserData] = useState({
+        name: "",
+        surname: ""
+    });
 
     useEffect(async () => {
         var userData = await getUserProfileInfo();
-        setUserData(userData);
+        if (userData !== undefined) {
+            setUserData(userData);
+        }
     }, []);
 
     return (

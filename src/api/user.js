@@ -1,9 +1,8 @@
-import axios from "axios";
-import { USER_URL } from "../constants/url";
-import "./configurations";
+import { USER_URLS } from "../constants/url";
+import instance from "./configurations";
 
 export default class userService {
-    static getUser() {
-        return axios.get(USER_URL + "user-info");
-    }
+  static getUser() {
+    return instance.get(USER_URLS.USER_INFO);
+  }
 }
