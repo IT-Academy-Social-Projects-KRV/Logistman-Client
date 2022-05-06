@@ -23,8 +23,10 @@ export function register(values, history) {
             },
             (err) => {
                 err.response.status === 400
-                    ? (authErrors.REGISTRATION_FAILED,
-                      authErrors.REGISTRATION_FAILED_USER_ALREADY_EXIST)
+                    ? errorMessage(
+                          authErrors.REGISTRATION_FAILED,
+                          authErrors.REGISTRATION_FAILED_USER_ALREADY_EXIST
+                      )
                     : errorMessage(
                           authErrors.REGISTRATION_FAILED,
                           generalErrorMessages.SOMETHING_WENT_WRONG
