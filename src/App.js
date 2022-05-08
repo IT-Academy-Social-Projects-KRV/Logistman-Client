@@ -8,13 +8,13 @@ import {
 import { createBrowserHistory } from "history";
 import Registration from "./components/authentication/registration";
 import Login from "./components/authentication/login";
+import RecipientOffer from "./components/createOffer/createOffer";
 import MainPage from "./components/mainPage";
 import PrivateRoute from "./privateRoute";
 import { userRoles } from "./constants/userRoles";
 import "antd/dist/antd.css";
 
 const history = createBrowserHistory();
-
 export default function App() {
     return (
         <Router history={history}>
@@ -29,7 +29,7 @@ export default function App() {
 
                 <Route exact path="/registration" component={Registration} />
                 <Route path="/login" component={Login} />
-
+                <Route path="/offer" component={RecipientOffer} />
                 <Route exact path="/home">
                     <>Home page</>
                 </Route>

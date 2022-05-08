@@ -1,4 +1,6 @@
 import Header from "../navigation/header";
+import {Link} from "react-router-dom";
+import React from "react";
 
 function MainPage() {
     
@@ -9,7 +11,7 @@ function MainPage() {
             <div className="role-container">
                 <div className="role-block">
                     <div className="role block-sender">
-                        <span>I can donate some goods</span>
+                        <Link to="/offer">I can donate some goods</Link>
                     </div>
                     <div className="role block-recipiant">
                         <span>I need help</span>

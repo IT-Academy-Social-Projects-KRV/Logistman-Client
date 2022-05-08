@@ -58,25 +58,25 @@ function Login() {
                                 type: "string",
                                 pattern:
                                     new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@$%^&*(){}:;<>,.?+_=|'~\\-])[A-Za-z0-9!@$%^&*(){}:;<>,.?+_=|'~\\-]{7,51}$"),
-                                message:
-                                    inputValidationErrors.NOT_VALID_PASSWORD_MESSAGE
+                            message:
+                            inputValidationErrors.NOT_VALID_PASSWORD_MESSAGE
                             },
                             {
                                 required: true,
                                 message: inputValidationErrors.EMPTY_PASSWORD_MESSAGE
                             }
-                        ]}
-                    >
-                        <Input.Password
-                            className="passwordInput"
-                            placeholder="Password"
-                        />
-                    </Form.Item>
+                            ]}
+                            >
+                            <Input.Password
+                                className="passwordInput"
+                                placeholder="Password"
+                            />
+                        </Form.Item>
 
-                    <div className="helperForm">
-                        <Checkbox className="checkboxForm">
-                            Remember me
-                        </Checkbox>
+                        <div className="helperForm">
+                            <Checkbox className="checkboxForm">
+                                Remember me
+                            </Checkbox>
                         <Link to="/forgotPassword">Forgot password</Link>
                     </div>
 
@@ -94,6 +94,7 @@ function Login() {
                 <div className="linksDiv">
                     <Link to="/home">Home</Link>
                     <Link to="/registration">Registration</Link>
+                    <Link to="/offer">Моє лихо</Link>
                 </div>
             </div>
         </div>

@@ -4,21 +4,25 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@react-google-maps/api": "^2.10.2",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "antd": "^4.19.5",
     "axios": "^0.26.1",
+    "google-map-react": "^2.1.10",
     "node-sass": "^7.0.1",
     "react": "^17.0.2",
     "react-burger-menu": "^3.0.6",
+    "react-cool-onclickoutside": "^1.7.0",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.8",
     "react-router-dom": "^5.3.0",
     "react-scripts": "5.0.0",
     "redux": "^4.1.2",
     "redux-thunk": "^2.4.1",
-    "sweetalert2": "^11.4.8",
+    "sweetalert2": "^11.4.10",
+    "use-places-autocomplete": "^3.0.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -50,6 +54,7 @@
     ]
   },
   "devDependencies": {
+    "@types/googlemaps": "^3.43.3",
     "sass": "^1.51.0",
     "sass-loader": "^12.6.0",
     "webpack": "^5.72.0"
