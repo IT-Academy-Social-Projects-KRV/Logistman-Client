@@ -19,13 +19,13 @@ form{
         width: 400px;
         padding: 10px;
         border-radius: 5px;
-        color: gray;
+        color: $light_gray;
         margin-bottom: 15px;
-        border: 1px solid #A1A1A1;
+        border: 1px solid $light_gray;
     }
 
     button{
-        background-color: #224957;
+        background-color: $input_color;
         color: #fff;
         font-weight: 500;
         border-radius: 5px;
@@ -38,17 +38,23 @@ form{
     select{
         padding: 10px;
         border-radius: 5px;
-        color: gray;
+        color: $light_gray;
         margin-bottom: 15px;
         width: 400px;
+    }
+    textarea{
+        width: 800px;
+        border-radius: 5px;
+        padding: 10px;
+        height: 97px;
     }
 }
 
 .form__point{
     display: flex;
     flex-direction: row;
-    gap: 4%;
-
+    justify-content: space-between;
+    gap: 3%;
 }
 
 .point__block{
@@ -65,17 +71,8 @@ form{
 .form__offer{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     margin-top: 15px;
-    gap: 4%;
-    textarea{
-        width: 800px;
-        border-radius: 5px;
-        padding: 10px;
-    }
-}
-
-#description{
-    height: 97px;
 }
 
 .offer__block{
@@ -84,11 +81,28 @@ form{
     align-items: end;
 }
 
+@media only screen and (min-width: $max_tablet_size) and (max-width: $max_laptop_size) {
+
+    .form__offer{
+        textarea{
+            width: 485px;
+        }
+    }
+}
+
+@media only screen and (min-width: $max_phone_size) and (max-width: $max_tablet_size) {
+    .form__offer{
+        textarea{
+            width: 250px;
+        }
+    }
+}
 
 @media only screen and (max-width: $max_phone_size) {
     form{
         display: flex;
         flex-wrap: wrap;
+        justify-content: center;
         input{
             width: 250px;
         }
