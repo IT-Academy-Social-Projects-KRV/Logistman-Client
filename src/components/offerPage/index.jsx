@@ -69,11 +69,6 @@ export default function Offer() {
                             <select>
                                 Goods Category
                                 <option>Goods Category</option>
-                                <option>Їжа</option>
-                                <option>Одяг</option>
-                                <option>Гроші</option>
-                                <option>Запчастини</option>
-                                <option>Інше...</option>
                             </select>
                             <input type="number" placeholder="Goods Weight" />
                         </div>
