@@ -37,7 +37,13 @@ export default function App() {
                     <UserProfilePage />
                 </PrivateRoute>
 
-                <Route path="/offer" component={Offer} />
+                <PrivateRoute
+                    exact
+                    path="/offer"
+                    allowedRoles={[userRoles.USER]}
+                >
+                    <Offer />
+                </PrivateRoute>
 
                 <Route exact path="/registration" component={Registration} />
                 <Route path="/login" component={Login} />
