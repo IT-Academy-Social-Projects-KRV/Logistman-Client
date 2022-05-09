@@ -2,6 +2,7 @@ import React from "react";
 import {Modal, Form, Input, InputNumber, Select, Button} from 'antd';
 import {addCarMessages} from "../../constants/messages/addCarMessages";
 import {addCar} from "../../services/carService";
+import {errorMessage} from "../../services/alert.service";
 
 /* now the class is using instead of function
  because it wasn't working with function,
@@ -21,6 +22,13 @@ class NewCarModal extends React.Component {
         this.close();
     };
 
+    onFinishFailed = () => {
+        errorMessage(
+            addCarMessages.CAR_ADDING_FAILED,
+            addCarMessages.CAR_ADDING_NOT_ALLOWED
+        );
+    };
+
     render() {
         return (
             <Modal title="Add Car"
@@ -32,6 +40,7 @@ class NewCarModal extends React.Component {
 
                 <Form
                     onFinish={this.onFinish}
+                    onFinishFailed={this.onFinishFailed}
                     scrollToFirstError
                 >
                     <Form.Item name="model"
@@ -114,7 +123,7 @@ class NewCarModal extends React.Component {
                                        addCarMessages.NOT_VALID_VIN_MESSAGE
                                    },
                                    {
-                                       pattern: new RegExp(".{17}"),
+                                       pattern: new RegExp("^.{17}$"),
                                        message:
                                        addCarMessages.NOT_VALID_VIN_LENGTH_MESSAGE
                                    },
@@ -127,7 +136,15 @@ class NewCarModal extends React.Component {
                     >
                         <Input addonBefore="VIN:" placeholder="VIN"/>
                     </Form.Item>
-                    <Form.Item name="category">
+                    <Form.Item name="category"
+                               rules={[
+                                   {
+                                       required: true,
+                                       message:
+                                       addCarMessages.EMPTY_FIELD_MESSAGE
+                                   },
+                               ]}
+                    >
                         <Select
                             addonBefore="Category:"
                             showSearch

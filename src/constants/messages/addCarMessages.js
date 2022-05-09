@@ -10,5 +10,7 @@ export const addCarMessages = Object.freeze({
     EMPTY_FIELD_MESSAGE: "Field cannot be empty.",
 
     CAR_ADDED_SUCCESSFUL: "Car added successfully.",
-    CAR_ADDING_FAILED: "Failed to add car."
+    CAR_ADDING_FAILED: "Failed to add car.",
+
+    CAR_ADDING_NOT_ALLOWED: "First, correct all comments!"
 });
