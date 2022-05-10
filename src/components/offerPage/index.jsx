@@ -4,13 +4,14 @@ import { API } from "../../constants/map";
 import Header from "../navigation/header";
 import { createOffer } from "../../services/offerService";
 import { useHistory } from "react-router-dom";
-import { Form, Input, Button, DatePicker, AutoComplete } from "antd";
+import { Form, Input, Button, DatePicker, AutoComplete, Select } from "antd";
 
 const { TextArea } = Input;
+const { Option, OptGroup } = Select;
 
 const containerStyle = {
-    width: "100%",
-    height: "100%",
+    width: "250px",
+    height: "250px",
 };
 
 const center = {
@@ -54,7 +55,7 @@ export default function Offer() {
     }, []);
 
     const onFinish = (values) => {
-        createOffer(values, history);
+        createOffer(values);
     };
     const onFinishFailed = (values) => {
         console.log("error");
@@ -64,17 +65,28 @@ export default function Offer() {
         <div>
             <Header />
             <Form
+                name="form_name"
                 className="form"
-                labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
-                initialValues={{ remember: true }}
                 autoComplete="off"
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
-                scrollToFirstError
             >
                 <div className="point">
                     <div className="point_block">
+                        {clickedLatLng && (
+                            <input
+                                type="hidden"
+                                name="latitude"
+                                value={clickedLatLng.lat}
+                            />
+                        )}
+                        {clickedLatLng && (
+                            <input
+                                type="hidden"
+                                name="longitude"
+                                value={clickedLatLng.lng}
+                            />
+                        )}
                         <Form.Item name="address">
                             <Input placeholder="Enter address" />
                         </Form.Item>
@@ -85,10 +97,51 @@ export default function Offer() {
                             <Input placeholder="Enter region" />
                         </Form.Item>
                     </div>
-                    <div className="point_block">
-                        
+                    <div className="map point_block">
+                        <GoogleMap
+                            mapContainerStyle={containerStyle}
+                            center={center}
+                            zoom={5}
+                            onLoad={onLoad}
+                            onUnmount={onUnmount}
+                            options={defaultOptions}
+                            onClick={(e) => setClickedLatLng(e.latLng.toJSON())}
+                        >
+                            <Marker position={clickedLatLng} />
+                        </GoogleMap>
                     </div>
                 </div>
+                <div className="offer">
+                    <div className="offer_block">
+                        <Form.Item name="startDate">
+                            <DatePicker />
+                        </Form.Item>
+                        <Form.Item name="settlement">
+                            <Select style={{ width: 200 }}>
+                                <OptGroup label="Manager">
+                                    <Option value="jack">Jack</Option>
+                                    <Option value="lucy">Lucy</Option>
+                                </OptGroup>
+                                <OptGroup label="Engineer">
+                                    <Option value="Yiminghe">yiminghe</Option>
+                                </OptGroup>
+                            </Select>
+                        </Form.Item>
+                        <Form.Item name="goodsWeight">
+                            <Input placeholder="Enter good weight" />
+                        </Form.Item>
+                    </div>
+                    <div className="offer_block">
+                        <Form.Item name="description">
+                            <TextArea />
+                        </Form.Item>
+                    </div>
+                </div>
+                <Form.Item>
+                    <Button type="primary" htmlType="submit" onClick={onFinish}>
+                        Create offer
+                    </Button>
+                </Form.Item>
             </Form>
         </div>
     ) : (

@@ -4,30 +4,30 @@ import { offerErrorMessages } from "../constants/messages/offer";
 import { userRoles } from "../constants/userRoles";
 import offerService from "../api/offer";
 
-export function createOffer(values, history) {
+export function createOffer(values) {
     var model = {
         description: values.description,
         goodsWeight: values.goodsWeight,
-        startDate: values.startDate,
-        expirationDate: new Date().getDay(),
+        startDate: "2022-05-10T15:52:03.629Z",
+        expirationDate: "2022-05-10T15:52:03.629Z",
         goodCategoryId: 1,
-        role: userRoles.SENDER,
+        role: "SENDER",
         point: {
-            latitude: values.latitude,
-            longitude: values.longitude,
+            latitude: 48.686,
+            longitude: 31.086,
             address: values.address,
             settlement: values.settlement,
             region: values.region,
-            order: 1,
+            order: 0,
         },
     };
+    console.log(model);
 
     offerService
         .createOffer(model)
         .then(
             () => {
                 successMessage(offerErrorMessages.CREATE_OFFER_SUCCESS);
-                history.push("/main");
             },
             (err) => {
                 if (err.response.status === 400) {
