@@ -10,8 +10,8 @@ const { TextArea } = Input;
 const { Option, OptGroup } = Select;
 
 const containerStyle = {
-    width: "250px",
-    height: "250px",
+    width: "100%",
+    height: "100%",
 };
 
 const center = {
@@ -55,95 +55,101 @@ export default function Offer() {
     }, []);
 
     const onFinish = (values) => {
-        createOffer(values);
+        createOffer(values, clickedLatLng, history);
     };
     const onFinishFailed = (values) => {
         console.log("error");
     };
 
     return isLoaded ? (
-        <div>
+        <>
             <Header />
-            <Form
-                name="form_name"
-                className="form"
-                autoComplete="off"
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-            >
-                <div className="point">
-                    <div className="point_block">
-                        {clickedLatLng && (
-                            <input
-                                type="hidden"
-                                name="latitude"
-                                value={clickedLatLng.lat}
-                            />
-                        )}
-                        {clickedLatLng && (
-                            <input
-                                type="hidden"
-                                name="longitude"
-                                value={clickedLatLng.lng}
-                            />
-                        )}
-                        <Form.Item name="address">
-                            <Input placeholder="Enter address" />
-                        </Form.Item>
-                        <Form.Item name="settlement">
-                            <Input placeholder="Enter settlement" />
-                        </Form.Item>
-                        <Form.Item name="region">
-                            <Input placeholder="Enter region" />
-                        </Form.Item>
+            <div className="createOfferBody">
+                <h1>Create offer</h1>
+                <Form
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
+                    initialValues={{ remember: true }}
+                    autoComplete="off"
+                    onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
+                    scrollToFirstError
+                >
+                    <div className="topFormBlock">
+                        <div className="addressBlock">
+                            <Form.Item name="address">
+                                <Input
+                                    type="text"
+                                    placeholder="Enter your address"
+                                />
+                            </Form.Item>
+                            <Form.Item name="settlement">
+                                <Input
+                                    type="text"
+                                    placeholder="Enter your settlement"
+                                />
+                            </Form.Item>
+                            <Form.Item name="region">
+                                <Input
+                                    type="text"
+                                    placeholder="Enter your region"
+                                    name="region"
+                                />
+                            </Form.Item>
+                        </div>
+
+                        <div className="mapBlock">
+                            <GoogleMap
+                                mapContainerStyle={containerStyle}
+                                center={center}
+                                onLoad={onLoad}
+                                onUnmount={onUnmount}
+                                options={defaultOptions}
+                                onClick={(e) =>
+                                    setClickedLatLng(e.latLng.toJSON())
+                                }
+                                id="map"
+                            >
+                                <Marker position={clickedLatLng} />
+                            </GoogleMap>
+                        </div>
                     </div>
-                    <div className="map point_block">
-                        <GoogleMap
-                            mapContainerStyle={containerStyle}
-                            center={center}
-                            zoom={5}
-                            onLoad={onLoad}
-                            onUnmount={onUnmount}
-                            options={defaultOptions}
-                            onClick={(e) => setClickedLatLng(e.latLng.toJSON())}
-                        >
-                            <Marker position={clickedLatLng} />
-                        </GoogleMap>
+
+                    <div className="bottomFormBlock">
+                        <div className="otherOfferDataBlock">
+                            <Form.Item name="startDate">
+                                <DatePicker />
+                            </Form.Item>
+
+                            <Form.Item name="goodsWeight">
+                                <Input
+                                    htmlType="number"
+                                    placeholder="Goods Weight"
+                                />
+                            </Form.Item>
+                        </div>
+                        <div className="otherOfferDataBlock">
+                            <Form.Item
+                                name="description"
+                                className="description"
+                            >
+                                <TextArea placeholder="Description" />
+                            </Form.Item>
+
+                            <Form.Item>
+                                <Button
+                                    type="primary"
+                                    htmlType="submit"
+                                    className="submitButton"
+                                >
+                                    Create offer
+                                </Button>
+                            </Form.Item>
+                        </div>
                     </div>
-                </div>
-                <div className="offer">
-                    <div className="offer_block">
-                        <Form.Item name="startDate">
-                            <DatePicker />
-                        </Form.Item>
-                        <Form.Item name="settlement">
-                            <Select style={{ width: 200 }}>
-                                <OptGroup label="Manager">
-                                    <Option value="jack">Jack</Option>
-                                    <Option value="lucy">Lucy</Option>
-                                </OptGroup>
-                                <OptGroup label="Engineer">
-                                    <Option value="Yiminghe">yiminghe</Option>
-                                </OptGroup>
-                            </Select>
-                        </Form.Item>
-                        <Form.Item name="goodsWeight">
-                            <Input placeholder="Enter good weight" />
-                        </Form.Item>
-                    </div>
-                    <div className="offer_block">
-                        <Form.Item name="description">
-                            <TextArea />
-                        </Form.Item>
-                    </div>
-                </div>
-                <Form.Item>
-                    <Button type="primary" htmlType="submit" onClick={onFinish}>
-                        Create offer
-                    </Button>
-                </Form.Item>
-            </Form>
-        </div>
+                </Form>
+            </div>
+        </>
     ) : (
         <>
             <span>Map is not loaded!</span>

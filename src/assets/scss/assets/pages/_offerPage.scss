@@ -1,137 +1,130 @@
-// @import '../variables/colors';
-// @import "../components/menu";
+@import '../variables/colors';
+@import "../components/menu";
 
-.form{
-    margin-top: 100px;
+.createOfferBody {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 80px;
+    width: 100%;
+
+    .ant-form {
+        width: 95%;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+        padding: 40px;
+        border-radius: 15px;
+
+        .mapBlock {
+            height: 260px;
+        }
+
+        .ant-form-item {
+            margin-bottom: 15px;
+        }
+
+        .ant-form-item input[type=text],
+        .ant-picker {
+            width: 500px;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .ant-form-item .submitButton {
+            background-color: $input_color;
+            font-weight: 500;
+            border-radius: 5px;
+            border: none;
+            width: 200px;
+            font-size: 16px;
+            padding: 6px;
+            margin-top: 10px;
+            height: auto;
+            margin-bottom: 0px;
+        }
+
+        .topFormBlock {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+            margin-bottom: 20px;
+
+            .addressBlock,
+            .mapBlock {
+                width: 50%;
+            }
+        }
+
+        .bottomFormBlock {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+
+            .otherOfferDataBlock {
+                width: 50%;
+
+                .description {
+                    div {
+                        width: 600px;
+                    }
+                }
+            }
+        }
+    }
 }
 
-// .offer__container{
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     flex-direction: column;
-//     margin-top: 80px;
-//     width: 100%;
-// }
-
-// form{
-//     width: 95%;
-//     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-//     padding: 30px;
-//     border-radius: 15px;
-//     input{
-//         width: 400px;
-//         padding: 10px;
-//         border-radius: 5px;
-//         color: $light_gray;
-//         margin-bottom: 15px;
-//         border: 1px solid $light_gray;
-//     }
-
-//     button{
-//         background-color: $input_color;
-//         color: #fff;
-//         font-weight: 500;
-//         border-radius: 5px;
-//         border: none;
-//         width: 200px;
-//         font-size: 16px;
-//         padding: 10px;
-//         margin-top: 10px;
-//     }
-//     select{
-//         padding: 10px;
-//         border-radius: 5px;
-//         color: $light_gray;
-//         margin-bottom: 15px;
-//         width: 400px;
-//     }
-//     textarea{
-//         width: 800px;
-//         border-radius: 5px;
-//         padding: 10px;
-//         height: 97px;
-//     }
-// }
-
-// .form__point{
-//     display: flex;
-//     flex-direction: row;
-//     justify-content: space-between;
-//     gap: 3%;
-// }
-
-// .point__block{
-//     display: flex;
-//     flex-direction: column;
-// }
-
-// .map{
-//     border-radius: 5px;
-//     width: 800px;
-//     height: 270px;
-// }
-
-// .form__offer{
-//     display: flex;
-//     flex-direction: row;
-//     justify-content: space-between;
-//     margin-top: 15px;
-//     gap: 3%;
-// }
-
-// .offer__block{
-//     display: flex;
-//     flex-direction: column;
-//     align-items: end;
-// }
-
 // @media only screen and (min-width: $max_tablet_size) and (max-width: $max_laptop_size) {
-//     .form__offer{
-//         textarea{
+//     .form__offer {
+//         textarea {
 //             width: 485px;
 //         }
 //     }
 // }
 
 // @media only screen and (min-width: $max_phone_size) and (max-width: $max_tablet_size) {
-//     .form__offer{
-//         textarea{
+//     .form__offer {
+//         textarea {
 //             width: 250px;
 //         }
 //     }
 // }
 
 // @media only screen and (max-width: $max_phone_size) {
-//     form{
+//     Form {
 //         display: flex;
 //         flex-wrap: wrap;
 //         justify-content: center;
-//         input{
+
+//         input {
 //             width: 250px;
 //         }
-//         select{
+
+//         select {
 //             width: 250px;
 //         }
-//         button{
+
+//         button {
 //             width: 250px;
 //         }
 //     }
 
-//     .map{
+//     .map {
 //         height: 200px;
 //         width: 250px;
 //     }
 
-//     .form__point{
+//     .form__point {
 //         display: flex;
 //         flex-direction: column;
 //     }
 
-//     .form__offer{
+//     .form__offer {
 //         display: flex;
 //         flex-direction: column;
-//         textarea{
+
+//         textarea {
 //             width: 250px;
 //         }
 //     }

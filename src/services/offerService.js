@@ -1,27 +1,29 @@
 import { errorMessage, successMessage } from "./alert.service";
 import { generalErrorMessages } from "../constants/messages/general";
 import { offerErrorMessages } from "../constants/messages/offer";
-import { userRoles } from "../constants/userRoles";
 import offerService from "../api/offer";
 
-export function createOffer(values) {
+export function createOffer(values, coordinates, history) {
+    var utcStartDate = new Date(values.startDate._d).toISOString();
+    var utcExpirationDate = new Date();
+    utcExpirationDate.setDate(utcExpirationDate.getDate() + 1);
+
     var model = {
         description: values.description,
         goodsWeight: values.goodsWeight,
-        startDate: "2022-05-10T15:52:03.629Z",
-        expirationDate: "2022-05-10T15:52:03.629Z",
+        startDate: utcStartDate,
+        expirationDate: utcExpirationDate,
         goodCategoryId: 1,
         role: "SENDER",
         point: {
-            latitude: 48.686,
-            longitude: 31.086,
+            latitude: coordinates.lat,
+            longitude: coordinates.lng,
             address: values.address,
             settlement: values.settlement,
             region: values.region,
-            order: 0,
+            order: 1,
         },
     };
-    console.log(model);
 
     offerService
         .createOffer(model)
