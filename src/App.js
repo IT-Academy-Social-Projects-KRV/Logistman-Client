@@ -11,7 +11,7 @@ import Login from "./components/authentication/login";
 import MainPage from "./components/mainPage";
 import PrivateRoute from "./privateRoute";
 import { userRoles } from "./constants/userRoles";
-import UserProfilePage from "./components/userProfile";
+import UserProfilePage from "./components/userProfile/index.js";
 import "antd/dist/antd.css";
 
 const history = createBrowserHistory();
