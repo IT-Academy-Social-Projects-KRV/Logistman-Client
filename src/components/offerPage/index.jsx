@@ -56,104 +56,41 @@ export default function Offer() {
     const onFinish = (values) => {
         createOffer(values, history);
     };
+    const onFinishFailed = (values) => {
+        console.log("error");
+    };
 
     return isLoaded ? (
-        <>
+        <div>
             <Header />
-            <div className="offer__container">
-                <h1>Create offer</h1>
-                <Form onFinish={onFinish}>
-                    <div className="form__point">
-                        <div className="point__block">
-                            {clickedLatLng && (
-                                <input
-                                    type="hidden"
-                                    name="latitude"
-                                    value={clickedLatLng.lat}
-                                />
-                            )}
-                            {clickedLatLng && (
-                                <input
-                                    type="hidden"
-                                    name="longitude"
-                                    value={clickedLatLng.lng}
-                                />
-                            )}
-                            <Form.Item name="address">
-                                <Input
-                                    type="text"
-                                    placeholder="Enter your address"
-                                />
-                            </Form.Item>
-                            <Form.Input name="settlement">
-                                <Input
-                                    type="text"
-                                    placeholder="Enter your settlement"
-                                />
-                            </Form.Input>
-                            <Form.Item name="region">
-                                <Input
-                                    type="text"
-                                    placeholder="Enter your region"
-                                    name="region"
-                                />
-                            </Form.Item>
-                        </div>
-                        <div className="map point__block">
-                            <GoogleMap
-                                mapContainerStyle={containerStyle}
-                                center={center}
-                                zoom={5}
-                                onLoad={onLoad}
-                                onUnmount={onUnmount}
-                                options={defaultOptions}
-                                onClick={(e) =>
-                                    setClickedLatLng(e.latLng.toJSON())
-                                }
-                                id="map"
-                            >
-                                <Marker position={clickedLatLng} />
-                            </GoogleMap>
-                        </div>
+            <Form
+                className="form"
+                labelCol={{ span: 8 }}
+                wrapperCol={{ span: 16 }}
+                initialValues={{ remember: true }}
+                autoComplete="off"
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                scrollToFirstError
+            >
+                <div className="point">
+                    <div className="point_block">
+                        <Form.Item name="address">
+                            <Input placeholder="Enter address" />
+                        </Form.Item>
+                        <Form.Item name="settlement">
+                            <Input placeholder="Enter settlement" />
+                        </Form.Item>
+                        <Form.Item name="region">
+                            <Input placeholder="Enter region" />
+                        </Form.Item>
                     </div>
-                    <div className="form__offer">
-                        <div className="offer__block">
-                            <Form.Item name="startDate">
-                                <DatePicker />
-                            </Form.Item>
-                            <Form.Item name="goodsWeight">
-                                <AutoComplete />
-                            </Form.Item>
-
-                            <Form.Item name>
-                                <Input
-                                    htmlType="number"
-                                    placeholder="Goods Weight"
-                                />
-                            </Form.Item>
-                        </div>
-                        <div className="offer__block">
-                            <Form.Item name="description">
-                                <TextArea
-                                    id="description"
-                                    placeholder="Description"
-                                />
-                            </Form.Item>
-
-                            <Form.Item className="submitItem">
-                                <Button
-                                    type="primary"
-                                    htmlType="submit"
-                                    className="submitButton"
-                                >
-                                    Create
-                                </Button>
-                            </Form.Item>
-                        </div>
+                    <div className="point_block">
+                        
                     </div>
-                </Form>
-            </div>
-        </>
+                </div>
+            </Form>
+        </div>
     ) : (
         <>
             <span>Map is not loaded!</span>
