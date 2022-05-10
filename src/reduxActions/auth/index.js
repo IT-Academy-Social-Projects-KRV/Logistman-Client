@@ -11,3 +11,10 @@ export const setUserRole = () => {
         type: types.SET_USER_ROLE
     };
 }
+
+export const changeRole = (role) => {
+    return {
+        type: types.CHANGE_ROLE,
+        payload: role
+    };
+};

@@ -9,7 +9,9 @@ function MainPage() {
             <div className="role-container">
                 <div className="role-block">
                     <div className="role block-sender">
-                        <Link className="role-link" to="/offer">I can donate some goods</Link>
+                        <Link className="role-link" to="/offer">
+                            I can donate some goods
+                        </Link>
                     </div>
                     <div className="role block-recipiant">
                         <span>I need help</span>
