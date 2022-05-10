@@ -4,22 +4,27 @@ import { offerErrorMessages } from "../constants/messages/offer";
 import { userRoles } from "../constants/userRoles";
 import offerService from "../api/offer";
 
-export function createOffer(values, history) {
+export function createOffer(values, coordinates, history) {
+
+    var utcStartDate = new Date(values.startDate._d).toISOString();
+    var utcExpirationDate = new Date();
+    utcExpirationDate.setDate(utcExpirationDate.getDate() + 1);
+
     var model = {
         description: values.description,
         goodsWeight: values.goodsWeight,
-        startDate: values.startDate,
-        expirationDate: new Date().getDay(),
+        startDate: utcStartDate,
+        expirationDate: utcExpirationDate,
         goodCategoryId: 1,
         role: userRoles.SENDER,
         point: {
-            latitude: values.latitude,
-            longitude: values.longitude,
+            latitude: coordinates.lat,
+            longitude: coordinates.lng,
             address: values.address,
             settlement: values.settlement,
             region: values.region,
-            order: 1,
-        },
+            order: 1
+        }
     };
 
     offerService
