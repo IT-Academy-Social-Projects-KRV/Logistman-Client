@@ -76,19 +76,56 @@
     }
 }
 
-// @media only screen and (min-width: $max_tablet_size) and (max-width: $max_laptop_size) {
-    
-// }
-// @media only screen and (min-width: $max_phone_size) and (max-width: $max_tablet_size) {
-    
-// }
+@media only screen and (min-width: $max_tablet_size) and (max-width: $max_laptop_size) {
+    .ant-form-item input[type=text],
+        .ant-picker {
+            width: 300px !important;
+        }
+    .description {
+        div {
+            width: 450px !important;
+        }
+    }
+}
+@media only screen and (min-width: $max_phone_size) and (max-width: $max_tablet_size) {
+    .ant-form-item input[type=text],
+        .ant-picker {
+            width: 200px !important;
+        }
+    .description {
+        div {
+            width: 300px !important;
+        }
+    }
+}
 @media only screen and (max-width: $max_phone_size) {
     .ant-form{
         display: flex;
         flex-direction: column;
     }
-    .ant-form-item{
-        width: 200px;
+    .topFormBlock{
+        display: flex;
+        flex-direction: column-reverse !important;
     }
-    
+
+    .bottomFormBlock{
+        display: flex;
+        flex-direction: column !important;
+    }
+
+    .ant-form-item input[type=text],
+        .ant-picker {
+            width: 200px !important;
+        }
+
+        .mapBlock{
+            width: 200px !important;
+            height: 200px !important;
+            margin-bottom: 10px;
+        }
+        .description {
+            div {
+                width: 200px !important;
+            }
+        }
 }
