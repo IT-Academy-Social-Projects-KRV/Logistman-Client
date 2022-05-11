@@ -1,13 +1,15 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import { API } from "../../constants/map";
 import Header from "../navigation/header";
 import { createOffer } from "../../services/offerService";
+import { getGoodCategories } from "../../services/goodCategoryService";
 import { useHistory } from "react-router-dom";
+import { inputValidationErrors } from "../../constants/messages/inputValidationErrors";
 import { Form, Input, Button, DatePicker, AutoComplete, Select } from "antd";
 
 const { TextArea } = Input;
-const { Option, OptGroup } = Select;
+const { Option } = Select;
 
 const containerStyle = {
     width: "100%",
@@ -22,7 +24,7 @@ const center = {
 const defaultOptions = {
     panControl: true,
     zoomControl: true,
-    mapTypeControl: false,
+    mapTypeControl: true,
     scaleControle: false,
     streetViewControl: false,
     rotateControl: false,
@@ -43,6 +45,7 @@ export default function Offer() {
 
     const [map, setMap] = useState(null);
     const [clickedLatLng, setClickedLatLng] = useState();
+    const [data, setData] = useState(null);
 
     const onLoad = useCallback(function callback(map) {
         const bounds = new window.google.maps.LatLngBounds(center);
@@ -54,7 +57,17 @@ export default function Offer() {
         setMap(null);
     }, []);
 
+    // for get all good categories
+
+    useEffect(async () => {
+        setData(await getGoodCategories());
+        data.forEach((element) => {
+            console.log("", element.name);
+        });
+    }, []);
+
     const onFinish = (values) => {
+        console.log(values);
         createOffer(values, clickedLatLng, history);
     };
     const onFinishFailed = (values) => {
@@ -70,26 +83,67 @@ export default function Offer() {
                     labelCol={{ span: 8 }}
                     wrapperCol={{ span: 16 }}
                     initialValues={{ remember: true }}
-                    autoComplete="off"
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
                     scrollToFirstError
                 >
                     <div className="topFormBlock">
                         <div className="addressBlock">
-                            <Form.Item name="address">
+                            <Form.Item
+                                name="address"
+                                rules={[
+                                    {
+                                        type: "string",
+                                        message:
+                                            inputValidationErrors.EMPTY_ADDRESS_MESSAGE,
+                                    },
+                                    {
+                                        required: true,
+                                        message:
+                                            inputValidationErrors.EMPTY_ADDRESS_MESSAGE,
+                                    },
+                                ]}
+                            >
                                 <Input
                                     type="text"
                                     placeholder="Enter your address"
                                 />
                             </Form.Item>
-                            <Form.Item name="settlement">
+                            <Form.Item
+                                name="settlement"
+                                rules={[
+                                    {
+                                        type: "string",
+                                        message:
+                                            inputValidationErrors.EMPTY_SETTLEMENT_MESSAGE,
+                                    },
+                                    {
+                                        required: true,
+                                        message:
+                                            inputValidationErrors.EMPTY_SETTLEMENT_MESSAGE,
+                                    },
+                                ]}
+                            >
                                 <Input
                                     type="text"
                                     placeholder="Enter your settlement"
                                 />
                             </Form.Item>
-                            <Form.Item name="region">
+                            <Form.Item
+                                name="region"
+                                rules={[
+                                    {
+                                        type: "string",
+                                        message:
+                                            inputValidationErrors.EMPTY_REGION_MESSAGE,
+                                    },
+                                    {
+                                        required: true,
+                                        message:
+                                            inputValidationErrors.EMPTY_REGION_MESSAGE,
+                                    },
+                                ]}
+                            >
                                 <Input
                                     type="text"
                                     placeholder="Enter your region"
@@ -105,6 +159,7 @@ export default function Offer() {
                                 onLoad={onLoad}
                                 onUnmount={onUnmount}
                                 options={defaultOptions}
+                                zoom={5}
                                 onClick={(e) =>
                                     setClickedLatLng(e.latLng.toJSON())
                                 }
@@ -117,13 +172,36 @@ export default function Offer() {
 
                     <div className="bottomFormBlock">
                         <div className="otherOfferDataBlock">
+                            <Form.Item name="goodCategoryId">
+                                <Select>
+                                    {data?.map((res, idx) => (
+                                        <Option value={idx + 1} key={idx}>
+                                            {res.name}
+                                        </Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
+
                             <Form.Item name="startDate">
                                 <DatePicker />
                             </Form.Item>
 
-                            <Form.Item name="goodsWeight">
+                            <Form.Item
+                                name="goodsWeight"
+                                rules={[
+                                    {
+                                        message:
+                                            inputValidationErrors.EMPTY_GOOD_WEIGHT_MESSAGE,
+                                    },
+                                    {
+                                        required: true,
+                                        message:
+                                            inputValidationErrors.EMPTY_GOOD_WEIGHT_MESSAGE,
+                                    },
+                                ]}
+                            >
                                 <Input
-                                    htmlType="number"
+                                    type="number"
                                     placeholder="Goods Weight"
                                 />
                             </Form.Item>
@@ -132,6 +210,17 @@ export default function Offer() {
                             <Form.Item
                                 name="description"
                                 className="description"
+                                rules={[
+                                    {
+                                        message:
+                                            inputValidationErrors.EMPTY_DESCRIPTION_MESSAGE,
+                                    },
+                                    {
+                                        required: true,
+                                        message:
+                                            inputValidationErrors.EMPTY_DESCRIPTION_MESSAGE,
+                                    },
+                                ]}
                             >
                                 <TextArea placeholder="Description" />
                             </Form.Item>

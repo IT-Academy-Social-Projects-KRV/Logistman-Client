@@ -1,5 +1,6 @@
 @import '../variables/colors';
 @import "../components/menu";
+@import "../variables/others";
 
 .createOfferBody {
     display: flex;
@@ -76,56 +77,18 @@
 }
 
 // @media only screen and (min-width: $max_tablet_size) and (max-width: $max_laptop_size) {
-//     .form__offer {
-//         textarea {
-//             width: 485px;
-//         }
-//     }
+    
 // }
-
 // @media only screen and (min-width: $max_phone_size) and (max-width: $max_tablet_size) {
-//     .form__offer {
-//         textarea {
-//             width: 250px;
-//         }
-//     }
+    
 // }
-
-// @media only screen and (max-width: $max_phone_size) {
-//     Form {
-//         display: flex;
-//         flex-wrap: wrap;
-//         justify-content: center;
-
-//         input {
-//             width: 250px;
-//         }
-
-//         select {
-//             width: 250px;
-//         }
-
-//         button {
-//             width: 250px;
-//         }
-//     }
-
-//     .map {
-//         height: 200px;
-//         width: 250px;
-//     }
-
-//     .form__point {
-//         display: flex;
-//         flex-direction: column;
-//     }
-
-//     .form__offer {
-//         display: flex;
-//         flex-direction: column;
-
-//         textarea {
-//             width: 250px;
-//         }
-//     }
-// }
+@media only screen and (max-width: $max_phone_size) {
+    .ant-form{
+        display: flex;
+        flex-direction: column;
+    }
+    .ant-form-item{
+        width: 200px;
+    }
+    
+}

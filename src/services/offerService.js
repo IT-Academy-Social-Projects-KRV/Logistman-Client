@@ -13,7 +13,7 @@ export function createOffer(values, coordinates, history) {
         goodsWeight: values.goodsWeight,
         startDate: utcStartDate,
         expirationDate: utcExpirationDate,
-        goodCategoryId: 1,
+        goodCategoryId: values.goodCategoryId,
         role: "SENDER",
         point: {
             latitude: coordinates.lat,
@@ -21,9 +21,11 @@ export function createOffer(values, coordinates, history) {
             address: values.address,
             settlement: values.settlement,
             region: values.region,
-            order: 1,
+            order: 0,
         },
     };
+
+    console.log(model);
 
     offerService
         .createOffer(model)

@@ -1,11 +1,11 @@
 import { errorMessage } from "./alert.service";
-import { generalErrorMessages } from "../../constants/messages/general";
+import { generalErrorMessages } from "../constants/messages/general";
 import { goodCategoryMessages } from "../constants/messages/goodCategory";
 import goodCategoryService from "../api/goodCategory";
 
 export async function getGoodCategories() {
     var data = await getAllGoodCategories();
-    return data;
+    return data.goodCategories;
 }
 
 export function getAllGoodCategories() {
