@@ -34,3 +34,26 @@ export function addCar(values) {
             );
         });
 }
+
+export async function getUserCars() {
+
+    return await carService
+        .getUserCars()
+        .then(
+            (response) => {
+                return response.data;
+            },
+            () => {
+                errorMessage(
+                    addCarMessages.CAR_ADDING_FAILED, // change
+                    generalErrorMessages.SOMETHING_WENT_WRONG // change
+                );
+            }
+        )
+        .catch(() => {
+            errorMessage(
+                addCarMessages.CAR_ADDING_FAILED, // change
+                generalErrorMessages.SOMETHING_WENT_WRONG // change
+            );
+        });
+}
