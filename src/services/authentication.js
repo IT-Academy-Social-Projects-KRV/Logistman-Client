@@ -81,7 +81,7 @@ export function login(values, history) {
 
 export function logoutUser() {
     var model = {
-        refreshToken: tokenService.getLocalRefrehsToken()
+        refreshToken: tokenService.getLocalRefreshToken()
     };
 
     authenticationService

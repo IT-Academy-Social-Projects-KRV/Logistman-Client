@@ -32,7 +32,7 @@ instance.interceptors.response.use(
     if (error.response.status === statusCode.UNAUTHORIZED) {
       try {
         var modelAccessToken = tokenService.getLocalAccessToken();
-        var modelRefreshToken = tokenService.getLocalRefrehsToken();
+        var modelRefreshToken = tokenService.getLocalRefreshToken();
 
         var model = {
           token: modelAccessToken,

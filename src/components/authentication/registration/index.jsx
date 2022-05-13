@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Form, Input, Button } from "antd";
 import { register } from "../../../services/authentication";
 import { Link } from "react-router-dom";
 import { inputValidationErrors } from "../../../constants/messages/inputValidationErrors";
 import { errorMessage } from "../../../services/alert.service";
+import tokenService from "../../../services/token.service";
 
 function Registration() {
     let history = useHistory();
@@ -19,6 +20,10 @@ function Registration() {
             "First, correct all comments!"
         );
     };
+    
+    useEffect(async () => {
+        tokenService.deleteTokens();
+    }, []);
 
     return (
         <div className="authBody">
