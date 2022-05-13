@@ -2,7 +2,7 @@ import authenticationService from "../api/authentication";
 import { successMessage, errorMessage } from "./alert.service";
 import { authErrors } from "../constants/messages/authMessages";
 import store from "../index";
-import { setUserRole, logout } from "../reduxActions/auth";
+import { setAccess, logout } from "../reduxActions/auth";
 import { generalErrorMessages } from "../constants/messages/general";
 import tokenService from "../services/token.service";
 
@@ -52,9 +52,7 @@ export function login(values, history) {
         .loginUser(model)
         .then(
             (response) => {
-                tokenService.setLocalAccessToken(response.data.token);
-                tokenService.setLocalRefreshToken(response.data.refreshToken);
-                store.dispatch(setUserRole());
+                store.dispatch(setAccess(response.data));
 
                 history.push("/main");
             },
