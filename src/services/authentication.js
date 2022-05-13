@@ -5,6 +5,7 @@ import store from "../index";
 import { setUserRole, logout } from "../reduxActions/auth";
 import { generalErrorMessages } from "../constants/messages/general";
 import tokenService from "../services/token.service";
+import jwt from 'jwt-decode';
 
 export function register(values, history) {
     var model = {
@@ -25,13 +26,13 @@ export function register(values, history) {
             (err) => {
                 err.response.status === 400
                     ? errorMessage(
-                          authErrors.REGISTRATION_FAILED,
-                          authErrors.REGISTRATION_FAILED_USER_ALREADY_EXIST
-                      )
+                        authErrors.REGISTRATION_FAILED,
+                        authErrors.REGISTRATION_FAILED_USER_ALREADY_EXIST
+                    )
                     : errorMessage(
-                          authErrors.REGISTRATION_FAILED,
-                          generalErrorMessages.SOMETHING_WENT_WRONG
-                      );
+                        authErrors.REGISTRATION_FAILED,
+                        generalErrorMessages.SOMETHING_WENT_WRONG
+                    );
             }
         )
         .catch(() => {
@@ -61,13 +62,13 @@ export function login(values, history) {
             (err) => {
                 err.response.status === 400
                     ? errorMessage(
-                          authErrors.LOGIN_FAILED,
-                          authErrors.LOGIN_FAILED_USER_ALREADY_EXIST
-                      )
+                        authErrors.LOGIN_FAILED,
+                        authErrors.LOGIN_FAILED_USER_ALREADY_EXIST
+                    )
                     : errorMessage(
-                          authErrors.LOGIN_FAILED,
-                          generalErrorMessages.SOMETHING_WENT_WRONG
-                      );
+                        authErrors.LOGIN_FAILED,
+                        generalErrorMessages.SOMETHING_WENT_WRONG
+                    );
             }
         )
         .catch(() => {
@@ -102,4 +103,20 @@ export function logoutUser() {
                 generalErrorMessages.SOMETHING_WENT_WRONG
             );
         });
+}
+
+export function checkIsUserRoleValid() {
+
+    var accessToken = tokenService.getLocalAccessToken();
+
+    if (accessToken !== null) {
+        var decodedAccessToken = jwt(accessToken);
+
+        if (decodedAccessToken.role !== store.getState().authReducer.role) {
+            store.dispatch(logout());
+        }
+    }
+    else {
+        store.dispatch(logout());
+    }
 }
