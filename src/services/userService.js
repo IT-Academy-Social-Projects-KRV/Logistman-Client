@@ -2,8 +2,14 @@ import { userErrorMessages } from "../constants/messages/user";
 import { errorMessage } from "./alert.service";
 import { generalErrorMessages } from "./../constants/messages/general";
 import userService from "./../api/user";
+import { checkIsUserRoleValid } from "./authentication";
 
 export async function getUserName() {
+
+    // since the menu will be on all pages, the render menu calls this function,
+    // and here we call the role check to prevent manual role change
+    checkIsUserRoleValid();
+
     var userInfo = await getUserProfileInfo();
     return userInfo.name + " " + userInfo.surname;
 }

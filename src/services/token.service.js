@@ -1,5 +1,5 @@
 class tokenService {
-  getLocalRefrehsToken() {
+  getLocalRefreshToken() {
     return localStorage.getItem("refreshToken");
   }
 
