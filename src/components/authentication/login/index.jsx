@@ -78,6 +78,7 @@ function Login() {
                         <Input.Password
                             className="passwordInput"
                             placeholder="Password"
+                            autoComplete="on"
                         />
                     </Form.Item>
 

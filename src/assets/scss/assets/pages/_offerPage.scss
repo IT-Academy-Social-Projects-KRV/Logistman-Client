@@ -79,18 +79,18 @@
 @media only screen and (min-width: $max_tablet_size) and (max-width: $max_laptop_size) {
     .ant-form-item input[type=text],
         .ant-picker {
-            width: 300px !important;
+            width: 300px ;
         }
     .description {
         div {
-            width: 450px !important;
+            width: 450px ;
         }
     }
 }
 @media only screen and (min-width: $max_phone_size) and (max-width: $max_tablet_size) {
     .ant-form-item input[type=text],
         .ant-picker {
-            width: 200px !important;
+            width: 200px ;
         }
     .description {
         div {

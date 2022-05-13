@@ -1,12 +1,19 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
-import { API } from "../../constants/map";
+import { API, GEOCODING_API_KEY } from "../../constants/map";
 import Header from "../navigation/header";
 import { createOffer } from "../../services/offerService";
 import { getGoodCategories } from "../../services/goodCategoryService";
 import { useHistory } from "react-router-dom";
 import { inputValidationErrors } from "../../constants/messages/inputValidationErrors";
 import { Form, Input, Button, DatePicker, AutoComplete, Select } from "antd";
+import Geocode from "react-geocode";
+
+Geocode.setApiKey(API);
+
+Geocode.setLanguage("ua");
+
+Geocode.enableDebug();
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -17,8 +24,8 @@ const containerStyle = {
 };
 
 const center = {
-    lat: 48.686,
-    lng: 31.086,
+    lat: 50.643,
+    lng: 26.263,
 };
 
 const defaultOptions = {
@@ -43,9 +50,13 @@ export default function Offer() {
 
     let history = useHistory();
 
-    const [map, setMap] = useState(null);
-    const [clickedLatLng, setClickedLatLng] = useState();
+    const [map, setMap] = useState();
+    const [clickedLatLng, setClickedLatLng] = useState(center);
     const [data, setData] = useState(null);
+
+    const [addressValue, setAddressValue] = useState();
+    const [settlementValue, setSettlementValue] = useState();
+    const [regionValue, setRegionValue] = useState();
 
     const onLoad = useCallback(function callback(map) {
         const bounds = new window.google.maps.LatLngBounds(center);
@@ -57,13 +68,64 @@ export default function Offer() {
         setMap(null);
     }, []);
 
-    // for get all good categories
+    //Geocode.fromLatLng(clickedLatLng?.lat, clickedLatLng?.lng).then(
+    //    (response) => {
+    //        const address = response.results[0].formatted_address;
+    //        console.log(address);
+    //    },
+    //    (error) => {
+    //        console.error(error);
+    //    }
+    //);
+
+    Geocode.fromLatLng(clickedLatLng.lat, clickedLatLng.lng).then(
+        (response) => {
+            const address = response.results[0].formatted_address;
+            let city, state, country;
+            for (
+                let i = 0;
+                i < response.results[0].address_components.length;
+                i++
+            ) {
+                for (
+                    let j = 0;
+                    j < response.results[0].address_components[i].types.length;
+                    j++
+                ) {
+                    switch (
+                        response.results[0].address_components[i].types[j]
+                    ) {
+                        case "locality":
+                            city =
+                                response.results[0].address_components[i]
+                                    .long_name;
+                            break;
+                        case "administrative_area_level_1":
+                            state =
+                                response.results[0].address_components[i]
+                                    .long_name;
+                            break;
+                        case "country":
+                            country =
+                                response.results[0].address_components[i]
+                                    .long_name;
+                            break;
+                    }
+                }
+            }
+            console.log("City ", city, "State ", state, "Country ", country);
+            setAddressValue(address);
+            setSettlementValue(city);
+            setRegionValue(state);
+            console.log("Adress: ", addressValue);
+        },
+        (error) => {
+            console.error(error);
+        }
+    );
 
     useEffect(async () => {
         setData(await getGoodCategories());
-        data.forEach((element) => {
-            console.log("", element.name);
-        });
     }, []);
 
     const onFinish = (values) => {
@@ -107,6 +169,7 @@ export default function Offer() {
                                 <Input
                                     type="text"
                                     placeholder="Enter your address"
+                                    value={addressValue}
                                 />
                             </Form.Item>
                             <Form.Item
@@ -159,7 +222,7 @@ export default function Offer() {
                                 onLoad={onLoad}
                                 onUnmount={onUnmount}
                                 options={defaultOptions}
-                                zoom={5}
+                                defaultZoom={18}
                                 onClick={(e) =>
                                     setClickedLatLng(e.latLng.toJSON())
                                 }
