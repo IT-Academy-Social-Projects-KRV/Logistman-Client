@@ -95,7 +95,7 @@ function UserCarsPage() {
                 columns={columns}
                 showSorterTooltip={true}
                 pagination={false}
-            />;
+            />
         </div>
     );
 }
