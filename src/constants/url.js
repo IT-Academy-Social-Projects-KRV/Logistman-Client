@@ -16,5 +16,5 @@ export const USER_URLS = {
 
 export const CAR_URLS = {
     ADD_CAR: CAR_URL + "/add",
-    GET_USER_CARS: CAR_URL + "/all"
+    GET_USER_CARS: CAR_URL + "/user-cars"
 };
