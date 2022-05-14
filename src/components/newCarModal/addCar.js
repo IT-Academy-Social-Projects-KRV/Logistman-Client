@@ -1,8 +1,10 @@
 import React from "react";
 import {Modal, Form, Input, InputNumber, Select, Button} from 'antd';
-import {addCarMessages} from "../../constants/messages/addCarMessages";
 import {addCar} from "../../services/carService";
 import {errorMessage} from "../../services/alert.service";
+import { carErrorMessages } from "../../constants/messages/car";
+
+// change the type of file to .jsx
 
 /* now the class is using instead of function
  because it wasn't working with function,
@@ -24,8 +26,8 @@ class NewCarModal extends React.Component {
 
     onFinishFailed = () => {
         errorMessage(
-            addCarMessages.CAR_ADDING_FAILED,
-            addCarMessages.CAR_ADDING_NOT_ALLOWED
+            carErrorMessages.CAR_ADDING_FAILED,
+            carErrorMessages.CAR_ADDING_NOT_ALLOWED
         );
     };
 
@@ -49,12 +51,12 @@ class NewCarModal extends React.Component {
                                        type: "string",
                                        pattern: new RegExp("^[a-zA-Z\\d ]*$"),
                                        message:
-                                       addCarMessages.NOT_VALID_MODEL_MESSAGE
+                                       carErrorMessages.NOT_VALID_MODEL_MESSAGE
                                    },
                                    {
                                        required: true,
                                        message:
-                                       addCarMessages.EMPTY_FIELD_MESSAGE
+                                       carErrorMessages.EMPTY_FIELD_MESSAGE
                                    },
                                ]}
                     >
@@ -66,12 +68,12 @@ class NewCarModal extends React.Component {
                                        type: "string",
                                        pattern: new RegExp("^[a-zA-Z\\d ]*$"),
                                        message:
-                                       addCarMessages.NOT_VALID_TECH_PASSPORT_MESSAGE
+                                       carErrorMessages.NOT_VALID_TECH_PASSPORT_MESSAGE
                                    },
                                    {
                                        required: true,
                                        message:
-                                       addCarMessages.EMPTY_FIELD_MESSAGE
+                                       carErrorMessages.EMPTY_FIELD_MESSAGE
                                    },
                                ]}
                     >
@@ -83,12 +85,12 @@ class NewCarModal extends React.Component {
                                        type: "string",
                                        pattern: new RegExp("^[a-zA-Z\\d ]*$"),
                                        message:
-                                       addCarMessages.NOT_VALID_CAR_NUMBER_MESSAGE
+                                       carErrorMessages.NOT_VALID_CAR_NUMBER_MESSAGE
                                    },
                                    {
                                        required: true,
                                        message:
-                                       addCarMessages.EMPTY_FIELD_MESSAGE
+                                       carErrorMessages.EMPTY_FIELD_MESSAGE
                                    },
                                ]}
                     >
@@ -99,12 +101,12 @@ class NewCarModal extends React.Component {
                                    {
                                        pattern: new RegExp("^[^0|\\D]\\d{0,9}(\\.\\d{1,2})?$"),
                                        message:
-                                       addCarMessages.NOT_VALID_LOAD_CAPACITY_MESSAGE
+                                       carErrorMessages.NOT_VALID_LOAD_CAPACITY_MESSAGE
                                    },
                                    {
                                        required: true,
                                        message:
-                                       addCarMessages.EMPTY_FIELD_MESSAGE
+                                       carErrorMessages.EMPTY_FIELD_MESSAGE
                                    },
                                ]}
                     >
@@ -120,17 +122,17 @@ class NewCarModal extends React.Component {
                                        type: "string",
                                        pattern: new RegExp("^[a-zA-Z\\d]*$"),
                                        message:
-                                       addCarMessages.NOT_VALID_VIN_MESSAGE
+                                       carErrorMessages.NOT_VALID_VIN_MESSAGE
                                    },
                                    {
                                        pattern: new RegExp("^.{17}$"),
                                        message:
-                                       addCarMessages.NOT_VALID_VIN_LENGTH_MESSAGE
+                                       carErrorMessages.NOT_VALID_VIN_LENGTH_MESSAGE
                                    },
                                    {
                                        required: true,
                                        message:
-                                       addCarMessages.EMPTY_FIELD_MESSAGE
+                                       carErrorMessages.EMPTY_FIELD_MESSAGE
                                    },
                                ]}
                     >
@@ -141,7 +143,7 @@ class NewCarModal extends React.Component {
                                    {
                                        required: true,
                                        message:
-                                       addCarMessages.EMPTY_FIELD_MESSAGE
+                                       carErrorMessages.EMPTY_FIELD_MESSAGE
                                    },
                                ]}
                     >
@@ -169,12 +171,12 @@ class NewCarModal extends React.Component {
                                        type: "string",
                                        pattern: new RegExp("^[a-zA-Z]*$"),
                                        message:
-                                       addCarMessages.NOT_VALID_COLOR_MESSAGE
+                                       carErrorMessages.NOT_VALID_COLOR_MESSAGE
                                    },
                                    {
                                        required: true,
                                        message:
-                                       addCarMessages.EMPTY_FIELD_MESSAGE
+                                       carErrorMessages.EMPTY_FIELD_MESSAGE
                                    },
                                ]}
                     >

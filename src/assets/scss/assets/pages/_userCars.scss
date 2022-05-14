@@ -1,0 +1,30 @@
+@import '../variables/colors';
+@import '../variables/others';
+
+.userCarsBody {
+    padding: 105px 140px 0px 140px;
+
+    .expandedRowTable .ant-table-cell {
+        width: 50%;
+    }
+}
+
+@media only screen and (min-width: $max_phone_size) and (max-width: $max_tablet_size) {
+    .userCarsBody {
+        padding: 105px 20px 0px 20px;
+
+        td p {
+            font-size: 14px;
+        }
+    }
+}
+
+@media only screen and (max-width: $max_phone_size) {
+    .userCarsBody {
+        padding: 105px 10px 0px 10px;
+
+        td p {
+            font-size: 15px;
+        }
+    }
+}

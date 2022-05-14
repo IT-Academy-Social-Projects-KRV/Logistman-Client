@@ -5,4 +5,8 @@ export default class carService {
     static addCar(model) {
         return instance.post(CAR_URLS.ADD_CAR, model);
     }
+
+    static getUserCars() {
+        return instance.get(CAR_URLS.GET_USER_CARS);
+    }
 }
