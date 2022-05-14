@@ -1,7 +1,7 @@
 import {errorMessage, successMessage} from "./alert.service";
 import {generalErrorMessages} from "../constants/messages/general";
 import carService from "../api/car";
-import {addCarMessages} from "../constants/messages/addCarMessages";
+import { carErrorMessages } from './../constants/messages/car';
 
 export function addCar(values) {
     let model = {
@@ -18,18 +18,18 @@ export function addCar(values) {
         .addCar(model)
         .then(
             () => {
-                successMessage(addCarMessages.CAR_ADDED_SUCCESSFUL);
+                successMessage(carErrorMessages.CAR_ADDED_SUCCESSFUL);
             },
             () => {
                 errorMessage(
-                    addCarMessages.CAR_ADDING_FAILED,
+                    carErrorMessages.CAR_ADDING_FAILED,
                     generalErrorMessages.SOMETHING_WENT_WRONG
                 );
             }
         )
         .catch(() => {
             errorMessage(
-                addCarMessages.CAR_ADDING_FAILED,
+                carErrorMessages.CAR_ADDING_FAILED,
                 generalErrorMessages.SOMETHING_WENT_WRONG
             );
         });
@@ -45,15 +45,15 @@ export async function getUserCars() {
             },
             () => {
                 errorMessage(
-                    addCarMessages.CAR_ADDING_FAILED, // change
-                    generalErrorMessages.SOMETHING_WENT_WRONG // change
+                    carErrorMessages.LOAD_USER_CARS_FAILED,
+                    generalErrorMessages.SOMETHING_WENT_WRONG
                 );
             }
         )
         .catch(() => {
             errorMessage(
-                addCarMessages.CAR_ADDING_FAILED, // change
-                generalErrorMessages.SOMETHING_WENT_WRONG // change
+                carErrorMessages.LOAD_USER_CARS_FAILED,
+                generalErrorMessages.SOMETHING_WENT_WRONG
             );
         });
 }

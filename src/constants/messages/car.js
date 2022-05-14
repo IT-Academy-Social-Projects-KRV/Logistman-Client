@@ -1,4 +1,4 @@
-export const addCarMessages = Object.freeze({
+export const carErrorMessages = Object.freeze({
     NOT_VALID_MODEL_MESSAGE: "The model can only contain latin letters, digits and spaces.",
     NOT_VALID_CAR_NUMBER_MESSAGE: "The registration number can only contain latin letters, digits and spaces.",
     NOT_VALID_TECH_PASSPORT_MESSAGE: "The technical passport can only contain latin letters, digits and spaces.",
@@ -12,5 +12,7 @@ export const addCarMessages = Object.freeze({
     CAR_ADDED_SUCCESSFUL: "Car added successfully.",
     CAR_ADDING_FAILED: "Failed to add car.",
 
-    CAR_ADDING_NOT_ALLOWED: "First, correct all comments!"
+    CAR_ADDING_NOT_ALLOWED: "First, correct all comments!",
+
+    LOAD_USER_CARS_FAILED: "Load user's cars failed!"
 });
