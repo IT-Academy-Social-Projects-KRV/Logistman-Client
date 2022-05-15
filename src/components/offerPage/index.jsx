@@ -13,6 +13,8 @@ Geocode.setApiKey(API);
 
 Geocode.setLanguage("ua");
 
+Geocode.setRegion("ua");
+
 Geocode.enableDebug();
 
 const { TextArea } = Input;
@@ -54,9 +56,7 @@ export default function Offer() {
     const [clickedLatLng, setClickedLatLng] = useState(center);
     const [data, setData] = useState(null);
 
-    const [addressValue, setAddressValue] = useState();
-    const [settlementValue, setSettlementValue] = useState();
-    const [regionValue, setRegionValue] = useState();
+    const [addressValue, setAddressValue] = useState({});
 
     const onLoad = useCallback(function callback(map) {
         const bounds = new window.google.maps.LatLngBounds(center);
@@ -68,61 +68,51 @@ export default function Offer() {
         setMap(null);
     }, []);
 
-    //Geocode.fromLatLng(clickedLatLng?.lat, clickedLatLng?.lng).then(
-    //    (response) => {
-    //        const address = response.results[0].formatted_address;
-    //        console.log(address);
-    //    },
-    //    (error) => {
-    //        console.error(error);
-    //    }
-    //);
-
-    Geocode.fromLatLng(clickedLatLng.lat, clickedLatLng.lng).then(
-        (response) => {
-            const address = response.results[0].formatted_address;
-            let city, state, country;
-            for (
-                let i = 0;
-                i < response.results[0].address_components.length;
-                i++
-            ) {
+    const getData = () => {
+        Geocode.fromLatLng(clickedLatLng.lat, clickedLatLng.lng).then(
+            (response) => {
+                const address = response.results[0].formatted_address;
+                let city, state, country;
                 for (
-                    let j = 0;
-                    j < response.results[0].address_components[i].types.length;
-                    j++
+                    let i = 0;
+                    i < response.results[0].address_components.length;
+                    i++
                 ) {
-                    switch (
-                        response.results[0].address_components[i].types[j]
+                    for (
+                        let j = 0;
+                        j <
+                        response.results[0].address_components[i].types.length;
+                        j++
                     ) {
-                        case "locality":
-                            city =
-                                response.results[0].address_components[i]
-                                    .long_name;
-                            break;
-                        case "administrative_area_level_1":
-                            state =
-                                response.results[0].address_components[i]
-                                    .long_name;
-                            break;
-                        case "country":
-                            country =
-                                response.results[0].address_components[i]
-                                    .long_name;
-                            break;
+                        switch (
+                            response.results[0].address_components[i].types[j]
+                        ) {
+                            case "locality":
+                                city =
+                                    response.results[0].address_components[i]
+                                        .long_name;
+                                break;
+                            case "administrative_area_level_1":
+                                state =
+                                    response.results[0].address_components[i]
+                                        .long_name;
+                                break;
+                            case "country":
+                                country =
+                                    response.results[0].address_components[i]
+                                        .long_name;
+                                break;
+                        }
                     }
                 }
+                setAddressValue({ address, city, state });
+                console.log("Adress: ", addressValue.city);
+            },
+            (error) => {
+                console.error(error);
             }
-            console.log("City ", city, "State ", state, "Country ", country);
-            setAddressValue(address);
-            setSettlementValue(city);
-            setRegionValue(state);
-            console.log("Adress: ", addressValue);
-        },
-        (error) => {
-            console.error(error);
-        }
-    );
+        );
+    };
 
     useEffect(async () => {
         setData(await getGoodCategories());
@@ -151,25 +141,11 @@ export default function Offer() {
                 >
                     <div className="topFormBlock">
                         <div className="addressBlock">
-                            <Form.Item
-                                name="address"
-                                rules={[
-                                    {
-                                        type: "string",
-                                        message:
-                                            inputValidationErrors.EMPTY_ADDRESS_MESSAGE,
-                                    },
-                                    {
-                                        required: true,
-                                        message:
-                                            inputValidationErrors.EMPTY_ADDRESS_MESSAGE,
-                                    },
-                                ]}
-                            >
+                            <Form.Item>
                                 <Input
-                                    type="text"
                                     placeholder="Enter your address"
-                                    value={addressValue}
+                                    value={addressValue.address}
+                                    name="address"
                                 />
                             </Form.Item>
                             <Form.Item
@@ -190,10 +166,10 @@ export default function Offer() {
                                 <Input
                                     type="text"
                                     placeholder="Enter your settlement"
+                                    value={addressValue.city}
                                 />
                             </Form.Item>
                             <Form.Item
-                                name="region"
                                 rules={[
                                     {
                                         type: "string",
@@ -211,6 +187,7 @@ export default function Offer() {
                                     type="text"
                                     placeholder="Enter your region"
                                     name="region"
+                                    value={addressValue.state}
                                 />
                             </Form.Item>
                         </div>
@@ -228,7 +205,10 @@ export default function Offer() {
                                 }
                                 id="map"
                             >
-                                <Marker position={clickedLatLng} />
+                                <Marker
+                                    position={clickedLatLng}
+                                    onPositionChanged={getData}
+                                />
                             </GoogleMap>
                         </div>
                     </div>
@@ -236,7 +216,7 @@ export default function Offer() {
                     <div className="bottomFormBlock">
                         <div className="otherOfferDataBlock">
                             <Form.Item name="goodCategoryId">
-                                <Select>
+                                <Select defaultValue={1}>
                                     {data?.map((res, idx) => (
                                         <Option value={idx + 1} key={idx}>
                                             {res.name}
