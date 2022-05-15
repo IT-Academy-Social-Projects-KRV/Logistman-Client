@@ -1,7 +1,7 @@
 import {errorMessage, successMessage} from "./alert.service";
 import {generalErrorMessages} from "../constants/messages/general";
 import carService from "../api/car";
-import { carErrorMessages } from './../constants/messages/car';
+import { carErrorMessages } from '../constants/messages/car';
 
 export function addCar(values) {
     let model = {
@@ -11,7 +11,7 @@ export function addCar(values) {
         loadCapacity: values.loadCapacity,
         color: values.color,
         vin: values.vin,
-        categoryId: values.category
+        categoryName: values.category
     };
 
     carService
