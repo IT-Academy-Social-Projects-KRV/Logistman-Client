@@ -20,8 +20,12 @@ export function addCar(values) {
             () => {
                 successMessage(carErrorMessages.CAR_ADDED_SUCCESSFUL);
             },
-            () => {
-                errorMessage(
+            (err) => {
+                err.response.status === 406
+                ? errorMessage(
+                    carErrorMessages.CAR_EXISTS_ERROR
+                )
+                : errorMessage(
                     carErrorMessages.CAR_ADDING_FAILED,
                     generalErrorMessages.SOMETHING_WENT_WRONG
                 );
@@ -30,6 +34,7 @@ export function addCar(values) {
         .catch(() => {
             errorMessage(
                 carErrorMessages.CAR_ADDING_FAILED,
+                carErrorMessages.CAR_EXISTS_ERROR,
                 generalErrorMessages.SOMETHING_WENT_WRONG
             );
         });

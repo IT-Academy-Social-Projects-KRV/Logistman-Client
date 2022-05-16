@@ -1,5 +1,5 @@
 import React from "react";
-import {Modal, Form, Input, InputNumber, Select, Button, AutoComplete} from 'antd';
+import {Modal, Form, Input, InputNumber, Select, Button} from 'antd';
 import {addCar} from "../../services/carService";
 import {errorMessage} from "../../services/alert.service";
 import { carErrorMessages } from "../../constants/messages/car";
@@ -28,19 +28,13 @@ class NewCarModal extends React.Component {
     };
 
     async componentDidMount() {
-        var carCategories = await getCarCategories();
-        // var _categories;
-        for(let category in carCategories){
-            category.value = category.name;
-            category.label = category.name;
-        }
-        // _carCategories.map((category, index) => {
-        //     category.value = category.name;
-        //     category.label = category.name;
-        //     return category;
-        // });
-        // this.setState({categories: carCategories});
-        console.log(carCategories);
+        let carCategories = await getCarCategories();
+        carCategories.map(category => {
+            category["value"] = category["name"];
+            category["label"] = category["name"];
+            return category;
+        });
+        this.setState({categories: carCategories});
     }
 
     onFinish = (values) => { //invokes after submit button pressed
@@ -65,15 +59,28 @@ class NewCarModal extends React.Component {
             >
 
                 <Form
+                    labelCol={{
+                        span: 8,
+                    }}
+                    wrapperCol={{
+                        span: 14,
+                    }}
                     onFinish={this.onFinish}
                     onFinishFailed={this.onFinishFailed}
                     scrollToFirstError
                 >
                     <Form.Item name="model"
+                               label={"Model: "}
                                rules={[
                                    {
                                        type: "string",
-                                       pattern: new RegExp("^[a-zA-Z\\d ]*$"),
+                                       pattern: new RegExp("^[A-Z]"),
+                                       message:
+                                       carErrorMessages.CANNOT_START_WITH_SPACE_MESSAGE
+                                   },
+                                   {
+                                       type: "string",
+                                       pattern: new RegExp("^([A-Za-z\\d ]?)*$"),
                                        message:
                                        carErrorMessages.NOT_VALID_MODEL_MESSAGE
                                    },
@@ -84,9 +91,10 @@ class NewCarModal extends React.Component {
                                    },
                                ]}
                     >
-                        <Input addonBefore="Model:" placeholder="Model"/>
+                        <Input /*addonBefore="Model:"*/ placeholder="Model"/>
                     </Form.Item>
                     <Form.Item name="technicalPassport"
+                               label="Technical Passport:"
                                rules={[
                                    {
                                        type: "string",
@@ -101,9 +109,10 @@ class NewCarModal extends React.Component {
                                    },
                                ]}
                     >
-                        <Input addonBefore="Technical Passport:" placeholder="Technical Passport"/>
+                        <Input placeholder="Technical Passport"/>
                     </Form.Item>
                     <Form.Item name="registrationNumber"
+                               label={"Registration Number: "}
                                rules={[
                                    {
                                        type: "string",
@@ -118,9 +127,10 @@ class NewCarModal extends React.Component {
                                    },
                                ]}
                     >
-                        <Input addonBefore="Registration Number:" placeholder="Registration Number"/>
+                        <Input placeholder="Registration Number"/>
                     </Form.Item>
                     <Form.Item name="loadCapacity"
+                               label={"Load Capacity: "}
                                rules={[
                                    {
                                        pattern: new RegExp("^[^0|\\D]\\d{0,9}(\\.\\d{1,2})?$"),
@@ -135,12 +145,12 @@ class NewCarModal extends React.Component {
                                ]}
                     >
                         <InputNumber min={0}
-                                     addonBefore="Load Capacity:"
                                      addonAfter="kg"
                                      placeholder="Load Capacity"
                         />
                     </Form.Item>
                     <Form.Item name="vin"
+                               label={"VIN: "}
                                rules={[
                                    {
                                        type: "string",
@@ -160,9 +170,10 @@ class NewCarModal extends React.Component {
                                    },
                                ]}
                     >
-                        <Input addonBefore="VIN:" placeholder="VIN"/>
+                        <Input placeholder="VIN"/>
                     </Form.Item>
-                    <Form.Item name="categoryName"
+                    <Form.Item name="category"
+                               label={"Category: "}
                                rules={[
                                    {
                                        required: true,
@@ -171,32 +182,19 @@ class NewCarModal extends React.Component {
                                    },
                                ]}
                     >
-                        {/*<AutoComplete*/}
-                        {/*    addonBefore="Category:"*/}
-                        {/*    options = {getCarCategories}*/}
-                        {/*></AutoComplete>*/}
                         <Select
-                            // addonBefore="Category:"
                             showSearch
                             placeholder="Category"
                             optionFilterProp="children"
                             filterOption={(input, option) =>
                                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                             }
-                            // options = {this.state.categories}
+                            options = {this.state.categories}
                         >
-                            {/*{this.state.categories.map((category, index) =>*/}
-                            {/*    <Select.Option value={category}>{category}</Select.Option>*/}
-                            {/*)}*/}
-                            {/*
-                            Categories are hardcoded,
-                            because there are no endpoint for getting them from server now.
-                            */}
-                            {/*<Select.Option value={2}>B</Select.Option>*/}
-                            {/*<Select.Option value={3}>C</Select.Option>*/}
                         </Select>
                     </Form.Item>
                     <Form.Item name="color"
+                               label={"Color: "}
                                rules={[
                                    {
                                        type: "string",
@@ -211,9 +209,12 @@ class NewCarModal extends React.Component {
                                    },
                                ]}
                     >
-                        <Input addonBefore="Color:" placeholder="Color"/>
+                        <Input placeholder="Color"/>
                     </Form.Item>
-                    <Form.Item>
+                    <Form.Item
+                        wrapperCol={{
+                            offset: 18
+                        }}>
                         <Button className="submitButton" type="primary" htmlType="submit">
                             Submit</Button>
                     </Form.Item>

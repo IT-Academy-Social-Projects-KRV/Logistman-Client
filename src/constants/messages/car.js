@@ -1,5 +1,6 @@
 export const carErrorMessages = Object.freeze({
     NOT_VALID_MODEL_MESSAGE: "The model can only contain latin letters, digits and spaces.",
+    CANNOT_START_WITH_SPACE_MESSAGE: "Cannot start with space or digit.",
     NOT_VALID_CAR_NUMBER_MESSAGE: "The registration number can only contain latin letters, digits and spaces.",
     NOT_VALID_TECH_PASSPORT_MESSAGE: "The technical passport can only contain latin letters, digits and spaces.",
     NOT_VALID_LOAD_CAPACITY_MESSAGE: "The load capacity cannot be 0.",
@@ -11,6 +12,7 @@ export const carErrorMessages = Object.freeze({
 
     CAR_ADDED_SUCCESSFUL: "Car added successfully.",
     CAR_ADDING_FAILED: "Failed to add car.",
+    CAR_EXISTS_ERROR: "Car with one or more such unique properties already exists.",
 
     CAR_ADDING_NOT_ALLOWED: "First, correct all comments!",
 

@@ -7,11 +7,10 @@ export async function getCarCategories(){
         .getAllCategories()
         .then(
             async (response) => {
-                return await response.data;
+                return await response.data["carCategories"];
             },
             () => {
                 errorMessage(
-                    //add custom error!
                     generalErrorMessages.SOMETHING_WENT_WRONG
                 );
             }
