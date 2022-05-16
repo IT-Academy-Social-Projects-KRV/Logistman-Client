@@ -56,8 +56,6 @@ export default function Offer() {
     const [clickedLatLng, setClickedLatLng] = useState(center);
     const [data, setData] = useState(null);
 
-    const [addressValue, setAddressValue] = useState({});
-
     const onLoad = useCallback(function callback(map) {
         const bounds = new window.google.maps.LatLngBounds(center);
         map.fitBounds(bounds);
@@ -68,11 +66,26 @@ export default function Offer() {
         setMap(null);
     }, []);
 
+    const [form] = Form.useForm();
+
+    // Get latitude & longitude from address.
+    const getAddressByName = (name) => {
+        Geocode.fromAddress(name).then(
+            (response) => {
+                const { lat, lng } = response.results[0].geometry.location;
+                console.log(lat, lng);
+            },
+            (error) => {
+                console.error(error);
+            }
+        );
+    };
+
     const getData = () => {
         Geocode.fromLatLng(clickedLatLng.lat, clickedLatLng.lng).then(
             (response) => {
                 const address = response.results[0].formatted_address;
-                let city, state, country;
+                let settlement, region, country;
                 for (
                     let i = 0;
                     i < response.results[0].address_components.length;
@@ -88,12 +101,12 @@ export default function Offer() {
                             response.results[0].address_components[i].types[j]
                         ) {
                             case "locality":
-                                city =
+                                settlement =
                                     response.results[0].address_components[i]
                                         .long_name;
                                 break;
                             case "administrative_area_level_1":
-                                state =
+                                region =
                                     response.results[0].address_components[i]
                                         .long_name;
                                 break;
@@ -105,8 +118,12 @@ export default function Offer() {
                         }
                     }
                 }
-                setAddressValue({ address, city, state });
-                console.log("Adress: ", addressValue.city);
+
+                form.setFieldsValue({
+                    address: address,
+                    settlement: settlement,
+                    region: region,
+                });
             },
             (error) => {
                 console.error(error);
@@ -132,6 +149,7 @@ export default function Offer() {
             <div className="createOfferBody">
                 <h1>Create offer</h1>
                 <Form
+                    form={form}
                     labelCol={{ span: 8 }}
                     wrapperCol={{ span: 16 }}
                     initialValues={{ remember: true }}
@@ -141,10 +159,9 @@ export default function Offer() {
                 >
                     <div className="topFormBlock">
                         <div className="addressBlock">
-                            <Form.Item>
+                            <Form.Item name="address">
                                 <Input
                                     placeholder="Enter your address"
-                                    value={addressValue.address}
                                     name="address"
                                 />
                             </Form.Item>
@@ -164,30 +181,28 @@ export default function Offer() {
                                 ]}
                             >
                                 <Input
-                                    type="text"
+                                    name="settlement"
                                     placeholder="Enter your settlement"
-                                    value={addressValue.city}
                                 />
                             </Form.Item>
                             <Form.Item
+                                name="region"
                                 rules={[
                                     {
                                         type: "string",
                                         message:
-                                            inputValidationErrors.EMPTY_REGION_MESSAGE,
+                                            inputValidationErrors.EMPTY_SETTLEMENT_MESSAGE,
                                     },
                                     {
                                         required: true,
                                         message:
-                                            inputValidationErrors.EMPTY_REGION_MESSAGE,
+                                            inputValidationErrors.EMPTY_SETTLEMENT_MESSAGE,
                                     },
                                 ]}
                             >
                                 <Input
-                                    type="text"
-                                    placeholder="Enter your region"
                                     name="region"
-                                    value={addressValue.state}
+                                    placeholder="Enter your settlement"
                                 />
                             </Form.Item>
                         </div>
@@ -216,7 +231,7 @@ export default function Offer() {
                     <div className="bottomFormBlock">
                         <div className="otherOfferDataBlock">
                             <Form.Item name="goodCategoryId">
-                                <Select defaultValue={1}>
+                                <Select>
                                     {data?.map((res, idx) => (
                                         <Option value={idx + 1} key={idx}>
                                             {res.name}
