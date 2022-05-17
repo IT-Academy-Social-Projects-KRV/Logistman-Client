@@ -1,7 +1,7 @@
 import {errorMessage, successMessage} from "./alert.service";
 import {generalErrorMessages} from "../constants/messages/general";
 import carService from "../api/car";
-import { carErrorMessages } from '../constants/messages/car';
+import {carErrorMessages} from '../constants/messages/car';
 
 export function addCar(values) {
     let model = {
@@ -22,13 +22,13 @@ export function addCar(values) {
             },
             (err) => {
                 err.response.status === 406
-                ? errorMessage(
-                    carErrorMessages.CAR_EXISTS_ERROR
-                )
-                : errorMessage(
-                    carErrorMessages.CAR_ADDING_FAILED,
-                    generalErrorMessages.SOMETHING_WENT_WRONG
-                );
+                    ? errorMessage(
+                        carErrorMessages.CAR_EXISTS_ERROR
+                    )
+                    : errorMessage(
+                        carErrorMessages.CAR_ADDING_FAILED,
+                        generalErrorMessages.SOMETHING_WENT_WRONG
+                    );
             }
         )
         .catch(() => {

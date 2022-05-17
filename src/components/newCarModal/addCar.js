@@ -2,7 +2,7 @@ import React from "react";
 import {Modal, Form, Input, InputNumber, Select, Button} from 'antd';
 import {addCar} from "../../services/carService";
 import {errorMessage} from "../../services/alert.service";
-import { carErrorMessages } from "../../constants/messages/car";
+import {carErrorMessages} from "../../constants/messages/car";
 import {getCarCategories} from "../../services/carCategoryService";
 
 // change the type of file to .jsx
@@ -187,9 +187,9 @@ class NewCarModal extends React.Component {
                             placeholder="Category"
                             optionFilterProp="children"
                             filterOption={(input, option) =>
-                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                option.value.toLowerCase().indexOf(input.toLowerCase()) >= 0
                             }
-                            options = {this.state.categories}
+                            options={this.state.categories}
                         >
                         </Select>
                     </Form.Item>

@@ -13,6 +13,7 @@ export const carErrorMessages = Object.freeze({
     CAR_ADDED_SUCCESSFUL: "Car added successfully.",
     CAR_ADDING_FAILED: "Failed to add car.",
     CAR_EXISTS_ERROR: "Car with one or more such unique properties already exists.",
+    CAR_CATEGORIES_NOT_FOUND: "Failed to load car categories.",
 
     CAR_ADDING_NOT_ALLOWED: "First, correct all comments!",
 
