@@ -2,7 +2,8 @@ import React from "react";
 import {Modal, Form, Input, InputNumber, Select, Button} from 'antd';
 import {addCar} from "../../services/carService";
 import {errorMessage} from "../../services/alert.service";
-import { carErrorMessages } from "../../constants/messages/car";
+import {carErrorMessages} from "../../constants/messages/car";
+import {getCarCategories} from "../../services/carCategoryService";
 
 // change the type of file to .jsx
 
@@ -11,6 +12,13 @@ import { carErrorMessages } from "../../constants/messages/car";
  but it will be rewritten later
  */
 class NewCarModal extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            categories: []
+        };
+    }
+
     close = () => {
         const {
             closeModal
@@ -18,6 +26,16 @@ class NewCarModal extends React.Component {
 
         closeModal();
     };
+
+    async componentDidMount() {
+        let carCategories = await getCarCategories();
+        carCategories.map(category => {
+            category["value"] = category["name"];
+            category["label"] = category["name"];
+            return category;
+        });
+        this.setState({categories: carCategories});
+    }
 
     onFinish = (values) => { //invokes after submit button pressed
         addCar(values);
@@ -41,15 +59,28 @@ class NewCarModal extends React.Component {
             >
 
                 <Form
+                    labelCol={{
+                        span: 8,
+                    }}
+                    wrapperCol={{
+                        span: 14,
+                    }}
                     onFinish={this.onFinish}
                     onFinishFailed={this.onFinishFailed}
                     scrollToFirstError
                 >
                     <Form.Item name="model"
+                               label={"Model: "}
                                rules={[
                                    {
                                        type: "string",
-                                       pattern: new RegExp("^[a-zA-Z\\d ]*$"),
+                                       pattern: new RegExp("^[A-Z]"),
+                                       message:
+                                       carErrorMessages.UPPERCASE_FIRST_LETTER_MESSAGE
+                                   },
+                                   {
+                                       type: "string",
+                                       pattern: new RegExp("^([A-Za-z\\d ]?)*$"),
                                        message:
                                        carErrorMessages.NOT_VALID_MODEL_MESSAGE
                                    },
@@ -60,9 +91,10 @@ class NewCarModal extends React.Component {
                                    },
                                ]}
                     >
-                        <Input addonBefore="Model:" placeholder="Model"/>
+                        <Input placeholder="Model"/>
                     </Form.Item>
                     <Form.Item name="technicalPassport"
+                               label="Technical Passport:"
                                rules={[
                                    {
                                        type: "string",
@@ -77,9 +109,10 @@ class NewCarModal extends React.Component {
                                    },
                                ]}
                     >
-                        <Input addonBefore="Technical Passport:" placeholder="Technical Passport"/>
+                        <Input placeholder="Technical Passport"/>
                     </Form.Item>
                     <Form.Item name="registrationNumber"
+                               label={"Registration Number: "}
                                rules={[
                                    {
                                        type: "string",
@@ -94,9 +127,10 @@ class NewCarModal extends React.Component {
                                    },
                                ]}
                     >
-                        <Input addonBefore="Registration Number:" placeholder="Registration Number"/>
+                        <Input placeholder="Registration Number"/>
                     </Form.Item>
                     <Form.Item name="loadCapacity"
+                               label={"Load Capacity: "}
                                rules={[
                                    {
                                        pattern: new RegExp("^[^0|\\D]\\d{0,9}(\\.\\d{1,2})?$"),
@@ -111,12 +145,12 @@ class NewCarModal extends React.Component {
                                ]}
                     >
                         <InputNumber min={0}
-                                     addonBefore="Load Capacity:"
                                      addonAfter="kg"
                                      placeholder="Load Capacity"
                         />
                     </Form.Item>
                     <Form.Item name="vin"
+                               label={"VIN: "}
                                rules={[
                                    {
                                        type: "string",
@@ -136,9 +170,10 @@ class NewCarModal extends React.Component {
                                    },
                                ]}
                     >
-                        <Input addonBefore="VIN:" placeholder="VIN"/>
+                        <Input placeholder="VIN"/>
                     </Form.Item>
                     <Form.Item name="category"
+                               label={"Category: "}
                                rules={[
                                    {
                                        required: true,
@@ -148,24 +183,18 @@ class NewCarModal extends React.Component {
                                ]}
                     >
                         <Select
-                            addonBefore="Category:"
                             showSearch
                             placeholder="Category"
                             optionFilterProp="children"
                             filterOption={(input, option) =>
-                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                option.value.toLowerCase().indexOf(input.toLowerCase()) >= 0
                             }
+                            options={this.state.categories}
                         >
-                            {/*
-                            Categories are hardcoded,
-                            because there are no endpoint for getting them from server now.
-                            */}
-                            <Select.Option value={1}>A</Select.Option>
-                            <Select.Option value={2}>B</Select.Option>
-                            <Select.Option value={3}>C</Select.Option>
                         </Select>
                     </Form.Item>
                     <Form.Item name="color"
+                               label={"Color: "}
                                rules={[
                                    {
                                        type: "string",
@@ -180,9 +209,12 @@ class NewCarModal extends React.Component {
                                    },
                                ]}
                     >
-                        <Input addonBefore="Color:" placeholder="Color"/>
+                        <Input placeholder="Color"/>
                     </Form.Item>
-                    <Form.Item>
+                    <Form.Item
+                        wrapperCol={{
+                            offset: 18
+                        }}>
                         <Button className="submitButton" type="primary" htmlType="submit">
                             Submit</Button>
                     </Form.Item>
