@@ -23,6 +23,7 @@ export function addCar(values) {
             (err) => {
                 err.response.status === 406
                     ? errorMessage(
+                        carErrorMessages.CAR_ADDING_FAILED,
                         carErrorMessages.CAR_EXISTS_ERROR
                     )
                     : errorMessage(

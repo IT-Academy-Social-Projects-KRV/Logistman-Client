@@ -1,6 +1,6 @@
 export const carErrorMessages = Object.freeze({
     NOT_VALID_MODEL_MESSAGE: "The model can only contain latin letters, digits and spaces.",
-    CANNOT_START_WITH_SPACE_MESSAGE: "Cannot start with space or digit.",
+    UPPERCASE_FIRST_LETTER_MESSAGE: "Field should start with uppercase letter.",
     NOT_VALID_CAR_NUMBER_MESSAGE: "The registration number can only contain latin letters, digits and spaces.",
     NOT_VALID_TECH_PASSPORT_MESSAGE: "The technical passport can only contain latin letters, digits and spaces.",
     NOT_VALID_LOAD_CAPACITY_MESSAGE: "The load capacity cannot be 0.",

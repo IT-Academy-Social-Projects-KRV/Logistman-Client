@@ -74,9 +74,9 @@ class NewCarModal extends React.Component {
                                rules={[
                                    {
                                        type: "string",
-                                       pattern: new RegExp("^[A-Z]"),
+                                       pattern: new RegExp("^([A-Z])"),
                                        message:
-                                       carErrorMessages.CANNOT_START_WITH_SPACE_MESSAGE
+                                       carErrorMessages.UPPERCASE_FIRST_LETTER_MESSAGE
                                    },
                                    {
                                        type: "string",
@@ -91,7 +91,7 @@ class NewCarModal extends React.Component {
                                    },
                                ]}
                     >
-                        <Input /*addonBefore="Model:"*/ placeholder="Model"/>
+                        <Input placeholder="Model"/>
                     </Form.Item>
                     <Form.Item name="technicalPassport"
                                label="Technical Passport:"
