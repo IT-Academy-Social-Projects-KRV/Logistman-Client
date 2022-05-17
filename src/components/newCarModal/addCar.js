@@ -74,7 +74,7 @@ class NewCarModal extends React.Component {
                                rules={[
                                    {
                                        type: "string",
-                                       pattern: new RegExp("^([A-Z])"),
+                                       pattern: new RegExp("^[A-Z]"),
                                        message:
                                        carErrorMessages.UPPERCASE_FIRST_LETTER_MESSAGE
                                    },
