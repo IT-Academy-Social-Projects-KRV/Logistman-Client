@@ -8,6 +8,10 @@ import { useHistory } from "react-router-dom";
 import { inputValidationErrors } from "../../constants/messages/inputValidationErrors";
 import { Form, Input, Button, DatePicker, AutoComplete, Select } from "antd";
 import Geocode from "react-geocode";
+import GooglePlacesAutocomplete, {
+    geocodeByAddress,
+    getLatLng,
+} from "react-google-places-autocomplete";
 
 Geocode.setApiKey(API);
 
@@ -160,10 +164,7 @@ export default function Offer() {
                     <div className="topFormBlock">
                         <div className="addressBlock">
                             <Form.Item name="address">
-                                <Input
-                                    placeholder="Enter your address"
-                                    name="address"
-                                />
+                                <GooglePlacesAutocomplete apiKey="AIzaSyAdPX1hEy04ED1D8TLhLsTEwNSJ5xbo0Vo" />
                             </Form.Item>
                             <Form.Item
                                 name="settlement"
