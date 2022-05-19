@@ -1,17 +1,17 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
-import { API, GEOCODING_API_KEY } from "../../constants/map";
+import { API } from "../../constants/map";
 import Header from "../navigation/header";
 import { createOffer } from "../../services/offerService";
 import { getGoodCategories } from "../../services/goodCategoryService";
 import { useHistory } from "react-router-dom";
 import { inputValidationErrors } from "../../constants/messages/inputValidationErrors";
-import { Form, Input, Button, DatePicker, AutoComplete, Select } from "antd";
+import { Form, Input, Button, DatePicker, Select } from "antd";
 import Geocode from "react-geocode";
-import GooglePlacesAutocomplete, {
+import PlacesAutocomplete, {
     geocodeByAddress,
-    getLatLng,
-} from "react-google-places-autocomplete";
+    getLatLng
+} from "react-places-autocomplete";
 
 Geocode.setApiKey(API);
 
@@ -37,14 +37,15 @@ const center = {
 const defaultOptions = {
     panControl: true,
     zoomControl: true,
+    zoomEnabled: true,
     mapTypeControl: true,
-    scaleControle: false,
-    streetViewControl: false,
-    rotateControl: false,
+    disableDefaultUI: true,
+    scaleControle: true,
+    streetViewControl: true,
+    rotateControl: true,
     clickableIcons: true,
-    keyboardShortcuts: false,
+    keyboardShortcuts: true,
     scrollwheel: true,
-    disableDoubleClickZoom: false,
     fullscreenControl: true,
 };
 
@@ -60,6 +61,20 @@ export default function Offer() {
     const [clickedLatLng, setClickedLatLng] = useState(center);
     const [data, setData] = useState(null);
 
+    const [address, setAddress] = React.useState("");
+    const [coordinates, setCoordinates] = React.useState({
+        lat: null,
+        lng: null
+    });
+
+    const handleSelect = async value => {
+        const results = await geocodeByAddress(value);
+        const latLng = await getLatLng(results[0]);
+        setAddress(value);
+        setClickedLatLng(latLng);
+        setCoordinates(latLng);
+    };
+
     const onLoad = useCallback(function callback(map) {
         const bounds = new window.google.maps.LatLngBounds(center);
         map.fitBounds(bounds);
@@ -72,24 +87,11 @@ export default function Offer() {
 
     const [form] = Form.useForm();
 
-    // Get latitude & longitude from address.
-    const getAddressByName = (name) => {
-        Geocode.fromAddress(name).then(
-            (response) => {
-                const { lat, lng } = response.results[0].geometry.location;
-                console.log(lat, lng);
-            },
-            (error) => {
-                console.error(error);
-            }
-        );
-    };
-
-    const getData = () => {
-        Geocode.fromLatLng(clickedLatLng.lat, clickedLatLng.lng).then(
+    const getData = (lat, lng) => {
+        Geocode.fromLatLng(lat, lng).then(
             (response) => {
                 const address = response.results[0].formatted_address;
-                let settlement, region, country;
+                let settlement, region;
                 for (
                     let i = 0;
                     i < response.results[0].address_components.length;
@@ -114,17 +116,11 @@ export default function Offer() {
                                     response.results[0].address_components[i]
                                         .long_name;
                                 break;
-                            case "country":
-                                country =
-                                    response.results[0].address_components[i]
-                                        .long_name;
-                                break;
                         }
                     }
                 }
 
                 form.setFieldsValue({
-                    address: address,
                     settlement: settlement,
                     region: region,
                 });
@@ -135,14 +131,15 @@ export default function Offer() {
         );
     };
 
-    useEffect(async () => {
-        setData(await getGoodCategories());
-    }, []);
+    /*useEffect(async () => {
+        /!*setData(await getGoodCategories());*!/
+    });*/
 
     const onFinish = (values) => {
         console.log(values);
         createOffer(values, clickedLatLng, history);
     };
+
     const onFinishFailed = (values) => {
         console.log("error");
     };
@@ -164,7 +161,36 @@ export default function Offer() {
                     <div className="topFormBlock">
                         <div className="addressBlock">
                             <Form.Item name="address">
-                                <GooglePlacesAutocomplete apiKey="AIzaSyAdPX1hEy04ED1D8TLhLsTEwNSJ5xbo0Vo" />
+                                <PlacesAutocomplete
+                                    value={address}
+                                    onChange={setAddress}
+                                    onSelect={handleSelect}
+                                >
+                                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                        <div>
+                                            <p>Latitude: {coordinates.lat}</p>
+                                            <p>Longitude: {coordinates.lng}</p>
+
+                                            <input {...getInputProps({ placeholder: "Type address" })} />
+
+                                            <div>
+                                                {loading ? <div>...loading</div> : null}
+
+                                                {suggestions.map(suggestion => {
+                                                    const style = {
+                                                        backgroundColor: suggestion.active ? "#41b6e6" : "#fff"
+                                                    };
+
+                                                    return (
+                                                        <div {...getSuggestionItemProps(suggestion, { style })}>
+                                                            {suggestion.description}
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
+                                        </div>
+                                    )}
+                                </PlacesAutocomplete>
                             </Form.Item>
                             <Form.Item
                                 name="settlement"
@@ -215,15 +241,31 @@ export default function Offer() {
                                 onLoad={onLoad}
                                 onUnmount={onUnmount}
                                 options={defaultOptions}
-                                defaultZoom={18}
-                                onClick={(e) =>
-                                    setClickedLatLng(e.latLng.toJSON())
-                                }
-                                id="map"
+                                zoom={18}
+                                onClick={(e) => setClickedLatLng(e.latLng.toJSON())}
+                                    id="map"
                             >
                                 <Marker
                                     position={clickedLatLng}
-                                    onPositionChanged={getData}
+                                    onPositionChanged={getData(
+                                        clickedLatLng.lat,
+                                        clickedLatLng.lng
+                                    )}
+                                    icon={{
+                                        url: "https://cdn-icons-png.flaticon.com/512/1067/1067357.png",
+                                        origin: new window.google.maps.Point(
+                                            0,
+                                            0
+                                        ),
+                                        anchor: new window.google.maps.Point(
+                                            15,
+                                            15
+                                        ),
+                                        scaledSize: new window.google.maps.Size(
+                                            30,
+                                            30
+                                        ),
+                                    }}
                                 />
                             </GoogleMap>
                         </div>
