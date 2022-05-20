@@ -5,7 +5,7 @@ import offerService from "../api/offer";
 
 export function createOffer(values, coordinates, history) {
     var utcStartDate = new Date(values.startDate._d).toISOString();
-    var utcExpirationDate = new Date();
+    var utcExpirationDate = new Date(values.startDate._d);
     utcExpirationDate.setDate(utcExpirationDate.getDate() + 1);
 
     var model = {
@@ -13,7 +13,7 @@ export function createOffer(values, coordinates, history) {
         goodsWeight: values.goodsWeight,
         startDate: utcStartDate,
         expirationDate: utcExpirationDate,
-        goodCategoryId: values.goodCategoryId,
+        goodCategory: values.goodCategory,
         role: "SENDER",
         point: {
             latitude: coordinates.lat,
@@ -22,6 +22,7 @@ export function createOffer(values, coordinates, history) {
             settlement: values.settlement,
             region: values.region,
             order: 0,
+            tripId: null,
         },
     };
 

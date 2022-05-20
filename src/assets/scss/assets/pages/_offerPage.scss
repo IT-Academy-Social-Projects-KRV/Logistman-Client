@@ -3,129 +3,104 @@
 @import "../variables/others";
 
 .createOfferBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 80px;
+  width: 100%;
+
+  .ant-form {
+    width: 90%;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    padding: 40px;
+    border-radius: 15px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 80px;
-    width: 100%;
+    flex-direction: row;
 
-    .ant-form {
-        width: 95%;
-        box-shadow: rgb(85, 91, 255) 0px 0px 0px 3px, rgb(31, 193, 27) 0px 0px 0px 6px, rgb(255, 217, 19) 0px 0px 0px 9px, rgb(255, 156, 85) 0px 0px 0px 12px, rgb(255, 85, 85) 0px 0px 0px 15px;
-        padding: 40px;
-        border-radius: 15px;
-
-        .mapBlock {
-            height: 260px;
-        }
-
-        .ant-form-item {
-            margin-bottom: 15px;
-        }
-
-        .ant-form-item input[type=text],
-        .ant-picker {
-            width: 500px;
-            border-radius: 5px;
-            padding: 10px;
-        }
-
-        .ant-form-item .submitButton {
-            background-color: $input_color;
-            font-weight: 500;
-            border-radius: 5px;
-            border: none;
-            width: 200px;
-            font-size: 16px;
-            padding: 6px;
-            margin-top: 10px;
-            height: auto;
-            margin-bottom: 0px;
-        }
-
-        .topFormBlock {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            flex-direction: row;
-            margin-bottom: 20px;
-
-            .addressBlock,
-            .mapBlock {
-                width: 50%;
-            }
-        }
-
-        .bottomFormBlock {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            flex-direction: row;
-
-            .otherOfferDataBlock {
-                width: 50%;
-
-                .description {
-                    div {
-                        width: 600px;
-                    }
-                }
-            }
-        }
+    .mapBlock {
+      height: 260px;
     }
-}
 
-@media only screen and (min-width: $max_tablet_size) and (max-width: $max_laptop_size) {
+    .ant-form-item {
+      margin-bottom: 15px;
+    }
+
     .ant-form-item input[type=text],
-        .ant-picker {
-            width: 300px ;
-        }
-    .description {
-        div {
-            width: 450px ;
-        }
+    .ant-picker {
+      width: 100%;
+      border-radius: 5px;
+      padding: 10px;
     }
-}
-@media only screen and (min-width: $max_phone_size) and (max-width: $max_tablet_size) {
-    .ant-form-item input[type=text],
-        .ant-picker {
-            width: 200px ;
-        }
-    .description {
-        div {
-            width: 300px !important;
-        }
+
+    .ant-form-item .submitButton {
+      background-color: $input_color;
+      font-weight: 500;
+      border-radius: 5px;
+      border: none;
+      width: 200px;
+      font-size: 16px;
+      padding: 6px;
+      margin-top: 10px;
+      height: auto;
+      margin-bottom: 0px;
+      float: right;
     }
+
+    .leftFormBlock {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+    }
+
+    .description-item {
+      padding: 10px;
+      border: 1px solid #69c0ff;
+    }
+
+    .rightFormBlock {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+
+      .mapBlock {
+        width: 100%;
+        height: 80%;
+      }
+
+      .description {
+        div {
+          width: 100%;
+        }
+      }
+    }
+  }
 }
+
+
 @media only screen and (max-width: $max_phone_size) {
-    .ant-form{
-        display: flex;
-        flex-direction: column;
-    }
-    .topFormBlock{
-        display: flex;
-        flex-direction: column-reverse !important;
-    }
+  .ant-form {
+    display: flex;
+    flex-direction: column !important;
+  }
 
-    .bottomFormBlock{
-        display: flex;
-        flex-direction: column !important;
+  .ant-form-item input[type=text],
+  .ant-picker {
+    width: 100% !important;
+  }
+
+  .mapBlock {
+    width: 100% !important;
+    height: 200px !important;
+    margin-bottom: 10px;
+  }
+  .description {
+    div {
+      width: 100% !important;
     }
-
-    .ant-form-item input[type=text],
-        .ant-picker {
-            width: 200px !important;
-        }
-
-        .mapBlock{
-            width: 200px !important;
-            height: 200px !important;
-            margin-bottom: 10px;
-        }
-        .description {
-            div {
-                width: 200px !important;
-            }
-        }
+  }
+  .ant-form-item .submitButton {
+    width: 100% !important;
+  }
 }
