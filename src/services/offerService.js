@@ -3,9 +3,10 @@ import { generalErrorMessages } from "../constants/messages/general";
 import { offerErrorMessages } from "../constants/messages/offer";
 import offerService from "../api/offer";
 
-export function createOffer(values, coordinates, history) {
-    var utcStartDate = new Date(values.startDate._d).toISOString();
-    var utcExpirationDate = new Date(values.startDate._d);
+export function createOffer(values, coordinates) {
+    var utcStartDate = new Date(values.startDate);
+    utcStartDate.setHours(utcStartDate.getHours() + 1);
+    var utcExpirationDate = new Date(values.startDate);
     utcExpirationDate.setDate(utcExpirationDate.getDate() + 1);
 
     var model = {
