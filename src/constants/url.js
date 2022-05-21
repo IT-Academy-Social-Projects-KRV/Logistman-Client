@@ -12,7 +12,8 @@ export const AUTHENTICATION_URLS = {
 };
 
 export const USER_URLS = {
-    USER_INFO: USER_URL + "/user-info"
+    USER_INFO: USER_URL + "/user-info",
+    USER_EDIT_INFO: USER_URL + "/edit-info"
 };
 
 export const CAR_URLS = {
