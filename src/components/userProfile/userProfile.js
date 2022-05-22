@@ -1,10 +1,10 @@
 import React from "react";
 import {editUserInfo, getUserProfileInfo} from '../../services/userService';
 import Header from '../navigation/header';
-import {Button, Form, Input, Layout} from 'antd';
+import {Button, Form, Input, Layout, Popconfirm} from 'antd';
 import {CheckOutlined, CloseOutlined, PlusCircleOutlined} from '@ant-design/icons';
 import NewCarModal from "../newCarModal/index";
-import {errorMessage} from "../../services/alert.service";
+import {confirmMessage, errorMessage} from "../../services/alert.service";
 import {generalErrorMessages} from "../../constants/messages/general";
 import {inputValidationErrors} from "../../constants/messages/inputValidationErrors";
 import {userErrorMessages} from "../../constants/messages/user";
@@ -14,25 +14,23 @@ import {userErrorMessages} from "../../constants/messages/user";
  but it will be rewritten later
  */
 class UserProfilePage extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
             isModalOpen: this.props.isModalOpen
         };
-    }
+    };
 
     componentDidMount = async () => {
-        const userData = await getUserProfileInfo()
-        this.setState({userData: userData})
-    }
+        const userData = await getUserProfileInfo();
+        this.setState({userData: userData});
+    };
 
     static getDerivedStateFromProps = (nextProps, prevState) => {
-
         return {
             isModalOpen: nextProps.isModalOpen
         };
-    }
+    };
 
     onFinishFailed = () => {
         errorMessage(
@@ -42,7 +40,11 @@ class UserProfilePage extends React.Component {
     };
 
     onFinish = (values) => {
-        editUserInfo(values);
+        confirmMessage().then((res) => {
+            if (res) {
+                editUserInfo(values);
+            }
+        });
     };
 
     openModal_ = () => {
@@ -50,10 +52,9 @@ class UserProfilePage extends React.Component {
             openModal
         } = this.props;
         openModal();
-    }
+    };
 
     onNameChange = (e) => {
-        console.log(this.state)
         this.setState(prevState => ({
             userData: {
                 ...prevState.userData,
@@ -63,7 +64,6 @@ class UserProfilePage extends React.Component {
     };
 
     onSurnameChange = (e) => {
-        console.log(this.state)
         this.setState(prevState => ({
             userData: {
                 ...prevState.userData,
@@ -80,7 +80,6 @@ class UserProfilePage extends React.Component {
         }
 
         return (
-
             <Layout className="profilePageBody">
                 <Header/>
 
@@ -89,10 +88,12 @@ class UserProfilePage extends React.Component {
                         <div className="infoName">
                             <p> Full name </p>
                         </div>
+
                         <div>
                             <p>{userData.name + ' ' + userData.surname}</p>
                         </div>
                     </div>
+
                     <Form
                         onFinish={this.onFinish}
                         onFinishFailed={this.onFinishFailed}
@@ -101,6 +102,7 @@ class UserProfilePage extends React.Component {
                             <div className="infoName">
                                 <p> Name </p>
                             </div>
+
                             <div className="inputBlock">
                                 <Form.Item className="formItem" name="name"
                                            initialValue={userData.name}
@@ -136,7 +138,9 @@ class UserProfilePage extends React.Component {
                             <div className="infoName">
                                 <p> Surname </p>
                             </div>
+
                             <div className="inputBlock">
+
                                 <Form.Item className="formItem" name="surname"
                                            initialValue={userData.surname}
                                            rules={[
@@ -171,7 +175,9 @@ class UserProfilePage extends React.Component {
                             <div className="infoName">
                                 <p> Email </p>
                             </div>
+
                             <div className="inputBlock">
+
                                 <Form.Item className="formItem" name="email"
                                            initialValue={userData.email}
                                            rules={[
@@ -196,6 +202,7 @@ class UserProfilePage extends React.Component {
                             <div className="infoName">
                                 <p> Is your email confirmed </p>
                             </div>
+
                             <div className="infoInput">
                                 {userData.isEmailConfirmed ?
                                     <CheckOutlined/> :
@@ -203,6 +210,7 @@ class UserProfilePage extends React.Component {
                                 }
                             </div>
                         </div>
+
                         <div className="blockButton">
                             <Button type="primary"
                                     className="addItemButton"
@@ -210,8 +218,12 @@ class UserProfilePage extends React.Component {
                                     onClick={() => this.openModal_()}>
                                 Add car
                             </Button>
-                            <Button type="primary" htmlType="submit">
-                                Edit
+
+                            <Button
+                                htmlType={"submit"}
+                                type="primary"
+                            >
+                                Save
                             </Button>
                             {isModalOpen && <NewCarModal/>}
                         </div>
@@ -219,6 +231,7 @@ class UserProfilePage extends React.Component {
                 </Layout>
             </Layout>
         );
-    };
+    }
 }
+
 export default UserProfilePage;

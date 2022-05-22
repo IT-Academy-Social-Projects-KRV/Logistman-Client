@@ -47,7 +47,7 @@ export function editUserInfo(values) {
         .editUserInfo(model)
         .then(
             () => {
-                successMessage(carErrorMessages.CAR_ADDED_SUCCESSFUL);
+                successMessage(userErrorMessages.EDIT_USER_PROFILE_SUCCESS);
             },
             (err) => {
                 err.response.status === 406
