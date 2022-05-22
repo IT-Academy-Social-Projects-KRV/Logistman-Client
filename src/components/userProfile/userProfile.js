@@ -1,7 +1,7 @@
 import React from "react";
 import {editUserInfo, getUserProfileInfo} from '../../services/userService';
 import Header from '../navigation/header';
-import {Button, Form, Input, Layout, Popconfirm} from 'antd';
+import {Button, Form, Input, Layout} from 'antd';
 import {CheckOutlined, CloseOutlined, PlusCircleOutlined} from '@ant-design/icons';
 import NewCarModal from "../newCarModal/index";
 import {confirmMessage, errorMessage} from "../../services/alert.service";
@@ -42,7 +42,13 @@ class UserProfilePage extends React.Component {
     onFinish = (values) => {
         confirmMessage().then((res) => {
             if (res) {
-                editUserInfo(values);
+                var userData = this.state.userData;
+                if (userData.name !== values.name ||
+                    userData.surname !== values.surname ||
+                    userData.email !== values.email) {
+                    editUserInfo(values);
+                    this.setState({userData: values});
+                }
             }
         });
     };

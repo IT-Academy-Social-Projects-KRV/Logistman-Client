@@ -3,7 +3,6 @@ import {errorMessage, successMessage} from "./alert.service";
 import { generalErrorMessages } from "./../constants/messages/general";
 import userService from "./../api/user";
 import { checkIsUserRoleValid } from "./authentication";
-import {carErrorMessages} from "../constants/messages/car";
 
 export async function getUserName() {
 
@@ -37,25 +36,14 @@ export function getUserProfileInfo() {
         });
 }
 export function editUserInfo(values) {
-    let model = {
-        name: values.name,
-        surname: values.surname,
-        email: values.email
-    };
-
     userService
-        .editUserInfo(model)
+        .editUserInfo(values)
         .then(
             () => {
                 successMessage(userErrorMessages.EDIT_USER_PROFILE_SUCCESS);
             },
-            (err) => {
-                err.response.status === 406
-                    ? errorMessage(
-                        userErrorMessages.EDIT_USER_PROFILE_FAILED,
-                        userErrorMessages.EDIT_USER_PROFILE_FAILED_USER_ALREADY_EXIST
-                    )
-                    : errorMessage(
+            () => {
+                errorMessage(
                         userErrorMessages.EDIT_USER_PROFILE_FAILED,
                         generalErrorMessages.SOMETHING_WENT_WRONG
                     );
@@ -64,7 +52,7 @@ export function editUserInfo(values) {
         .catch(() => {
             errorMessage(
                 userErrorMessages.EDIT_USER_PROFILE_FAILED,
-                userErrorMessages.EDIT_USER_PROFILE_FAILED_USER_ALREADY_EXIST,
+                userErrorMessages.EDIT_USER_PROFILE_FAILED_EMAIL_ALREADY_EXIST,
                 generalErrorMessages.SOMETHING_WENT_WRONG
             );
         });
