@@ -6,9 +6,10 @@ export const logout = () => {
     };
 }
 
-export const setUserRole = () => {
+export const setAccess = (token) => {
     return {
-        type: types.SET_USER_ROLE
+        type: types.SET_ACCESS,
+        payload: token
     };
 }
 

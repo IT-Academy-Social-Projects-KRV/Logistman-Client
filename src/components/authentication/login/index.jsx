@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Form, Input, Button, Checkbox } from "antd";
 import { Link } from "react-router-dom";
@@ -7,6 +7,7 @@ import { login } from "../../../services/authentication";
 import { errorMessage } from "../../../services/alert.service";
 import { authErrors } from "../../../constants/messages/authMessages";
 import { generalErrorMessages } from "../../../constants/messages/general";
+import tokenService from "../../../services/token.service";
 
 function Login() {
     let history = useHistory();
@@ -21,6 +22,10 @@ function Login() {
             generalErrorMessages.CORRECT_ALL_COMMENTS
         );
     };
+
+    useEffect(async () => {
+        tokenService.deleteTokens();
+    }, []);
 
     return (
         <div className="authBody">

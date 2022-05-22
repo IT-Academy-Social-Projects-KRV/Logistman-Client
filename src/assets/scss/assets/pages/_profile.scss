@@ -1,3 +1,5 @@
+@import '../variables/colors';
+
 .profilePageBody {
     padding: 105px 40px 0px 40px;
     background-color: white;
@@ -23,5 +25,9 @@
         .infoInput {
             width: 60%;
         }
+    }
+    .addItemButton {
+        background-color: $body_color;
+        border: none;
     }
 }
