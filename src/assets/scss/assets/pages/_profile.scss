@@ -1,33 +1,52 @@
 @import '../variables/colors';
 
 .profilePageBody {
-    padding: 105px 40px 0px 40px;
-    background-color: white;
+  padding: 105px 40px 0px 40px;
+  background-color: white;
 
-    #infoBlock {
-        padding: 40px 40px 25px 40px;
-        border: 2px solid rgb(0 0 0 / 15%);
-        border-radius: 10px;
-        background: white;
+  #infoBlock {
+    padding: 40px 40px 25px 40px;
+    border: 2px solid rgb(0 0 0 / 15%);
+    border-radius: 10px;
+    background: white;
+  }
 
-        .info {
-            div {
-                display: inline-block;
-            }
-
-            margin-bottom: 15px;
-        }
-
-        .infoName {
-            width: 40%;
-        }
-
-        .infoInput {
-            width: 60%;
-        }
+  .info {
+    div {
+      display: inline-block;
     }
-    .addItemButton {
-        background-color: $body_color;
-        border: none;
+
+    margin-bottom: 15px;
+  }
+
+  .infoName {
+    width: 40%;
+  }
+
+  .infoInput div {
+    width: 100%;
+  }
+
+  .addItemButton {
+    background-color: $body_color;
+    border: none;
+  }
+
+  .inputBlock {
+    width: 60%;
+    display: inline-block;
+  }
+
+  .blockButton {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .formItem {
+    width: 100%;
+
+    div {
+      width: 100%;
     }
+  }
 }

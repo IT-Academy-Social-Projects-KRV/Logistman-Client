@@ -54,10 +54,10 @@ export function confirmMessage(
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: confirmedText,
+        confirmButtonText: confirmedText
     }).then((result) => {
         if (result.isConfirmed) {
-            this.successMessage(confirmedText);
+            return  true;
         }
     });
 }
