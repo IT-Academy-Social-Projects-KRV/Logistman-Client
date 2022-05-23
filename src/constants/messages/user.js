@@ -7,6 +7,8 @@ export const userErrorMessages = Object.freeze({
     EDIT_USER_PROFILE_BLOCKED: "Edit user profile is blocked!",
     EDIT_USER_PROFILE_NOT_CHANGE: "User profile is not change!",
     EDIT_USER_PROFILE_ERROR: "User with Email already exists.",
+    USER_NAME_LENGTH_RANGE: "The name must be between 1 and 50 letters!",
+    USER_SURNAME_LENGTH_RANGE: "The surname must be between 1 and 50 letters!",
 
     GET_USER_INFO_FAILED: "Get user info failed!"
 });

@@ -8,6 +8,7 @@ import {confirmMessage, errorMessage} from "../../services/alert.service";
 import {generalErrorMessages} from "../../constants/messages/general";
 import {inputValidationErrors} from "../../constants/messages/inputValidationErrors";
 import {userErrorMessages} from "../../constants/messages/user";
+import Rules from "../../constants/rules";
 
 /* now the class is using instead of function
  because it wasn't working with function,
@@ -51,8 +52,7 @@ class UserProfilePage extends React.Component {
                             this.setState({userData: values});
                         }
                     });
-                }
-                else {
+                } else {
                     errorMessage(
                         userErrorMessages.EDIT_USER_PROFILE_NOT_CHANGE,
                         generalErrorMessages.CORRECT_ALL_COMMENTS
@@ -122,24 +122,19 @@ class UserProfilePage extends React.Component {
                                 <Form.Item className="formItem" name="name"
                                            initialValue={userData.name}
                                            rules={[
-                                               {
-                                                   type: "string",
-                                                   pattern: new RegExp("^[A-Z][a-z]+$"),
-                                                   message:
-                                                   inputValidationErrors.NOT_VALID_NAME_MESSAGE,
-                                               },
-                                               {
-                                                   type: "string",
-                                                   min: 2,
-                                                   max: 50,
-                                                   message:
-                                                       "The name must be between 1 and 50 letters!",
-                                               },
-                                               {
-                                                   required: true,
-                                                   message:
-                                                   inputValidationErrors.EMPTY_NAME_MESSAGE,
-                                               },
+                                               Rules.ruleLatinLetters(
+                                                   inputValidationErrors.NOT_VALID_NAME_MESSAGE
+                                               ),
+                                               Rules.ruleLengthRange(
+                                                   "string",
+                                                   2,
+                                                   50,
+                                                   userErrorMessages.USER_NAME_LENGTH_RANGE
+                                               ),
+                                               Rules.ruleRequired(
+                                                   true,
+                                                   inputValidationErrors.EMPTY_NAME_MESSAGE
+                                               )
                                            ]}
                                 >
                                     <Input onChange={(e) => {
@@ -159,24 +154,19 @@ class UserProfilePage extends React.Component {
                                 <Form.Item className="formItem" name="surname"
                                            initialValue={userData.surname}
                                            rules={[
-                                               {
-                                                   type: "string",
-                                                   pattern: new RegExp("^[A-Z][a-z]+$"),
-                                                   message:
-                                                   inputValidationErrors.NOT_VALID_SURNAME_MESSAGE,
-                                               },
-                                               {
-                                                   type: "string",
-                                                   min: 2,
-                                                   max: 50,
-                                                   message:
-                                                       "The name must be between 1 and 50 letters!",
-                                               },
-                                               {
-                                                   required: true,
-                                                   message:
-                                                   inputValidationErrors.EMPTY_SURNAME_MESSAGE,
-                                               },
+                                               Rules.ruleLatinLetters(
+                                                   inputValidationErrors.NOT_VALID_SURNAME_MESSAGE
+                                               ),
+                                               Rules.ruleLengthRange(
+                                                   "string",
+                                                   2,
+                                                   50,
+                                                   userErrorMessages.USER_NAME_LENGTH_RANGE
+                                               ),
+                                               Rules.ruleRequired(
+                                                   true,
+                                                   inputValidationErrors.EMPTY_SURNAME_MESSAGE
+                                               )
                                            ]}
                                 >
                                     <Input onChange={(e) => {
@@ -196,16 +186,14 @@ class UserProfilePage extends React.Component {
                                 <Form.Item className="formItem" name="email"
                                            initialValue={userData.email}
                                            rules={[
-                                               {
-                                                   type: "email",
-                                                   message:
-                                                   inputValidationErrors.NOT_VALID_EMAIL_MESSAGE,
-                                               },
-                                               {
-                                                   required: true,
-                                                   message:
-                                                   inputValidationErrors.EMPTY_EMAIL_MESSAGE,
-                                               },
+                                               Rules.ruleTypeMassage(
+                                                   "email",
+                                                   inputValidationErrors.NOT_VALID_EMAIL_MESSAGE
+                                               ),
+                                               Rules.ruleRequired(
+                                                   true,
+                                                   inputValidationErrors.EMPTY_EMAIL_MESSAGE
+                                               )
                                            ]}
                                 >
                                     <Input/>
