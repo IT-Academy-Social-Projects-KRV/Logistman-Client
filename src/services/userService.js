@@ -53,7 +53,7 @@ export async function editUserInfo(values) {
         .catch(() => {
             errorMessage(
                 userErrorMessages.EDIT_USER_PROFILE_FAILED,
-                userErrorMessages.EDIT_USER_PROFILE_FAILED_EMAIL_ALREADY_EXIST,
+                userErrorMessages.EDIT_USER_PROFILE_INFO_FAILED_EMAIL_ALREADY_EXIST,
                 generalErrorMessages.SOMETHING_WENT_WRONG
             );
         });

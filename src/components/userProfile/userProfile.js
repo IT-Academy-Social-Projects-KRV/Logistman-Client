@@ -122,16 +122,16 @@ class UserProfilePage extends React.Component {
                                 <Form.Item className="formItem" name="name"
                                            initialValue={userData.name}
                                            rules={[
-                                               Rules.ruleLatinLetters(
+                                               Rules.latinLetters(
                                                    inputValidationErrors.NOT_VALID_NAME_MESSAGE
                                                ),
-                                               Rules.ruleLengthRange(
+                                               Rules.lengthRange(
                                                    "string",
                                                    2,
                                                    50,
                                                    userErrorMessages.USER_NAME_LENGTH_RANGE
                                                ),
-                                               Rules.ruleRequired(
+                                               Rules.required(
                                                    true,
                                                    inputValidationErrors.EMPTY_NAME_MESSAGE
                                                )
@@ -154,16 +154,16 @@ class UserProfilePage extends React.Component {
                                 <Form.Item className="formItem" name="surname"
                                            initialValue={userData.surname}
                                            rules={[
-                                               Rules.ruleLatinLetters(
+                                               Rules.latinLetters(
                                                    inputValidationErrors.NOT_VALID_SURNAME_MESSAGE
                                                ),
-                                               Rules.ruleLengthRange(
+                                               Rules.lengthRange(
                                                    "string",
                                                    2,
                                                    50,
                                                    userErrorMessages.USER_NAME_LENGTH_RANGE
                                                ),
-                                               Rules.ruleRequired(
+                                               Rules.required(
                                                    true,
                                                    inputValidationErrors.EMPTY_SURNAME_MESSAGE
                                                )
@@ -186,11 +186,11 @@ class UserProfilePage extends React.Component {
                                 <Form.Item className="formItem" name="email"
                                            initialValue={userData.email}
                                            rules={[
-                                               Rules.ruleTypeMassage(
+                                               Rules.typeMessage(
                                                    "email",
                                                    inputValidationErrors.NOT_VALID_EMAIL_MESSAGE
                                                ),
-                                               Rules.ruleRequired(
+                                               Rules.required(
                                                    true,
                                                    inputValidationErrors.EMPTY_EMAIL_MESSAGE
                                                )

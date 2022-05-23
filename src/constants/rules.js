@@ -1,13 +1,13 @@
 export default class Rules {
-    static ruleLatinLetters(massege) {
+    static latinLetters(message) {
         return {
             type: "string",
             pattern: new RegExp("^[A-Z][a-z]+$"),
-            message: massege
+            message: message
         }
     }
 
-    static ruleLengthRange(
+    static lengthRange(
         type,
         min,
         max,
@@ -21,7 +21,7 @@ export default class Rules {
         }
     }
 
-    static ruleRequired(
+    static required(
         required,
         message
     ) {
@@ -31,12 +31,12 @@ export default class Rules {
         }
     }
 
-    static ruleTypeMassage(
+    static typeMessage(
         type,
-        massage) {
+        message) {
         return {
             type: type,
-            message: massage,
+            message: message
         }
     }
 }
