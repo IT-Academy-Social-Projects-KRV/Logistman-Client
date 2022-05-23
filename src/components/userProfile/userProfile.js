@@ -46,8 +46,17 @@ class UserProfilePage extends React.Component {
                 if (userData.name !== values.name ||
                     userData.surname !== values.surname ||
                     userData.email !== values.email) {
-                    editUserInfo(values);
-                    this.setState({userData: values});
+                    editUserInfo(values).then((res) => {
+                        if (res) {
+                            this.setState({userData: values});
+                        }
+                    });
+                }
+                else {
+                    errorMessage(
+                        userErrorMessages.EDIT_USER_PROFILE_NOT_CHANGE,
+                        generalErrorMessages.CORRECT_ALL_COMMENTS
+                    );
                 }
             }
         });

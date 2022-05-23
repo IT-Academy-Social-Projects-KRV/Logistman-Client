@@ -35,12 +35,13 @@ export function getUserProfileInfo() {
             );
         });
 }
-export function editUserInfo(values) {
-    userService
+export async function editUserInfo(values) {
+    return await userService
         .editUserInfo(values)
         .then(
             () => {
                 successMessage(userErrorMessages.EDIT_USER_PROFILE_SUCCESS);
+                return true;
             },
             () => {
                 errorMessage(
