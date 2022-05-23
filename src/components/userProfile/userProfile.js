@@ -13,18 +13,25 @@ import Rules from "../../constants/rules";
 /* now the class is using instead of function
  because it wasn't working with function,
  but it will be rewritten later
- */
+*/
 class UserProfilePage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isModalOpen: this.props.isModalOpen
+            isModalOpen: this.props.isModalOpen,
+            temporaryFullName: {}
         };
     };
 
     componentDidMount = async () => {
         const userData = await getUserProfileInfo();
-        this.setState({userData: userData});
+        this.setState({
+            userData: userData,
+            temporaryFullName: {
+                name: userData.name,
+                surname: userData.surname
+            }
+        });
     };
 
     static getDerivedStateFromProps = (nextProps, prevState) => {
@@ -71,8 +78,8 @@ class UserProfilePage extends React.Component {
 
     onNameChange = (e) => {
         this.setState(prevState => ({
-            userData: {
-                ...prevState.userData,
+            temporaryFullName: {
+                ...prevState.temporaryFullName,
                 name: e.target.value
             }
         }));
@@ -80,15 +87,15 @@ class UserProfilePage extends React.Component {
 
     onSurnameChange = (e) => {
         this.setState(prevState => ({
-            userData: {
-                ...prevState.userData,
+            temporaryFullName: {
+                ...prevState.temporaryFullName,
                 surname: e.target.value
             }
         }));
     };
 
     render() {
-        const {userData, isModalOpen} = this.state;
+        const {userData, temporaryFullName, isModalOpen} = this.state;
 
         if (!userData) {
             return <div>Loading</div>
@@ -105,7 +112,7 @@ class UserProfilePage extends React.Component {
                         </div>
 
                         <div>
-                            <p>{userData.name + ' ' + userData.surname}</p>
+                            <p>{temporaryFullName.name + ' ' + temporaryFullName.surname}</p>
                         </div>
                     </div>
 
