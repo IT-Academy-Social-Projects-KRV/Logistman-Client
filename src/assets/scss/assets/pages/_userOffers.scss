@@ -1,0 +1,128 @@
+@import '../variables/colors';
+@import '../variables/others';
+
+.userOffersBody {
+  padding: 105px 140px 50px 140px;
+  justify-content: center;
+
+  .title {
+    font-family: $general_font;
+    font-weight: bold;
+    font-size: 15pt;
+    text-align: center;
+    margin-top: -10px;
+    color: $title_color;
+  }
+
+  .offers-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 3%;
+  }
+
+  .ant-card.offerCard {
+    width: 80%;
+    margin-bottom: 3%;
+    box-shadow: rgba(14, 30, 37, 0.12) 0 2px 4px 0, rgba(14, 30, 37, 0.32) 0 2px 16px 0;
+    border-radius: 10px;
+
+    .ant-card-body {
+      padding-top: 1px;
+    }
+  }
+
+  .cardHead {
+    height: 50px;
+    margin-top: 0;
+    padding-top: 0;
+    display: flex;
+
+    .creationDate {
+      float: left;
+      padding: 16px 0;
+      margin-bottom: 0;
+      font-size: 14px;
+      color: #656565;
+    }
+
+    .offerStatus {
+      float: right;
+      margin-left: auto;
+      padding: 16px 0;
+      font-size: 15px;
+
+      #opened {
+        color: $green_color;
+      }
+
+      #closed {
+        color: $unable_color;
+      }
+    }
+  }
+
+  .ant-tag {
+    width: 85px;
+    height: 27px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: $header_color 0 0 2px;
+    border-radius: 5px;
+    border-color: $header_color;
+    color: $header_color;
+    background-color: white;
+    font-size: 15px;
+  }
+
+  .description {
+    margin-top: 15px;
+    font-size: 16px;
+    font-weight: 550;
+    color: $title_color;
+  }
+
+  .cardField {
+    display: inline-flex;
+    color: #656565;
+    font-size: 15px;
+  }
+
+  .fieldText {
+    margin-left: 25px;
+    color: #656565;
+    padding-bottom: 0;
+    margin-bottom: 0;
+
+    #date {
+      color: $title_color;
+      padding-left: 7px;
+    }
+  }
+
+  .category {
+    color: $body_color;
+    font-weight: 550;
+  }
+
+  .fieldIcon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .viewButton {
+    background-color: $body_color;
+    border: none;
+    float: right;
+    margin-left: auto;
+    display: flex;
+  }
+}
+
+@media only screen and (max-width: $max_tablet_size) {
+  .userOffersBody {
+    padding: 100px 0;
+  }
+}

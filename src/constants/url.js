@@ -3,6 +3,7 @@ export const USER_URL = "/User";
 export const AUTHENTICATION_URL = "/Authentication";
 export const CAR_URL = "/Car";
 export const CAR_CATEGORIES_URL = "/CarCategories";
+export const OFFERS_URL = "/Offers";
 
 export const AUTHENTICATION_URLS = {
     REGISTRATION: AUTHENTICATION_URL + "/register",
