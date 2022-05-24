@@ -9,7 +9,7 @@ export async function getUserOffers() {
             async (response) => {
                 return await response.data;
             },
-            (err) => {
+            () => {
                 errorMessage(
                     generalErrorMessages.SOMETHING_WENT_WRONG
                 );
