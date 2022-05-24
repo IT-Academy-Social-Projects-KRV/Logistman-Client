@@ -17,7 +17,7 @@ function UserOffersPage() {
         <div className="userOffersBody">
             <Header />
             <p className="title">My Offers</p>
-            <div>
+            <div className="offers-container">
                 {offers.map((offer) =>
                     < Offer info={offer} />
                 )}

@@ -2,6 +2,7 @@ import { Button, Card, Tag } from "antd";
 import { CalendarOutlined, EnvironmentOutlined, TagOutlined } from "@ant-design/icons";
 import React from "react";
 import moment from 'moment';
+import Text from "antd/es/typography/Text";
 
 function Offer(data) {
     return (
@@ -10,7 +11,11 @@ function Offer(data) {
                 <div>
                     <div className="cardHead">
                         <p className="creationDate">{moment(data.info.creationDate).format('LLL')}</p>
-                        <p className="offerStatus">{!data.info.isClosed ? "Opened" : "Closed"}</p>
+                        <Text strong className="offerStatus">
+                            {!data.info.isClosed ?
+                                <p id="opened">Opened</p> :
+                                <p id="closed">Closed</p>}
+                        </Text>
                     </div>
                 </div>
                 <Tag>{data.info.creatorRoleName === "SENDER" ? "Give" : "Need"}</Tag>
@@ -23,7 +28,7 @@ function Offer(data) {
                     <EnvironmentOutlined className="cardField fieldIcon" />
                     <p className="cardField fieldText">{data.info.address}</p>
                 </div>
-                <div>
+                <div className="fieldDate">
                     <CalendarOutlined className="cardField fieldIcon" />
                     <div className="cardField fieldText">
                         <div>
@@ -33,7 +38,7 @@ function Offer(data) {
                     </div>
                 </div>
                 <Button type="primary"
-                    className="viewButton"
+                        className="viewButton"
                 >
                     View Offer
                 </Button>

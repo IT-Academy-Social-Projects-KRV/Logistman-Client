@@ -1,8 +1,12 @@
 @import '../variables/colors';
 @import '../variables/others';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
 
 .userOffersBody {
   padding: 105px 140px 0 140px;
+  font-family: 'Inter', sans-serif;
+  justify-content: center;
   .title {
     font-family: $general_font;
     font-weight: bold;
@@ -11,22 +15,72 @@
     margin-top: -10px;
     color: $title_color;
   }
+
+  .offers-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 3%;
+  }
+
+  .ant-card.offerCard {
+    width: 1000px;
+    margin-bottom: 3%;
+    box-shadow: rgba(14, 30, 37, 0.12) 0 2px 4px 0, rgba(14, 30, 37, 0.32) 0 2px 16px 0;
+    border-radius: 10px;
+    .ant-card-body {
+      padding-top: 1px;
+    }
+  }
+
   .cardHead {
-    display: inline-flex;
+    margin-top: 0;
+    padding-top: 0;
+    display: flex;
+
+    .creationDate {
+      float: left;
+      padding: 16px 0;
+      font-size: 13px;
+      color: #656565;
+    }
+
+    .offerStatus {
+      float: right;
+      margin-left: auto;
+      padding: 16px 0;
+      font-size: 14px;
+
+      #opened {
+        color: #20DF7F;
+      }
+
+      #closed {
+        color: $title_color;
+      }
+    }
   }
-  .offerStatus {
-    padding-left: 70px;
-  }
+
   .cardField {
     display: inline-flex;
+    color: #656565;
+    font-size: 17px;
   }
+
   .fieldText {
-    margin-left: 10px;
+    margin-left: 25px;
+    color: #656565;
+  }
+
+  .fieldDate {
   }
 
   .viewButton {
-    background-color: #05192c;
+    background-color: $body_color;
     border: none;
-    alignment: right;
+    float: right;
+    margin-left: auto;
+    display: flex;
   }
 }
