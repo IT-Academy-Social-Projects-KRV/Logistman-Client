@@ -273,7 +273,7 @@ export default function Offer() {
                 showTime={{
                   hideDisabledOptions: true,
                   defaultValue: [
-                    moment("HH:mm"),
+                    moment("00:00:00", "HH:mm"),
                     moment("12:00:00", "HH:mm"),
                   ],
                 }}
