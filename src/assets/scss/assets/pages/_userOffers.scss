@@ -1,0 +1,32 @@
+@import '../variables/colors';
+@import '../variables/others';
+
+.userOffersBody {
+  padding: 105px 140px 0 140px;
+  .title {
+    font-family: $general_font;
+    font-weight: bold;
+    font-size: 15pt;
+    text-align: center;
+    margin-top: -10px;
+    color: $title_color;
+  }
+  .cardHead {
+    display: inline-flex;
+  }
+  .offerStatus {
+    padding-left: 70px;
+  }
+  .cardField {
+    display: inline-flex;
+  }
+  .fieldText {
+    margin-left: 10px;
+  }
+
+  .viewButton {
+    background-color: #05192c;
+    border: none;
+    alignment: right;
+  }
+}
