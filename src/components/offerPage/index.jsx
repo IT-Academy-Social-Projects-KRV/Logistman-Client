@@ -50,7 +50,7 @@ const defaultOptions = {
   fullscreenControl: true,
 };
 
-export default function Offer() {
+export default function OfferPage() {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.REACT_APP_API_KEY,
@@ -117,8 +117,11 @@ export default function Offer() {
           region: region,
         });
       },
-      (error) => {
-        console.error(error);
+      (error)=>{
+        errorMessage(
+          offerErrorMessages.CREATE_OFFER_FAILED,
+          offerErrorMessages.MAP_IS_NOT_WORK
+        )
       }
     );
   };
@@ -208,6 +211,7 @@ export default function Offer() {
               </PlacesAutocomplete>
             </Form.Item>
             <Form.Item
+            className="input-to-hide"
               name="settlement"
               rules={[
                 {
@@ -220,9 +224,11 @@ export default function Offer() {
                 },
               ]}
             >
-              <Input name="settlement" placeholder="Enter your settlement" />
+              <Input name="settlement" type="hidden"  placeholder="Enter your settlement" />
             </Form.Item>
             <Form.Item
+            className="input-to-hide"
+
               name="region"
               rules={[
                 {
@@ -235,25 +241,21 @@ export default function Offer() {
                 },
               ]}
             >
-              <Input name="region" placeholder="Enter your settlement" />
+              <Input name="region" type="hidden" placeholder="Enter your region" />
             </Form.Item>
             <Form.Item
               name="goodCategory"
               rules={[
-                {
-                  type: "string",
-                  message: inputValidationErrors.EMPTY_GOOD_CATEGORY_MESSAGE,
-                },
                 {
                   required: true,
                   message: inputValidationErrors.EMPTY_GOOD_CATEGORY_MESSAGE,
                 },
               ]}
             >
-              <Select placeholder="Select good categorie">
+              <Select placeholder="Select good categories">
                 {data?.map((res, idx) => (
                   <Option value={res.name} key={idx}>
-                    {res.name}
+                    {res.name.toLowerCase()}
                   </Option>
                 ))}
               </Select>
@@ -293,7 +295,7 @@ export default function Offer() {
                 },
               ]}
             >
-              <Input type="number" placeholder="Goods Weight" />
+              <Input type="number" min="0" placeholder="Goods Weight" />
             </Form.Item>
             <Form.Item
               name="description"

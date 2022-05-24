@@ -31,6 +31,10 @@
       padding: 10px;
     }
 
+    .input-to-hide{
+      height: 0px;
+    }
+
     .submitButton {
       background-color: $input_color;
       font-weight: 500;

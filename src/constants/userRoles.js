@@ -1,6 +1,6 @@
 export const userRoles = {
     GUEST: "Guest",
-    USER: "User",
+    USER: "User", // when adding a role, add it to authReducer in the set access case
     RECIPIENT: "Recipient",
     SENDER: "Sender"
 };
