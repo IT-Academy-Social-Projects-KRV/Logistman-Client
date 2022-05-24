@@ -5,4 +5,7 @@ export default class userService {
   static getUser() {
     return instance.get(USER_URLS.USER_INFO);
   }
+  static editUserInfo(model){
+    return instance.post(USER_URLS.USER_EDIT_INFO,model);
+  }
 }
