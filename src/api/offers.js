@@ -3,6 +3,6 @@ import {OFFERS_URL} from "../constants/url";
 
 export default class offersService {
     static getUserOffers() {
-        return instance(OFFERS_URL);
+        return instance.get(OFFERS_URL);
     }
 }

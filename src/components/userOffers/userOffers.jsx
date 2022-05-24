@@ -19,13 +19,11 @@ function UserOffersPage() {
             <Header />
             <p className="title">My Offers</p>
             {offers.length > 0 ?
-                <>
                 <div className="offers-container">
                     {offers.map((offer) =>
                         < Offer info={offer}/>
                     )}
                 </div>
-                </>
                 :
                 <Result
                     status="404"
@@ -35,4 +33,5 @@ function UserOffersPage() {
         </div>
     );
 }
+
 export default UserOffersPage;
