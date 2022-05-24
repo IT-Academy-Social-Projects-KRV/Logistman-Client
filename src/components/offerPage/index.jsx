@@ -16,6 +16,7 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 
 const { TextArea } = Input;
+const { RangePicker } = DatePicker;
 const { Option } = Select;
 
 Geocode.setApiKey(process.env.REACT_APP_API_KEY);
@@ -129,8 +130,8 @@ export default function Offer() {
 
   // form actions
   function disabledDate(current) {
-      // Can not select days before today
-    return current && current < moment().startOf('day');
+    // Can not select days before today
+    return current && current < moment().startOf("day");
   }
 
   const onFinish = (values) => {
@@ -175,7 +176,6 @@ export default function Offer() {
             >
               <PlacesAutocomplete
                 value={address}
-                onChange={setAddress}
                 onSelect={handleSelect}
               >
                 {({
@@ -268,10 +268,16 @@ export default function Offer() {
                 },
               ]}
             >
-              <DatePicker
-                defaultPickerValue={moment(new Date(), "DD MMM, YYYY")}
-                format={"DD MMM, YYYY"}
+              <RangePicker
                 disabledDate={disabledDate}
+                showTime={{
+                  hideDisabledOptions: true,
+                  defaultValue: [
+                    moment("HH:mm"),
+                    moment("12:00:00", "HH:mm"),
+                  ],
+                }}
+                format="YYYY-MM-DD HH:mm"
               />
             </Form.Item>
 

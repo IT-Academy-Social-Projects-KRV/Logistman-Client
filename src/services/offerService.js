@@ -4,16 +4,11 @@ import { offerErrorMessages } from "../constants/messages/offer";
 import offerService from "../api/offer";
 
 export function createOffer(values, coordinates) {
-    var utcStartDate = new Date(values.startDate);
-    utcStartDate.setHours(utcStartDate.getHours() + 1);
-    var utcExpirationDate = new Date(values.startDate);
-    utcExpirationDate.setDate(utcExpirationDate.getDate() + 1);
-
     var model = {
         description: values.description,
         goodsWeight: values.goodsWeight,
-        startDate: utcStartDate,
-        expirationDate: utcExpirationDate,
+        startDate: values.startDate[0]._d,
+        expirationDate: values.startDate[1]._d,
         goodCategory: values.goodCategory,
         role: "SENDER",
         point: {
