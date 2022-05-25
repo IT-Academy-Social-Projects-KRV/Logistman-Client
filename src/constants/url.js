@@ -14,7 +14,8 @@ export const AUTHENTICATION_URLS = {
 
 export const USER_URLS = {
     USER_INFO: USER_URL + "/user-info",
-    USER_EDIT_INFO: USER_URL + "/edit-info"
+    USER_EDIT_INFO: USER_URL + "/edit-info",
+    USER_FULL_NAME: USER_URL + "/user-full-name"
 };
 
 export const CAR_URLS = {
