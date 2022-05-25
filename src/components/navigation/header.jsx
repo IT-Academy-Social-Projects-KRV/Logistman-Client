@@ -43,12 +43,6 @@ export default function Header() {
                     Logistman Service
                 </h1>
                 <div className="support_block">
-                    <button onClick={changeLanguage}>
-                        <img src={language} alt="language-icon" />
-                    </button>
-                    <button onClick={changeTheme} id="change-theme">
-                        <img src={theme} alt="theme-icon" />
-                    </button>
                 </div>
             </header>
             <Menu isOpen={isOpen} onChange={setIsOpen} name={data}></Menu>

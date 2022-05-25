@@ -88,10 +88,7 @@ function Login() {
                     </Form.Item>
 
                     <div className="helperForm">
-                        <Checkbox className="checkboxForm">
-                            Remember me
-                        </Checkbox>
-                        <Link to="/forgotPassword">Forgot password</Link>
+                       
                     </div>
 
                     <Form.Item className="submitItem">
