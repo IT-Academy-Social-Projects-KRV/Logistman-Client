@@ -21,7 +21,7 @@
     z-index: 0;
 
     .ant-form-item {
-      margin-bottom: 15px;
+      margin-bottom: 8px;
     }
 
     .ant-form-item input[type=text],
@@ -92,6 +92,12 @@
       }
     }
   }
+}
+
+@media only screen and (min-width: $max_phone_size) and (max-width: $max_tablet_size) {
+    .ant-form-item{
+      width: calc(100% + 70px);
+    }
 }
 
 @media only screen and (max-width: $max_phone_size) {

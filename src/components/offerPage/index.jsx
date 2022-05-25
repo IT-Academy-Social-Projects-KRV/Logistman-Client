@@ -14,6 +14,7 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
+import { offerValues } from "../../constants/offerValues";
 
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;
@@ -138,7 +139,14 @@ export default function OfferPage() {
   }
 
   const onFinish = (values) => {
-    createOffer(values, clickedLatLng, history);
+    var start = values.dates[0];
+    var end = values.dates[1];
+    var diff = end.diff(start, 'hours')
+    if(diff < offerValues.MIN_HOURS_VALUE){
+      errorMessage(offerErrorMessages.CREATE_OFFER_FAILED, offerErrorMessages.TIME_INTERVAL_INCORRECT);
+    } else{
+      createOffer(values, clickedLatLng, history);
+    }
   };
 
   const onFinishFailed = (values) => {
@@ -211,7 +219,7 @@ export default function OfferPage() {
               </PlacesAutocomplete>
             </Form.Item>
             <Form.Item
-            className="input-to-hide"
+              className="input-to-hide"
               name="settlement"
               rules={[
                 {
@@ -227,8 +235,7 @@ export default function OfferPage() {
               <Input name="settlement" type="hidden"  placeholder="Enter your settlement" />
             </Form.Item>
             <Form.Item
-            className="input-to-hide"
-
+              className="input-to-hide"
               name="region"
               rules={[
                 {
@@ -262,7 +269,7 @@ export default function OfferPage() {
             </Form.Item>
 
             <Form.Item
-              name="startDate"
+              name="dates"
               rules={[
                 {
                   required: true,
@@ -295,7 +302,7 @@ export default function OfferPage() {
                 },
               ]}
             >
-              <Input type="number" min="0" placeholder="Goods Weight" />
+              <Input type="number" min="0" addonAfter="kg" placeholder="Goods Weight" />
             </Form.Item>
             <Form.Item
               name="description"

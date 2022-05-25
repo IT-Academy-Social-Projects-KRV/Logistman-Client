@@ -9,8 +9,8 @@ export function createOffer(values, coordinates) {
   var model = {
     description: values.description,
     goodsWeight: values.goodsWeight,
-    startDate: values.startDate[0]._d,
-    expirationDate: values.startDate[1]._d,
+    startDate: values.dates[0]._d,
+    expirationDate: values.dates[1]._d,
     goodCategory: values.goodCategory,
     role: userRoles.SENDER,
     point: {
