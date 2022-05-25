@@ -1,8 +1,8 @@
-import { userErrorMessages } from "../constants/messages/user";
+import {userErrorMessages} from "../constants/messages/user";
 import {errorMessage, successMessage} from "./alert.service";
-import { generalErrorMessages } from "./../constants/messages/general";
+import {generalErrorMessages} from "./../constants/messages/general";
 import userService from "./../api/user";
-import { checkIsUserRoleValid } from "./authentication";
+import {checkIsUserRoleValid} from "./authentication";
 
 export async function getUserName() {
 
@@ -35,6 +35,7 @@ export function getUserProfileInfo() {
             );
         });
 }
+
 export async function editUserInfo(values) {
     return await userService
         .editUserInfo(values)
@@ -45,15 +46,36 @@ export async function editUserInfo(values) {
             },
             () => {
                 errorMessage(
-                        userErrorMessages.EDIT_USER_PROFILE_FAILED,
-                        generalErrorMessages.SOMETHING_WENT_WRONG
-                    );
+                    userErrorMessages.EDIT_USER_PROFILE_FAILED,
+                    generalErrorMessages.SOMETHING_WENT_WRONG
+                );
             }
         )
         .catch(() => {
             errorMessage(
                 userErrorMessages.EDIT_USER_PROFILE_FAILED,
                 userErrorMessages.EDIT_USER_PROFILE_INFO_FAILED_EMAIL_ALREADY_EXIST,
+                generalErrorMessages.SOMETHING_WENT_WRONG
+            );
+        });
+}
+export async function getUserFullName() {
+    return await userService
+        .getUserFullName()
+        .then(
+            (response) => {
+                return response.data;
+            },
+            () => {
+                errorMessage(
+                    userErrorMessages.GET_USER_FULL_NAME_FAILED,
+                    generalErrorMessages.SOMETHING_WENT_WRONG
+                );
+            }
+        )
+        .catch(() => {
+            errorMessage(
+                userErrorMessages.GET_USER_FULL_NAME_FAILED,
                 generalErrorMessages.SOMETHING_WENT_WRONG
             );
         });

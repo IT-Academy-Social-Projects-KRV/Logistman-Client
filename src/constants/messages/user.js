@@ -9,5 +9,6 @@ export const userErrorMessages = Object.freeze({
     USER_NAME_LENGTH_RANGE: "The name must be between 1 and 50 letters!",
     USER_SURNAME_LENGTH_RANGE: "The surname must be between 1 and 50 letters!",
 
+    GET_USER_FULL_NAME_FAILED: "Get user full name failed!",
     GET_USER_INFO_FAILED: "Get user info failed!"
 });

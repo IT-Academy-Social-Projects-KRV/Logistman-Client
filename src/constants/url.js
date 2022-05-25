@@ -6,6 +6,7 @@ export const POINT_URL = "/Point";
 export const GOOD_CATEGORY_URL = "/GoodCategory";
 export const CAR_URL = "/Car";
 export const CAR_CATEGORIES_URL = "/CarCategories";
+export const OFFERS_URL = "/Offers";
 
 export const AUTHENTICATION_URLS = {
     REGISTRATION: AUTHENTICATION_URL + "/register",
@@ -29,7 +30,8 @@ export const GOOD_CATEGORY_URLS = {
 
 export const USER_URLS = {
     USER_INFO: USER_URL + "/user-info",
-    USER_EDIT_INFO: USER_URL + "/edit-info"
+    USER_EDIT_INFO: USER_URL + "/edit-info",
+    USER_FULL_NAME: USER_URL + "/user-full-name"
 };
 
 export const CAR_URLS = {

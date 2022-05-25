@@ -15,6 +15,8 @@ import UserProfilePage from "./components/userProfile/index.js";
 import "antd/dist/antd.css";
 import OfferCreateOfferPage from "./components/offerPage";
 import UserCarsPage from "./components/userCars/userCars";
+import UserCarsPage from './components/userCars/userCars';
+import UserOffersPage from "./components/userOffers/userOffers";
 
 const history = createBrowserHistory();
 
@@ -35,6 +37,14 @@ export default function App() {
         </PrivateRoute>
         <PrivateRoute exact path="/my-cars" allowedRoles={[userRoles.USER]}>
           <UserCarsPage />
+        </PrivateRoute>
+
+        <PrivateRoute
+            exact
+            path="/my-offers"
+            allowedRoles={[userRoles.USER]}
+        >
+            <UserOffersPage />
         </PrivateRoute>
 
         <Route exact path="/registration" component={Registration} />

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Menu from "./menu";
-import { getUserName } from "../../services/userService.js";
+import {getUserFullName} from "../../services/userService.js";
 import ukraine_language from "../../assets/images/ukraine_language.png";
 import english_language from "../../assets/images/english_language.png";
 import white_theme from "../../assets/images/white_theme.png";
@@ -26,7 +26,7 @@ export default function Header() {
     };
 
     useEffect(async () => {
-        setData(await getUserName());
+        setData(await getUserFullName());
     }, []);
 
     return (
@@ -36,16 +36,17 @@ export default function Header() {
                     className="material-icons menu-btn"
                     onClick={() => setIsOpen(!isOpen)}
                 >
-                    <img src={burger_menu} alt="burger-menu" />
+                    <img src={burger_menu} alt="burger-menu"/>
                 </button>
 
                 <h1 id="page-wrap" onClick={() => setIsOpen(false)}>
                     Logistman Service
                 </h1>
-                <div className="support_block">
-                </div>
+
+                <div className="support_block"></div>
             </header>
-            <Menu isOpen={isOpen} onChange={setIsOpen} name={data}></Menu>
+
+            <Menu isOpen={isOpen} onChange={setIsOpen} data={data}></Menu>
         </>
     );
 }
