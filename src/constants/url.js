@@ -1,7 +1,7 @@
 export const SERVER_URL = "https://localhost:44319/api";
 export const USER_URL = "/User";
 export const AUTHENTICATION_URL = "/Authentication";
-export const OFFER_URL = "/Offer";
+export const OFFER_URL = "/Offers";
 export const POINT_URL = "/Point";
 export const GOOD_CATEGORY_URL = "/GoodCategory";
 export const CAR_URL = "/Car";

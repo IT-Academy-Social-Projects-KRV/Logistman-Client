@@ -15,7 +15,6 @@ import UserProfilePage from "./components/userProfile/index.js";
 import "antd/dist/antd.css";
 import OfferCreateOfferPage from "./components/offerPage";
 import UserCarsPage from "./components/userCars/userCars";
-import UserCarsPage from './components/userCars/userCars';
 import UserOffersPage from "./components/userOffers/userOffers";
 
 const history = createBrowserHistory();
