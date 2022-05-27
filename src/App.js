@@ -6,15 +6,16 @@ import {
     Redirect,
 } from "react-router-dom";
 import { createBrowserHistory } from "history";
-import Registration from "./components/authentication/registration";
-import Login from "./components/authentication/login";
+import RegistrationPage from "./components/authentication/registration";
+import LoginPage from "./components/authentication/login";
 import MainPage from "./components/mainPage";
 import PrivateRoute from "./privateRoute";
 import { userRoles } from "./constants/userRoles";
-import UserProfilePage from "./components/userProfile/index.js";
 import "antd/dist/antd.css";
 import UserCarsPage from './components/userCars/userCars';
 import UserOffersPage from "./components/userOffers/userOffers";
+import HomePage from './components/home/home';
+import UserProfilePage from './components/userProfile/userProfile';
 
 const history = createBrowserHistory();
 
@@ -30,17 +31,17 @@ export default function App() {
                     <MainPage />
                 </PrivateRoute>
 
-                <PrivateRoute 
-                    exact 
-                    path="/profile" 
+                <PrivateRoute
+                    exact
+                    path="/profile"
                     allowedRoles={[userRoles.USER]}
                 >
                     <UserProfilePage />
                 </PrivateRoute>
 
-                <PrivateRoute 
-                    exact 
-                    path="/my-cars" 
+                <PrivateRoute
+                    exact
+                    path="/my-cars"
                     allowedRoles={[userRoles.USER]}
                 >
                     <UserCarsPage />
@@ -54,16 +55,28 @@ export default function App() {
                     <UserOffersPage />
                 </PrivateRoute>
 
-                <Route exact path="/registration" component={Registration} />
-                <Route path="/login" component={Login} />
-
-                <Route exact path="/home">
-                    <>Home page</>
+                <Route
+                    exact
+                    path="/registration"
+                >
+                    <RegistrationPage />
                 </Route>
 
-                <Route path="/">
-                    <Redirect to="/login" />
+                <Route
+                    exact
+                    path="/login"
+                >
+                    <LoginPage />
                 </Route>
+
+                <Route
+                    exact
+                    path="/home"
+                >
+                    <HomePage />
+                </Route>
+
+                <Redirect to="/home" />
             </Switch>
         </Router>
     );

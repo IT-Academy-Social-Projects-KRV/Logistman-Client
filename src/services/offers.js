@@ -1,11 +1,11 @@
 import offersService from "../api/offers";
-import {errorMessage} from "./alert.service";
-import {generalErrorMessages} from "../constants/messages/general";
-import {offersErrorMessages} from "../constants/messages/offersMessages";
+import { errorMessage } from "./alerts";
+import { generalErrorMessages } from "../constants/messages/general";
+import { offersErrorMessages } from "../constants/messages/offersMessages";
 
 export async function getUserOffers() {
     return offersService
-        .getUserOffers()
+        .getAll()
         .then(
             async (response) => {
                 return await response.data;

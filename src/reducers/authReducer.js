@@ -1,9 +1,9 @@
 import { userRoles } from '../constants/userRoles';
 import * as types from '../reduxActions/auth/types';
-import tokenService from "../services/token.service";
+import tokenService from "../services/tokens";
 import jwt from 'jwt-decode';
-import { errorMessage } from '../services/alert.service';
-import { authErrors } from '../constants/messages/authMessages';
+import { errorMessage } from '../services/alerts';
+import { authenticationErrorMessages } from '../constants/messages/authentication';
 
 const intialState = {
     role: userRoles.GUEST,
@@ -15,16 +15,16 @@ const authReducer = (state = intialState, action) => {
 
         case types.SET_ACCESS: {
 
-            const { token, refreshToken } = action.payload;
+            const { accessToken, refreshToken } = action.payload;
 
-            var decodedAccessToken = jwt(token);
+            var decodedAccessToken = jwt(accessToken);
 
             if (decodedAccessToken.role === userRoles.USER) {
 
                 // this is only one role that is available at the time of writing,
                 // except for the guest, when other roles appear, we will need to add them
 
-                tokenService.setLocalAccessToken(token);
+                tokenService.setLocalAccessToken(accessToken);
                 tokenService.setLocalRefreshToken(refreshToken);
 
                 return {
@@ -35,8 +35,8 @@ const authReducer = (state = intialState, action) => {
             }
 
             errorMessage(
-                authErrors.LOGIN_FAILED,                    // because we set a role only after login
-                authErrors.LOGIN_FAILED_USER_ALREADY_EXIST
+                authenticationErrorMessages.LOGIN_FAILED,                    // because we set a role only after login
+                authenticationErrorMessages.LOGIN_FAILED_USER_ALREADY_EXIST
             );
 
             break;

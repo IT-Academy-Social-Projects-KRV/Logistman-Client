@@ -1,16 +1,20 @@
-import { AUTHENTICATION_URLS } from "../constants/url";
-import instance from "./configurations";
+import instance from "./configurations/configurations";
+import { AUTHENTICATION_URLS } from "../constants/api/urls";
 
 export default class authenticationService {
-    static registerUser(model) {
+    static register(model) {
         return instance.post(AUTHENTICATION_URLS.REGISTRATION, model);
     }
 
-    static loginUser(model) {
+    static login(model) {
         return instance.post(AUTHENTICATION_URLS.LOGIN, model);
     }
 
-    static logoutUser(model) {
+    static logout(model) {
         return instance.post(AUTHENTICATION_URLS.LOGOUT, model);
+    }
+
+    static refreshTokens(model) {
+        return instance.post(AUTHENTICATION_URLS.REFRESH_TOKEN, model);
     }
 }

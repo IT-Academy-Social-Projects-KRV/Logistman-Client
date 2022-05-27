@@ -3,12 +3,19 @@ import { useHistory } from "react-router-dom";
 import { Form, Input, Button } from "antd";
 import { register } from "../../../services/authentication";
 import { Link } from "react-router-dom";
-import { inputValidationErrors } from "../../../constants/messages/inputValidationErrors";
-import { errorMessage } from "../../../services/alert.service";
-import tokenService from "../../../services/token.service";
+import { inputValidationErrorMessages } from "../../../constants/messages/inputValidationErrors";
+import { errorMessage } from "../../../services/alerts";
+import tokenService from "../../../services/tokens";
+import { authenticationErrorMessages } from "../../../constants/messages/authentication";
+import { generalErrorMessages } from './../../../constants/messages/general';
+import InputRules from "../../../constants/inputRules";
 
-function Registration() {
-    let history = useHistory();
+function RegistrationPage() {
+    var history = useHistory();
+
+    useEffect(() => {
+        tokenService.deleteTokens();
+    }, []);
 
     const onFinish = (values) => {
         register(values, history);
@@ -16,14 +23,10 @@ function Registration() {
 
     const onFinishFailed = () => {
         errorMessage(
-            "Registration is blocked!",
-            "First, correct all comments!"
+            authenticationErrorMessages.REGISTRATION_BLOCKED,
+            generalErrorMessages.CORRECT_ALL_COMMENTS
         );
     };
-    
-    useEffect(async () => {
-        tokenService.deleteTokens();
-    }, []);
 
     return (
         <div className="authBody">
@@ -45,24 +48,17 @@ function Registration() {
                         className="textForm"
                         name="name"
                         rules={[
-                            {
-                                type: "string",
-                                pattern: new RegExp("^[A-Z][a-z]+$"),
-                                message:
-                                    inputValidationErrors.NOT_VALID_NAME_MESSAGE,
-                            },
-                            {
-                                type: "string",
-                                min: 2,
-                                max: 50,
-                                message:
-                                    "The name must be between 1 and 50 letters!",
-                            },
-                            {
-                                required: true,
-                                message:
-                                    inputValidationErrors.EMPTY_NAME_MESSAGE,
-                            },
+                            InputRules.required(
+                                inputValidationErrorMessages.EMPTY_NAME
+                            ),
+                            InputRules.latinLetters(
+                                inputValidationErrorMessages.NOT_VALID_NAME
+                            ),
+                            InputRules.lengthRange(
+                                2,
+                                50,
+                                inputValidationErrorMessages.NAME_MUST_BE_BETWEEN_1_AND_50
+                            )
                         ]}
                     >
                         <Input placeholder="Name" />
@@ -72,24 +68,17 @@ function Registration() {
                         className="textForm"
                         name="surname"
                         rules={[
-                            {
-                                type: "string",
-                                pattern: new RegExp("^[A-Z][a-z]+$"),
-                                message:
-                                    inputValidationErrors.NOT_VALID_SURNAME_MESSAGE,
-                            },
-                            {
-                                type: "string",
-                                min: 2,
-                                max: 50,
-                                message:
-                                    "The name must be between 1 and 50 letters!",
-                            },
-                            {
-                                required: true,
-                                message:
-                                    inputValidationErrors.EMPTY_SURNAME_MESSAGE,
-                            },
+                            InputRules.required(
+                                inputValidationErrorMessages.EMPTY_SURNAME
+                            ),
+                            InputRules.latinLetters(
+                                inputValidationErrorMessages.NOT_VALID_SURNAME
+                            ),
+                            InputRules.lengthRange(
+                                2,
+                                50,
+                                inputValidationErrorMessages.SURNAME_MUST_BE_BETWEEN_1_AND_50
+                            )
                         ]}
                     >
                         <Input placeholder="Surname" />
@@ -99,16 +88,13 @@ function Registration() {
                         name="email"
                         className="textForm"
                         rules={[
-                            {
-                                type: "email",
-                                message:
-                                    inputValidationErrors.NOT_VALID_EMAIL_MESSAGE,
-                            },
-                            {
-                                required: true,
-                                message:
-                                    inputValidationErrors.EMPTY_EMAIL_MESSAGE,
-                            },
+                            InputRules.specificType(
+                                "email",
+                                inputValidationErrorMessages.NOT_VALID_EMAIL
+                            ),
+                            InputRules.required(
+                                inputValidationErrorMessages.EMPTY_EMAIL
+                            )
                         ]}
                     >
                         <Input placeholder="Email" />
@@ -118,19 +104,12 @@ function Registration() {
                         name="password"
                         className="passwordForm"
                         rules={[
-                            {
-                                type: "string",
-                                pattern: new RegExp(
-                                    "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@$%^&*(){}:;<>,.?+_=|'~\\-])[A-Za-z0-9!@$%^&*(){}:;<>,.?+_=|'~\\-]{7,51}$"
-                                ),
-                                message:
-                                    inputValidationErrors.NOT_VALID_PASSWORD_MESSAGE,
-                            },
-                            {
-                                required: true,
-                                message:
-                                    inputValidationErrors.EMPTY_PASSWORD_MESSAGE,
-                            },
+                            InputRules.password(
+                                inputValidationErrorMessages.NOT_VALID_PASSWORD
+                            ),
+                            InputRules.required(
+                                inputValidationErrorMessages.EMPTY_PASSWORD
+                            )
                         ]}
                     >
                         <Input.Password
@@ -145,7 +124,7 @@ function Registration() {
                         rules={[
                             {
                                 required: true,
-                                message: inputValidationErrors.CONFIRM_PASSWORD,
+                                message: inputValidationErrorMessages.CONFIRM_PASSWORD
                             },
                             ({ getFieldValue }) => ({
                                 validator(_, value) {
@@ -157,11 +136,11 @@ function Registration() {
                                     }
                                     return Promise.reject(
                                         new Error(
-                                            inputValidationErrors.PASSWORD_DONT_MATCH
+                                            inputValidationErrorMessages.PASSWORD_DONT_MATCH
                                         )
                                     );
-                                },
-                            }),
+                                }
+                            })
                         ]}
                     >
                         <Input.Password
@@ -190,4 +169,4 @@ function Registration() {
     );
 }
 
-export default Registration;
+export default RegistrationPage;

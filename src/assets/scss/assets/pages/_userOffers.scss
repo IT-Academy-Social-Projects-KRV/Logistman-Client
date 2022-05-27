@@ -111,14 +111,6 @@
     width: 22px;
     height: 22px;
   }
-
-  .viewButton {
-    background-color: $body_color;
-    border: none;
-    float: right;
-    margin-left: auto;
-    display: flex;
-  }
 }
 
 @media only screen and (max-width: $max_tablet_size) {

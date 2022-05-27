@@ -2,29 +2,104 @@
 @import '../variables/others';
 
 .userCarsBody {
-    padding: 105px 140px 0px 140px;
+    padding: 105px 140px 50px 140px;
+    justify-content: center;
 
-    .expandedRowTable .ant-table-cell {
-        width: 50%;
+    .title {
+        font-family: $general_font;
+        font-weight: bold;
+        font-size: 15pt;
+        text-align: center;
+        margin-top: -10px;
+        color: $title_color;
     }
-}
 
-@media only screen and (min-width: $max_phone_size) and (max-width: $max_tablet_size) {
-    .userCarsBody {
-        padding: 105px 20px 0px 20px;
+    img.fieldIcon {
+        height: 22px;
+        width: 22px;
+        margin-right: 15px;
+    }
 
-        td p {
-            font-size: 14px;
+    .leftSide,
+    .rightSide {
+        display: inline-block;
+    }
+
+    .leftSide {
+        width: 60%;
+        padding-right: 20px;
+    }
+
+    .cars-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 3%;
+    }
+
+    .ant-card.carCard {
+        width: 80%;
+        margin-bottom: 3%;
+        box-shadow: rgba(14, 30, 37, 0.12) 0 2px 4px 0, rgba(14, 30, 37, 0.32) 0 2px 16px 0;
+        border-radius: 10px;
+
+        .information {
+            padding-right: 20px;
+            display: flex;
+            align-content: flex-start;
         }
     }
-}
 
-@media only screen and (max-width: $max_phone_size) {
-    .userCarsBody {
-        padding: 105px 10px 0px 10px;
+    .cardHead {
+        margin-top: 0;
+        padding-top: 0;
+        display: flex-end;
 
-        td p {
+        .carStatus {
+            float: right;
+            margin-left: auto;
             font-size: 15px;
+
+            #verified {
+                color: $green_color;
+                margin-bottom: 0;
+            }
+
+            #unverified {
+                color: $unable_color;
+                margin-bottom: 0;
+            }
         }
+    }
+
+    .cardField {
+        display: inline-flex;
+        color: #656565;
+        font-size: 15px;
+    }
+
+    .fieldIcon svg {
+        width: 22px;
+        height: 22px;
+        margin-right: 15px;
+    }
+
+    .fieldText {
+        margin-left: 25px;
+        color: #656565;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+}
+
+@media only screen and (max-width: $the_middle_of_tablet_size) {
+    .userCarsBody {
+        padding: 100px 0;
+    }
+
+    .information {
+        flex-direction: column;
+        font-size: 14px;
     }
 }

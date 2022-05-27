@@ -1,7 +1,8 @@
+import React from "react";
 import Header from "../navigation/header";
 
 function MainPage() {
-    
+
     return (
         <div className="mainPageBody">
             <Header />
@@ -11,7 +12,7 @@ function MainPage() {
                     <div className="role block-sender">
                         <span>I can donate some goods</span>
                     </div>
-                    <div className="role block-recipiant">
+                    <div className="role block-recipient">
                         <span>I need help</span>
                     </div>
                 </div>

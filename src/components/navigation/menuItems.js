@@ -1,39 +1,21 @@
-import change_icon from "../../assets/images/change.png";
-import car_icon from "../../assets/images/car.png";
-import invite_icon from "../../assets/images/invite.png";
-import history_icon from "../../assets/images/history.png";
-import location_icon from "../../assets/images/location.png";
-import settings_icon from "../../assets/images/settings.png";
+import changeRoleMenuItem_icon from "../../assets/images/change.png";
+import userCarsMenuItem_icon_icon from "../../assets/images/car.png";
+import userOffersMenuItem_icon from "../../assets/images/location.png";
 
-export const items = [
+export const menuItems = [
     {
-        itemIcon: change_icon,
+        itemIcon: changeRoleMenuItem_icon,
         itemText: "Change role",
         itemLink: "/main",
     },
     {
-        itemIcon: car_icon,
+        itemIcon: userCarsMenuItem_icon_icon,
         itemText: "My cars",
         itemLink: "/my-cars",
     },
     {
-        itemIcon: invite_icon,
-        itemText: "My invites",
-        itemLink: "/my-invites",
-    },
-    {
-        itemIcon: history_icon,
-        itemText: "Trip history",
-        itemLink: "/trip-history",
-    },
-    {
-        itemIcon: location_icon,
+        itemIcon: userOffersMenuItem_icon,
         itemText: "My offers",
         itemLink: "/my-offers",
-    },
-    {
-        itemIcon: settings_icon,
-        itemText: "Settings",
-        itemLink: "/settings",
-    },
+    }
 ];

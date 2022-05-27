@@ -1,10 +1,11 @@
-import {errorMessage, successMessage} from "./alert.service";
-import {generalErrorMessages} from "../constants/messages/general";
-import carService from "../api/car";
-import {carErrorMessages} from '../constants/messages/car';
+import { errorMessage, successMessage } from "./alerts";
+import { generalErrorMessages } from "../constants/messages/general";
+import carsService from "../api/cars";
+import { carsErrorMessages } from '../constants/messages/cars';
+import { statusCode } from "../constants/statusCodes";
 
 export function addCar(values) {
-    let model = {
+    var model = {
         model: values.model,
         registrationNumber: values.registrationNumber,
         technicalPassport: values.technicalPassport,
@@ -14,28 +15,28 @@ export function addCar(values) {
         categoryName: values.category
     };
 
-    carService
-        .addCar(model)
+    carsService
+        .add(model)
         .then(
             () => {
-                successMessage(carErrorMessages.CAR_ADDED_SUCCESSFUL);
+                successMessage(carsErrorMessages.CAR_ADDED_SUCCESSFUL);
             },
             (err) => {
-                err.response.status === 406
+                err.response.status === statusCode.NOT_ACCEPTABLE
                     ? errorMessage(
-                        carErrorMessages.CAR_ADDING_FAILED,
-                        carErrorMessages.CAR_EXISTS_ERROR
+                        carsErrorMessages.CAR_ADDING_FAILED,
+                        carsErrorMessages.CAR_EXISTS_ERROR
                     )
                     : errorMessage(
-                        carErrorMessages.CAR_ADDING_FAILED,
+                        carsErrorMessages.CAR_ADDING_FAILED,
                         generalErrorMessages.SOMETHING_WENT_WRONG
                     );
             }
         )
         .catch(() => {
             errorMessage(
-                carErrorMessages.CAR_ADDING_FAILED,
-                carErrorMessages.CAR_EXISTS_ERROR,
+                carsErrorMessages.CAR_ADDING_FAILED,
+                carsErrorMessages.CAR_EXISTS_ERROR,
                 generalErrorMessages.SOMETHING_WENT_WRONG
             );
         });
@@ -43,22 +44,22 @@ export function addCar(values) {
 
 export async function getUserCars() {
 
-    return await carService
-        .getUserCars()
+    return await carsService
+        .getByUser()
         .then(
             (response) => {
                 return response.data;
             },
             () => {
                 errorMessage(
-                    carErrorMessages.LOAD_USER_CARS_FAILED,
+                    carsErrorMessages.LOAD_USER_CARS_FAILED,
                     generalErrorMessages.SOMETHING_WENT_WRONG
                 );
             }
         )
         .catch(() => {
             errorMessage(
-                carErrorMessages.LOAD_USER_CARS_FAILED,
+                carsErrorMessages.LOAD_USER_CARS_FAILED,
                 generalErrorMessages.SOMETHING_WENT_WRONG
             );
         });

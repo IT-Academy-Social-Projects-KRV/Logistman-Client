@@ -1,27 +1,27 @@
-import Header from "../navigation/header";
 import React, { useEffect, useState } from "react";
-import { getUserOffers } from "../../services/offersService";
-
-import Offer from "./offerComponent/offer";
-import {Result} from "antd";
+import Header from "../navigation/header";
+import { getUserOffers } from "../../services/offers";
+import Offer from "./offer/offer";
+import { Result } from "antd";
 
 function UserOffersPage() {
 
     const [offers, setOffers] = useState([]);
 
     useEffect(async () => {
-        let _offers = await getUserOffers();
-        setOffers(_offers);
+        setOffers(await getUserOffers());
     }, []);
 
     return (
         <div className="userOffersBody">
             <Header />
-            <p className="title">My Offers</p>
+
+            <p className="title">My offers</p>
+
             {offers.length > 0 ?
                 <div className="offers-container">
                     {offers.map((offer) =>
-                        < Offer info={offer}/>
+                        <Offer info={offer} />
                     )}
                 </div>
                 :

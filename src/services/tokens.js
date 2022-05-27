@@ -1,24 +1,22 @@
-class tokenService {
-  getLocalRefreshToken() {
+export default class tokenService {
+  static getLocalRefreshToken() {
     return localStorage.getItem("refreshToken");
   }
 
-  getLocalAccessToken() {
+  static getLocalAccessToken() {
     return localStorage.getItem("accessToken");
   }
 
-  setLocalRefreshToken(refreshToken) {
+  static setLocalRefreshToken(refreshToken) {
     localStorage.setItem("refreshToken", refreshToken);
   }
 
-  setLocalAccessToken(accessToken) {
+  static setLocalAccessToken(accessToken) {
     localStorage.setItem("accessToken", accessToken);
   }
 
-  deleteTokens() {
+  static deleteTokens() {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
   }
 }
-
-export default new tokenService();
