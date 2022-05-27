@@ -11,7 +11,7 @@ import { generalErrorMessages } from './../../../constants/messages/general';
 import InputRules from "../../../constants/inputRules";
 
 function RegistrationPage() {
-    var history = useHistory();
+    let history = useHistory();
 
     useEffect(() => {
         tokenService.deleteTokens();

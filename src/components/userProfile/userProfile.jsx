@@ -10,14 +10,14 @@ import { userErrorMessages } from "../../constants/messages/user";
 import InputRules from "../../constants/inputRules";
 import AddNewCarModal from '../newCarModal/addCarModal';
 
-function UserProfilePage(props) {
+function UserProfilePage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [temporaryFullName, setTemporaryFullName] = useState({});
     const [userData, setUserData] = useState(undefined);
 
     useEffect(async () => {
         if (userData === undefined) {
-            var result = await getUserProfileInfo();
+            let result = await getUserProfileInfo();
 
             setUserData(result);
             setTemporaryFullName({

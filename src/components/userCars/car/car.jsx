@@ -1,12 +1,6 @@
 import React from "react";
 import { Card } from "antd";
-import {
-    FormOutlined,
-    SnippetsOutlined,
-    ContactsOutlined,
-    ColumnWidthOutlined
-} from "@ant-design/icons";
-import { MdBrush, MdStickyNote2, MdList } from "react-icons/md";
+import { FormOutlined } from "@ant-design/icons";
 import Text from "antd/es/typography/Text";
 import bucket_icon from "../../../assets/images/cars/bucket.svg";
 import heavy_icon from "../../../assets/images/cars/heavy.svg";
@@ -16,7 +10,7 @@ import insurance_icon from "../../../assets/images/cars/insurance.svg";
 import passport_icon from "../../../assets/images/cars/passport.svg";
 
 function Car(data) {
-    console.log(data);
+    
     return (
         <Card className="carCard">
             <div className="cardHead">
@@ -24,7 +18,8 @@ function Car(data) {
 
                     {data.info.isVerified ?
                         <p id="verified">Verified</p> :
-                        <p id="unverified">Unverified</p>}
+                        <p id="unverified">Unverified</p>
+                    }
                 </Text>
             </div>
 
@@ -70,7 +65,7 @@ function Car(data) {
 
                         <div className="cardField">
                             <img src={heavy_icon} className="fieldIcon" />
-                            <p>Load capacity: {data.info.loadCapacity}</p>
+                            <p>Load capacity: {data.info.loadCapacity} kg</p>
                         </div>
                     </div>
 

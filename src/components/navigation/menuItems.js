@@ -6,16 +6,16 @@ export const menuItems = [
     {
         itemIcon: changeRoleMenuItem_icon,
         itemText: "Change role",
-        itemLink: "/main",
+        itemLink: "/main"
     },
     {
         itemIcon: userCarsMenuItem_icon_icon,
         itemText: "My cars",
-        itemLink: "/my-cars",
+        itemLink: "/my-cars"
     },
     {
         itemIcon: userOffersMenuItem_icon,
         itemText: "My offers",
-        itemLink: "/my-offers",
+        itemLink: "/my-offers"
     }
 ];

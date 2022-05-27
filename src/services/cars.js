@@ -5,7 +5,7 @@ import { carsErrorMessages } from '../constants/messages/cars';
 import { statusCode } from "../constants/statusCodes";
 
 export function addCar(values) {
-    var model = {
+    let model = {
         model: values.model,
         registrationNumber: values.registrationNumber,
         technicalPassport: values.technicalPassport,
@@ -45,7 +45,7 @@ export function addCar(values) {
 export async function getUserCars() {
 
     return await carsService
-        .getByUser()
+        .getAllByUser()
         .then(
             (response) => {
                 return response.data;

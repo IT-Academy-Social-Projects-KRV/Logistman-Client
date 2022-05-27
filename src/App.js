@@ -76,7 +76,7 @@ export default function App() {
                     <HomePage />
                 </Route>
 
-                <Redirect to="/home" />
+                <Redirect to="/login" />
             </Switch>
         </Router>
     );

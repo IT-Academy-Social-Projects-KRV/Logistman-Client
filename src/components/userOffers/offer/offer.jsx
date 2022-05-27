@@ -1,10 +1,16 @@
 import React from "react";
 import { Card, Tag } from "antd";
-import { CalendarOutlined, EnvironmentOutlined, TagOutlined } from "@ant-design/icons";
+import {
+    CalendarOutlined,
+    EnvironmentOutlined,
+    TagOutlined
+} from "@ant-design/icons";
 import moment from 'moment';
 import Text from "antd/es/typography/Text";
+import { offerRoles } from './../../../constants/offerRoles';
 
 function Offer(data) {
+
     return (
         <Card className="offerCard">
             <div className="cardHead">
@@ -13,11 +19,12 @@ function Offer(data) {
 
                     {!data.info.isClosed ?
                         <p id="opened">Opened</p> :
-                        <p id="closed">Closed</p>}
+                        <p id="closed">Closed</p>
+                    }
                 </Text>
             </div>
 
-            <Tag>{data.info.creatorRoleName === "SENDER" ? "Give" : "Need"}</Tag>
+            <Tag>{data.info.creatorRoleName === offerRoles.SENDER ? "Donate" : "Need"}</Tag>
 
             <p className="description">{data.info.description}</p>
 

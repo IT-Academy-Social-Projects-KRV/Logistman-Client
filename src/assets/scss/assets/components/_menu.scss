@@ -139,7 +139,6 @@
 }
 
 // Big monitor
-
 @media only screen and (min-width: $max_laptop_size) and (max-width: $min_big_monitor_size) {
   .Menu {
     width: 40%;
@@ -149,7 +148,7 @@
 // Tablet
 @media only screen and (min-width: $max_phone_size) and (max-width: $max_tablet_size) {
   .menu {
-    width: 40%; // variable
+    width: 40%;
     overflow-block: scroll;
     height: calc(100vh - 65px);
     overflow-y: scroll;

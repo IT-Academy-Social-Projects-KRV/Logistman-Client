@@ -10,7 +10,7 @@ export default class offersService {
         return instance.get(OFFERS_URLS.GET_ONE_BY_USER, model);
     }
 
-    static getAll() {
+    static getAllByUser() {
         return instance.get(OFFERS_URLS.GET_BY_USER);
     }
 }

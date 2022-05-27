@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { Button } from 'antd';
 
 function Menu({ isMenuOpen, data }) {
-    var history = useHistory();
+    let history = useHistory();
 
     const logOut = () => {
         logoutUser(history);
@@ -17,7 +17,7 @@ function Menu({ isMenuOpen, data }) {
         return <div>Loading</div>
     }
     return (
-        <div className={`menu ${isMenuOpen && "open"}`}> {/* ??? */}
+        <div className={`menu ${isMenuOpen && "open"}`}>
             <Link to="/profile" className="user-profile">
                 <div className="fullName">
                     <div className="imgIcon">
@@ -28,6 +28,7 @@ function Menu({ isMenuOpen, data }) {
                     </h2>
                 </div>
             </Link>
+
             <div className="menu-items">
                 {menuItems.map((item, index) => (
                     <Link to={item.itemLink} key={index}>
@@ -36,6 +37,7 @@ function Menu({ isMenuOpen, data }) {
                     </Link>
                 ))}
             </div>
+
             <Button className="logout" onClick={logOut}>
                 Logout
             </Button>

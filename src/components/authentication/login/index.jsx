@@ -11,7 +11,7 @@ import InputRules from "../../../constants/inputRules";
 import tokenService from "../../../services/tokens";
 
 function LoginPage() {
-    var history = useHistory();
+    let history = useHistory();
 
     useEffect(() => {
         tokenService.deleteTokens();

@@ -17,7 +17,7 @@ const authReducer = (state = intialState, action) => {
 
             const { accessToken, refreshToken } = action.payload;
 
-            var decodedAccessToken = jwt(accessToken);
+            let decodedAccessToken = jwt(accessToken);
 
             if (decodedAccessToken.role === userRoles.USER) {
 

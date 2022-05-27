@@ -34,18 +34,18 @@ instance.interceptors.response.use(
   async (error) => {
     if (error.response.status === statusCode.UNAUTHORIZED) {
       try {
-        var accessToken = tokenService.getLocalAccessToken();
-        var refreshToken = tokenService.getLocalRefreshToken();
+        let accessToken = tokenService.getLocalAccessToken();
+        let refreshToken = tokenService.getLocalRefreshToken();
 
-        var model = {
+        let model = {
           accessToken: accessToken,
           refreshToken: refreshToken
         };
 
-        var result = await authenticationService.refreshTokens(model);
+        let result = await authenticationService.refreshTokens(model);
 
-        var newAccessToken = result.data.token;
-        var newRefreshToken = result.data.refreshToken;
+        let newAccessToken = result.data.accessToken;
+        let newRefreshToken = result.data.refreshToken;
 
         tokenService.setLocalAccessToken(newAccessToken);
         tokenService.setLocalRefreshToken(newRefreshToken);

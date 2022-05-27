@@ -11,7 +11,7 @@ function AddNewCarModal(props) {
     const [categories, setCategories] = useState([]);
 
     useEffect(async () => {
-        var carCategories = await getCarCategories();
+        let carCategories = await getCarCategories();
         
         if (carCategories !== undefined &&
             carCategories.length > 0) {

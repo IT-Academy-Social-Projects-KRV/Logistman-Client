@@ -6,7 +6,7 @@ export default class carsService {
         return instance.post(CARS_URLS.ADD, model);
     }
 
-    static getByUser() {
+    static getAllByUser() {
         return instance.get(CARS_URLS.GET_BY_USER);
     }
 }

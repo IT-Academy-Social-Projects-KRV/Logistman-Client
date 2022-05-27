@@ -9,7 +9,7 @@ import { statusCode } from "../constants/statusCodes";
 import { store } from "../store";
 
 export function register(values, history) {
-    var model = {
+    let model = {
         name: values.name,
         surname: values.surname,
         email: values.email,
@@ -45,7 +45,7 @@ export function register(values, history) {
 }
 
 export function login(values, history) {
-    var model = {
+    let model = {
         email: values.email,
         password: values.password
     };
@@ -79,7 +79,7 @@ export function login(values, history) {
 }
 
 export function logoutUser() {
-    var model = {
+    let model = {
         refreshToken: tokenService.getLocalRefreshToken()
     };
 
@@ -106,10 +106,10 @@ export function logoutUser() {
 
 export function checkIsUserRoleValid() {
 
-    var accessToken = tokenService.getLocalAccessToken();
+    let accessToken = tokenService.getLocalAccessToken();
 
     if (accessToken !== null) {
-        var decodedAccessToken = jwt(accessToken);
+        let decodedAccessToken = jwt(accessToken);
 
         if (decodedAccessToken.role !== store.getState().authReducer.role) {
             store.dispatch(logout());

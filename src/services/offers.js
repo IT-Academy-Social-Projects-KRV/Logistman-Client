@@ -5,7 +5,7 @@ import { offersErrorMessages } from "../constants/messages/offersMessages";
 
 export async function getUserOffers() {
     return offersService
-        .getAll()
+        .getAllByUser()
         .then(
             async (response) => {
                 return await response.data;

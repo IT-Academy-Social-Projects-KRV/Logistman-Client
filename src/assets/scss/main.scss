@@ -4,6 +4,9 @@
 @import "./assets/pages/userCars";
 @import "./assets/pages/userOffers";
 
+@import "./assets/variables/others";
+
 body, html {
     min-height: 100%;
+    font-family: $general_font;
 }

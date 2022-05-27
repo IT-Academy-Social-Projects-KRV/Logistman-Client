@@ -3,7 +3,7 @@ import { Button, Result } from 'antd';
 import { useHistory } from "react-router-dom";
 
 function HomePage() {
-    var history = useHistory();
+    let history = useHistory();
 
     const onClick = () => {
         history.push("/login");
