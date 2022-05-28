@@ -1,3 +1,5 @@
+import { carsErrorMessages } from './messages/cars';
+
 export default class InputRules {
     static latinLetters(message) {
         return {
@@ -44,6 +46,51 @@ export default class InputRules {
     static capitalLetterFirst(message) {
         return {
             pattern: new RegExp("^[A-Z]"),
+            message: message
+        }
+    }
+
+    static carModel() {
+        return {
+            pattern: new RegExp("^([A-Za-z\\d ]?)*$"),
+            message: carsErrorMessages.NOT_VALID_MODEL
+        }
+    }
+
+    static technicalPassport() {
+        return {
+            pattern: new RegExp("^[a-zA-Z\\d ]*$"),
+            message: carsErrorMessages.NOT_VALID_TECH_PASSPORT
+        }
+    }
+
+    static loadCapacity() {
+        return {
+            pattern: new RegExp("^[^0|\\D]\\d{0,9}(\\.\\d{1,2})?$"),
+            message: carsErrorMessages.NOT_VALID_LOAD_CAPACITY
+        }
+    }
+
+    static registrationNumber() {
+        return {
+            pattern: new RegExp("^[a-zA-Z\\d ]*$"),
+            message: carsErrorMessages.NOT_VALID_REGISTRATION_NUMBER
+        }
+    }
+
+    static vin() {
+        return {
+            pattern: new RegExp("^[a-zA-Z\\d]*$"),
+            message: carsErrorMessages.NOT_VALID_VIN
+        }
+    }
+
+    static length(
+        length,
+        message
+    ) {
+        return {
+            pattern: new RegExp(`^.{${length}}$`),
             message: message
         }
     }

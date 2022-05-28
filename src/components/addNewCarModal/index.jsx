@@ -66,11 +66,7 @@ function AddNewCarModal(props) {
                         InputRules.capitalLetterFirst(
                             carsErrorMessages.CAPITAL_LETTER_FIRST
                         ),
-                        {
-                            pattern: new RegExp("^([A-Za-z\\d ]?)*$"),
-                            message:
-                                carsErrorMessages.NOT_VALID_MODEL
-                        },
+                        InputRules.carModel(),
                         InputRules.required(carsErrorMessages.EMPTY_FIELD)
                     ]}
                 >
@@ -80,11 +76,7 @@ function AddNewCarModal(props) {
                 <Form.Item name="technicalPassport"
                     label="Technical passport: "
                     rules={[
-                        {
-                            pattern: new RegExp("^[a-zA-Z\\d ]*$"),
-                            message:
-                                carsErrorMessages.NOT_VALID_TECH_PASSPORT
-                        },
+                        InputRules.technicalPassport(),
                         InputRules.required(carsErrorMessages.EMPTY_FIELD)
                     ]}
                 >
@@ -94,12 +86,7 @@ function AddNewCarModal(props) {
                 <Form.Item name="registrationNumber"
                     label={"Registration number: "}
                     rules={[
-                        {
-                            type: "string",
-                            pattern: new RegExp("^[a-zA-Z\\d ]*$"),
-                            message:
-                                carsErrorMessages.NOT_VALID_REGISTRATION_NUMBER
-                        },
+                        InputRules.registrationNumber(),
                         InputRules.required(carsErrorMessages.EMPTY_FIELD)
                     ]}
                 >
@@ -109,11 +96,7 @@ function AddNewCarModal(props) {
                 <Form.Item name="loadCapacity"
                     label={"Load capacity: "}
                     rules={[
-                        {
-                            pattern: new RegExp("^[^0|\\D]\\d{0,9}(\\.\\d{1,2})?$"),
-                            message:
-                                carsErrorMessages.NOT_VALID_LOAD_CAPACITY
-                        },
+                        InputRules.loadCapacity(),
                         InputRules.required(carsErrorMessages.EMPTY_FIELD)
                     ]}
                 >
@@ -126,16 +109,11 @@ function AddNewCarModal(props) {
                 <Form.Item name="vin"
                     label={"VIN: "}
                     rules={[
-                        {
-                            pattern: new RegExp("^[a-zA-Z\\d]*$"),
-                            message:
-                                carsErrorMessages.NOT_VALID_VIN
-                        },
-                        {
-                            pattern: new RegExp("^.{17}$"),
-                            message:
-                                carsErrorMessages.NOT_VALID_VIN_LENGTH
-                        },
+                        InputRules.vin(),
+                        InputRules.length(
+                            17,
+                            carsErrorMessages.NOT_VALID_VIN_LENGTH
+                        ),
                         InputRules.required(carsErrorMessages.EMPTY_FIELD)
                     ]}
                 >
@@ -164,10 +142,9 @@ function AddNewCarModal(props) {
                 <Form.Item name="color"
                     label={"Color: "}
                     rules={[
-                        {
-                            pattern: new RegExp("^[a-zA-Z]*$"),
-                            message: carsErrorMessages.NOT_VALID_COLOR
-                        },
+                        InputRules.latinLetters(
+                            carsErrorMessages.NOT_VALID_COLOR
+                        ),
                         InputRules.required(carsErrorMessages.EMPTY_FIELD)
                     ]}
                 >
