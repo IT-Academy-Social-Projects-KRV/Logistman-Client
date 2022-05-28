@@ -1,0 +1,44 @@
+export const SERVER_URL = "https://localhost:44319/api";
+export const AUTHENTICATION_URL = "/Authentication";
+export const CAR_CATEGORIES_URL = "/CarCategories";
+export const CAR_URL = "/Cars";
+export const GOOD_CATEGORIES_URL = "/GoodCategories";
+export const OFFERS_URL = "/Offers";
+export const TRIP_URL = "/Trips";
+export const USER_URL = "/Users";
+
+export const AUTHENTICATION_URLS = {
+    REGISTRATION: AUTHENTICATION_URL + "/register",
+    LOGIN: AUTHENTICATION_URL + "/login",
+    LOGOUT: AUTHENTICATION_URL + "/logout",
+    REFRESH_TOKEN: AUTHENTICATION_URL + "/refresh-token"
+};
+
+export const CAR_CATEGORIES_URLS = {
+    GET_ALL: CAR_CATEGORIES_URL
+};
+
+export const CARS_URLS = {
+    ADD: CAR_URL + "/add",
+    GET_BY_USER: CAR_URL
+};
+
+export const GOOD_CATEGORIES_URLS = {
+    GET_ALL: GOOD_CATEGORIES_URL
+};
+
+export const OFFERS_URLS = {
+    CREATE: OFFERS_URL + "/create",
+    GET_ONE_BY_USER: OFFERS_URL + "/user-offer",
+    GET_BY_USER: OFFERS_URL
+};
+
+export const TRIPS_URL = {
+    CREATE: TRIP_URL + "/create"
+};
+
+export const USERS_URLS = {
+    PROFILE_INFO: USER_URL + "/user-info",
+    EDIT: USER_URL + "/edit-info",
+    FULL_NAME: USER_URL + "/user-full-name"
+};

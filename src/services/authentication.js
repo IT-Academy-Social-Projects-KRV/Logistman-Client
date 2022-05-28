@@ -1,56 +1,57 @@
 import authenticationService from "../api/authentication";
-import { successMessage, errorMessage } from "./alert.service";
-import { authErrors } from "../constants/messages/authMessages";
-import store from "../index";
+import { successMessage, errorMessage } from "./alerts";
+import { authenticationErrorMessages } from "../constants/messages/authentication";
 import { setAccess, logout } from "../reduxActions/auth";
 import { generalErrorMessages } from "../constants/messages/general";
-import tokenService from "../services/token.service";
+import tokenService from "../services/tokens";
 import jwt from 'jwt-decode';
+import { statusCode } from "../constants/statusCodes";
+import { store } from "../store";
 
 export function register(values, history) {
-    var model = {
+    let model = {
         name: values.name,
         surname: values.surname,
         email: values.email,
-        password: values.password,
+        password: values.password
     };
 
     authenticationService
-        .registerUser(model)
+        .register(model)
         .then(
             () => {
-                successMessage(authErrors.REGISTRATION_SUCCESS);
+                successMessage(authenticationErrorMessages.REGISTRATION_SUCCESS);
 
                 history.push("/login");
             },
             (err) => {
-                err.response.status === 400
+                err.response.status === statusCode.BAD_REQUEST
                     ? errorMessage(
-                        authErrors.REGISTRATION_FAILED,
-                        authErrors.REGISTRATION_FAILED_USER_ALREADY_EXIST
+                        authenticationErrorMessages.REGISTRATION_FAILED,
+                        authenticationErrorMessages.REGISTRATION_FAILED_USER_ALREADY_EXIST
                     )
                     : errorMessage(
-                        authErrors.REGISTRATION_FAILED,
+                        authenticationErrorMessages.REGISTRATION_FAILED,
                         generalErrorMessages.SOMETHING_WENT_WRONG
                     );
             }
         )
         .catch(() => {
             errorMessage(
-                authErrors.REGISTRATION_FAILED,
+                authenticationErrorMessages.REGISTRATION_FAILED,
                 generalErrorMessages.SOMETHING_WENT_WRONG
             );
         });
 }
 
 export function login(values, history) {
-    var model = {
+    let model = {
         email: values.email,
-        password: values.password,
+        password: values.password
     };
 
     authenticationService
-        .loginUser(model)
+        .login(model)
         .then(
             (response) => {
                 store.dispatch(setAccess(response.data));
@@ -58,46 +59,46 @@ export function login(values, history) {
                 history.push("/main");
             },
             (err) => {
-                err.response.status === 400
+                err.response.status === statusCode.BAD_REQUEST
                     ? errorMessage(
-                        authErrors.LOGIN_FAILED,
-                        authErrors.LOGIN_FAILED_USER_ALREADY_EXIST
+                        authenticationErrorMessages.LOGIN_FAILED,
+                        authenticationErrorMessages.LOGIN_FAILED_USER_ALREADY_EXIST
                     )
                     : errorMessage(
-                        authErrors.LOGIN_FAILED,
+                        authenticationErrorMessages.LOGIN_FAILED,
                         generalErrorMessages.SOMETHING_WENT_WRONG
                     );
             }
         )
         .catch(() => {
             errorMessage(
-                authErrors.LOGIN_FAILED,
+                authenticationErrorMessages.LOGIN_FAILED,
                 generalErrorMessages.SOMETHING_WENT_WRONG
             );
         });
 }
 
 export function logoutUser() {
-    var model = {
+    let model = {
         refreshToken: tokenService.getLocalRefreshToken()
     };
 
     authenticationService
-        .logoutUser(model)
+        .logout(model)
         .then(
             () => {
                 store.dispatch(logout());
             },
             () => {
                 errorMessage(
-                    authErrors.LOGOUT_FAILED,
+                    authenticationErrorMessages.LOGOUT_FAILED,
                     generalErrorMessages.SOMETHING_WENT_WRONG
                 );
             }
         )
         .catch(() => {
             errorMessage(
-                authErrors.LOGOUT_FAILED,
+                authenticationErrorMessages.LOGOUT_FAILED,
                 generalErrorMessages.SOMETHING_WENT_WRONG
             );
         });
@@ -105,10 +106,10 @@ export function logoutUser() {
 
 export function checkIsUserRoleValid() {
 
-    var accessToken = tokenService.getLocalAccessToken();
+    let accessToken = tokenService.getLocalAccessToken();
 
     if (accessToken !== null) {
-        var decodedAccessToken = jwt(accessToken);
+        let decodedAccessToken = jwt(accessToken);
 
         if (decodedAccessToken.role !== store.getState().authReducer.role) {
             store.dispatch(logout());

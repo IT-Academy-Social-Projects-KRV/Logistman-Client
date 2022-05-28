@@ -1,5 +1,12 @@
 @import "./assets/pages/authentication";
-@import "./assets/pages/mainPage";
+@import "./assets/pages/main";
 @import "./assets/pages/profile";
 @import "./assets/pages/userCars";
 @import "./assets/pages/userOffers";
+
+@import "./assets/variables/others";
+
+body, html {
+    min-height: 100%;
+    font-family: $general_font;
+}

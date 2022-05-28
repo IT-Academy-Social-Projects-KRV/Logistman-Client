@@ -6,7 +6,6 @@
   justify-content: center;
 
   .title {
-    font-family: $general_font;
     font-weight: bold;
     font-size: 15pt;
     text-align: center;
@@ -110,14 +109,6 @@
   .fieldIcon svg {
     width: 22px;
     height: 22px;
-  }
-
-  .viewButton {
-    background-color: $body_color;
-    border: none;
-    float: right;
-    margin-left: auto;
-    display: flex;
   }
 }
 

@@ -1,16 +1,21 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { Form, Input, Button, Checkbox } from "antd";
+import { Form, Input, Button } from "antd";
 import { Link } from "react-router-dom";
-import { inputValidationErrors } from "../../../constants/messages/inputValidationErrors";
+import { inputValidationErrorMessages } from "../../../constants/messages/inputValidationErrors";
 import { login } from "../../../services/authentication";
-import { errorMessage } from "../../../services/alert.service";
-import { authErrors } from "../../../constants/messages/authMessages";
+import { errorMessage } from "../../../services/alerts";
+import { authenticationErrorMessages } from "../../../constants/messages/authentication";
 import { generalErrorMessages } from "../../../constants/messages/general";
-import tokenService from "../../../services/token.service";
+import InputRules from "../../../constants/inputRules";
+import tokenService from "../../../services/tokens";
 
-function Login() {
+function LoginPage() {
     let history = useHistory();
+
+    useEffect(() => {
+        tokenService.deleteTokens();
+    }, []);
 
     const onFinish = (values) => {
         login(values, history);
@@ -18,14 +23,10 @@ function Login() {
 
     const onFinishFailed = () => {
         errorMessage(
-            authErrors.LOGIN_BLOCKED,
+            authenticationErrorMessages.LOGIN_BLOCKED,
             generalErrorMessages.CORRECT_ALL_COMMENTS
         );
     };
-
-    useEffect(async () => {
-        tokenService.deleteTokens();
-    }, []);
 
     return (
         <div className="authBody">
@@ -47,16 +48,13 @@ function Login() {
                         name="email"
                         className="textForm"
                         rules={[
-                            {
-                                type: "email",
-                                message:
-                                    inputValidationErrors.NOT_VALID_EMAIL_MESSAGE,
-                            },
-                            {
-                                required: true,
-                                message:
-                                    inputValidationErrors.EMPTY_EMAIL_MESSAGE,
-                            },
+                            InputRules.specificType(
+                                "email",
+                                inputValidationErrorMessages.NOT_VALID_EMAIL
+                            ),
+                            InputRules.required(
+                                inputValidationErrorMessages.EMPTY_EMAIL
+                            )
                         ]}
                     >
                         <Input placeholder="Email" />
@@ -66,19 +64,9 @@ function Login() {
                         name="password"
                         className="passwordForm"
                         rules={[
-                            {
-                                type: "string",
-                                pattern: new RegExp(
-                                    "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@$%^&*(){}:;<>,.?+_=|'~\\-])[A-Za-z0-9!@$%^&*(){}:;<>,.?+_=|'~\\-]{7,51}$"
-                                ),
-                                message:
-                                    inputValidationErrors.NOT_VALID_PASSWORD_MESSAGE,
-                            },
-                            {
-                                required: true,
-                                message:
-                                    inputValidationErrors.EMPTY_PASSWORD_MESSAGE,
-                            },
+                            InputRules.required(
+                                inputValidationErrorMessages.EMPTY_PASSWORD
+                            )
                         ]}
                     >
                         <Input.Password
@@ -86,13 +74,6 @@ function Login() {
                             placeholder="Password"
                         />
                     </Form.Item>
-
-                    <div className="helperForm">
-                        <Checkbox className="checkboxForm">
-                            Remember me
-                        </Checkbox>
-                        <Link to="/forgotPassword">Forgot password</Link>
-                    </div>
 
                     <Form.Item className="submitItem">
                         <Button
@@ -114,4 +95,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default LoginPage;

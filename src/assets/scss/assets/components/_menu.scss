@@ -20,14 +20,14 @@
   transform: translate(0);
 }
 
-.menu > .menu-items {
+.menu>.menu-items {
   display: flex;
   justify-content: center;
   flex-direction: column;
   width: 100%;
 }
 
-.menu > .menu-items > a {
+.menu>.menu-items>a {
   color: black;
   font-size: 20px;
   text-decoration: none;
@@ -71,7 +71,7 @@
   cursor: pointer;
 }
 
-.menu > .menu-items > a::after {
+.menu>.menu-items>a::after {
   content: "";
   width: 100%;
   height: 2px;
@@ -83,31 +83,31 @@
   transition: all 0.45s;
 }
 
-.menu > .menu-items > a:hover::after {
+.menu>.menu-items>a:hover::after {
   transform: scaleX(1);
 }
 
-.menu.open .menu-items > a:nth-child(1) {
+.menu.open .menu-items>a:nth-child(1) {
   animation: animate ease-in-out;
   animation-duration: 0.7s;
 }
 
-.menu.open .menu-items > a:nth-child(2) {
+.menu.open .menu-items>a:nth-child(2) {
   animation: animate ease-in-out;
   animation-duration: 0.85s;
 }
 
-.menu.open .menu-items > a:nth-child(3) {
+.menu.open .menu-items>a:nth-child(3) {
   animation: animate ease-in-out;
   animation-duration: 1s;
 }
 
-.menu.open .menu-items > a:nth-child(4) {
+.menu.open .menu-items>a:nth-child(4) {
   animation: animate ease-in-out;
   animation-duration: 1.15s;
 }
 
-.menu.open .menu-items > a:nth-child(5) {
+.menu.open .menu-items>a:nth-child(5) {
   animation: animate ease-in-out;
   animation-duration: 1.3s;
 }
@@ -131,6 +131,7 @@
     opacity: 0;
     transform: translateY(90px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -138,7 +139,6 @@
 }
 
 // Big monitor
-
 @media only screen and (min-width: $max_laptop_size) and (max-width: $min_big_monitor_size) {
   .Menu {
     width: 40%;
@@ -148,7 +148,7 @@
 // Tablet
 @media only screen and (min-width: $max_phone_size) and (max-width: $max_tablet_size) {
   .menu {
-    width: 40%; // variable
+    width: 40%;
     overflow-block: scroll;
     height: calc(100vh - 65px);
     overflow-y: scroll;

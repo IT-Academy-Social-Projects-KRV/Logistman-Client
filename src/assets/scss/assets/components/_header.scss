@@ -3,66 +3,69 @@
 
 header {
     position: fixed;
-    top:0;
+    top: 0;
     left: 0;
     right: 0;
     height: 65px;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    text-align: center;
     z-index: 1;
     background-color: $main_header_color;
     gap: 30%;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-    
-    h1{
+
+    h1 {
         margin-left: 6%;
         font-size: 20px;
     }
 
-    button{
+    button {
         border: none;
         background-color: $main_header_color;
     }
 
-    .support_block{
+    .support_block {
         width: 10%;
         display: flex;
         gap: 10%;
     }
 
-    img{
+    img {
         width: 40px;
         margin-left: 10px;
     }
-    
-}
-// Tablet
-@media only screen and (min-width: $max_phone_size) and (max-width: $max_tablet_size) {
-    header{
-        display: flex;
-        gap: 0%;
-        margin-left: -10%;
-    }
-    h1{
-        font-size: 18px;
-    }
-}
 
-// Mobile
-@media only screen and (max-width: $max_phone_size) {
-    header{
-        display: flex;
-        gap: 0%;
-        h1{
+    @media only screen and (min-width: $max_phone_size) and (max-width: $max_tablet_size) {
+        header {
+            display: flex;
+            gap: 0%;
+        }
+
+        h1 {
+            margin-left: 8%;
             font-size: 18px;
-            margin: 0%;
         }
-        #change-theme img{
-            width: 0px;
+    }
+
+    @media only screen and (max-width: $max_phone_size) {
+        header {
+            display: flex;
+            gap: 0%;
+
+            #change-theme img {
+                width: 0px;
+            }
+
+            .support_block {
+                width: 25%;
+            }
         }
-        .support_block{
-            width: 25%;
+        
+        h1 {
+            margin: 0;
+            font-size: 16px;
         }
     }
 }

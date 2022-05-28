@@ -13,17 +13,16 @@ $medium_form_size: 38px;
 $medium_border_radius_size: 8px;
 
 .authBody {
-    height: 100vh;
     background-color: $body_color;
+    min-height: 100%;
 
     .center {
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        height: 100vh;
-        font-family: $general_font;
         color: white;
+        min-height: 100vh;
     }
 
     .title {
