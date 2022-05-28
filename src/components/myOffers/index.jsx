@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Header from "../navigation/header";
 import { getUserOffers } from "../../services/offers";
-import Offer from "./offer/offer";
 import { Result } from "antd";
+import MyOffer from './myOffer/index';
 
-function UserOffersPage() {
+function MyOffersPage() {
 
     const [offers, setOffers] = useState([]);
 
@@ -21,7 +21,7 @@ function UserOffersPage() {
             {offers.length > 0 ?
                 <div className="offers-container">
                     {offers.map((offer) =>
-                        <Offer info={offer} />
+                        <MyOffer info={offer} />
                     )}
                 </div>
                 :
@@ -34,4 +34,4 @@ function UserOffersPage() {
     );
 }
 
-export default UserOffersPage;
+export default MyOffersPage;

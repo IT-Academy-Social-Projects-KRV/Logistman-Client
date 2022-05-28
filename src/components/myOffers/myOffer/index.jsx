@@ -7,9 +7,9 @@ import {
 } from "@ant-design/icons";
 import moment from 'moment';
 import Text from "antd/es/typography/Text";
-import { offerRoles } from './../../../constants/offerRoles';
+import { offerRoles } from '../../../constants/offerRoles';
 
-function Offer(data) {
+function MyOffer(data) {
 
     return (
         <Card className="offerCard">
@@ -65,4 +65,4 @@ function Offer(data) {
     );
 }
 
-export default Offer;
+export default MyOffer;

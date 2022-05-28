@@ -8,9 +8,9 @@ import { generalErrorMessages } from "../../constants/messages/general";
 import { inputValidationErrorMessages } from "../../constants/messages/inputValidationErrors";
 import { userErrorMessages } from "../../constants/messages/user";
 import InputRules from "../../constants/inputRules";
-import AddNewCarModal from '../newCarModal/addCarModal';
+import AddNewCarModal from './../addNewCarModal/index';
 
-function UserProfilePage() {
+function ProfilePage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [temporaryFullName, setTemporaryFullName] = useState({});
     const [userData, setUserData] = useState(undefined);
@@ -215,4 +215,4 @@ function UserProfilePage() {
     );
 }
 
-export default UserProfilePage;
+export default ProfilePage;

@@ -6,16 +6,16 @@ import {
     Redirect,
 } from "react-router-dom";
 import { createBrowserHistory } from "history";
-import RegistrationPage from "./components/authentication/registration";
-import LoginPage from "./components/authentication/login";
-import MainPage from "./components/mainPage";
 import PrivateRoute from "./privateRoute";
 import { userRoles } from "./constants/userRoles";
 import "antd/dist/antd.css";
-import UserCarsPage from './components/userCars/userCars';
-import UserOffersPage from "./components/userOffers/userOffers";
-import HomePage from './components/home/home';
-import UserProfilePage from './components/userProfile/userProfile';
+import MainPage from './components/main/index';
+import ProfilePage from './components/profile/index';
+import MyCarsPage from './components/myCars/index';
+import MyOffersPage from './components/myOffers/index';
+import RegistrationPage from './components/authentication/registration/index';
+import LoginPage from './components/authentication/login/index';
+import HomePage from './components/home/index';
 
 const history = createBrowserHistory();
 
@@ -36,7 +36,7 @@ export default function App() {
                     path="/profile"
                     allowedRoles={[userRoles.USER]}
                 >
-                    <UserProfilePage />
+                    <ProfilePage />
                 </PrivateRoute>
 
                 <PrivateRoute
@@ -44,7 +44,7 @@ export default function App() {
                     path="/my-cars"
                     allowedRoles={[userRoles.USER]}
                 >
-                    <UserCarsPage />
+                    <MyCarsPage />
                 </PrivateRoute>
 
                 <PrivateRoute
@@ -52,7 +52,7 @@ export default function App() {
                     path="/my-offers"
                     allowedRoles={[userRoles.USER]}
                 >
-                    <UserOffersPage />
+                    <MyOffersPage />
                 </PrivateRoute>
 
                 <Route

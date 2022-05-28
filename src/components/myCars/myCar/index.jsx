@@ -9,7 +9,7 @@ import info_icon from "../../../assets/images/cars/info.svg";
 import insurance_icon from "../../../assets/images/cars/insurance.svg";
 import passport_icon from "../../../assets/images/cars/passport.svg";
 
-function Car(data) {
+function MyCar(data) {
     
     return (
         <Card className="carCard">
@@ -81,4 +81,4 @@ function Car(data) {
     );
 }
 
-export default Car;
+export default MyCar;

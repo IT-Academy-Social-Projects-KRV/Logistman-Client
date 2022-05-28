@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { getUserCars } from "../../services/cars";
 import Header from "../navigation/header";
-import Car from './car/car';
 import { Result } from "antd";
+import MyCar from './myCar/index';
 
-function UserCarsPage() {
+function MyCarsPage() {
 
     const [cars, setCars] = useState([]);
 
@@ -21,7 +21,7 @@ function UserCarsPage() {
             {cars.length > 0 ?
                 <div className="cars-container">
                     {cars.map((car) =>
-                        <Car info={car} />
+                        <MyCar info={car} />
                     )}
                 </div>
                 :
@@ -34,4 +34,4 @@ function UserCarsPage() {
     );
 }
 
-export default UserCarsPage;
+export default MyCarsPage;
