@@ -9,4 +9,8 @@ export default class carsService {
     static getAllByUser() {
         return instance.get(CARS_URLS.GET_BY_USER);
     }
+
+    static getUserVerified() {
+        return instance.get(CARS_URLS.GET_USER_VERIFIED);
+    }
 }

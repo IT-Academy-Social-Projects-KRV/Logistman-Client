@@ -20,7 +20,8 @@ export const CAR_CATEGORIES_URLS = {
 
 export const CARS_URLS = {
     ADD: CAR_URL + "/add",
-    GET_BY_USER: CAR_URL
+    GET_BY_USER: CAR_URL,
+    GET_USER_VERIFIED: CAR_URL + "/user-verified"
 };
 
 export const GOOD_CATEGORIES_URLS = {

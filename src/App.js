@@ -16,6 +16,7 @@ import MyOffersPage from './components/myOffers/index';
 import RegistrationPage from './components/authentication/registration/index';
 import LoginPage from './components/authentication/login/index';
 import HomePage from './components/home/index';
+import CreateTripPage from './components/createTrip/index';
 
 const history = createBrowserHistory();
 
@@ -53,6 +54,14 @@ export default function App() {
                     allowedRoles={[userRoles.USER]}
                 >
                     <MyOffersPage />
+                </PrivateRoute>
+
+                <PrivateRoute
+                    exact
+                    path="/create-trip"
+                    allowedRoles={[userRoles.USER]}
+                >
+                    <CreateTripPage />
                 </PrivateRoute>
 
                 <Route

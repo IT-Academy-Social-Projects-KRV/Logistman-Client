@@ -3,10 +3,12 @@
 @import "./assets/pages/profile";
 @import "./assets/pages/userCars";
 @import "./assets/pages/userOffers";
+@import "./assets/pages/createTrip";
 
 @import "./assets/variables/others";
 
-body, html {
+body,
+html {
     min-height: 100%;
     font-family: $general_font;
 }
