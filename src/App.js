@@ -16,6 +16,7 @@ import MyOffersPage from './components/myOffers/index';
 import RegistrationPage from './components/authentication/registration/index';
 import LoginPage from './components/authentication/login/index';
 import HomePage from './components/home/index';
+import IdentityUserListPage from './components/users/index';
 
 const history = createBrowserHistory();
 
@@ -34,7 +35,7 @@ export default function App() {
                 <PrivateRoute
                     exact
                     path="/profile"
-                    allowedRoles={[userRoles.USER]}
+                    allowedRoles={[userRoles.USER, userRoles.LOGIST]}
                 >
                     <ProfilePage />
                 </PrivateRoute>
@@ -50,9 +51,17 @@ export default function App() {
                 <PrivateRoute
                     exact
                     path="/my-offers"
-                    allowedRoles={[userRoles.USER]}
+                    allowedRoles={[userRoles.USER, userRoles.LOGIST]}
                 >
                     <MyOffersPage />
+                </PrivateRoute>
+
+                <PrivateRoute
+                    exact
+                    path="/users"
+                    allowedRoles={[userRoles.LOGIST]}
+                >
+                    <IdentityUserListPage />
                 </PrivateRoute>
 
                 <Route

@@ -77,3 +77,15 @@ export async function getFullUserName() {
             );
         });
 }
+
+export async function getAllIdentityUsers() {
+    return await usersService
+        .getAllIdentityUsers()
+        .then(
+            (response) => {
+                return response.data;
+            }
+        )
+}
+
+

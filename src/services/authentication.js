@@ -7,6 +7,7 @@ import tokenService from "../services/tokens";
 import jwt from 'jwt-decode';
 import { statusCode } from "../constants/statusCodes";
 import { store } from "../store";
+import { userRoles } from '../constants/userRoles';
 
 export function register(values, history) {
     let model = {
@@ -56,7 +57,15 @@ export function login(values, history) {
             (response) => {
                 store.dispatch(setAccess(response.data));
 
-                history.push("/main");
+                //console.log(response.data);
+                let accessToken = tokenService.getLocalAccessToken();
+                //console.log(accessToken);
+                let decodedAccessToken = jwt(accessToken);
+                //console.log(decodedAccessToken);
+                if (decodedAccessToken.role === userRoles.LOGIST) {
+                    history.push("/users");
+                }
+                else history.push("/main");
             },
             (err) => {
                 err.response.status === statusCode.BAD_REQUEST

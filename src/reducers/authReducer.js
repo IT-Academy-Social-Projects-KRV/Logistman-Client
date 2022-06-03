@@ -34,6 +34,21 @@ const authReducer = (state = intialState, action) => {
                 }
             }
 
+            if (decodedAccessToken.role === userRoles.LOGIST) {
+
+                // this is only one role that is available at the time of writing,
+                // except for the guest, when other roles appear, we will need to add them
+
+                tokenService.setLocalAccessToken(accessToken);
+                tokenService.setLocalRefreshToken(refreshToken);
+
+                return {
+                    ...state,
+                    role: userRoles.LOGIST,
+                    isAuthUser: true
+                }
+            }
+
             errorMessage(
                 authenticationErrorMessages.LOGIN_FAILED,                    // because we set a role only after login
                 authenticationErrorMessages.LOGIN_FAILED_USER_ALREADY_EXIST

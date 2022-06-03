@@ -1,0 +1,90 @@
+@import '../variables/colors';
+@import '../variables/others';
+
+.allIdentityUsersBody {
+    padding: 105px 140px 50px 140px;
+    justify-content: center;
+
+    .title {
+        font-weight: bold;
+        font-size: 15pt;
+        text-align: center;
+        margin-top: -10px;
+        color: $title_color;
+    }
+
+    .users-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 3%;
+      }
+
+    img.userIcon {
+        height: 40px;
+        width: 40px;
+        margin-right: 15px;
+    }
+
+    img.emailIcon {
+        height: 28px;
+        width: 28px;
+        margin-right: 15px;
+    }
+
+    .leftSide,
+    .centerSide {
+        display: inline-block;
+    }
+
+    .leftSide {
+        width: 40%;
+        //height: 50px;
+        padding-right: 20px;
+    }
+
+    .centerSide {
+        width: 40%;
+        //height: 50px;
+        padding-right: 20px;
+    }
+
+    .ant-card.userCard {
+        width: 90%;
+        height: min-content;
+        margin-bottom: 3%;
+        box-shadow: rgba(14, 30, 37, 0.12) 0 2px 4px 0, rgba(14, 30, 37, 0.32) 0 2px 16px 0;
+        border-radius: 15px;
+
+        .userInformation {
+            padding-right: 20px;
+            display: flex;
+            align-content: flex-start;
+        }
+    }
+
+    .cardField {
+        display: inline-flex;
+        color: #656565;
+        font-size: 15px;
+    }
+
+    .fieldText {
+        margin-left: 25px;
+        color: #656565;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+}
+
+@media only screen and (max-width: $the_middle_of_tablet_size) {
+    .allIdentityUsersBody {
+        padding: 100px 0;
+    }
+
+    .userInformation {
+        flex-direction: column;
+        font-size: 14px;
+    }
+}

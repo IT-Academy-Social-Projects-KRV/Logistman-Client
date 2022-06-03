@@ -13,4 +13,8 @@ export default class usersService {
   static getFullUserName() {
     return instance.get(USERS_URLS.FULL_NAME);
   }
+
+  static getAllIdentityUsers() {
+    return instance.get(USERS_URLS.GET_ALL_IDENTITY_USERS);
+  }
 }
