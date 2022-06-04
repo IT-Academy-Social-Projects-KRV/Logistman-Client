@@ -3,9 +3,9 @@ import { errorMessage } from "./alerts";
 import { generalErrorMessages } from "../constants/messages/general";
 import { offersErrorMessages } from "../constants/messages/offersMessages";
 
-export async function getUserOffers() {
+export async function getUserOffers(paginationFilterModel) {
     return offersService
-        .getAllByUser()
+        .getAllByUser(paginationFilterModel)
         .then(
             async (response) => {
                 return await response.data;
