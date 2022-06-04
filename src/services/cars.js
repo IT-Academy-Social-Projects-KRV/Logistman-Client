@@ -42,10 +42,10 @@ export function addCar(values) {
         });
 }
 
-export async function getUserCars() {
+export async function getUserCars(paginationFilterModel) {
 
     return await carsService
-        .getAllByUser()
+        .getAllByUser(paginationFilterModel)
         .then(
             (response) => {
                 return response.data;
