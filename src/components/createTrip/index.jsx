@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Geocode from "react-geocode";
-import { Button } from 'antd';
+import { Button, Layout, DatePicker, Form, Input, InputNumber, Table } from 'antd';
 import PlacesAutocomplete, {
     geocodeByAddress,
     getLatLng
@@ -8,83 +8,238 @@ import PlacesAutocomplete, {
 import {
     useJsApiLoader,
     GoogleMap,
-    Marker,
     DirectionsRenderer
 } from '@react-google-maps/api';
 import Header from '../navigation/header';
+import { mapCenter } from './../../constants/map';
+import { errorMessage } from './../../services/alerts';
+import { mapErrorMessages } from './../../constants/messages/map';
+import { generalErrorMessages } from './../../constants/messages/general';
+import { inputValidationErrorMessages } from './../../constants/messages/inputValidationErrors';
+import InputRules from './../../constants/inputRules';
+import { setDisabledDate } from "../../constants/dates";
+import { CALENDER_DATE_FORMAT } from '../../constants/dates';
+import { carsErrorMessages } from './../../constants/messages/cars';
+import { getUserVerifiedCars } from "../../services/cars";
+import moment from "moment";
+import { createTrip } from "../../services/trip";
+
+const { TextArea } = Input;
+const { RangePicker } = DatePicker;
 
 Geocode.setApiKey("AIzaSyAdPX1hEy04ED1D8TLhLsTEwNSJ5xbo0Vo");
-
 Geocode.setLanguage("ua");
-
 Geocode.setRegion("ua");
-
 Geocode.enableDebug();
 
-const center = {
-    lat: 50.45,
-    lng: 30.52
-};
+const columns = [
+    {
+        title: 'Model',
+        dataIndex: 'model'
+    },
+    {
+        title: 'Registration number',
+        dataIndex: 'registrationNumber'
+    },
+    {
+        title: 'Load capacity (kg)',
+        dataIndex: 'loadCapacity'
+    }
+];
 
-export default function CreateTripPage() {
+function CreateTripPage() {
     const [originAddress, setOriginAddress] = useState("");
     const [destinationAddress, setDestinationAddress] = useState("");
+    const [subPoint, setSubPointAddress] = useState("");
 
-    const [map, setMap] = useState(/** @type google.maps.Map */(null));
-    const [directionsResponse, setDirectionsResponse] = useState(null);
+    const [originCoordinates, setOriginCoordinates] = useState(null);
+    const [destinationCoordinates, setDestinationCoordinates] = useState(null);
+    const [subPointCoordinates, setSubPointCoordinates] = useState([]);
+
+    const [map, setMap] = useState(null);
+    const [directionResponse, setDirectionResponse] = useState(null);
+
+    const [points, setPoints] = useState([]);
+
     const [distance, setDistance] = useState('');
     const [duration, setDuration] = useState('');
-    const [origin, setOrigin] = useState(null);
-    const [destination, setDestination] = useState(null);
+
+    const [selectedCarId, setSelectedCarId] = useState();
+
+    const [center, setCenter] = useState(mapCenter);
+
+    const [verifiedCars, setVerifiedCars] = useState(null);
 
     const { isLoaded } = useJsApiLoader({
         id: "google-map-script",
         googleMapsApiKey: "AIzaSyAdPX1hEy04ED1D8TLhLsTEwNSJ5xbo0Vo"
     });
 
-    async function calculateRoute() {
+    useEffect(async () => {
+        let cars = await getUserVerifiedCars();
+        setVerifiedCars(cars);
+    }, []);
+
+    const buildTheRoute = async () => {
         const directionsService = new window.google.maps.DirectionsService();
 
-        const results = await directionsService.route({
-            origin: origin,
-            destination: destination,
-            travelMode: window.google.maps.TravelMode.DRIVING
+        const direction = await directionsService.route({
+            origin: originCoordinates,
+            destination: destinationCoordinates,
+            waypoints: subPointCoordinates,
+            travelMode: window.google.maps.TravelMode.DRIVING, // by default
+            avoidTolls: true
         });
 
-        setDirectionsResponse(results);
+        setDirectionResponse(direction);
 
-        setDistance(results.routes[0].legs[0].distance.text);
-        setDuration(results.routes[0].legs[0].duration.text);
+        setDistance(direction.routes[0].legs[0].distance.text);
+        setDuration(direction.routes[0].legs[0].duration.text); // without waiting
+
+        let distanceInKm = 0, previousKmPoint = 0;
+
+        const legs = direction.routes[0].legs;
+
+        points.push(originCoordinates);
+
+        for (const legIndex in legs) {
+
+            for (const stepIndex in legs[legIndex].steps) {
+                const legDistance = legs[legIndex].steps[stepIndex].distance.text;
+
+                const legDistanceArray = legDistance.split(' ');
+
+                let legDistanceInM = legDistanceArray[0];
+                const unitOfMeasurement = legDistanceArray[1];
+
+                if (unitOfMeasurement == "м") {
+                    distanceInKm += parseFloat(legDistanceInM);
+                }
+                else {
+                    legDistanceInM = legDistanceInM.replace(',', '.');
+                    distanceInKm += legDistanceInM * 1000;
+                }
+
+                const currentDistanceInKm = distanceInKm < 1000 ? 0 : parseFloat(distanceInKm / 1000);
+
+                if (currentDistanceInKm - 50 > previousKmPoint) {
+                    points.push({
+                        lat: legs[legIndex].steps[stepIndex].end_location.lat(),
+                        lng: legs[legIndex].steps[stepIndex].end_location.lng()
+                    });
+
+                    previousKmPoint = distanceInKm / 1000;
+                }
+            }
+
+            if (parseInt(legIndex) + 1 != legs.length) {
+                points.push(subPointCoordinates[parseInt(legIndex)].location);
+            }
+        }
+
+        points.push(destinationCoordinates);
+
+        // console.log(distanceInKm / 1000 + " km", points);
     }
 
-    const handleSelectOrigin = async (value) => {
-        setOriginAddress(value);
+    const handleSelectOrigin = async (originValue) => {
+        await setOriginAddress(originValue);
 
-        geocodeByAddress(value)
+        geocodeByAddress(originValue)
             .then(results => getLatLng(results[0]))
-            .then(latLng => {
-                setOrigin(latLng);
-            })
-            .catch(error => console.error('Error', error));
+            .then(latLng => setOriginCoordinates(latLng)
+            )
+            .catch(() =>
+                errorMessage(
+                    mapErrorMessages.LOAD_COORDINATES_FAILED,
+                    generalErrorMessages.SOMETHING_WENT_WRONG
+                )
+            );
     };
 
-    const handleSelectDestination = async (value) => {
-        setDestinationAddress(value);
+    const handleSelectDestination = async (destinationValue) => {
+        setDestinationAddress(destinationValue);
 
-        geocodeByAddress(value)
+        geocodeByAddress(destinationValue)
             .then(results => getLatLng(results[0]))
-            .then(latLng => {
-                setDestination(latLng);
-            })
-            .catch(error => console.error('Error', error));
+            .then(latLng =>
+                setDestinationCoordinates(latLng)
+            )
+            .catch(() =>
+                errorMessage(
+                    mapErrorMessages.LOAD_COORDINATES_FAILED,
+                    generalErrorMessages.SOMETHING_WENT_WRONG
+                )
+            );
     };
 
-    const onOriginChange = (value) => {
-        setOriginAddress(value);
+    const handleSelectSubPoint = async (subPointValue) => {
+        setSubPointAddress(subPointValue);
+
+        geocodeByAddress(subPointValue)
+            .then(results => getLatLng(results[0]))
+            .then(latLng =>
+                subPointCoordinates.push({
+                    location: latLng,
+                    stopover: true
+                })
+            )
+            .catch(() =>
+                errorMessage(
+                    mapErrorMessages.LOAD_COORDINATES_FAILED,
+                    generalErrorMessages.SOMETHING_WENT_WRONG
+                )
+            );
     };
 
-    const onDestinationChange = (value) => {
-        setDestinationAddress(value);
+    const onOriginChange = (originValue) => {
+    };
+
+    const onDestinationChange = (destinationValue) => {
+    };
+
+    const onFinish = async (values) => {
+        await buildTheRoute();
+
+        let tripPoints = [];
+
+        for (const index in points) {
+            tripPoints.push({
+                latitude: points[index].lat,
+                longitude: points[index].lng,
+                order: parseInt(index) + 1
+            });
+        }
+
+        console.log("Start date: ", moment(values.dates[0]._d).format(CALENDER_DATE_FORMAT),
+            "\nExpiration date: ", moment(values.dates[1]._d).format(CALENDER_DATE_FORMAT),
+            "\n\nDescription: ", values.description,
+            "\n\nLoad capacity: ", values.loadCapacity,
+            "\nMax route deviation (km): ", values.maxRouteDeviationKm,
+            "\n\nTransportation car id: ", selectedCarId,
+            "\n\nOrigin address: ", originAddress,
+            "\nOrigin coordinates: ", originCoordinates,
+            "\n\nDestination address: ", destinationAddress,
+            "\nDestination coordinates: ", destinationCoordinates,
+            "\n\nAuxiliary points (to build an exact route): ", tripPoints);
+
+        const model = {
+            startDate: values.dates[0]._d,
+            expirationDate: values.dates[1]._d,
+            description: values.description,
+            loadCapacity: values.loadCapacity,
+            maxRouteDeviationKm: values.maxRouteDeviationKm,
+            transportationCarId: selectedCarId,
+            points: tripPoints
+        };
+
+        setPoints([]);
+
+        // await createTrip(model);
+    };
+
+    const onFinishFailed = () => {
+        // buildTheRoute();
     };
 
     return isLoaded ? (
@@ -92,115 +247,285 @@ export default function CreateTripPage() {
 
             <Header />
 
-            <PlacesAutocomplete
-                value={originAddress}
-                onChange={onOriginChange}
-                onSelect={handleSelectOrigin}
-            >
-                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                    <div>
-                        <input
-                            {...getInputProps({
-                                placeholder: 'Search the origin address',
-                                className: 'location-search-input',
-                            })}
-                        />
-                        <div className="autocomplete-dropdown-container">
-                            {loading && <div>Loading...</div>}
-                            {suggestions.map(suggestion => {
-                                const className = suggestion.active
-                                    ? 'suggestion-item--active'
-                                    : 'suggestion-item';
-                                const style = suggestion.active
-                                    ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                    : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                                return (
-                                    <div
-                                        {...getSuggestionItemProps(suggestion, {
-                                            className,
-                                            style
-                                        })}
-                                    >
-                                        <span>{suggestion.description}</span>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </div>
-                )}
-            </PlacesAutocomplete>
+            <Layout id="tripBlock">
+                <h1>Create trip</h1>
 
-            <PlacesAutocomplete
-                value={destinationAddress}
-                onChange={onDestinationChange}
-                onSelect={handleSelectDestination}
-            >
-                {({
-                    getInputProps,
-                    suggestions,
-                    getSuggestionItemProps,
-                    loading
-                }) => (
-
-                    <div>
-                        <input
-                            {...getInputProps({
-                                placeholder: 'Search the destination address',
-                                className: 'location-search-input',
-                            })}
-                        />
-                        <div className="autocomplete-dropdown-container">
-                            {loading && <div>Loading...</div>}
-                            {suggestions.map(suggestion => {
-                                const className = suggestion.active
-                                    ? 'suggestion-item--active'
-                                    : 'suggestion-item';
-                                const style = suggestion.active
-                                    ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                    : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                                return (
-                                    <div
-                                        {...getSuggestionItemProps(suggestion, {
-                                            className,
-                                            style
-                                        })}
-                                    >
-                                        <span>{suggestion.description}</span>
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </div>
-                )}
-            </PlacesAutocomplete>
-
-            <Button onClick={calculateRoute}>
-                Ok
-            </Button>
-
-            <div style={{ height: "500px", width: "100%" }}>
-                <GoogleMap
-                    center={center}
-                    zoom={15}
-                    mapContainerStyle={{ width: '100%', height: '100%' }}
-                    options={{
-                        zoomControl: false,
-                        streetViewControl: false,
-                        mapTypeControl: false,
-                        fullscreenControl: false
-                    }}
-                    onLoad={map => setMap(map)}
+                <Form
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
+                    initialValues={{ remember: true }}
+                    onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
+                    scrollToFirstError
+                    id="tripForm"
                 >
-                    <Marker position={center} />
-                    {directionsResponse && (
-                        <DirectionsRenderer directions={directionsResponse} />
-                    )}
-                </GoogleMap>
-            </div>
+                    <Form.Item
+                        name="originAddress"
+                        rules={[
+                            InputRules.required(
+                                inputValidationErrorMessages.EMPTY_ORIGIN_ADDRESS
+                            )
+                        ]}
+                    >
+                        <PlacesAutocomplete
+                            value={originAddress}
+                            onChange={onOriginChange}
+                            onSelect={handleSelectOrigin}
+                        >
+                            {({
+                                getInputProps,
+                                suggestions,
+                                getSuggestionItemProps
+                            }) => (
+                                <div>
+                                    <input
+                                        {...getInputProps({
+                                            placeholder: 'Origin address'
+                                        })}
+                                    />
+
+                                    <div className="autocomplete-dropdown-container">
+                                        {suggestions.map(suggestion => {
+                                            const className = suggestion.active
+                                                ? 'suggestion-item--active'
+                                                : 'suggestion-item';
+                                            const style = suggestion.active
+                                                ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                                                : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                            return (
+                                                <div
+                                                    {...getSuggestionItemProps(suggestion, {
+                                                        className,
+                                                        style
+                                                    })}
+                                                >
+                                                    <span>{suggestion.description}</span>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            )}
+                        </PlacesAutocomplete>
+                    </Form.Item>
+
+                    <Form.Item
+                        name="destinationAddress"
+                        rules={[
+                            InputRules.required(
+                                inputValidationErrorMessages.EMPTY_DESTINATION_ADDRESS
+                            )
+                        ]}
+                    >
+                        <PlacesAutocomplete
+                            value={destinationAddress}
+                            onChange={onDestinationChange}
+                            onSelect={handleSelectDestination}
+                        >
+                            {({
+                                getInputProps,
+                                suggestions,
+                                getSuggestionItemProps
+                            }) => (
+                                <div>
+                                    <input
+                                        {...getInputProps({
+                                            placeholder: 'Destination address'
+                                        })}
+                                    />
+
+                                    <div className="autocomplete-dropdown-container">
+                                        {suggestions.map(suggestion => {
+                                            const className = suggestion.active
+                                                ? 'suggestion-item--active'
+                                                : 'suggestion-item';
+                                            const style = suggestion.active
+                                                ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                                                : { backgroundColor: '#ffffff', cursor: 'pointer' };
+
+                                            return (
+                                                <div
+                                                    {...getSuggestionItemProps(suggestion, {
+                                                        className,
+                                                        style
+                                                    })}
+                                                >
+                                                    <span>{suggestion.description}</span>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            )}
+                        </PlacesAutocomplete>
+                    </Form.Item>
+
+
+
+                    <Form.Item
+                        name="dates"
+                        rules={[
+                            InputRules.required(
+                                inputValidationErrorMessages.UNSELECTED_DATE
+                            )
+                        ]}
+                    >
+                        <RangePicker
+                            disabledDate={setDisabledDate}
+                            showTime={{
+                                hideDisabledOptions: true
+                            }}
+                            format={CALENDER_DATE_FORMAT}
+                        />
+                    </Form.Item>
+
+                    <Form.Item
+                        name="description"
+                        rules={[
+                            InputRules.required(
+                                inputValidationErrorMessages.EMPTY_DESCRIPTION
+                            ),
+                            InputRules.lengthRange(
+                                1,
+                                1000,
+                                inputValidationErrorMessages.DESCRIPTION_MUST_BE_BETWEEN_1_AND_1000
+                            )
+                        ]}
+                    >
+                        <TextArea placeholder="Description" value={""} />
+                    </Form.Item>
+
+                    <Form.Item name="loadCapacity"
+                        rules={[
+                            InputRules.required(carsErrorMessages.EMPTY_FIELD)
+                        ]}
+                    >
+                        <InputNumber min={1}
+                            addonAfter="kg"
+                            placeholder="Load capacity"
+                        />
+                    </Form.Item>
+
+                    <Form.Item name="maxRouteDeviationKm"
+                        rules={[
+                            InputRules.required(carsErrorMessages.EMPTY_FIELD)
+                        ]}
+                    >
+                        <InputNumber min={0} max={25}
+                            addonAfter="km"
+                            placeholder="Max route deviation"
+                        />
+                    </Form.Item>
+
+                    <p>Cars</p>
+                    <Table
+                        columns={columns}
+                        dataSource={verifiedCars}
+                        size="small"
+                        pagination={false}
+                        onRow={(record, rowIndex) => ({
+                            onClick: () => setSelectedCarId(record.id)
+                        })}
+                    />
+
+                    <Button
+                        type="primary"
+                        htmlType="submit"
+                    >
+                        Ok
+                    </Button>
+
+                    <div style={{ height: "500px", width: "100%" }}>
+                        <GoogleMap
+                            center={center}
+                            zoom={12}
+                            mapContainerStyle={{ width: '100%', height: '100%' }}
+                            options={{
+                                zoomControl: true,
+                                streetViewControl: false,
+                                mapTypeControl: true,
+                                fullscreenControl: true
+                            }}
+                            onLoad={map => setMap(map)}
+                        >
+                            {directionResponse && (
+                                <DirectionsRenderer directions={directionResponse} />
+                            )}
+                        </GoogleMap>
+                    </div>
+                </Form>
+
+                <Form
+                    labelCol={{ span: 8 }}
+                    wrapperCol={{ span: 16 }}
+                    initialValues={{ remember: true }}
+                    onFinish={(values) => { }}
+                    scrollToFirstError
+                >
+                    <Form.Item
+                        name="point"
+                        rules={[
+                            InputRules.required(
+                                inputValidationErrorMessages.EMPTY_DESTINATION_ADDRESS
+                            )
+                        ]}
+                    >
+                        <PlacesAutocomplete
+                            value={destinationAddress}
+                            onChange={onDestinationChange}
+                            onSelect={handleSelectSubPoint}
+                        >
+                            {({
+                                getInputProps,
+                                suggestions,
+                                getSuggestionItemProps
+                            }) => (
+                                <div>
+                                    <input
+                                        {...getInputProps({
+                                            placeholder: 'Destination address'
+                                        })}
+                                    />
+
+                                    <div className="autocomplete-dropdown-container">
+                                        {suggestions.map(suggestion => {
+                                            const className = suggestion.active
+                                                ? 'suggestion-item--active'
+                                                : 'suggestion-item';
+                                            const style = suggestion.active
+                                                ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                                                : { backgroundColor: '#ffffff', cursor: 'pointer' };
+
+                                            return (
+                                                <div
+                                                    {...getSuggestionItemProps(suggestion, {
+                                                        className,
+                                                        style
+                                                    })}
+                                                >
+                                                    <span>{suggestion.description}</span>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            )}
+                        </PlacesAutocomplete>
+                    </Form.Item>
+
+                    <Button
+                        type="primary"
+                        htmlType="submit"
+                    >
+                        Add
+                    </Button>
+
+                </Form>
+            </Layout>
         </div>
     ) : (
-        <>
-            <span>Map is not loaded!</span>
-        </>
+        <span>Map is not loaded!</span>
     );
 }
+
+export default CreateTripPage;

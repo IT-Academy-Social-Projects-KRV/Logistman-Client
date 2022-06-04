@@ -64,13 +64,6 @@ export default class InputRules {
         }
     }
 
-    static loadCapacity() {
-        return {
-            pattern: new RegExp("^[^0|\\D]\\d{0,9}(\\.\\d{1,2})?$"),
-            message: carsErrorMessages.NOT_VALID_LOAD_CAPACITY
-        }
-    }
-
     static registrationNumber() {
         return {
             pattern: new RegExp("^[a-zA-Z\\d ]*$"),

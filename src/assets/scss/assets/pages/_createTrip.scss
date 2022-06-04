@@ -1,3 +1,10 @@
 .createTripBody {
-    padding: 105px 40px 0px 40px;
+    padding: 105px 40px 40px 40px;
+
+    #tripBlock {
+        padding: 40px 40px 25px 40px;
+        border: 2px solid rgb(0 0 0 / 15%);
+        border-radius: 10px;
+        background: white;
+    }
 }
