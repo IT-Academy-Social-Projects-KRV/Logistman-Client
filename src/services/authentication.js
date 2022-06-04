@@ -56,16 +56,19 @@ export function login(values, history) {
         .then(
             (response) => {
                 store.dispatch(setAccess(response.data));
-
-                //console.log(response.data);
                 let accessToken = tokenService.getLocalAccessToken();
-                //console.log(accessToken);
                 let decodedAccessToken = jwt(accessToken);
-                //console.log(decodedAccessToken);
-                if (decodedAccessToken.role === userRoles.LOGIST) {
-                    history.push("/users");
+                switch (decodedAccessToken.role) {
+                    case userRoles.USER:
+                        history.push("/main");
+                        break;
+                    case userRoles.LOGIST:
+                        history.push("/users");
+                        break;
+                    default:
+                        history.push("/login");
+                        break;
                 }
-                else history.push("/main");
             },
             (err) => {
                 err.response.status === statusCode.BAD_REQUEST

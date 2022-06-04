@@ -16,14 +16,12 @@ function Menu({ isMenuOpen, data }) {
     let menuItems = menuUserItems;
 
     switch (decodedAccessToken.role) {
-        case userRoles.USER: {
+        case userRoles.USER:
             menuItems = menuUserItems;
             break;
-        }
-        case userRoles.LOGIST: {
+        case userRoles.LOGIST:
             menuItems = menuLogistItems;
             break;
-        }
         default:
             menuItems = menuUserItems;
             break;

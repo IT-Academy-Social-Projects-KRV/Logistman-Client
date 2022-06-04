@@ -15,7 +15,7 @@ function IdentityUserListPage() {
     return (
         <div className="allIdentityUsersBody">
             <Header />
-            <p className="title">Users</p>
+            <p className="title">Manage users</p>
 
             {users.length > 0 ?
                 <div className="users-container">

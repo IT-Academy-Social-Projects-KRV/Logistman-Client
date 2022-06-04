@@ -2,7 +2,7 @@
 @import '../variables/others';
 
 .allIdentityUsersBody {
-    padding: 105px 140px 50px 140px;
+    padding: 105px 400px 50px 400px;
     justify-content: center;
 
     .title {
@@ -15,11 +15,10 @@
 
     .users-container {
         display: flex;
-        justify-content: center;
         align-items: center;
         flex-direction: column;
         margin-top: 3%;
-      }
+    }
 
     img.userIcon {
         height: 40px;
@@ -35,19 +34,24 @@
 
     .leftSide,
     .centerSide {
-        display: inline-block;
+        width: 40%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
     }
 
-    .leftSide {
-        width: 40%;
-        //height: 50px;
-        padding-right: 20px;
+    .rightSide {
+        width: 20%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
     }
 
-    .centerSide {
-        width: 40%;
-        //height: 50px;
-        padding-right: 20px;
+    p {
+        display: flex;
+        justify-content: center;
+        margin: 0;
+        color: #656565;
     }
 
     .ant-card.userCard {
@@ -58,33 +62,76 @@
         border-radius: 15px;
 
         .userInformation {
-            padding-right: 20px;
             display: flex;
-            align-content: flex-start;
+            align-content: space-between;
+            align-items: center;
+            padding: 10px;
         }
     }
 
-    .cardField {
-        display: inline-flex;
-        color: #656565;
-        font-size: 15px;
+    .ant-card-body {
+        padding: 5px;
     }
 
-    .fieldText {
-        margin-left: 25px;
-        color: #656565;
-        padding-bottom: 0;
-        margin-bottom: 0;
+    .detailsButton {
+        width: 120px;
+        height: 40px;
+        color: white;
+        background-color: #093545;
+        border-radius: 10px;
+    }
+}
+
+@media only screen and (max-width: $max_laptop_size) {
+    .allIdentityUsersBody {
+        padding: 105px 150px 50px 150px;
+    }
+}
+
+@media only screen and (max-width: $max_tablet_size) {
+    .allIdentityUsersBody {
+        padding: 105px 50px 50px 50px;
     }
 }
 
 @media only screen and (max-width: $the_middle_of_tablet_size) {
     .allIdentityUsersBody {
-        padding: 100px 0;
-    }
+        padding: 105px 10px 50px 10px;
 
-    .userInformation {
-        flex-direction: column;
-        font-size: 14px;
+        .users-container {
+            width: 100%;
+        }
+    }
+}
+
+@media only screen and (max-width: $max_phone_size) {
+    .allIdentityUsersBody {
+        .ant-card.userCard {
+            .userInformation {
+                justify-content: space-between;
+                flex-direction: column;
+            }
+        }
+
+        .leftSide {
+            margin: 5px;
+            width: 100%;
+        }
+
+        .centerSide {
+            padding-left: 7px;
+            margin: 5px;
+            width: 100%;
+        }
+
+        .rightSide {
+            margin: 5px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .detailsButton {
+            width: 100%;
+        }
     }
 }

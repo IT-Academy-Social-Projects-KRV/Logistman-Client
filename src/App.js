@@ -51,7 +51,7 @@ export default function App() {
                 <PrivateRoute
                     exact
                     path="/my-offers"
-                    allowedRoles={[userRoles.USER, userRoles.LOGIST]}
+                    allowedRoles={[userRoles.USER]}
                 >
                     <MyOffersPage />
                 </PrivateRoute>
