@@ -11,8 +11,8 @@ export default class offersService {
     }
 
     static getAllByUser(paginationFilterModel) {
-        return instance.get(OFFERS_URLS.GET_BY_USER + 
+        return instance.get(OFFERS_URLS.GET_BY_USER +
             `?PageNumber=${paginationFilterModel.pageNumber}
-            &PageSize=${paginationFilterModel.pageSize}`);
+             &PageSize=${paginationFilterModel.pageSize}`);
     }
 }

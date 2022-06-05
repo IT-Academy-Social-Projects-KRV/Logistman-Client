@@ -5,12 +5,13 @@ import { Result } from "antd";
 import MyOffer from './myOffer/index';
 import { Pagination } from 'antd';
 import { paginationDefaultFilter } from "../../constants/paginationDefaultFilter";
+import { customPageSizeOptions } from "../../constants/paginationDefaultFilter";
 
 function MyOffersPage() {
 
     let paginationFilterModel = {
         pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
-        pageSize: paginationDefaultFilter.DEFAULT_PAGE_SIZE
+        pageSize: paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE
     }
 
     const [offers, setOffers] = useState([]);
@@ -25,39 +26,34 @@ function MyOffersPage() {
 
         setOffers(await getUserOffers(paginationFilterModel));
     };
-    
-    if(offers == null)
-    {
-        return <Result
-            status="404"
-            title="Looks like you haven't created any offer yet."
-        />
-    }
-        return (
-            <div className="userOffersBody">
-                <Header />
-    
-                <p className="title">My offers</p>
-    
-                {offers.length != 0 ?
-                    <div className="offers-container">
-                        {offers.items.map((offer) =>
-                            <MyOffer info={offer} />
-                        )}
-                        <Pagination 
-                            onChange={onPaginationChange} 
-                            total={offers.totalItems} 
-                            showSizeChanger 
-                            showTotal={(total) => `Total ${total} items`}/>
-                    </div>
-                    :
-                    <Result
-                        status="404"
-                        title="Looks like you haven't created any offer yet."
-                    />
-                }
-            </div>
-        );
+
+    return (
+        <div className="userOffersBody">
+            <Header />
+
+            <p className="title">My offers</p>
+
+            {offers.length != 0 ?
+                <div className="offers-container">
+                    {offers.items.map((offer) =>
+                        <MyOffer info={offer} />
+                    )}
+                    <Pagination
+                        onChange={onPaginationChange}
+                        total={offers.totalItems}
+                        showSizeChanger
+                        showTotal={(total) => `Total ${total} items`}
+                        pageSizeOptions={customPageSizeOptions}
+                        defaultPageSize={paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE} />
+                </div>
+                :
+                <Result
+                    status="404"
+                    title="Looks like you haven't created any offer yet."
+                />
+            }
+        </div>
+    );
 }
 
 export default MyOffersPage;

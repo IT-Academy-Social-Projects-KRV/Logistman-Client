@@ -5,12 +5,13 @@ import { Result } from "antd";
 import MyCar from './myCar/index';
 import { Pagination } from 'antd';
 import { paginationDefaultFilter } from "../../constants/paginationDefaultFilter";
+import { customPageSizeOptions } from "../../constants/paginationDefaultFilter";
 
 function MyCarsPage() {
 
     let paginationFilterModel = {
         pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
-        pageSize: paginationDefaultFilter.DEFAULT_PAGE_SIZE
+        pageSize: paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE
     }
 
     const [cars, setCars] = useState([]);
@@ -26,13 +27,6 @@ function MyCarsPage() {
         setCars(await getUserCars(paginationFilterModel));
     };
 
-    if(cars == null)
-    {
-        return <Result
-            status="404"
-            title="Looks like you haven't created any car yet."
-        />
-    }
     return (
         <div className="userCarsBody">
             <Header />
@@ -44,11 +38,13 @@ function MyCarsPage() {
                     {cars.items.map((car) =>
                         <MyCar info={car} />
                     )}
-                     <Pagination 
-                            onChange={onPaginationChange} 
-                            total={cars.totalItems} 
-                            showSizeChanger 
-                            showTotal={(total) => `Total ${total} items`}/>
+                    <Pagination
+                        onChange={onPaginationChange}
+                        total={cars.totalItems}
+                        showSizeChanger
+                        showTotal={(total) => `Total ${total} items`}
+                        pageSizeOptions={customPageSizeOptions}
+                        defaultPageSize={paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE} />
                 </div>
                 :
                 <Result
