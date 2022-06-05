@@ -1,4 +1,4 @@
-@import '../variables/colors';
+@import "../variables/colors";
 @import "../components/menu";
 @import "../variables/others";
 
@@ -13,7 +13,9 @@
 
   .ant-form {
     width: 90%;
-    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    height: 100%;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+      rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
     padding: 40px;
     border-radius: 10px;
     display: flex;
@@ -21,18 +23,27 @@
     z-index: 0;
 
     .ant-form-item {
-      margin-bottom: 8px;
+      margin-top: 10px;
+      width: 90%;
     }
 
-    .ant-form-item input[type=text],
+    .ant-form-item input[type="text"],
     .ant-picker {
-      width: 100%;
       border-radius: 5px;
       padding: 10px;
+      width: 100%;
     }
 
-    .input-to-hide{
+    textarea {
+      resize: none;
+      height: 100px;
+    }
+
+    .input-to-hide {
       height: 0px;
+      width: 0;
+      position: absolute;
+      visibility: hidden;
     }
 
     .submitButton {
@@ -61,7 +72,8 @@
     }
 
     .description-list {
-      box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+      box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+        rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
       border-radius: 5px;
       position: absolute;
       z-index: 1;
@@ -80,9 +92,9 @@
 
       .mapBlock {
         width: 100%;
-        height: 80%;
-        box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-
+        height: 400px;
+        box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+          rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
       }
 
       .description {
@@ -95,9 +107,9 @@
 }
 
 @media only screen and (min-width: $max_phone_size) and (max-width: $max_tablet_size) {
-    .ant-form-item{
-      width: calc(100% + 70px);
-    }
+  .ant-form-item {
+    width: calc(100% + 70px);
+  }
 }
 
 @media only screen and (max-width: $max_phone_size) {
@@ -109,17 +121,17 @@
   }
 
   .createOfferBody .ant-form .rightFormBlock {
-    .mapBlock{
+    .mapBlock {
       height: 250px;
     }
   }
 
   .ant-picker-datetime-panel {
     display: flex;
-    flex-direction: column ; 
+    flex-direction: column;
   }
 
-  .ant-picker-time-panel{
+  .ant-picker-time-panel {
     height: 100px;
   }
 }

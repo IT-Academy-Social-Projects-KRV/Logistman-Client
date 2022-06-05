@@ -86,11 +86,7 @@ function Login() {
                             autoComplete="on"
                         />
                     </Form.Item>
-
-                    <div className="helperForm">
-                       
-                    </div>
-
+                    
                     <Form.Item className="submitItem">
                         <Button
                             type="primary"

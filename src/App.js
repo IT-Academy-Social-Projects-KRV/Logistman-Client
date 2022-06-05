@@ -31,9 +31,10 @@ export default function App() {
           <UserProfilePage />
         </PrivateRoute>
 
-        <PrivateRoute exact path="/offer" allowedRoles={[userRoles.USER]}>
+        <PrivateRoute exact path="/create-offer" allowedRoles={[userRoles.USER]}>
           <OfferCreateOfferPage />
         </PrivateRoute>
+
         <PrivateRoute exact path="/my-cars" allowedRoles={[userRoles.USER]}>
           <UserCarsPage />
         </PrivateRoute>
@@ -47,6 +48,7 @@ export default function App() {
         </PrivateRoute>
 
         <Route exact path="/registration" component={Registration} />
+        
         <Route path="/login" component={Login} />
 
         <Route exact path="/home">

@@ -34,8 +34,8 @@ const containerStyle = {
 };
 
 const center = {
-  lat: 50.64,
-  lng: 26.26,
+  lat: offerValues.DEFAULT_LAT_VALUE,
+  lng: offerValues.DEFAULT_LNG_VALUE,
 };
 
 const defaultOptions = {
@@ -138,6 +138,31 @@ export default function OfferPage() {
     return current && current < moment().startOf("day");
   }
 
+  const range = (start, end) => {
+    const result = [];
+  
+    for (let i = start; i < end; i++) {
+      result.push(i);
+    }
+  
+    return result;
+  };
+
+  const getCurrentHour = () =>{
+    var currDate = new Date();
+    return currDate.getHours();
+  }
+
+  
+  // function for setting timepicker in rangepicker
+  const disabledRangeTime = (_, type) => {
+    if(type === 'start'){
+      return{
+        disabledHours: () => range(0,60).splice(0,getCurrentHour() + 1),
+      }
+    }
+  };
+
   const onFinish = (values) => {
     var start = values.dates[0];
     var end = values.dates[1];
@@ -174,6 +199,8 @@ export default function OfferPage() {
           <div className="leftFormBlock">
             <Form.Item
               name="address"
+              label="Select your address: "
+              labelAlign="left"
               rules={[
                 {
                   type: "string",
@@ -252,6 +279,8 @@ export default function OfferPage() {
             </Form.Item>
             <Form.Item
               name="goodCategory"
+              label="Select good categorie: "
+              labelAlign="left"
               rules={[
                 {
                   required: true,
@@ -259,7 +288,7 @@ export default function OfferPage() {
                 },
               ]}
             >
-              <Select placeholder="Select good categories">
+              <Select placeholder="Select good categories" className="select-good-categorie">
                 {data?.map((res, idx) => (
                   <Option value={res.name} key={idx}>
                     {res.name.toLowerCase()}
@@ -270,6 +299,8 @@ export default function OfferPage() {
 
             <Form.Item
               name="dates"
+              label="Select date: "
+              labelAlign="left"
               rules={[
                 {
                   required: true,
@@ -279,6 +310,7 @@ export default function OfferPage() {
             >
               <RangePicker
                 disabledDate={disabledDate}
+                disabledTime={disabledRangeTime}
                 showTime={{
                   hideDisabledOptions: true,
                   defaultValue: [
@@ -287,14 +319,18 @@ export default function OfferPage() {
                   ],
                 }}
                 format="YYYY-MM-DD HH:mm"
+
               />
             </Form.Item>
 
             <Form.Item
               name="goodsWeight"
+              label="Select good weight: "
+              labelAlign="left"
               rules={[
                 {
-                  message: inputValidationErrors.EMPTY_GOOD_WEIGHT_MESSAGE,
+                  pattern: "^[0-9]",
+                  message: inputValidationErrors.NOT_VALID_GOOD_WEIGHT_MESSAGE,
                 },
                 {
                   required: true,
@@ -302,13 +338,16 @@ export default function OfferPage() {
                 },
               ]}
             >
-              <Input type="number" min="0" addonAfter="kg" placeholder="Goods Weight" />
+              <Input addonAfter="kg" className="goodsWeight" type="number" placeholder="Goods Weight" />
             </Form.Item>
             <Form.Item
               name="description"
               className="description"
+              label="Write description: "
+              labelAlign="left"
               rules={[
                 {
+                  type: "string",
                   message: inputValidationErrors.EMPTY_DESCRIPTION_MESSAGE,
                 },
                 {

@@ -26,6 +26,7 @@ export const inputValidationErrors = Object.freeze({
     EMPTY_GOOD_CATEGORY_MESSAGE: "Please select good category!",
     EMPTY_START_DATE_MESSAGE: "Please select start date!",
     EMPTY_GOOD_WEIGHT_MESSAGE: "Plese input good weight!",
+    NOT_VALID_GOOD_WEIGHT_MESSAGE: "Invalid weight!",
 
     EMPTY_DESCRIPTION_MESSAGE: "Please input description",
 });

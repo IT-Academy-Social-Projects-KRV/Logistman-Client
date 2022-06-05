@@ -1,7 +1,7 @@
 import { errorMessage, successMessage } from "./alert.service";
 import { generalErrorMessages } from "../constants/messages/general";
 import { offerErrorMessages } from "../constants/messages/offer";
-import {userRoles} from "../constants/userRoles"
+import {offerRoles} from "../constants/offerRoles"
 import offerService from "../api/offer";
 import { offerValues } from "../constants/offerValues";
 
@@ -12,7 +12,7 @@ export function createOffer(values, coordinates) {
     startDate: values.dates[0]._d,
     expirationDate: values.dates[1]._d,
     goodCategory: values.goodCategory,
-    role: userRoles.SENDER,
+    role: offerRoles.SENDER,
     point: {
       latitude: coordinates.lat,
       longitude: coordinates.lng,
