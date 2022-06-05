@@ -1,0 +1,14 @@
+@import '../variables/colors';
+@import '../variables/others';
+
+.h2ConfirmEmail {
+  color: $white_gray
+}
+
+.confirm {
+  color: $green_color
+}
+
+.notConfirm{
+  color: $input_error_message_color;
+}

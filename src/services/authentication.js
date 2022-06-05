@@ -119,3 +119,31 @@ export function checkIsUserRoleValid() {
         store.dispatch(logout());
     }
 }
+
+export async function confirmEmailAsync(email, token){
+    let model = {
+        token: token,
+        email: email
+    };
+
+    return authenticationService
+        .confirmEmail(model)
+        .then(
+            () => {
+                return true;
+            },
+            () => {
+                errorMessage(
+                    authenticationErrorMessages.SEND_EMAIL_CONFIRMATION_FAILED,
+                    generalErrorMessages.SOMETHING_WENT_WRONG
+                );
+                return false;
+            })
+        .catch(() => {
+            errorMessage(
+                authenticationErrorMessages.SEND_EMAIL_CONFIRMATION_FAILED,
+                generalErrorMessages.SOMETHING_WENT_WRONG
+            );
+            return false;
+        });
+}
