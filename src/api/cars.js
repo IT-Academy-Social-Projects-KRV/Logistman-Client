@@ -7,8 +7,8 @@ export default class carsService {
     }
 
     static getAllByUser(paginationFilterModel) {
-        return instance.get(CARS_URLS.GET_BY_USER + 
+        return instance.get(CARS_URLS.GET_BY_USER +
             `?PageNumber=${paginationFilterModel.pageNumber}
-            &PageSize=${paginationFilterModel.pageSize}`);
+             &PageSize=${paginationFilterModel.pageSize}`);
     }
 }
