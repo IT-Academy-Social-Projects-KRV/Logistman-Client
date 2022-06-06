@@ -1,10 +1,16 @@
 .createTripBody {
-    padding: 105px 40px 40px 40px;
+    padding: 95px 40px 40px 40px;
+    text-align: center;
+
+    #title {
+        margin-bottom: 25px;
+    }
 
     #tripBlock {
         padding: 40px 40px 25px 40px;
         border: 2px solid rgb(0 0 0 / 15%);
         border-radius: 10px;
         background: white;
+        text-align: start;
     }
 }
