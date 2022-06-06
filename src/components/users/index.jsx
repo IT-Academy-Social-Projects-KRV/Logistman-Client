@@ -5,7 +5,6 @@ import User from "./user";
 import Header from "../navigation/header";
 
 function ManageUsersPage() {
-
     const [users, setUsers] = useState([]);
 
     useEffect(async () => {

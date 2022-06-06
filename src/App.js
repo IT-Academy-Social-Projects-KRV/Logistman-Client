@@ -16,7 +16,7 @@ import MyOffersPage from './components/myOffers/index';
 import RegistrationPage from './components/authentication/registration/index';
 import LoginPage from './components/authentication/login/index';
 import HomePage from './components/home/index';
-import IdentityUserListPage from './components/users/index';
+import ManageUsersPage from './components/users/index';
 
 const history = createBrowserHistory();
 
@@ -61,7 +61,7 @@ export default function App() {
                     path="/users"
                     allowedRoles={[userRoles.LOGIST]}
                 >
-                    <IdentityUserListPage />
+                    <ManageUsersPage />
                 </PrivateRoute>
 
                 <Route

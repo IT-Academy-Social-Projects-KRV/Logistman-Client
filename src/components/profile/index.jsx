@@ -16,6 +16,7 @@ function ProfilePage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [temporaryFullName, setTemporaryFullName] = useState({});
     const [userData, setUserData] = useState(undefined);
+    
     let role = store.getState().authReducer.role;
 
     useEffect(async () => {
