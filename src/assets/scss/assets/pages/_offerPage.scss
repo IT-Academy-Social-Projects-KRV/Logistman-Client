@@ -10,7 +10,7 @@
   margin-top: 80px;
   width: 100%;
   height: 100%;
-
+  
   .ant-form {
     width: 90%;
     height: 100%;
@@ -109,6 +109,13 @@
 @media only screen and (min-width: $max_phone_size) and (max-width: $max_tablet_size) {
   .ant-form-item {
     width: calc(100% + 70px);
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+  .ant-form-item-label{
+    overflow: visible;
+    margin-bottom: 5px;
   }
 }
 
@@ -118,6 +125,10 @@
     flex-direction: column;
     width: 95%;
     padding: 20px;
+  }
+
+  .createOfferBody .ant-form .ant-form-item {
+    width: 100%;
   }
 
   .createOfferBody .ant-form .rightFormBlock {
