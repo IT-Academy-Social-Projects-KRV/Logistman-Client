@@ -48,6 +48,11 @@ export async function getUserCars(paginationFilterModel) {
         .getAllByUser(paginationFilterModel)
         .then(
             (response) => {
+                if(response.status === statusCode.NO_CONTENT)
+                {
+                    return null;
+                }
+
                 return response.data;
             },
             () => {

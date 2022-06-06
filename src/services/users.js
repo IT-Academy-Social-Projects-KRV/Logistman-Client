@@ -3,6 +3,7 @@ import { errorMessage, successMessage } from "./alerts";
 import { generalErrorMessages } from "../constants/messages/general";
 import usersService from "../api/users";
 import { checkIsUserRoleValid } from "./authentication";
+import { statusCode } from "../constants/statusCodes";
 
 export function getUserProfileInfo() {
     return usersService
@@ -83,6 +84,11 @@ export async function getAllUsers(paginationFilterModel) {
         .getAllUsers(paginationFilterModel)
         .then(
             (response) => {
+                if(response.status === statusCode.NO_CONTENT)
+                {
+                    return null;
+                }
+
                 return response.data;
             },
             () => {

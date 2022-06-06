@@ -14,7 +14,7 @@ function MyCarsPage() {
         pageSize: paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE
     }
 
-    const [cars, setCars] = useState("");
+    const [cars, setCars] = useState();
 
     useEffect(async () => {
         setCars(await getUserCars(paginationFilterModel));
@@ -33,7 +33,7 @@ function MyCarsPage() {
 
             <p className="title">My cars</p>
 
-            {cars != "" ?
+            {cars != null ?
                 <div className="cars-container">
                     {cars.items.map((car) =>
                         <MyCar info={car} />

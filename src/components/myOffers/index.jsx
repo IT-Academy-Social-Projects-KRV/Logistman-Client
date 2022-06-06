@@ -14,7 +14,7 @@ function MyOffersPage() {
         pageSize: paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE
     }
 
-    const [offers, setOffers] = useState("");
+    const [offers, setOffers] = useState();
 
     useEffect(async () => {
         setOffers(await getUserOffers(paginationFilterModel));
@@ -33,7 +33,7 @@ function MyOffersPage() {
 
             <p className="title">My offers</p>
 
-            {offers != "" ?
+            {offers != null ?
                 <div className="offers-container">
                     {offers.items.map((offer) =>
                         <MyOffer info={offer} />

@@ -13,7 +13,7 @@ function ManageUsersPage() {
         pageSize: paginationDefaultFilter.DEFAULT_LARGE_PAGE_SIZE
     }
 
-    const [users, setUsers] = useState("");
+    const [users, setUsers] = useState();
 
     useEffect(async () => {
         setUsers(await getAllUsers(paginationFilterModel));
@@ -32,7 +32,7 @@ function ManageUsersPage() {
 
             <p className="title">Manage users</p>
 
-            {users != "" ?
+            {users != null ?
                 <div className="users-container">
                     {users.items.map((user) =>
                         <User info={user} />
