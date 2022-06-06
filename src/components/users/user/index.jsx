@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Button } from "antd";
 import user_icon from "../../../assets/images/user.png";
-import email_icon from "../../../assets/images/email_icon.png";
+import email_icon from "../../../assets/images/email_icon.svg";
 
 function User(data) {
     return (
@@ -25,7 +25,6 @@ function User(data) {
                     </Button>
                 </div>
             </div>
-
         </Card>
     )
 }

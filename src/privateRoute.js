@@ -17,7 +17,6 @@ const PrivateRoute = props => {
                 subTitle="You are not allowed to see this page."
             />
         );
-        //return <Route component={() => <Redirect to="/login" />} />;
     }
     if (!isAuthUser) {
         return <Route component={() => <Redirect to="/login" />} />;

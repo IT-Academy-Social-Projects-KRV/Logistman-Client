@@ -9,11 +9,14 @@ import { inputValidationErrorMessages } from "../../constants/messages/inputVali
 import { userErrorMessages } from "../../constants/messages/user";
 import InputRules from "../../constants/inputRules";
 import AddNewCarModal from './../addNewCarModal/index';
+import { userRoles } from "../../constants/userRoles";
+import { store } from "../../store";
 
 function ProfilePage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [temporaryFullName, setTemporaryFullName] = useState({});
     const [userData, setUserData] = useState(undefined);
+    let role = store.getState().authReducer.role;
 
     useEffect(async () => {
         if (userData === undefined) {
@@ -191,13 +194,18 @@ function ProfilePage() {
                     </div>
 
                     <div className="blockButton">
-                        <Button type="primary"
-                            className="addItemButton"
-                            icon={<PlusCircleOutlined />}
-                            onClick={() => setIsModalOpen(true)}
-                        >
-                            Add car
-                        </Button>
+
+                        {role == userRoles.USER ?
+                            <Button type="primary"
+                                className="addItemButton"
+                                icon={<PlusCircleOutlined />}
+                                onClick={() => setIsModalOpen(true)}
+                            >
+                                Add car
+                            </Button>
+                            : 
+                            <></>
+                        }
 
                         <Button
                             htmlType={"submit"}

@@ -1,7 +1,7 @@
 @import '../variables/colors';
 @import '../variables/others';
 
-.allIdentityUsersBody {
+.usersPageBody {
     padding: 105px 400px 50px 400px;
     justify-content: center;
 
@@ -38,6 +38,7 @@
         display: flex;
         justify-content: flex-start;
         align-items: center;
+        color: #656565;
     }
 
     .rightSide {
@@ -50,8 +51,7 @@
     p {
         display: flex;
         justify-content: center;
-        margin: 0;
-        color: #656565;
+        margin: 5px;
     }
 
     .ant-card.userCard {
@@ -83,19 +83,19 @@
 }
 
 @media only screen and (max-width: $max_laptop_size) {
-    .allIdentityUsersBody {
+    .usersPageBody {
         padding: 105px 150px 50px 150px;
     }
 }
 
 @media only screen and (max-width: $max_tablet_size) {
-    .allIdentityUsersBody {
+    .usersPageBody {
         padding: 105px 50px 50px 50px;
     }
 }
 
 @media only screen and (max-width: $the_middle_of_tablet_size) {
-    .allIdentityUsersBody {
+    .usersPageBody {
         padding: 105px 10px 50px 10px;
 
         .users-container {
@@ -105,7 +105,7 @@
 }
 
 @media only screen and (max-width: $max_phone_size) {
-    .allIdentityUsersBody {
+    .usersPageBody {
         .ant-card.userCard {
             .userInformation {
                 justify-content: space-between;

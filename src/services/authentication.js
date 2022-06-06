@@ -56,9 +56,10 @@ export function login(values, history) {
         .then(
             (response) => {
                 store.dispatch(setAccess(response.data));
-                let accessToken = tokenService.getLocalAccessToken();
-                let decodedAccessToken = jwt(accessToken);
-                switch (decodedAccessToken.role) {
+
+                let role = store.getState().authReducer.role;
+
+                switch (role) {
                     case userRoles.USER:
                         history.push("/main");
                         break;
@@ -66,7 +67,10 @@ export function login(values, history) {
                         history.push("/users");
                         break;
                     default:
-                        history.push("/login");
+                        errorMessage(
+                            authenticationErrorMessages.LOGIN_FAILED,
+                            generalErrorMessages.SOMETHING_WENT_WRONG
+                        );
                         break;
                 }
             },

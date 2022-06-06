@@ -1,31 +1,15 @@
 import React from "react";
-import { menuUserItems, menuLogistItems } from "./menuItems";
+import { menuItems } from "./menuItems";
 import { logoutUser } from "../../services/authentication";
 import { useHistory } from "react-router-dom";
 import user_icon from "../../assets/images/user.png";
 import { Link } from "react-router-dom";
 import { Button } from 'antd';
-import { userRoles } from '../../constants/userRoles';
-import jwt from 'jwt-decode';
-import tokenService from "../../services/tokens";
+import { store } from "../../store";
 
 function Menu({ isMenuOpen, data }) {
     let history = useHistory();
-    let accessToken = tokenService.getLocalAccessToken();
-    let decodedAccessToken = jwt(accessToken);
-    let menuItems = menuUserItems;
-
-    switch (decodedAccessToken.role) {
-        case userRoles.USER:
-            menuItems = menuUserItems;
-            break;
-        case userRoles.LOGIST:
-            menuItems = menuLogistItems;
-            break;
-        default:
-            menuItems = menuUserItems;
-            break;
-    }
+    let role = store.getState().authReducer.role;
 
     const logOut = () => {
         logoutUser(history);
@@ -48,7 +32,7 @@ function Menu({ isMenuOpen, data }) {
             </Link>
 
             <div className="menu-items">
-                {menuItems.map((item, index) => (
+                {menuItems[role].map((item, index) => (
                     <Link to={item.itemLink} key={index}>
                         <img src={item.itemIcon} id="menu-icon" />
                         <p>{item.itemText}</p>

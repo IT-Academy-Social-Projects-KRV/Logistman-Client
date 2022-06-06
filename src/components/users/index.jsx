@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { getAllIdentityUsers } from "../../services/users";
+import { getAllUsers } from "../../services/users";
 import { Result } from "antd";
 import User from "./user";
 import Header from "../navigation/header";
 
-function IdentityUserListPage() {
+function ManageUsersPage() {
 
     const [users, setUsers] = useState([]);
 
     useEffect(async () => {
-        setUsers(await getAllIdentityUsers());
+        setUsers(await getAllUsers());
     }, []);
 
     return (
-        <div className="allIdentityUsersBody">
+        <div className="usersPageBody">
             <Header />
+
             <p className="title">Manage users</p>
 
             {users.length > 0 ?
@@ -29,9 +30,8 @@ function IdentityUserListPage() {
                     title="There are no registered users yet!"
                 />
             }
-
         </div>
     );
 }
 
-export default IdentityUserListPage;
+export default ManageUsersPage;
