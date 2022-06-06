@@ -4,8 +4,8 @@ import Header from "../navigation/header";
 import { Result } from "antd";
 import MyCar from './myCar/index';
 import { Pagination } from 'antd';
-import { paginationDefaultFilter } from "../../constants/paginationDefaultFilter";
-import { customPageSizeOptions } from "../../constants/paginationDefaultFilter";
+import { paginationDefaultFilter } from "../../constants/pagination";
+import { customPageSizeOptions } from "../../constants/pagination";
 
 function MyCarsPage() {
 
@@ -14,7 +14,7 @@ function MyCarsPage() {
         pageSize: paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE
     }
 
-    const [cars, setCars] = useState([]);
+    const [cars, setCars] = useState("");
 
     useEffect(async () => {
         setCars(await getUserCars(paginationFilterModel));
@@ -33,7 +33,7 @@ function MyCarsPage() {
 
             <p className="title">My cars</p>
 
-            {cars.length != 0 ?
+            {cars != "" ?
                 <div className="cars-container">
                     {cars.items.map((car) =>
                         <MyCar info={car} />
@@ -44,7 +44,8 @@ function MyCarsPage() {
                         showSizeChanger
                         showTotal={(total) => `Total ${total} items`}
                         pageSizeOptions={customPageSizeOptions}
-                        defaultPageSize={paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE} />
+                        defaultPageSize={paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE} 
+                    />
                 </div>
                 :
                 <Result

@@ -78,9 +78,9 @@ export async function getFullUserName() {
         });
 }
 
-export async function getAllUsers() {
+export async function getAllUsers(paginationFilterModel) {
     return await usersService
-        .getAllUsers()
+        .getAllUsers(paginationFilterModel)
         .then(
             (response) => {
                 return response.data;

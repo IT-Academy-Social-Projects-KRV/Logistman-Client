@@ -4,8 +4,8 @@ import { getUserOffers } from "../../services/offers";
 import { Result } from "antd";
 import MyOffer from './myOffer/index';
 import { Pagination } from 'antd';
-import { paginationDefaultFilter } from "../../constants/paginationDefaultFilter";
-import { customPageSizeOptions } from "../../constants/paginationDefaultFilter";
+import { paginationDefaultFilter } from "../../constants/pagination";
+import { customPageSizeOptions } from "../../constants/pagination";
 
 function MyOffersPage() {
 
@@ -14,7 +14,7 @@ function MyOffersPage() {
         pageSize: paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE
     }
 
-    const [offers, setOffers] = useState([]);
+    const [offers, setOffers] = useState("");
 
     useEffect(async () => {
         setOffers(await getUserOffers(paginationFilterModel));
@@ -33,7 +33,7 @@ function MyOffersPage() {
 
             <p className="title">My offers</p>
 
-            {offers.length != 0 ?
+            {offers != "" ?
                 <div className="offers-container">
                     {offers.items.map((offer) =>
                         <MyOffer info={offer} />
@@ -44,7 +44,8 @@ function MyOffersPage() {
                         showSizeChanger
                         showTotal={(total) => `Total ${total} items`}
                         pageSizeOptions={customPageSizeOptions}
-                        defaultPageSize={paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE} />
+                        defaultPageSize={paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE} 
+                    />
                 </div>
                 :
                 <Result
