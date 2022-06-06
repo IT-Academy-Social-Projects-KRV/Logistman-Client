@@ -40,5 +40,6 @@ export const TRIPS_URL = {
 export const USERS_URLS = {
     PROFILE_INFO: USER_URL + "/user-info",
     EDIT: USER_URL + "/edit-info",
-    FULL_NAME: USER_URL + "/user-full-name"
+    FULL_NAME: USER_URL + "/user-full-name",
+    GET_ALL_USERS: USER_URL
 };

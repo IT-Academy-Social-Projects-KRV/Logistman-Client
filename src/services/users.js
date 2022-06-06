@@ -77,3 +77,25 @@ export async function getFullUserName() {
             );
         });
 }
+
+export async function getAllUsers() {
+    return await usersService
+        .getAllUsers()
+        .then(
+            (response) => {
+                return response.data;
+            },
+            () => {
+                errorMessage(
+                    userErrorMessages.GET_LIST_OF_USERS_FAILED,
+                    generalErrorMessages.SOMETHING_WENT_WRONG
+                );
+            }
+        )
+        .catch(() => {
+            errorMessage(
+                userErrorMessages.GET_LIST_OF_USERS_FAILED,
+                generalErrorMessages.SOMETHING_WENT_WRONG
+            );
+        });
+}

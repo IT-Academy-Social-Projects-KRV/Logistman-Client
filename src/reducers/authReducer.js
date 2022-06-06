@@ -18,18 +18,16 @@ const authReducer = (state = intialState, action) => {
             const { accessToken, refreshToken } = action.payload;
 
             let decodedAccessToken = jwt(accessToken);
+            let role = decodedAccessToken.role;
 
-            if (decodedAccessToken.role === userRoles.USER) {
-
-                // this is only one role that is available at the time of writing,
-                // except for the guest, when other roles appear, we will need to add them
+            if (userRoles[role.toUpperCase()] !== undefined) {
 
                 tokenService.setLocalAccessToken(accessToken);
                 tokenService.setLocalRefreshToken(refreshToken);
 
                 return {
                     ...state,
-                    role: userRoles.USER,
+                    role: role,
                     isAuthUser: true
                 }
             }
