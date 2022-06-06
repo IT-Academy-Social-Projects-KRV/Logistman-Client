@@ -10,6 +10,7 @@ export const authenticationErrorMessages = Object.freeze({
         "There is already a user with this e-mail!",
 
     SEND_EMAIL_CONFIRMATION_FAILED: "Send emailConfirmation confirmation failed!",
+    SUCCESSFUL_EMAIL_CONFIRMATION: "Successful email confirmation!",
 
     LOGOUT_FAILED: "Log out failed!"
 });

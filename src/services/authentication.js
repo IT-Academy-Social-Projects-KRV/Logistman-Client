@@ -120,30 +120,27 @@ export function checkIsUserRoleValid() {
     }
 }
 
-export async function confirmEmailAsync(email, token){
+export async function confirmEmailAsync(token){
     let model = {
-        token: token,
-        email: email
-    };
+        token: token
+    }
 
     return authenticationService
         .confirmEmail(model)
         .then(
             () => {
-                return true;
+                successMessage(authenticationErrorMessages.SUCCESSFUL_EMAIL_CONFIRMATION);
             },
             () => {
                 errorMessage(
                     authenticationErrorMessages.SEND_EMAIL_CONFIRMATION_FAILED,
-                    generalErrorMessages.SOMETHING_WENT_WRONG
+                    generalErrorMessages.EMAIL_CONFIRM
                 );
-                return false;
             })
         .catch(() => {
             errorMessage(
                 authenticationErrorMessages.SEND_EMAIL_CONFIRMATION_FAILED,
                 generalErrorMessages.SOMETHING_WENT_WRONG
             );
-            return false;
         });
 }
