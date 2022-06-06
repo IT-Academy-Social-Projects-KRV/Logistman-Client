@@ -56,6 +56,33 @@ export async function editUserInfo(model) {
         });
 }
 
+export async function logistEditUserInfo(model, userEmail) {
+    checkIsUserRoleValid();
+
+    return await usersService
+        .logistEditUserInfo(model, userEmail)
+        .then(
+            () => {
+                successMessage(userErrorMessages.EDIT_USER_PROFILE_SUCCESS);
+
+                return true;
+            },
+            () => {
+                errorMessage(
+                    userErrorMessages.EDIT_USER_PROFILE_FAILED,
+                    generalErrorMessages.SOMETHING_WENT_WRONG
+                );
+            }
+        )
+        .catch(() => {
+            errorMessage(
+                userErrorMessages.EDIT_USER_PROFILE_FAILED,
+                userErrorMessages.EDIT_USER_PROFILE_INFO_FAILED_EMAIL_ALREADY_EXIST,
+                generalErrorMessages.SOMETHING_WENT_WRONG
+            );
+        });
+}
+
 export async function getFullUserName() {
     return await usersService
         .getFullUserName()

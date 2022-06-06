@@ -7,6 +7,10 @@ import Header from "../navigation/header";
 function ManageUsersPage() {
     const [users, setUsers] = useState([]);
 
+    const updateUserInfo = async () => {
+        setUsers(await getAllUsers());
+    }
+
     useEffect(async () => {
         setUsers(await getAllUsers());
     }, []);
@@ -20,7 +24,7 @@ function ManageUsersPage() {
             {users.length > 0 ?
                 <div className="users-container">
                     {users.map((user) =>
-                        <User info={user} />
+                        <User info={user} updateInfo={() => updateUserInfo()} />
                     )}
                 </div>
                 :
