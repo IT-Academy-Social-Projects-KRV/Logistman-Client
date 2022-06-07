@@ -6,7 +6,9 @@ export default class carsService {
         return instance.post(CARS_URLS.ADD, model);
     }
 
-    static getAllByUser() {
-        return instance.get(CARS_URLS.GET_BY_USER);
+    static getAllByUser(paginationFilterModel) {
+        return instance.get(CARS_URLS.GET_BY_USER +
+            `?PageNumber=${paginationFilterModel.pageNumber}
+             &PageSize=${paginationFilterModel.pageSize}`);
     }
 }

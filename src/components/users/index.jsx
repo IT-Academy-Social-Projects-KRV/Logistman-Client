@@ -3,13 +3,28 @@ import { getAllUsers } from "../../services/users";
 import { Result } from "antd";
 import User from "./user";
 import Header from "../navigation/header";
+import { Pagination } from 'antd';
+import { paginationDefaultFilter } from "../../constants/pagination";
 
 function ManageUsersPage() {
-    const [users, setUsers] = useState([]);
+
+    let paginationFilterModel = {
+        pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
+        pageSize: paginationDefaultFilter.DEFAULT_LARGE_PAGE_SIZE
+    }
+
+    const [users, setUsers] = useState();
 
     useEffect(async () => {
-        setUsers(await getAllUsers());
+        setUsers(await getAllUsers(paginationFilterModel));
     }, []);
+
+    const onPaginationChange = async (page, pageSize) => {
+        paginationFilterModel.pageNumber = page;
+        paginationFilterModel.pageSize = pageSize;
+
+        setUsers(await getAllUsers(paginationFilterModel));
+    };
 
     return (
         <div className="usersPageBody">
@@ -17,11 +32,17 @@ function ManageUsersPage() {
 
             <p className="title">Manage users</p>
 
-            {users.length > 0 ?
+            {users != null ?
                 <div className="users-container">
-                    {users.map((user) =>
+                    {users.items.map((user) =>
                         <User info={user} />
                     )}
+                    <Pagination
+                        onChange={onPaginationChange}
+                        total={users.totalItems}
+                        showSizeChanger
+                        showTotal={(total) => `Total ${total} items`}
+                    />
                 </div>
                 :
                 <Result
