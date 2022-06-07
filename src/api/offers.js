@@ -1,8 +1,11 @@
 import instance from "./configurations";
-import {OFFERS_URL} from "../constants/url";
+import { OFFER_URLS } from "../constants/url";
 
 export default class offersService {
     static getUserOffers() {
-        return instance.get(OFFERS_URL);
+        return instance.get(OFFER_URLS);
+    }
+    static createOffer(model) {
+        return instance.post(OFFER_URLS.CREATE_OFFER, model);
     }
 }

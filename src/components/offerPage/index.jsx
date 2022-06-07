@@ -1,13 +1,13 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import Header from "../navigation/header";
-import { createOffer } from "../../services/offerService";
+import { createOffer } from "../../services/offersService";
 import { getGoodCategories } from "../../services/goodCategoryService";
 import { useHistory } from "react-router-dom";
 import { inputValidationErrors } from "../../constants/messages/inputValidationErrors";
 import { Form, Input, Button, DatePicker, Select } from "antd";
 import { errorMessage } from "../../services/alert.service";
-import { offerErrorMessages } from "../../constants/messages/offer";
+import { offersErrorMessages } from "../../constants/messages/offersMessages";
 import moment from "moment";
 import Geocode from "react-geocode";
 import PlacesAutocomplete, {
@@ -120,8 +120,8 @@ export default function OfferPage() {
       },
       (error)=>{
         errorMessage(
-          offerErrorMessages.CREATE_OFFER_FAILED,
-          offerErrorMessages.MAP_IS_NOT_WORK
+          offersErrorMessages.CREATE_OFFER_FAILED,
+          offersErrorMessages.MAP_IS_NOT_WORK
         )
       }
     );
@@ -168,7 +168,7 @@ export default function OfferPage() {
     var end = values.dates[1];
     var diff = end.diff(start, 'hours')
     if(diff < offerValues.MIN_HOURS_VALUE){
-      errorMessage(offerErrorMessages.CREATE_OFFER_FAILED, offerErrorMessages.TIME_INTERVAL_INCORRECT);
+      errorMessage(offersErrorMessages.CREATE_OFFER_FAILED, offersErrorMessages.TIME_INTERVAL_INCORRECT);
     } else{
       createOffer(values, clickedLatLng, history);
     }
@@ -176,8 +176,8 @@ export default function OfferPage() {
 
   const onFinishFailed = (values) => {
     errorMessage(
-      offerErrorMessages.CREATE_OFFER_FAILED,
-      offerErrorMessages.ENTER_ALL_INPUTS
+      offersErrorMessages.CREATE_OFFER_FAILED,
+      offersErrorMessages.ENTER_ALL_INPUTS
     );
   };
 
