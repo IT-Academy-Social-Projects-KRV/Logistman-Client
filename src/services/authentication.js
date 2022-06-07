@@ -5,8 +5,9 @@ import {setAccess, logout} from "../reduxActions/auth";
 import {generalErrorMessages} from "../constants/messages/general";
 import tokenService from "../services/tokens";
 import jwt from 'jwt-decode';
-import {statusCode} from "../constants/statusCodes";
-import {store} from "../store";
+import { statusCode } from "../constants/statusCodes";
+import { store } from "../store";
+import { userRoles } from '../constants/userRoles';
 
 export function register(values, history) {
     let model = {
@@ -56,7 +57,22 @@ export function login(values, history) {
             (response) => {
                 store.dispatch(setAccess(response.data));
 
-                history.push("/main");
+                let role = store.getState().authReducer.role;
+
+                switch (role) {
+                    case userRoles.USER:
+                        history.push("/main");
+                        break;
+                    case userRoles.LOGIST:
+                        history.push("/users");
+                        break;
+                    default:
+                        errorMessage(
+                            authenticationErrorMessages.LOGIN_FAILED,
+                            generalErrorMessages.SOMETHING_WENT_WRONG
+                        );
+                        break;
+                }
             },
             (err) => {
                 err.response.status === statusCode.BAD_REQUEST

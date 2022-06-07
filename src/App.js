@@ -17,6 +17,8 @@ import RegistrationPage from './components/authentication/registration/index';
 import LoginPage from './components/authentication/login/index';
 import HomePage from './components/home/index';
 import ConfirmEmailPage from "./components/emailConfirmation";
+import ManageUsersPage from './components/users/index';
+
 
 const history = createBrowserHistory();
 
@@ -35,7 +37,7 @@ export default function App() {
                 <PrivateRoute
                     exact
                     path="/profile"
-                    allowedRoles={[userRoles.USER]}
+                    allowedRoles={[userRoles.USER, userRoles.LOGIST]}
                 >
                     <ProfilePage />
                 </PrivateRoute>
@@ -54,6 +56,14 @@ export default function App() {
                     allowedRoles={[userRoles.USER]}
                 >
                     <MyOffersPage />
+                </PrivateRoute>
+
+                <PrivateRoute
+                    exact
+                    path="/users"
+                    allowedRoles={[userRoles.LOGIST]}
+                >
+                    <ManageUsersPage />
                 </PrivateRoute>
 
                 <Route

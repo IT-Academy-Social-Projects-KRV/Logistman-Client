@@ -42,12 +42,17 @@ export function addCar(values) {
         });
 }
 
-export async function getUserCars() {
+export async function getUserCars(paginationFilterModel) {
 
     return await carsService
-        .getAllByUser()
+        .getAllByUser(paginationFilterModel)
         .then(
             (response) => {
+                if(response.status === statusCode.NO_CONTENT)
+                {
+                    return null;
+                }
+
                 return response.data;
             },
             () => {

@@ -3,6 +3,7 @@ import { errorMessage, successMessage } from "./alerts";
 import { generalErrorMessages } from "../constants/messages/general";
 import usersService from "../api/users";
 import { checkIsUserRoleValid } from "./authentication";
+import { statusCode } from "../constants/statusCodes";
 
 export function getUserProfileInfo() {
     return usersService
@@ -73,6 +74,33 @@ export async function getFullUserName() {
         .catch(() => {
             errorMessage(
                 userErrorMessages.GET_USER_FULL_NAME_FAILED,
+                generalErrorMessages.SOMETHING_WENT_WRONG
+            );
+        });
+}
+
+export async function getAllUsers(paginationFilterModel) {
+    return await usersService
+        .getAllUsers(paginationFilterModel)
+        .then(
+            (response) => {
+                if(response.status === statusCode.NO_CONTENT)
+                {
+                    return null;
+                }
+
+                return response.data;
+            },
+            () => {
+                errorMessage(
+                    userErrorMessages.GET_LIST_OF_USERS_FAILED,
+                    generalErrorMessages.SOMETHING_WENT_WRONG
+                );
+            }
+        )
+        .catch(() => {
+            errorMessage(
+                userErrorMessages.GET_LIST_OF_USERS_FAILED,
                 generalErrorMessages.SOMETHING_WENT_WRONG
             );
         });

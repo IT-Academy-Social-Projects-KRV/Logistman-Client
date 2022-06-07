@@ -13,4 +13,10 @@ export default class usersService {
   static getFullUserName() {
     return instance.get(USERS_URLS.FULL_NAME);
   }
+
+  static getAllUsers(paginationFilterModel) {
+      return instance.get(USERS_URLS.GET_ALL_USERS + 
+          `?PageNumber=${paginationFilterModel.pageNumber}
+           &PageSize=${paginationFilterModel.pageSize}`);
+  }
 }

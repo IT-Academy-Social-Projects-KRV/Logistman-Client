@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Redirect } from "react-router-dom";
+import { Result } from 'antd';
 
 const PrivateRoute = props => {
     const { isAuthUser, role, allowedRoles } = props;
@@ -9,7 +10,13 @@ const PrivateRoute = props => {
         return props.children;
     }
     if (isAuthUser && !allowedRoles.includes(role)) {
-        return <Route component={() => <Redirect to="/login" />} />;
+        return (
+            <Result
+                status="403"
+                title="403"
+                subTitle="You are not allowed to see this page."
+            />
+        );
     }
     if (!isAuthUser) {
         return <Route component={() => <Redirect to="/login" />} />;
