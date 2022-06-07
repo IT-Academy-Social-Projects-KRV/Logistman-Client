@@ -20,7 +20,9 @@ export default class usersService {
     return instance.get(USERS_URLS.FULL_NAME);
   }
 
-  static getAllUsers() {
-    return instance.get(USERS_URLS.GET_ALL_USERS);
+  static getAllUsers(paginationFilterModel) {
+      return instance.get(USERS_URLS.GET_ALL_USERS + 
+          `?PageNumber=${paginationFilterModel.pageNumber}
+           &PageSize=${paginationFilterModel.pageSize}`);
   }
 }
