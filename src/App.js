@@ -16,7 +16,7 @@ import MyOffersPage from './components/myOffers/index';
 import RegistrationPage from './components/authentication/registration/index';
 import LoginPage from './components/authentication/login/index';
 import HomePage from './components/home/index';
-import ConfirmEmail from "./components/emailConfirmation";
+import ConfirmEmailPage from "./components/emailConfirmation";
 
 const history = createBrowserHistory();
 
@@ -80,7 +80,7 @@ export default function App() {
                 <Route
                     path="/confirm-email"
                 >
-                    <ConfirmEmail/>
+                    <ConfirmEmailPage/>
                 </Route>
 
                 <Redirect to="/login" />

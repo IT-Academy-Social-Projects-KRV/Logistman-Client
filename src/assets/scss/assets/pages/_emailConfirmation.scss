@@ -1,14 +1,29 @@
 @import '../variables/colors';
 @import '../variables/others';
 
-.h2ConfirmEmail {
-  color: $white_gray
-}
+.authEmail {
+  background-color: $body_color;
+  min-height: 100%;
 
-.confirm {
-  color: $green_color
-}
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+    min-height: 100vh;
+  }
 
-.notConfirm{
-  color: $input_error_message_color;
+  .title {
+    font-size: 72px;
+    margin-bottom: 25px;
+  }
+
+  h2 {
+    color: $white_gray
+  }
+
+  h1 {
+    color: $green_color
+  }
 }

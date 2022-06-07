@@ -1,12 +1,12 @@
 import authenticationService from "../api/authentication";
-import { successMessage, errorMessage } from "./alerts";
-import { authenticationErrorMessages } from "../constants/messages/authentication";
-import { setAccess, logout } from "../reduxActions/auth";
-import { generalErrorMessages } from "../constants/messages/general";
+import {successMessage, errorMessage} from "./alerts";
+import {authenticationErrorMessages} from "../constants/messages/authentication";
+import {setAccess, logout} from "../reduxActions/auth";
+import {generalErrorMessages} from "../constants/messages/general";
 import tokenService from "../services/tokens";
 import jwt from 'jwt-decode';
-import { statusCode } from "../constants/statusCodes";
-import { store } from "../store";
+import {statusCode} from "../constants/statusCodes";
+import {store} from "../store";
 
 export function register(values, history) {
     let model = {
@@ -114,19 +114,15 @@ export function checkIsUserRoleValid() {
         if (decodedAccessToken.role !== store.getState().authReducer.role) {
             store.dispatch(logout());
         }
-    }
-    else {
+    } else {
         store.dispatch(logout());
     }
 }
 
-export async function confirmEmailAsync(token){
-    let model = {
-        token: token
-    }
+export async function confirmEmailAsync(token) {
 
     return authenticationService
-        .confirmEmail(model)
+        .confirmEmail({token})
         .then(
             () => {
                 successMessage(authenticationErrorMessages.SUCCESSFUL_EMAIL_CONFIRMATION);
@@ -134,7 +130,7 @@ export async function confirmEmailAsync(token){
             () => {
                 errorMessage(
                     authenticationErrorMessages.SEND_EMAIL_CONFIRMATION_FAILED,
-                    generalErrorMessages.EMAIL_CONFIRM
+                    authenticationErrorMessages.EMAIL_CONFIRMATION
                 );
             })
         .catch(() => {
