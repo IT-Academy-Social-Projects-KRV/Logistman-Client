@@ -13,11 +13,11 @@ function ConfirmEmailPage() {
     return (
         <div className="authEmail">
             <div className="center">
-                <p className="title">Logist</p>
+                <h1 className="title">Logist</h1>
 
                 <h2>Your email has been</h2>
 
-                <h1>confirmed</h1>
+                <h1 className="confirm">confirmed</h1>
             </div>
         </div>
     );
