@@ -3,6 +3,8 @@ import { errorMessage } from "./alerts";
 import { generalErrorMessages } from "../constants/messages/general";
 import { offersErrorMessages } from "../constants/messages/offersMessages";
 import { statusCode } from "../constants/statusCodes";
+import { offerRoles } from '../constants/offerRoles';
+import { offerValues } from "../constants/offerValues";
 
 export async function getUserOffers(paginationFilterModel) {
   return offersService
