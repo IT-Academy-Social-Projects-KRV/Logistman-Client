@@ -16,7 +16,7 @@ function ManageUsersPage() {
     const [users, setUsers] = useState();
 
     const updateUserInfo = async () => {
-        setUsers(await getAllUsers());
+        setUsers(await getAllUsers(paginationFilterModel));
     }
 
     useEffect(async () => {
@@ -39,7 +39,7 @@ function ManageUsersPage() {
             {users != null ?
                 <div className="users-container">
                     {users.items.map((user) =>
-                        <User info={user} updateInfo={() => updateUserInfo()} />
+                        <User info={user} updateUserInfo={() => updateUserInfo()} />
                     )}
                     <Pagination
                         onChange={onPaginationChange}

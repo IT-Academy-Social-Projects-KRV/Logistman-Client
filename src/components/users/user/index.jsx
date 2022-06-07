@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Card, Button } from "antd";
 import user_icon from "../../../assets/images/user.png";
 import email_icon from "../../../assets/images/email_icon.svg";
@@ -32,7 +32,7 @@ function User(props) {
             {isModalOpen && <EditUserInfoModal
                 myClose={() => setIsModalOpen(false)}
                 data={props.info}
-                updateUserInfo={() => props.updateInfo()}
+                updateUserInfo={() => props.updateUserInfo()}
             />}
         </Card>
     )

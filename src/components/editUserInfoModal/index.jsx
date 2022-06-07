@@ -14,7 +14,7 @@ function EditUserInfoModal(props) {
         props.myClose();
     };
 
-    const updateInfo = () => {
+    const updateUserInfo = () => {
         props.updateUserInfo();
     }
 
@@ -29,7 +29,7 @@ function EditUserInfoModal(props) {
                     logistEditUserInfo(values, userData.email).then((result) => {
                         if (result) {
                             close();
-                            updateInfo();
+                            updateUserInfo();
                         }
                     });
                 } else {
