@@ -7,6 +7,10 @@ export const inputValidationErrorMessages = Object.freeze({
     EMPTY_EMAIL: "Please enter your e-mail!",
     EMPTY_PASSWORD: "Please enter your password!",
 
+    EMPTY_USER_NAME: "Please enter user name!",
+    EMPTY_USER_SURNAME: "Please enter user surname!",
+    EMPTY_USER_EMAIL: "Please enter user e-mail!",
+
     NOT_VALID_NAME: "The name must start with a capital letter and " +
         "continue with lowercase letters!\nAnd only latin letters!",
     NOT_VALID_SURNAME: "The surname must start with a capital letter " +
