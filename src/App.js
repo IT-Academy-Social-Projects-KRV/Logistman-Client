@@ -53,7 +53,6 @@ export default function App() {
                     <CreateOfferPage />
                 </PrivateRoute>
 
-
                 <PrivateRoute
                     exact
                     path="/my-offers"

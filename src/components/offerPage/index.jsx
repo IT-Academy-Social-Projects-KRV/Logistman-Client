@@ -78,7 +78,7 @@ export default function CreateOfferPage() {
         map.fitBounds(bounds);
         setMap(map);
     }, []);
-
+    
     const onUnmount = useCallback(function callback(map) {
         setMap(null);
     }, []);
