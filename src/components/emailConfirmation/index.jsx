@@ -5,7 +5,7 @@ function ConfirmEmailPage() {
     useEffect(async () => {
         let data = window.location.pathname.split('/');
         let tokenParts = data.slice(2, -1);
-        let token = tokenParts[0];
+        let token = tokenParts.join('/');
 
         await confirmEmailAsync(token);
     }, []);
