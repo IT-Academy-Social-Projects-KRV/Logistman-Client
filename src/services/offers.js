@@ -1,5 +1,5 @@
 import offersService from "../api/offers";
-import { errorMessage } from "./alerts";
+import { errorMessage, successMessage } from "./alerts";
 import { generalErrorMessages } from "../constants/messages/general";
 import { offersErrorMessages } from "../constants/messages/offersMessages";
 import { statusCode } from "../constants/statusCodes";
@@ -33,7 +33,7 @@ export async function getUserOffers(paginationFilterModel) {
 }
 
 export function createOffer(values, coordinates) {
-  var model = {
+  let model = {
     description: values.description,
     goodsWeight: values.goodsWeight,
     startDate: values.dates[0]._d,
@@ -49,14 +49,14 @@ export function createOffer(values, coordinates) {
       order: offerValues.ORDER_BY_DEFAULT,
       tripId: null,
     },
-  };
+  }
 
   offersService.create(model)
     .then(
       () => {
         successMessage(offersErrorMessages.CREATE_OFFER_SUCCESS);
       },
-      (err) => {
+      () => {
         errorMessage(
           offersErrorMessages.CREATE_OFFER_FAILED,
           generalErrorMessages.SOMETHING_WENT_WRONG
