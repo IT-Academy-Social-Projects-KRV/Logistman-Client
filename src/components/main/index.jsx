@@ -12,7 +12,7 @@ function MainPage() {
                 <div className="role-block">
                 <Link className="role-link" to="/create-offer">
                     <div className="role block-sender">
-                            <span>I can donate some goods</span>
+                        <span>I can donate some goods</span>
                     </div>
                 </Link>
                     <div className="role block-recipient">
