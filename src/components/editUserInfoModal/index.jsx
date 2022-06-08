@@ -1,9 +1,9 @@
 import React from "react";
-import { Modal, Form, Input, Button, Space } from "antd";
+import { Modal, Form, Input, Button } from "antd";
 import { confirmMessage, errorMessage } from "../../services/alerts";
 import { userErrorMessages } from "../../constants/messages/user";
 import { generalErrorMessages } from "../../constants/messages/general";
-import { inputValidationErrorMessages } from "../../constants/messages//inputValidationErrors";
+import { inputValidationErrorMessages } from "../../constants/messages/inputValidationErrors";
 import InputRules from "../../constants/inputRules";
 import { logistEditUserInfo } from '../../services/users';
 
@@ -21,7 +21,6 @@ function EditUserInfoModal(props) {
     const onFinish = (values) => {
         confirmMessage().then((result) => {
             if (result) {
-
                 if (userData.name !== values.name ||
                     userData.surname !== values.surname ||
                     userData.email !== values.email) {
@@ -52,6 +51,7 @@ function EditUserInfoModal(props) {
     if (userData === undefined) {
         return <>Loading...</>;
     }
+    
     return (
         <Modal title="Edit user info"
             visible={true}
@@ -132,6 +132,7 @@ function EditUserInfoModal(props) {
                         block
                         htmlType={"submit"}
                         type="primary"
+                        className="submitButton"
                     >
                         Save
                     </Button>
