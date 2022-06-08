@@ -1,8 +1,8 @@
 import authenticationService from "../api/authentication";
-import { successMessage, errorMessage } from "./alerts";
-import { authenticationErrorMessages } from "../constants/messages/authentication";
-import { setAccess, logout } from "../reduxActions/auth";
-import { generalErrorMessages } from "../constants/messages/general";
+import {successMessage, errorMessage} from "./alerts";
+import {authenticationErrorMessages} from "../constants/messages/authentication";
+import {setAccess, logout} from "../reduxActions/auth";
+import {generalErrorMessages} from "../constants/messages/general";
 import tokenService from "../services/tokens";
 import jwt from 'jwt-decode';
 import { statusCode } from "../constants/statusCodes";
@@ -130,8 +130,29 @@ export function checkIsUserRoleValid() {
         if (decodedAccessToken.role !== store.getState().authReducer.role) {
             store.dispatch(logout());
         }
-    }
-    else {
+    } else {
         store.dispatch(logout());
     }
+}
+
+export async function confirmEmailAsync(token) {
+
+    return authenticationService
+        .confirmEmail({token})
+        .then(
+            () => {
+                successMessage(authenticationErrorMessages.SUCCESSFUL_EMAIL_CONFIRMATION);
+            },
+            () => {
+                errorMessage(
+                    authenticationErrorMessages.SEND_EMAIL_CONFIRMATION_FAILED,
+                    authenticationErrorMessages.EMAIL_CONFIRMATION
+                );
+            })
+        .catch(() => {
+            errorMessage(
+                authenticationErrorMessages.SEND_EMAIL_CONFIRMATION_FAILED,
+                generalErrorMessages.SOMETHING_WENT_WRONG
+            );
+        });
 }
