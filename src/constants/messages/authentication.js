@@ -11,7 +11,7 @@ export const authenticationErrorMessages = Object.freeze({
 
     SEND_EMAIL_CONFIRMATION_FAILED: "Send email confirmation failed!",
     SUCCESSFUL_EMAIL_CONFIRMATION: "Successful email confirmation!",
-    EMAIL_CONFIRMATION: "Your mail has already been confirmed or the confirmation time has expired.",
+    EMAIL_CONFIRMATION: "Your email has already been confirmed or the confirmation time has expired.",
 
     LOGOUT_FAILED: "Log out failed!"
 });

@@ -19,7 +19,6 @@ import HomePage from './components/home/index';
 import ConfirmEmailPage from "./components/emailConfirmation";
 import ManageUsersPage from './components/users/index';
 
-
 const history = createBrowserHistory();
 
 export default function App() {
