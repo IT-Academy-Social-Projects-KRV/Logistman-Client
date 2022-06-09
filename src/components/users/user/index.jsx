@@ -38,7 +38,7 @@ function User(props) {
                             onClick={() => setIsModalOpen(true)}
                         />
                     </Tooltip>
-                    <Tooltip color="#224957" title={props.info.email} placement="bottomRight" mouseEnterDelay={0.5}>
+                    <Tooltip color="#224957" title="View cars" placement="bottomRight" mouseEnterDelay={0.5}>
                         <CarFilled
                             className="detailsButton"
                             onClick={() => moveToUserCars()}

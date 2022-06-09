@@ -98,56 +98,49 @@ export async function getUserCarsByEmail(paginationFilterModel, email) {
 }
 
 export async function verifyCar(vin) {
+    console.log(1, vin)
     await carsService
-        .verify(vin)
+        .verify({vin})
         .then(
-            // () => {
-            //     successMessage(carsErrorMessages.CAR_ADDED_SUCCESSFUL);
-            // },
             (err) => {
                 err.response.status === statusCode.NOT_ACCEPTABLE
                     ? errorMessage(
-                        carsErrorMessages.CAR_ADDING_FAILED,
+                        carsErrorMessages.CAR_VERIFICATION_FAILED,
                         carsErrorMessages.CAR_EXISTS_ERROR
                     )
                     : errorMessage(
-                        carsErrorMessages.CAR_ADDING_FAILED,
+                        carsErrorMessages.CAR_VERIFICATION_FAILED,
                         generalErrorMessages.SOMETHING_WENT_WRONG
                     );
             }
         )
         .catch(() => {
             errorMessage(
-                carsErrorMessages.CAR_ADDING_FAILED,
-                carsErrorMessages.CAR_EXISTS_ERROR,
+                carsErrorMessages.CAR_VERIFICATION_FAILED,
                 generalErrorMessages.SOMETHING_WENT_WRONG
             );
         });
 }
 
 export async function unverifyCar(vin) {
+    console.log(2, vin)
      await carsService
-        .unverify(vin)
+        .unverify({vin})
         .then(
-            // () => {
-            //     successMessage(carsErrorMessages.CAR_ADDED_SUCCESSFUL);
-            // },
             (err) => {
                 err.response.status === statusCode.NOT_ACCEPTABLE
                     ? errorMessage(
-                        carsErrorMessages.CAR_ADDING_FAILED,
-                        carsErrorMessages.CAR_EXISTS_ERROR
+                        carsErrorMessages.CAR_UNVERIFICATION_FAILED
                     )
                     : errorMessage(
-                        carsErrorMessages.CAR_ADDING_FAILED,
+                        carsErrorMessages.CAR_UNVERIFICATION_FAILED,
                         generalErrorMessages.SOMETHING_WENT_WRONG
                     );
             }
         )
         .catch(() => {
             errorMessage(
-                carsErrorMessages.CAR_ADDING_FAILED,
-                carsErrorMessages.CAR_EXISTS_ERROR,
+                carsErrorMessages.CAR_UNVERIFICATION_FAILED,
                 generalErrorMessages.SOMETHING_WENT_WRONG
             );
         });
@@ -155,27 +148,21 @@ export async function unverifyCar(vin) {
 
 export async function deleteCar(vin) {
     await carsService
-        .deleteCar(vin)
+        .delete(vin)
         .then(
-            // () => {
-            //     successMessage(carsErrorMessages.CAR_ADDED_SUCCESSFUL);
-            // },
             (err) => {
                 err.response.status === statusCode.NOT_ACCEPTABLE
                     ? errorMessage(
-                        carsErrorMessages.CAR_ADDING_FAILED,
-                        carsErrorMessages.CAR_EXISTS_ERROR
+                        carsErrorMessages.DELETE_CAR_FAILED
                     )
                     : errorMessage(
-                        carsErrorMessages.CAR_ADDING_FAILED,
-                        generalErrorMessages.SOMETHING_WENT_WRONG
+                        carsErrorMessages.DELETE_CAR_FAILED
                     );
             }
         )
         .catch(() => {
             errorMessage(
-                carsErrorMessages.CAR_ADDING_FAILED,
-                carsErrorMessages.CAR_EXISTS_ERROR,
+                carsErrorMessages.DELETE_CAR_FAILED,
                 generalErrorMessages.SOMETHING_WENT_WRONG
             );
         });

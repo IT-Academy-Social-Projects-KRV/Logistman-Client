@@ -9,7 +9,7 @@ import info_icon from "../../../assets/images/cars/info.svg";
 import insurance_icon from "../../../assets/images/cars/insurance.svg";
 import passport_icon from "../../../assets/images/cars/passport.svg";
 import {store} from "../../../store";
-import {unverifyCar, verifyCar} from "../../../services/cars";
+import {deleteCar, unverifyCar, verifyCar} from "../../../services/cars";
 
 function MyCar(data) {
     let role = store.getState().authReducer.role;
@@ -23,7 +23,7 @@ function MyCar(data) {
         await unverifyCar(data.info.vin)
     }
 
-    const deleteCar = async () => {
+    const deleteUserCar = async () => {
         await deleteCar(data.info.vin)
     }
     return (
@@ -98,7 +98,7 @@ function MyCar(data) {
                                 <Button onClick={() => verify()}>
                                     Verify</Button>
                             }
-                            <Button onClick={() => deleteCar()}>
+                            <Button onClick={() => deleteUserCar()}>
                                 Delete</Button>
                         </div>
                         : <></>}
