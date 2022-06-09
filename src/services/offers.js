@@ -32,7 +32,7 @@ export async function getUserOffers(paginationFilterModel) {
     });
 }
 
-export function createOffer(values, coordinates) {
+export function createOffer(values, coordinates, history) {
   const model = {
     description: values.description,
     goodsWeight: values.goodsWeight,
@@ -54,6 +54,7 @@ export function createOffer(values, coordinates) {
     .then(
       () => {
         successMessage(offersErrorMessages.CREATE_OFFER_SUCCESS);
+        history.push("/main");
       },
       () => {
         errorMessage(

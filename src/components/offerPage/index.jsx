@@ -12,8 +12,6 @@ import Geocode from "react-geocode";
 import PlacesAutocomplete, {geocodeByAddress, getLatLng,} from "react-places-autocomplete";
 import {offerValues} from "../../constants/offerValues";
 import InputRules from "../../constants/inputRules";
-import {goodCategoryMessages} from "../../constants/messages/goodCategory";
-import {generalErrorMessages} from "../../constants/messages/general";
 
 const {TextArea} = Input;
 const {RangePicker} = DatePicker;
@@ -51,6 +49,7 @@ const defaultOptions = {
 };
 
 export default function CreateOfferPage() {
+
     const {isLoaded} = useJsApiLoader({
         id: "google-map-script",
         googleMapsApiKey: process.env.REACT_APP_API_KEY,
@@ -181,7 +180,7 @@ export default function CreateOfferPage() {
                 offersErrorMessages.TIME_INTERVAL_INCORRECT
             );
         } else {
-            createOffer(values, clickedLatLng);
+            createOffer(values, clickedLatLng, history);
         }
     };
 
