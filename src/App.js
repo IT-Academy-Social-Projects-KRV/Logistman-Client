@@ -19,6 +19,8 @@ import HomePage from './components/home/index';
 import ConfirmEmailPage from "./components/emailConfirmation";
 import ManageUsersPage from './components/users/index';
 import UserCarsPage from "./components/userCars";
+import CreateOfferPage from "./components/offerPage";
+
 
 const history = createBrowserHistory();
 
@@ -56,6 +58,13 @@ export default function App() {
                     allowedRoles={[userRoles.LOGIST]}
                 >
                     <UserCarsPage />
+                </PrivateRoute>
+
+                <PrivateRoute
+                    path="/create-offer"
+                    allowedRoles={[userRoles.USER]}
+                >
+                    <CreateOfferPage />
                 </PrivateRoute>
 
                 <PrivateRoute
