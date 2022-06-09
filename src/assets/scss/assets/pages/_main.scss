@@ -39,6 +39,10 @@
         cursor: pointer;
         z-index: 0;
     }
+    
+    .role-link{
+        color: #fff;
+    }
 
     .role:hover {
         transform: scale(1.1);
@@ -46,6 +50,7 @@
     }
 
     .block-sender {
+        color: #fff;
         background-image: url('/src/assets/images/sender.png');
     }
 
