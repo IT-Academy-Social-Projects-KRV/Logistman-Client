@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Button, Card} from "antd";
 import { FormOutlined } from "@ant-design/icons";
 import Text from "antd/es/typography/Text";
@@ -9,29 +9,28 @@ import info_icon from "../../../assets/images/cars/info.svg";
 import insurance_icon from "../../../assets/images/cars/insurance.svg";
 import passport_icon from "../../../assets/images/cars/passport.svg";
 import {store} from "../../../store";
-import {deleteCar, unverifyCar, verifyCar} from "../../../services/cars";
+import {unverifyCar, verifyCar} from "../../../services/cars";
 
 function MyCar(data) {
+    const [isCarVerified, setIsCarVerified] = useState(data.info.isVerified);
     let role = store.getState().authReducer.role;
 
     const verify = async () => {
-        await verifyCar(data.info.vin)
+        await verifyCar(data.info.vin);
+        setIsCarVerified(true);
     }
 
     const unverify = async () => {
-        console.log(data.info.vin)
-        await unverifyCar(data.info.vin)
+        await unverifyCar(data.info.vin);
+        setIsCarVerified(false)
     }
 
-    const deleteUserCar = async () => {
-        await deleteCar(data.info.vin)
-    }
     return (
         <Card className="carCard">
             <div className="cardHead">
                 <Text strong className="carStatus">
 
-                    {data.info.isVerified ?
+                    {isCarVerified ?
                         <p id="verified">Verified</p> :
                         <p id="unverified">Unverified</p>
                     }
@@ -92,16 +91,22 @@ function MyCar(data) {
                     </div>
                     {role === "Logist" ?
                         <div className="buttons-group">
-                            {data.info.isVerified ?
-                                <Button onClick={() => unverify()}>
-                                    Unverify</Button> :
-                                <Button onClick={() => verify()}>
-                                    Verify</Button>
+                            {isCarVerified ?
+                                <Button
+                                    onClick={() => unverify()}
+                                >
+                                    Unverify
+                                </Button> :
+                                <Button
+                                    onClick={() => verify()
+                                }>
+                                    Verify
+                                </Button>
                             }
-                            <Button onClick={() => deleteUserCar()}>
-                                Delete</Button>
                         </div>
-                        : <></>}
+                        :
+                        <></>
+                    }
                 </div>
             </div>
         </Card>

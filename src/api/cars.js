@@ -19,14 +19,10 @@ export default class carsService {
     }
 
     static verify(vin) {
-        return instance.post(CARS_URLS.VERIFY, vin.vin);
+        return instance.post(CARS_URLS.VERIFY, vin);
     }
 
     static unverify(vin) {
         return instance.post(CARS_URLS.UNVERIFY, vin);
-    }
-
-    static delete(vin) {
-        return instance.post(CARS_URLS.DELETE, vin);
     }
 }
