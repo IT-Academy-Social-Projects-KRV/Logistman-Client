@@ -69,3 +69,114 @@ export async function getUserCars(paginationFilterModel) {
             );
         });
 }
+
+export async function getUserCarsByEmail(paginationFilterModel, email) {
+    return await carsService
+        .getAllByUserEmail(paginationFilterModel, email)
+        .then(
+            (response) => {
+                if(response.status === statusCode.NO_CONTENT)
+                {
+                    return null;
+                }
+
+                return response.data;
+            },
+            () => {
+                errorMessage(
+                    carsErrorMessages.LOAD_USER_CARS_FAILED,
+                    generalErrorMessages.SOMETHING_WENT_WRONG
+                );
+            }
+        )
+        .catch(() => {
+            errorMessage(
+                carsErrorMessages.LOAD_USER_CARS_FAILED,
+                generalErrorMessages.SOMETHING_WENT_WRONG
+            );
+        });
+}
+
+export async function verifyCar(vin) {
+    await carsService
+        .verify(vin)
+        .then(
+            // () => {
+            //     successMessage(carsErrorMessages.CAR_ADDED_SUCCESSFUL);
+            // },
+            (err) => {
+                err.response.status === statusCode.NOT_ACCEPTABLE
+                    ? errorMessage(
+                        carsErrorMessages.CAR_ADDING_FAILED,
+                        carsErrorMessages.CAR_EXISTS_ERROR
+                    )
+                    : errorMessage(
+                        carsErrorMessages.CAR_ADDING_FAILED,
+                        generalErrorMessages.SOMETHING_WENT_WRONG
+                    );
+            }
+        )
+        .catch(() => {
+            errorMessage(
+                carsErrorMessages.CAR_ADDING_FAILED,
+                carsErrorMessages.CAR_EXISTS_ERROR,
+                generalErrorMessages.SOMETHING_WENT_WRONG
+            );
+        });
+}
+
+export async function unverifyCar(vin) {
+     await carsService
+        .unverify(vin)
+        .then(
+            // () => {
+            //     successMessage(carsErrorMessages.CAR_ADDED_SUCCESSFUL);
+            // },
+            (err) => {
+                err.response.status === statusCode.NOT_ACCEPTABLE
+                    ? errorMessage(
+                        carsErrorMessages.CAR_ADDING_FAILED,
+                        carsErrorMessages.CAR_EXISTS_ERROR
+                    )
+                    : errorMessage(
+                        carsErrorMessages.CAR_ADDING_FAILED,
+                        generalErrorMessages.SOMETHING_WENT_WRONG
+                    );
+            }
+        )
+        .catch(() => {
+            errorMessage(
+                carsErrorMessages.CAR_ADDING_FAILED,
+                carsErrorMessages.CAR_EXISTS_ERROR,
+                generalErrorMessages.SOMETHING_WENT_WRONG
+            );
+        });
+}
+
+export async function deleteCar(vin) {
+    await carsService
+        .deleteCar(vin)
+        .then(
+            // () => {
+            //     successMessage(carsErrorMessages.CAR_ADDED_SUCCESSFUL);
+            // },
+            (err) => {
+                err.response.status === statusCode.NOT_ACCEPTABLE
+                    ? errorMessage(
+                        carsErrorMessages.CAR_ADDING_FAILED,
+                        carsErrorMessages.CAR_EXISTS_ERROR
+                    )
+                    : errorMessage(
+                        carsErrorMessages.CAR_ADDING_FAILED,
+                        generalErrorMessages.SOMETHING_WENT_WRONG
+                    );
+            }
+        )
+        .catch(() => {
+            errorMessage(
+                carsErrorMessages.CAR_ADDING_FAILED,
+                carsErrorMessages.CAR_EXISTS_ERROR,
+                generalErrorMessages.SOMETHING_WENT_WRONG
+            );
+        });
+}

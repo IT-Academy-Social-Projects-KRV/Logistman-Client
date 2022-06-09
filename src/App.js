@@ -18,6 +18,7 @@ import LoginPage from './components/authentication/login/index';
 import HomePage from './components/home/index';
 import ConfirmEmailPage from "./components/emailConfirmation";
 import ManageUsersPage from './components/users/index';
+import UserCarsPage from "./components/userCars";
 
 const history = createBrowserHistory();
 
@@ -47,6 +48,14 @@ export default function App() {
                     allowedRoles={[userRoles.USER]}
                 >
                     <MyCarsPage />
+                </PrivateRoute>
+
+                <PrivateRoute
+                    exact
+                    path="/user-cars"
+                    allowedRoles={[userRoles.LOGIST]}
+                >
+                    <UserCarsPage />
                 </PrivateRoute>
 
                 <PrivateRoute

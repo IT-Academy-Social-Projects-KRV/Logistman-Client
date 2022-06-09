@@ -1,5 +1,5 @@
 import React from "react";
-import { Card } from "antd";
+import {Button, Card} from "antd";
 import { FormOutlined } from "@ant-design/icons";
 import Text from "antd/es/typography/Text";
 import bucket_icon from "../../../assets/images/cars/bucket.svg";
@@ -8,9 +8,24 @@ import apps_icon from "../../../assets/images/cars/apps.svg";
 import info_icon from "../../../assets/images/cars/info.svg";
 import insurance_icon from "../../../assets/images/cars/insurance.svg";
 import passport_icon from "../../../assets/images/cars/passport.svg";
+import {store} from "../../../store";
+import {unverifyCar, verifyCar} from "../../../services/cars";
 
 function MyCar(data) {
-    
+    let role = store.getState().authReducer.role;
+
+    const verify = async () => {
+        await verifyCar(data.info.vin)
+    }
+
+    const unverify = async () => {
+        console.log(data.info.vin)
+        await unverifyCar(data.info.vin)
+    }
+
+    const deleteCar = async () => {
+        await deleteCar(data.info.vin)
+    }
     return (
         <Card className="carCard">
             <div className="cardHead">
@@ -75,6 +90,18 @@ function MyCar(data) {
                             <p>Color: {data.info.color}</p>
                         </div>
                     </div>
+                    {role === "Logist" ?
+                        <div className="buttons-group">
+                            {data.info.isVerified ?
+                                <Button onClick={() => unverify()}>
+                                    Unverify</Button> :
+                                <Button onClick={() => verify()}>
+                                    Verify</Button>
+                            }
+                            <Button onClick={() => deleteCar()}>
+                                Delete</Button>
+                        </div>
+                        : <></>}
                 </div>
             </div>
         </Card>
