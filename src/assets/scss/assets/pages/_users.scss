@@ -73,12 +73,11 @@
         padding: 5px;
     }
 
-    .detailsButton {
-        width: 120px;
-        height: 40px;
-        color: white;
-        background-color: #093545;
-        border-radius: 10px;
+    .detailsButton svg{
+        width: 35px;
+        height: 35px;
+        color: $body_color;
+        padding-right: 15px;
     }
 }
 

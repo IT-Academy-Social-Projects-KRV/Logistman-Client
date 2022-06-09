@@ -69,3 +69,70 @@ export async function getUserCars(paginationFilterModel) {
             );
         });
 }
+
+export async function getUserCarsByEmail(paginationFilterModel, email) {
+    return await carsService
+        .getAllByUserEmail(paginationFilterModel, email)
+        .then(
+            (response) => {
+                if(response.status === statusCode.NO_CONTENT)
+                {
+                    return null;
+                }
+
+                return response.data;
+            },
+            () => {
+                errorMessage(
+                    carsErrorMessages.LOAD_USER_CARS_FAILED,
+                    generalErrorMessages.SOMETHING_WENT_WRONG
+                );
+            }
+        )
+        .catch(() => {
+            errorMessage(
+                carsErrorMessages.LOAD_USER_CARS_FAILED,
+                generalErrorMessages.SOMETHING_WENT_WRONG
+            );
+        });
+}
+
+export async function verifyCar(vin) {
+    await carsService
+        .verify({vin})
+        .then(
+            () => {},
+            () => {
+                errorMessage(
+                    carsErrorMessages.CAR_VERIFICATION_FAILED,
+                    generalErrorMessages.SOMETHING_WENT_WRONG
+                );
+            }
+        )
+        .catch(() => {
+            errorMessage(
+                carsErrorMessages.CAR_VERIFICATION_FAILED,
+                generalErrorMessages.SOMETHING_WENT_WRONG
+            );
+        });
+}
+
+export async function unverifyCar(vin) {
+     await carsService
+        .unverify({vin})
+         .then(
+             () => {},
+             () => {
+                 errorMessage(
+                     carsErrorMessages.CAR_UNVERIFICATION_FAILED,
+                     generalErrorMessages.SOMETHING_WENT_WRONG
+                 );
+             }
+         )
+        .catch(() => {
+            errorMessage(
+                carsErrorMessages.CAR_UNVERIFICATION_FAILED,
+                generalErrorMessages.SOMETHING_WENT_WRONG
+            );
+        });
+}

@@ -15,6 +15,9 @@ export const carsErrorMessages = Object.freeze({
     ADD_CAR_FAILED: "Failed to add car!",
     CAR_EXISTS_ERROR: "The car with one or more such unique properties already exists!",
     CAR_CATEGORIES_NOT_FOUND: "Failed to load car categories!",
+    CAR_VERIFICATION_FAILED: "Failed to verify car",
+    CAR_UNVERIFICATION_FAILED: "Failed to unverify car",
+    DELETE_CAR_FAILED: "Failed to delete car",
 
     LOAD_USER_CARS_FAILED: "Load user's cars failed!"
 });

@@ -1,5 +1,5 @@
-import React from "react";
-import { Card } from "antd";
+import React, {useState} from "react";
+import {Button, Card} from "antd";
 import { FormOutlined } from "@ant-design/icons";
 import Text from "antd/es/typography/Text";
 import bucket_icon from "../../../assets/images/cars/bucket.svg";
@@ -8,15 +8,29 @@ import apps_icon from "../../../assets/images/cars/apps.svg";
 import info_icon from "../../../assets/images/cars/info.svg";
 import insurance_icon from "../../../assets/images/cars/insurance.svg";
 import passport_icon from "../../../assets/images/cars/passport.svg";
+import {store} from "../../../store";
+import {unverifyCar, verifyCar} from "../../../services/cars";
 
 function MyCar(data) {
-    
+    const [isCarVerified, setIsCarVerified] = useState(data.info.isVerified);
+    let role = store.getState().authReducer.role;
+
+    const verify = async () => {
+        await verifyCar(data.info.vin);
+        setIsCarVerified(true);
+    }
+
+    const unverify = async () => {
+        await unverifyCar(data.info.vin);
+        setIsCarVerified(false)
+    }
+
     return (
         <Card className="carCard">
             <div className="cardHead">
                 <Text strong className="carStatus">
 
-                    {data.info.isVerified ?
+                    {isCarVerified ?
                         <p id="verified">Verified</p> :
                         <p id="unverified">Unverified</p>
                     }
@@ -75,6 +89,24 @@ function MyCar(data) {
                             <p>Color: {data.info.color}</p>
                         </div>
                     </div>
+                    {role === "Logist" ?
+                        <div className="buttons-group">
+                            {isCarVerified ?
+                                <Button
+                                    onClick={() => unverify()}
+                                >
+                                    Unverify
+                                </Button> :
+                                <Button
+                                    onClick={() => verify()
+                                }>
+                                    Verify
+                                </Button>
+                            }
+                        </div>
+                        :
+                        <></>
+                    }
                 </div>
             </div>
         </Card>

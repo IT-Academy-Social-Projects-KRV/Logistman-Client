@@ -11,4 +11,18 @@ export default class carsService {
             `?PageNumber=${paginationFilterModel.pageNumber}
              &PageSize=${paginationFilterModel.pageSize}`);
     }
+
+    static getAllByUserEmail(paginationFilterModel, email) {
+        return instance.get(CARS_URLS.GET_BY_USER_EMAIL +
+            `?PageNumber=${paginationFilterModel.pageNumber}
+             &PageSize=${paginationFilterModel.pageSize}&email=${email}`);
+    }
+
+    static verify(vin) {
+        return instance.post(CARS_URLS.VERIFY, vin);
+    }
+
+    static unverify(vin) {
+        return instance.post(CARS_URLS.UNVERIFY, vin);
+    }
 }
