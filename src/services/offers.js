@@ -33,7 +33,7 @@ export async function getUserOffers(paginationFilterModel) {
 }
 
 export function createOffer(values, coordinates) {
-  let model = {
+  const model = {
     description: values.description,
     goodsWeight: values.goodsWeight,
     startDate: values.dates[0]._d,
@@ -46,8 +46,7 @@ export function createOffer(values, coordinates) {
       address: values.address,
       settlement: values.settlement,
       region: values.region,
-      order: offerValues.ORDER_BY_DEFAULT,
-      tripId: null,
+      order: offerValues.ORDER_BY_DEFAULT
     },
   }
 

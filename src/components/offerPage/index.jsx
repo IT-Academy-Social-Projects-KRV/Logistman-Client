@@ -2,18 +2,18 @@ import React, {useState, useCallback, useEffect} from "react";
 import {GoogleMap, Marker, useJsApiLoader} from "@react-google-maps/api";
 import Header from "../navigation/header";
 import {createOffer} from "../../services/offers";
-import {getGoodCategories} from "../../services/goodCategorie";
+import {getAllGoodCategories} from "../../services/goodCategories";
 import {useHistory} from "react-router-dom";
 import {Form, Input, Button, DatePicker, Select} from "antd";
 import {errorMessage} from "../../services/alerts";
 import {offersErrorMessages} from "../../constants/messages/offersMessages";
 import moment from "moment";
 import Geocode from "react-geocode";
-import PlacesAutocomplete, {
-    geocodeByAddress,
-    getLatLng,
-} from "react-places-autocomplete";
+import PlacesAutocomplete, {geocodeByAddress, getLatLng,} from "react-places-autocomplete";
 import {offerValues} from "../../constants/offerValues";
+import InputRules from "../../constants/inputRules";
+import {goodCategoryMessages} from "../../constants/messages/goodCategory";
+import {generalErrorMessages} from "../../constants/messages/general";
 
 const {TextArea} = Input;
 const {RangePicker} = DatePicker;
@@ -85,51 +85,59 @@ export default function CreateOfferPage() {
 
     // get address and other from coordinates
     const getData = (lat, lng) => {
-        Geocode.fromLatLng(lat, lng).then(
-            (response) => {
-                const address = response.results[0].formatted_address;
-                let settlement, region;
+        Geocode.fromLatLng(lat, lng)
+            .then(
+                (response) => {
+                    const address = response.results[0].formatted_address;
+                    const addressComponents = response.results[0].address_components;
 
-                for (
-                    let i = 0;
-                    i < response.results[0].address_components.length;
-                    i++
-                ) {
+                    let settlement, region;
+
                     for (
-                        let j = 0;
-                        j < response.results[0].address_components[i].types.length;
-                        j++
+                        let i = 0;
+                        i < addressComponents.length;
+                        i++
                     ) {
-                        switch (response.results[0].address_components[i].types[j]) {
-                            case "locality":
-                                settlement =
-                                    response.results[0].address_components[i].long_name;
-                                break;
-                            case "administrative_area_level_1":
-                                region = response.results[0].address_components[i].long_name;
-                                break;
+                        for (
+                            let j = 0;
+                            j < addressComponents[i].types.length;
+                            j++
+                        ) {
+                            switch (addressComponents[i].types[j]) {
+                                case "locality":
+                                    settlement =
+                                        addressComponents[i].long_name;
+                                    break;
+                                case "administrative_area_level_1":
+                                    region = addressComponents[i].long_name;
+                                    break;
+                            }
                         }
                     }
-                }
 
-                form.setFieldsValue({
-                    address: address,
-                    settlement: settlement,
-                    region: region,
-                });
-            },
-            () => {
-                errorMessage(
-                    offersErrorMessages.CREATE_OFFER_FAILED,
-                    offersErrorMessages.MAP_IS_NOT_WORK
-                )
-            }
-        );
+                    form.setFieldsValue({
+                        address: address,
+                        settlement: settlement,
+                        region: region,
+                    });
+                },
+                () => {
+                    errorMessage(
+                        offersErrorMessages.CREATE_OFFER_FAILED,
+                        offersErrorMessages.MAP_IS_NOT_WORK
+                    )
+                }
+            ).catch(() => {
+            errorMessage(
+                offersErrorMessages.CREATE_OFFER_FAILED,
+                offersErrorMessages.MAP_IS_NOT_WORK
+            );
+        });
     };
 
     // for mapping good categories
     useEffect(async () => {
-        setData(await getGoodCategories());
+        setData(await getAllGoodCategories());
     }, []);
 
     // form actions
@@ -153,26 +161,27 @@ export default function CreateOfferPage() {
         return currDate.getHours();
     }
 
-
     // function for setting timepicker in rangepicker
     const disabledRangeTime = (_, type) => {
         if (type === 'start') {
             return {
                 disabledHours: () => range(0, 60).splice(0, getCurrentHour() + 1)
-        }
-
+            }
         }
     };
 
     const onFinish = (values) => {
-        let start = values.dates[0];
-        let end = values.dates[1];
-        let diff = end.diff(start, 'hours')
+        const start = values.dates[0];
+        const end = values.dates[1];
+        const diff = end.diff(start, 'hours');
 
         if (diff < offerValues.MIN_HOURS_VALUE) {
-            errorMessage(offersErrorMessages.CREATE_OFFER_FAILED, offersErrorMessages.TIME_INTERVAL_INCORRECT);
+            errorMessage(
+                offersErrorMessages.CREATE_OFFER_FAILED,
+                offersErrorMessages.TIME_INTERVAL_INCORRECT
+            );
         } else {
-            createOffer(values, clickedLatLng, history);
+            createOffer(values, clickedLatLng);
         }
     };
 
@@ -206,14 +215,8 @@ export default function CreateOfferPage() {
                             label="Select your address: "
                             labelAlign="left"
                             rules={[
-                                {
-                                    type: "string",
-                                    message: offersErrorMessages.EMPTY_ADDRESS_MESSAGE,
-                                },
-                                {
-                                    required: true,
-                                    message: offersErrorMessages.EMPTY_ADDRESS_MESSAGE,
-                                },
+                                InputRules.specificType("string", offersErrorMessages.EMPTY_FIELD),
+                                InputRules.required(offersErrorMessages.EMPTY_FIELD)
                             ]}
                         >
                             <PlacesAutocomplete
@@ -254,48 +257,35 @@ export default function CreateOfferPage() {
                             className="input-to-hide"
                             name="settlement"
                             rules={[
-                                {
-                                    type: "string",
-                                    message: offersErrorMessages.EMPTY_SETTLEMENT_MESSAGE,
-                                },
-                                {
-                                    required: true,
-                                    message: offersErrorMessages.EMPTY_SETTLEMENT_MESSAGE,
-                                },
+                                InputRules.specificType("string", offersErrorMessages.EMPTY_FIELD),
+                                InputRules.required(offersErrorMessages.EMPTY_FIELD)
                             ]}
                         >
-                            <Input name="settlement" type="hidden" placeholder="Enter your settlement"/>
+                            <Input/>
                         </Form.Item>
 
                         <Form.Item
                             className="input-to-hide"
                             name="region"
                             rules={[
-                                {
-                                    type: "string",
-                                    message: offersErrorMessages.EMPTY_SETTLEMENT_MESSAGE,
-                                },
-                                {
-                                    required: true,
-                                    message: offersErrorMessages.EMPTY_SETTLEMENT_MESSAGE,
-                                },
+                                InputRules.specificType("string", offersErrorMessages.EMPTY_FIELD),
+                                InputRules.required(offersErrorMessages.EMPTY_FIELD)
                             ]}
                         >
-                            <Input name="region" type="hidden" placeholder="Enter your region"/>
+                            <Input/>
                         </Form.Item>
 
                         <Form.Item
                             name="goodCategory"
-                            label="Select good categorie: "
+                            label="Select good categories: "
                             labelAlign="left"
                             rules={[
-                                {
-                                    required: true,
-                                    message: offersErrorMessages.EMPTY_GOOD_CATEGORY_MESSAGE,
-                                },
+                                InputRules.required(offersErrorMessages.EMPTY_FIELD)
                             ]}
                         >
-                            <Select placeholder="Select good categories" className="select-good-categorie">
+                            <Select
+                                placeholder="Select good categories"
+                            >
                                 {data?.map((res, idx) => (
                                     <Option value={res.name} key={idx}>
                                         {res.name.toLowerCase()}
@@ -306,13 +296,10 @@ export default function CreateOfferPage() {
 
                         <Form.Item
                             name="dates"
-                            label="Select date: "
+                            label="Select dates: "
                             labelAlign="left"
                             rules={[
-                                {
-                                    required: true,
-                                    message: offersErrorMessages.EMPTY_START_DATE_MESSAGE,
-                                },
+                                InputRules.required(offersErrorMessages.EMPTY_FIELD)
                             ]}
                         >
                             <RangePicker
@@ -326,7 +313,6 @@ export default function CreateOfferPage() {
                                     ],
                                 }}
                                 format="YYYY-MM-DD HH:mm"
-
                             />
                         </Form.Item>
 
@@ -335,17 +321,16 @@ export default function CreateOfferPage() {
                             label="Select good weight: "
                             labelAlign="left"
                             rules={[
-                                {
-                                    pattern: "^[0-9]",
-                                    message: offersErrorMessages.NOT_VALID_GOOD_WEIGHT_MESSAGE,
-                                },
-                                {
-                                    required: true,
-                                    message: offersErrorMessages.EMPTY_GOOD_WEIGHT_MESSAGE,
-                                },
+                                InputRules.capitalDigitFirst(offersErrorMessages.NOT_VALID_GOOD_WEIGHT_MESSAGE),
+                                InputRules.required(offersErrorMessages.EMPTY_FIELD)
                             ]}
                         >
-                            <Input addonAfter="kg" className="goodsWeight" type="number" placeholder="Goods Weight"/>
+                            <Input
+                                addonAfter="kg"
+                                className="goodsWeight"
+                                type="number"
+                                placeholder="Goods Weight"
+                            />
                         </Form.Item>
 
                         <Form.Item
@@ -354,14 +339,8 @@ export default function CreateOfferPage() {
                             label="Write description: "
                             labelAlign="left"
                             rules={[
-                                {
-                                    type: "string",
-                                    message: offersErrorMessages.EMPTY_DESCRIPTION_MESSAGE,
-                                },
-                                {
-                                    required: true,
-                                    message: offersErrorMessages.EMPTY_DESCRIPTION_MESSAGE,
-                                },
+                                InputRules.specificType("string", offersErrorMessages.EMPTY_FIELD),
+                                InputRules.required(offersErrorMessages.EMPTY_FIELD)
                             ]}
                         >
                             <TextArea placeholder="Description"/>
@@ -383,12 +362,16 @@ export default function CreateOfferPage() {
                                     position={clickedLatLng}
                                     onPositionChanged={
                                         getData(clickedLatLng.lat, clickedLatLng.lng)
-                                }
+                                    }
                                 />
                             </GoogleMap>
                         </div>
 
-                        <Button type="primary" htmlType="submit" className="submitButton">
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                            className="submitButton"
+                        >
                             Create offer
                         </Button>
                     </div>

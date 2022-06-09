@@ -49,7 +49,11 @@ export default function App() {
                     <MyCarsPage />
                 </PrivateRoute>
 
-                <PrivateRoute exact path="/create-offer" allowedRoles={[userRoles.USER]}>
+                <PrivateRoute
+                    exact
+                    path="/create-offer"
+                    allowedRoles={[userRoles.USER]}
+                >
                     <CreateOfferPage />
                 </PrivateRoute>
 
