@@ -20,6 +20,7 @@ import ConfirmEmailPage from "./components/emailConfirmation";
 import ManageUsersPage from './components/users/index';
 import UserCarsPage from "./components/userCars";
 import CreateOfferPage from "./components/offerPage";
+import {offerRoles} from "./constants/offerRoles";
 
 
 const history = createBrowserHistory();
@@ -61,10 +62,17 @@ export default function App() {
                 </PrivateRoute>
 
                 <PrivateRoute
-                    path="/create-offer"
+                    path="/create-sender-offer"
                     allowedRoles={[userRoles.USER]}
                 >
-                    <CreateOfferPage />
+                    <CreateOfferPage offerRole={offerRoles.SENDER}/>
+                </PrivateRoute>
+
+                <PrivateRoute
+                    path="/create-recipient-offer"
+                    allowedRoles={[userRoles.USER]}
+                >
+                    <CreateOfferPage offerRole={offerRoles.RECIPIENT}/>
                 </PrivateRoute>
 
                 <PrivateRoute

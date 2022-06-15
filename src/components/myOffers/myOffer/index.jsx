@@ -24,7 +24,7 @@ function MyOffer(data) {
                 </Text>
             </div>
 
-            <Tag>{data.info.creatorRoleName === offerRoles.SENDER ? "Donate" : "Need"}</Tag>
+            <Tag>{data.info.creatorRoleName === offerRoles.SENDER.toUpperCase() ? "Donate" : "Need"}</Tag>
 
             <p className="description">{data.info.description}</p>
 
