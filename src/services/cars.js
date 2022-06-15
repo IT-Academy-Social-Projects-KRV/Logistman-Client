@@ -65,8 +65,7 @@ export async function getUserCars() {
         });
 }
 
-export async function getUserVerifiedCars() {
-
+export async function getUserVerifiedCarsAsync() {
     return await carsService
         .getUserVerified()
         .then(

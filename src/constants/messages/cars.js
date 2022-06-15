@@ -17,5 +17,8 @@ export const carsErrorMessages = Object.freeze({
     CAR_CATEGORIES_NOT_FOUND: "Failed to load car categories!",
 
     LOAD_USER_CARS_FAILED: "Load user's cars failed!",
-    ANY_VERIFIED_CAR: "You don't have any verified car!"
+    ANY_VERIFIED_CAR: "You don't have any verified car!",
+    ANY_SELECTED_CAR: "You have not selected any cars!",
+
+    NOT_VALID_LOAD_CAPACITY_FOR_TRIP: "The load capacity in trip must be less than car's load capacity!"
 });

@@ -1,401 +1,493 @@
 import React, { useEffect, useState } from "react";
 import Geocode from "react-geocode";
 import { Button, Layout, DatePicker, Form, Input, InputNumber, Table } from 'antd';
-import PlacesAutocomplete, {
-    geocodeByAddress,
-    getLatLng
-} from "react-places-autocomplete";
-import {
-    useJsApiLoader,
-    GoogleMap,
-    DirectionsRenderer
-} from '@react-google-maps/api';
+import PlacesAutocomplete from "react-places-autocomplete";
+import { useJsApiLoader, GoogleMap, DirectionsRenderer, Marker } from '@react-google-maps/api';
 import Header from '../navigation/header';
-import { mapCenter } from './../../constants/map';
+import { geocodeLanguage, mapCenter } from './../../constants/map';
 import { errorMessage } from './../../services/alerts';
 import { mapErrorMessages } from './../../constants/messages/map';
 import { generalErrorMessages } from './../../constants/messages/general';
 import { inputValidationErrorMessages } from './../../constants/messages/inputValidationErrors';
 import InputRules from './../../constants/inputRules';
-import { setDisabledDate } from "../../constants/dates";
-import { CALENDER_DATE_FORMAT } from '../../constants/dates';
+import { setDisabledDate, setDisabledTimeRangeDate, CALENDER_DATE_FORMAT } from "../../constants/dates";
 import { carsErrorMessages } from './../../constants/messages/cars';
-import { getUserVerifiedCars } from "../../services/cars";
-import moment from "moment";
-import { createTrip } from "../../services/trip";
 import { carTableColumns } from './carsTableColumns';
-import useStateWithCallback from "use-state-with-callback";
-import { Space } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
+import { unitsOfMeasurement } from './../../constants/others';
+import { getUserVerifiedCarsAsync } from './../../services/cars';
+import { tripsMessages } from './../../constants/messages/trips';
+import { buildTheRoute, getCoordinatesFromAddress } from './../../services/map';
+import { checkTimeDifference } from './../../constants/dates';
+import { pointsMessages } from './../../constants/messages/points';
 
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;
 
-Geocode.setApiKey(/**/);
-Geocode.setLanguage("ua");
-Geocode.setRegion("ua");
+Geocode.setApiKey(process.env.REACT_APP_API_KEY);
+Geocode.setLanguage(geocodeLanguage);
+Geocode.setRegion(geocodeLanguage);
 Geocode.enableDebug();
 
 function CreateTripPage() {
+    // points' table columns
     const pointsTableColumns = [
         {
-            title: 'Street',
-            dataIndex: 'street'
+            title: "Address",
+            dataIndex: "address"
         },
         {
-            title: 'Settlement',
-            dataIndex: 'settlement'
+            title: "Settlement",
+            dataIndex: "settlement"
         },
         {
-            title: 'Region',
-            dataIndex: 'region'
+            title: "Region",
+            dataIndex: "region"
         },
         {
-            title: 'Actions',
+            title: '',
             dataIndex: '',
             key: 'x',
             render: (_, record) =>
-                <Space>
-                    <Button type="primary" icon={<CloseOutlined />}
-                        className="edit-form-button" danger
-                        onClick={() => removeSubPoint(record)}
-                    >
-                        Remove
-                    </Button>
-                </Space>
+                <Button
+                    danger
+                    type="primary"
+                    icon={<CloseOutlined />}
+                    onClick={() => deleteSubPointAsync(record)}
+                >
+                    Delete
+                </Button>
         }
     ];
 
-    const [originAddress, setOriginAddress] = useState("");
-    const [destinationAddress, setDestinationAddress] = useState("");
-    const [subPointAddress, setSubPointAddress] = useState("");
-
+    // addresses
+    const [originAddress, setOriginAddress] = useState();
+    const [destinationAddress, setDestinationAddress] = useState();
+    const [subPointAddress, setSubPointAddress] = useState();
     const [subPointsAddresses, setSubPointsAddresses] = useState([]);
 
-    const [originCoordinates, setOriginCoordinates] = useState(null);
-    const [destinationCoordinates, setDestinationCoordinates] = useState(null);
-    const [subPointCoordinates, setSubPointCoordinates] = useStateWithCallback([],
-        async () => {
-            if (isNewSubPoint &&
-                originCoordinates !== null &&
-                destinationCoordinates !== null) {
-                await buildTheRoute();
-                setSubPointAddress("");
-            }
-            else if (isDeleteSubPoint) {
-                await buildTheRoute();
-                setIsDeleteSubPoint(false);
-            }
-        });
+    // coordinates
+    const [originCoordinates, setOriginCoordinates] = useState();
+    const [destinationCoordinates, setDestinationCoordinates] = useState();
+    const [subPointCoordinates, setSubPointCoordinates] = useState([]);
 
-    const [map, setMap] = useState(null);
-    const [directionResponse, setDirectionResponse] = useState(null);
-
+    // map
+    const [map, setMap] = useState();
+    const [center, setCenter] = useState(mapCenter);
+    const [directionResponse, setDirectionResponse] = useState();
     const [points, setPoints] = useState([]);
 
-    const [distance, setDistance] = useState('');
-    const [duration, setDuration] = useState('');
-
-    const [selectedCarId, setSelectedCarId] = useState(null);
-
-    const [center, setCenter] = useState(mapCenter);
-
-    const [verifiedCars, setVerifiedCars] = useState(null);
-
-    const [key, setKey] = useState(1);
-    const [isNewSubPoint, setIsNewSubPoint] = useState(false);
-    const [isDeleteSubPoint, setIsDeleteSubPoint] = useState(false);
+    // cars
+    const [verifiedCars, setVerifiedCars] = useState();
+    const [selectedCarId, setSelectedCarId] = useState();
 
     const { isLoaded } = useJsApiLoader({
         id: "google-map-script",
-        googleMapsApiKey: "OUR_KEY"
+        googleMapsApiKey: process.env.REACT_APP_API_KEY
     });
 
-    useEffect(async () => {
-        let cars = await getUserVerifiedCars();
-        setVerifiedCars(cars);
+    useEffect(() => {
+        async function getCarsAsync() {
+            const cars = await getUserVerifiedCarsAsync();
+            setVerifiedCars(cars);
+        }
+        getCarsAsync();
     }, []);
 
-    const buildTheRoute = async () => {
-        if (originCoordinates === null &&
-            destinationCoordinates === null) {
+    // form functions
+    const onFinishAsync = async (formValues) => {
+        if (!checkIsTripReadyForCreating() ||
+            !checkIsValidLoadCapacity(formValues.loadCapacity) ||
+            !checkTimeDifference(formValues.dates)) {
             return;
         }
 
-        if (points.length !== 0) {
-            setPoints([]);
+        const distance = await buildTheRouteAsync(true);
+        const tripPoints = await formTripPointsAsync();
+
+        setPoints([]);
+
+        // form model & send the request to create trip
+    };
+
+    const onFinishFailed = () => {
+        errorMessage(
+            tripsMessages.CREATE_TRIP_BLOCKED,
+            generalErrorMessages.CORRECT_ALL_COMMENTS
+        );
+    };
+
+    // select & change addresses from PlacesAutocomplete component
+    const selectOriginAddressAsync = async (originAddress) => {
+        const coordinates = await getCoordinatesFromAddress(originAddress);
+
+        setOriginCoordinates(coordinates);
+        setCenter(coordinates);
+        setOriginAddress(originAddress);
+    };
+
+    const selectDestinationAddressAsync = async (destinationAddress) => {
+        const coordinates = await getCoordinatesFromAddress(destinationAddress);
+
+        setDestinationCoordinates(coordinates);
+        setCenter(coordinates);
+        setDestinationAddress(destinationAddress);
+    };
+
+    const selectSubPointAddress = (subPointAddress) => {
+        setSubPointAddress(subPointAddress);
+    };
+
+    const changeOriginAddress = () => {
+        setOriginAddress();
+        setOriginCoordinates();
+
+        clearMap();
+    };
+
+    const changeDestinationAddress = () => {
+        setDestinationAddress();
+        setDestinationCoordinates();
+
+        clearMap();
+    };
+
+    // manage sub points
+    const addSubPointAsync = async () => {
+        const coordinates = await getCoordinatesFromAddress(destinationAddress);
+
+        if (subPointCoordinates.length !== 0) {
+            const prevSubPointLocation = subPointCoordinates[subPointCoordinates.length - 1].location;
+
+            if (JSON.stringify(prevSubPointLocation) == JSON.stringify(coordinates)) {
+                errorMessage(
+                    pointsMessages.POINT_IS_ALREADY_EXISTS
+                );
+
+                return;
+            }
         }
 
-        const directionsService = new window.google.maps.DirectionsService();
+        const detailedAddress = await getPointDetailedAddressAsync(coordinates, true);
 
-        const direction = await directionsService.route({
-            origin: originCoordinates,
-            destination: destinationCoordinates,
-            waypoints: subPointCoordinates,
-            travelMode: window.google.maps.TravelMode.DRIVING, // by default
-            avoidTolls: true
+        if (detailedAddress === undefined) {
+            return;
+        }
+
+        subPointsAddresses.push(detailedAddress);
+        subPointCoordinates.push({
+            location: coordinates,
+            stopover: true
         });
+
+        setCenter(coordinates);
+
+        await buildTheRouteAsync(false);
+    };
+
+    const deleteSubPointAsync = async (subPoint) => {
+        setCenter();
+
+        const elementIndex = subPointsAddresses.indexOf(subPoint);
+
+        subPointsAddresses.splice(elementIndex, 1);
+        subPointCoordinates.splice(elementIndex, 1);
+
+        await buildTheRouteAsync(false);
+    };
+
+    // build the route
+    const buildTheRouteAsync = async (isGetAllPoints) => {
+        if (originCoordinates === undefined &&
+            destinationCoordinates === undefined) {
+            return;
+        }
+
+        const direction = await buildTheRoute(
+            originCoordinates,
+            destinationCoordinates,
+            subPointCoordinates
+        );
 
         setDirectionResponse(direction);
 
-        setDistance(direction.routes[0].legs[0].distance.text);
-        setDuration(direction.routes[0].legs[0].duration.text); // without waiting
+        if (isGetAllPoints) {
+            if (points.length !== 0) {
+                setPoints([]);
+            }
 
-        let distanceInKm = 0, previousKmPoint = 0;
+            return setAuxiliaryPointsAndGetDistance(direction);
+        }
+    };
 
-        const legs = direction.routes[0].legs;
+    // auxiliary functions
+    const getPointDetailedAddressAsync = async (subPointCoordinates_, isStopover) => {
+        let house, street, settlement, region, country, postcode;
 
-        points.push(originCoordinates);
+        await Geocode.fromLatLng(subPointCoordinates_.lat, subPointCoordinates_.lng)
+            .then(
+                (response) => {
+                    const fullAddressComponents = response.results[0].address_components;
 
-        for (const legIndex in legs) {
+                    for (
+                        let i = 0;
+                        i < fullAddressComponents.length;
+                        i++
+                    ) {
+                        for (
+                            let j = 0;
+                            j < fullAddressComponents[i].types.length;
+                            j++
+                        ) {
+                            switch (fullAddressComponents[i].types[j]) {
+                                case "street_number":
+                                    house = fullAddressComponents[i].long_name;
+                                    break;
+                                case "route":
+                                    street = fullAddressComponents[i].long_name;
+                                    break;
+                                case "locality":
+                                    settlement = fullAddressComponents[i].long_name;
+                                    break;
+                                case "administrative_area_level_1":
+                                    region = fullAddressComponents[i].long_name;
+                                    break;
+                                case "country":
+                                    country = fullAddressComponents[i].long_name;
+                                    break;
+                                case "postal_code":
+                                    postcode = fullAddressComponents[i].long_name;
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                },
+                () => {
+                    errorMessage(
+                        mapErrorMessages.LOAD_ADDRESS_FAILED,
+                        generalErrorMessages.SOMETHING_WENT_WRONG
+                    );
+                    return undefined;
+                }
+            )
+            .catch(() => {
+                errorMessage(
+                    mapErrorMessages.LOAD_ADDRESS_FAILED,
+                    generalErrorMessages.SOMETHING_WENT_WRONG
+                );
+                return undefined;
+            });
 
-            for (const stepIndex in legs[legIndex].steps) {
-                const legDistance = legs[legIndex].steps[stepIndex].distance.text;
+        if ((isStopover &&
+            (house === undefined ||
+                street === undefined ||
+                country === undefined ||
+                postcode === undefined)) ||
+            !isStopover &&
+            settlement === undefined &&
+            region === undefined) {
+            errorMessage(
+                mapErrorMessages.LOAD_ADDRESS_FAILED,
+                generalErrorMessages.SOMETHING_WENT_WRONG
+            );
+
+            return undefined;
+        }
+
+        return {
+            address: street + ", " + house,
+            settlement: settlement,
+            region: region,
+            country: country,
+            postcode: postcode
+        };
+    };
+
+    const clearMap = () => {
+        setDirectionResponse();
+        setCenter();
+    };
+
+    const checkIsTripReadyForCreating = () => {
+        if (originCoordinates === undefined) {
+            errorMessage(
+                tripsMessages.LOAD_ORIGIN_ADDRESS_FAILED,
+                tripsMessages.CREATE_TRIP_BLOCKED
+            );
+            return false;
+        }
+
+        if (destinationCoordinates === undefined) {
+            errorMessage(
+                tripsMessages.LOAD_DESTINATION_ADDRESS_FAILED,
+                tripsMessages.CREATE_TRIP_BLOCKED
+            );
+            return false;
+        }
+
+        if (JSON.stringify(originCoordinates) === JSON.stringify(destinationCoordinates) &&
+            subPointCoordinates.length === 0) {
+            errorMessage(
+                tripsMessages.INVALID_DISTANCE,
+                tripsMessages.CREATE_TRIP_BLOCKED
+            );
+            return false;
+        }
+
+        if (selectedCarId === undefined) {
+            errorMessage(
+                carsErrorMessages.ANY_SELECTED_CAR,
+                tripsMessages.CREATE_TRIP_BLOCKED
+            );
+            return false;
+        }
+
+        return true;
+    };
+
+    const checkIsValidLoadCapacity = (loadCapacity) => {
+        for (let index = 0; index < verifiedCars.length; index++) {
+            const car = verifiedCars[index];
+
+            if (car.id === selectedCarId &&
+                parseFloat(loadCapacity) > parseFloat(car.loadCapacity)) {
+                errorMessage(
+                    carsErrorMessages.NOT_VALID_LOAD_CAPACITY_FOR_TRIP,
+                    tripsMessages.CREATE_TRIP_BLOCKED
+                );
+                return false;
+            }
+        }
+
+        return true;
+    };
+
+    const formTripPointsAsync = async () => {
+        let tripPoints = [];
+
+        for (let index = 0; index < points.length; index++) {
+            const point = points[index];
+
+            if (point.stopover) {
+                const pointAddress = await getPointDetailedAddressAsync(
+                    {
+                        lat: point.location.lat,
+                        lng: point.location.lng
+                    },
+                    true
+                );
+
+                tripPoints.push({
+                    latitude: point.location.lat,
+                    longitude: point.location.lng,
+                    address: pointAddress.address,
+                    country: pointAddress.country,
+                    postcode: pointAddress.postcode,
+                    region: pointAddress.region,
+                    settlement: pointAddress.settlement,
+                    stopover: true,
+                    order: index + 1
+                });
+            }
+            else {
+                tripPoints.push({
+                    latitude: point.location.lat,
+                    longitude: point.location.lng,
+                    stopover: false,
+                    order: index + 1
+                });
+            }
+        }
+
+        return tripPoints;
+    };
+
+    const setAuxiliaryPointsAndGetDistance = (direction) => {
+        let distance = 0, previousKmPoint = 0;
+        const routeLegs = direction.routes[0].legs;
+
+        points.push({
+            location: originCoordinates,
+            stopover: true
+        });
+
+        for (const legIndex in routeLegs) {
+            var intLegIndex = parseInt(legIndex);
+
+            for (const stepIndex in routeLegs[legIndex].steps) {
+                const legDistance = routeLegs[legIndex].steps[stepIndex].distance.text;
 
                 const legDistanceArray = legDistance.split(' ');
 
                 let legDistanceInM = legDistanceArray[0];
                 const unitOfMeasurement = legDistanceArray[1];
 
-                if (unitOfMeasurement == "м") {
-                    distanceInKm += parseFloat(legDistanceInM);
+                if (unitOfMeasurement === unitsOfMeasurement.METER) {
+                    distance += parseFloat(legDistanceInM);
                 }
                 else {
                     legDistanceInM = legDistanceInM.replace(',', '.');
-                    distanceInKm += legDistanceInM * 1000;
+                    distance += legDistanceInM * 1000;
                 }
 
-                const currentDistanceInKm = distanceInKm < 1000 ? 0 : parseFloat(distanceInKm / 1000);
+                const currentDistanceInKm = distance < 1000 ? 0 : parseFloat(distance / 1000);
 
-                if (currentDistanceInKm - 50 > previousKmPoint) {
+                if (currentDistanceInKm - 5 > previousKmPoint) {
                     points.push(
                         {
-                            lat: legs[legIndex].steps[stepIndex].end_location.lat(),
-                            lng: legs[legIndex].steps[stepIndex].end_location.lng()
+                            location: {
+                                lat: routeLegs[legIndex].steps[stepIndex].end_location.lat(),
+                                lng: routeLegs[legIndex].steps[stepIndex].end_location.lng()
+                            },
+                            stopover: false
                         }
                     );
 
-                    previousKmPoint = distanceInKm / 1000;
+                    previousKmPoint = distance / 1000;
                 }
             }
 
-            if (parseInt(legIndex) + 1 != legs.length) {
-                points.push(subPointCoordinates[parseInt(legIndex)].location);
+            if (intLegIndex + 1 !== routeLegs.length) {
+                points.push({
+                    location: subPointCoordinates[intLegIndex].location,
+                    stopover: false
+                });
             }
-        }
 
-        points.push(destinationCoordinates);
-    }
+            const endLocationCoordinates = routeLegs[intLegIndex].end_location;
 
-    const handleSelectOrigin = async (originValue) => {
-        await setOriginAddress(originValue);
-
-        geocodeByAddress(originValue)
-            .then(results => getLatLng(results[0]))
-            .then(latLng => setOriginCoordinates(latLng)
-            )
-            .catch(() =>
-                errorMessage(
-                    mapErrorMessages.LOAD_COORDINATES_FAILED,
-                    generalErrorMessages.SOMETHING_WENT_WRONG
-                )
-            );
-    };
-
-    const handleSelectDestination = async (destinationValue) => {
-        setDestinationAddress(destinationValue);
-
-        geocodeByAddress(destinationValue)
-            .then(results => getLatLng(results[0]))
-            .then(latLng =>
-                setDestinationCoordinates(latLng)
-            )
-            .catch(() =>
-                errorMessage(
-                    mapErrorMessages.LOAD_COORDINATES_FAILED,
-                    generalErrorMessages.SOMETHING_WENT_WRONG
-                )
-            );
-    };
-
-    const handleSelectSubPoint = (subPointValue) => {
-        setSubPointAddress(subPointValue);
-    };
-
-    const onOriginChange = () => {
-    };
-
-    const onDestinationChange = () => {
-    };
-
-    const onFinish = async (values) => {
-        if (selectedCarId === null) {
-            // trow error
-        }
-
-        for (const carIndex in verifiedCars) {
-            const id = parseFloat(carIndex);
-
-            if (verifiedCars[id].id == selectedCarId &&
-                parseFloat(values.loadCapacity) > parseFloat(verifiedCars[id].loadCapacity)) {
-                // throw error
-            }
-        }
-
-        await buildTheRoute();
-
-        let tripPoints = [];
-
-        for (const index in points) {
-            tripPoints.push({
-                latitude: points[index].lat,
-                longitude: points[index].lng,
-                order: parseInt(index) + 1
+            points.push({
+                location: {
+                    lat: endLocationCoordinates.lat(),
+                    lng: endLocationCoordinates.lng()
+                },
+                stopover: true
             });
         }
 
-        console.log("Start date: ", moment(values.dates[0]._d).format(CALENDER_DATE_FORMAT),
-            "\nExpiration date: ", moment(values.dates[1]._d).format(CALENDER_DATE_FORMAT),
-            "\n\nDescription: ", values.description,
-            "\n\nLoad capacity: ", values.loadCapacity,
-            "\nMax route deviation (km): ", values.maxRouteDeviationKm,
-            "\n\nTransportation car id: ", selectedCarId,
-            "\n\nOrigin address: ", originAddress,
-            "\nOrigin coordinates: ", originCoordinates,
-            "\n\nDestination address: ", destinationAddress,
-            "\nDestination coordinates: ", destinationCoordinates,
-            "\n\nAuxiliary points (to build an exact route): ", tripPoints);
-
-        const model = {
-            startDate: values.dates[0]._d,
-            expirationDate: values.dates[1]._d,
-            description: values.description,
-            loadCapacity: values.loadCapacity,
-            maxRouteDeviationKm: values.maxRouteDeviationKm,
-            transportationCarId: selectedCarId,
-            points: tripPoints
-        };
-
-        setPoints([]);
-
-        // await createTrip(model);
+        distance /= 1000;
+        return distance;
     };
-
-    const onFinishFailed = () => {
-        // buildTheRoute();
-    };
-
-    const setSubPointDetailedAddress = async (coordinates) => {
-        Geocode.fromLatLng(coordinates.lat, coordinates.lng)
-            .then((response) => {
-                const fullAddressComponents = response.results[0].address_components;
-                let house, street, settlement, region, country, postcode;
-
-                for (
-                    let i = 0;
-                    i < response.results[0].address_components.length;
-                    i++
-                ) {
-                    for (
-                        let j = 0;
-                        j < response.results[0].address_components[i].types.length;
-                        j++
-                    ) {
-                        switch (response.results[0].address_components[i].types[j]) {
-                            case "street_number": {
-                                house = fullAddressComponents[i].long_name;
-                                break;
-                            }
-                            case "route": {
-                                street = fullAddressComponents[i].long_name;
-                                break;
-                            }
-                            case "locality": {
-                                settlement = fullAddressComponents[i].long_name;
-                                break;
-                            }
-                            case "administrative_area_level_1": {
-                                region = fullAddressComponents[i].long_name;
-                                break;
-                            }
-                            case "country": {
-                                country = fullAddressComponents[i].long_name;
-                                break;
-                            }
-                            case "postal_code": {
-                                postcode = fullAddressComponents[i].long_name;
-                                break;
-                            }
-                        }
-                    }
-                }
-
-                setKey(key + 1);
-
-                setSubPointsAddresses([...subPointsAddresses, {
-                    key: key,
-                    street: street + ", " + house,
-                    settlement: settlement,
-                    region: region,
-                    country: country,
-                    postcode: postcode
-                }]);
-            },
-                (error) => {
-                    console.log(error);
-                }
-            );
-    };
-
-    const addSubPoint = () => {
-        geocodeByAddress(subPointAddress)
-            .then(results => getLatLng(results[0]))
-            .then(latLng => {
-                setIsNewSubPoint(true);
-
-                setSubPointCoordinates([...subPointCoordinates, {
-                    location: latLng,
-                    stopover: true
-                }]);
-
-                setSubPointDetailedAddress(latLng);
-
-                setIsNewSubPoint(false);
-            })
-            .catch(() =>
-                errorMessage(
-                    mapErrorMessages.LOAD_COORDINATES_FAILED,
-                    generalErrorMessages.SOMETHING_WENT_WRONG
-                )
-            );
-    }
-
-    const removeSubPoint = async (record) => {
-        setIsDeleteSubPoint(true);
-
-        var elementIndex = subPointsAddresses.indexOf(record);
-        subPointsAddresses.splice(elementIndex, 1);
-        subPointCoordinates.splice(elementIndex, 1);
-    }
 
     return isLoaded ? (
         <div className="createTripBody">
             <Header />
 
-            <h1 id="title">Create trip</h1>
+            <h1 id="title">Create a trip</h1>
 
             <Layout id="tripBlock">
 
                 <Form
-                    labelCol={{ span: 8 }}
-                    wrapperCol={{ span: 16 }}
                     initialValues={{ remember: true }}
-                    onFinish={onFinish}
+                    onFinish={onFinishAsync}
                     onFinishFailed={onFinishFailed}
                     scrollToFirstError
                     id="tripForm"
                 >
                     <Form.Item
+                        label="Enter the origin's address: "
                         name="originAddress"
                         rules={[
                             InputRules.required(
@@ -405,13 +497,14 @@ function CreateTripPage() {
                     >
                         <PlacesAutocomplete
                             value={originAddress}
-                            onChange={onOriginChange}
-                            onSelect={handleSelectOrigin}
+                            onSelect={selectOriginAddressAsync}
+                            onChange={changeOriginAddress}
                         >
                             {({
                                 getInputProps,
                                 suggestions,
-                                getSuggestionItemProps
+                                getSuggestionItemProps,
+                                loading
                             }) => (
                                 <div>
                                     <Input
@@ -420,22 +513,16 @@ function CreateTripPage() {
                                         })}
                                     />
 
-                                    <div className="autocomplete-dropdown-container">
-                                        {suggestions.map(suggestion => {
-                                            const className = suggestion.active
-                                                ? 'suggestion-item--active'
-                                                : 'suggestion-item';
-                                            const style = suggestion.active
-                                                ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                                : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                    <div className="description-list">
+                                        {loading ? <div>Loading...</div> : null}
+
+                                        {suggestions.map((suggestion) => {
                                             return (
                                                 <div
-                                                    {...getSuggestionItemProps(suggestion, {
-                                                        className,
-                                                        style
-                                                    })}
+                                                    {...getSuggestionItemProps(suggestion)}
+                                                    className="description-item"
                                                 >
-                                                    <span>{suggestion.description}</span>
+                                                    {suggestion.description}
                                                 </div>
                                             );
                                         })}
@@ -446,6 +533,7 @@ function CreateTripPage() {
                     </Form.Item>
 
                     <Form.Item
+                        label="Enter the destination's address: "
                         name="destinationAddress"
                         rules={[
                             InputRules.required(
@@ -455,13 +543,14 @@ function CreateTripPage() {
                     >
                         <PlacesAutocomplete
                             value={destinationAddress}
-                            onChange={onDestinationChange}
-                            onSelect={handleSelectDestination}
+                            onSelect={selectDestinationAddressAsync}
+                            onChange={changeDestinationAddress}
                         >
                             {({
                                 getInputProps,
                                 suggestions,
-                                getSuggestionItemProps
+                                getSuggestionItemProps,
+                                loading
                             }) => (
                                 <div>
                                     <Input
@@ -470,23 +559,16 @@ function CreateTripPage() {
                                         })}
                                     />
 
-                                    <div className="autocomplete-dropdown-container">
-                                        {suggestions.map(suggestion => {
-                                            const className = suggestion.active
-                                                ? 'suggestion-item--active'
-                                                : 'suggestion-item';
-                                            const style = suggestion.active
-                                                ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                                : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                    <div className="description-list">
+                                        {loading ? <div>Loading...</div> : null}
 
+                                        {suggestions.map((suggestion) => {
                                             return (
                                                 <div
-                                                    {...getSuggestionItemProps(suggestion, {
-                                                        className,
-                                                        style
-                                                    })}
+                                                    {...getSuggestionItemProps(suggestion)}
+                                                    className="description-item"
                                                 >
-                                                    <span>{suggestion.description}</span>
+                                                    {suggestion.description}
                                                 </div>
                                             );
                                         })}
@@ -514,42 +596,36 @@ function CreateTripPage() {
                     }
 
                     <Form.Item
+                        label="Enter the sub point's address: "
                         name="subPointAddress"
                     >
                         <PlacesAutocomplete
                             value={subPointAddress}
-                            onChange={onDestinationChange}
-                            onSelect={handleSelectSubPoint}
+                            onSelect={selectSubPointAddress}
                         >
                             {({
                                 getInputProps,
                                 suggestions,
-                                getSuggestionItemProps
+                                getSuggestionItemProps,
+                                loading
                             }) => (
                                 <div>
                                     <Input
                                         {...getInputProps({
-                                            placeholder: 'Sub point address'
+                                            placeholder: 'Origin address'
                                         })}
                                     />
 
-                                    <div className="autocomplete-dropdown-container">
-                                        {suggestions.map(suggestion => {
-                                            const className = suggestion.active
-                                                ? 'suggestion-item--active'
-                                                : 'suggestion-item';
-                                            const style = suggestion.active
-                                                ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                                : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                    <div className="description-list">
+                                        {loading ? <div>Loading...</div> : null}
 
+                                        {suggestions.map((suggestion) => {
                                             return (
                                                 <div
-                                                    {...getSuggestionItemProps(suggestion, {
-                                                        className,
-                                                        style
-                                                    })}
+                                                    {...getSuggestionItemProps(suggestion)}
+                                                    className="description-item"
                                                 >
-                                                    <span>{suggestion.description}</span>
+                                                    {suggestion.description}
                                                 </div>
                                             );
                                         })}
@@ -560,12 +636,13 @@ function CreateTripPage() {
                     </Form.Item>
 
                     <Button
-                        onClick={() => addSubPoint()}
+                        onClick={() => addSubPointAsync()}
                     >
                         Add sub point
                     </Button>
 
                     <Form.Item
+                        label="Select the trip's dates: "
                         name="dates"
                         rules={[
                             InputRules.required(
@@ -575,6 +652,7 @@ function CreateTripPage() {
                     >
                         <RangePicker
                             disabledDate={setDisabledDate}
+                            disabledTime={setDisabledTimeRangeDate}
                             showTime={{
                                 hideDisabledOptions: true
                             }}
@@ -583,6 +661,7 @@ function CreateTripPage() {
                     </Form.Item>
 
                     <Form.Item
+                        label="Enter the description: "
                         name="description"
                         rules={[
                             InputRules.required(
@@ -599,7 +678,6 @@ function CreateTripPage() {
                     </Form.Item>
 
                     <p>Cars</p>
-
                     <Table
                         columns={carTableColumns}
                         dataSource={verifiedCars}
@@ -610,7 +688,9 @@ function CreateTripPage() {
                         })}
                     />
 
-                    <Form.Item name="loadCapacity"
+                    <Form.Item
+                        label="Enter the load capacity: "
+                        name="loadCapacity"
                         rules={[
                             InputRules.required(carsErrorMessages.EMPTY_FIELD)
                         ]}
@@ -621,12 +701,14 @@ function CreateTripPage() {
                         />
                     </Form.Item>
 
-                    <Form.Item name="maxRouteDeviationKm"
+                    <Form.Item
+                        label="Enter the max route deviation: "
+                        name="maxRouteDeviationKm"
                         rules={[
                             InputRules.required(carsErrorMessages.EMPTY_FIELD)
                         ]}
                     >
-                        <InputNumber min={0} max={25}
+                        <InputNumber min={1} max={25}
                             addonAfter="km"
                             placeholder="Max route deviation"
                         />
@@ -652,6 +734,7 @@ function CreateTripPage() {
                             }}
                             onLoad={map => setMap(map)}
                         >
+                            <Marker position={center} />
                             {directionResponse && (
                                 <DirectionsRenderer directions={directionResponse} />
                             )}
