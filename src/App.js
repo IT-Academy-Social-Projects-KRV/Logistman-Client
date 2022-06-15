@@ -22,7 +22,6 @@ import UserCarsPage from "./components/userCars";
 import CreateOfferPage from "./components/offerPage";
 import {offerRoles} from "./constants/offerRoles";
 
-
 const history = createBrowserHistory();
 
 export default function App() {

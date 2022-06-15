@@ -32,8 +32,6 @@ export async function getUserOffers(paginationFilterModel) {
 }
 
 export function createOffer(values, coordinates, history) {
-    console.log(values)
-
   const model = {
     description: values.description,
     goodsWeight: values.goodsWeight,

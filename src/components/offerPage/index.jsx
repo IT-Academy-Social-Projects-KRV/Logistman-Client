@@ -173,14 +173,14 @@ export default function CreateOfferPage(props) {
         const start = values.dates[0];
         const end = values.dates[1];
         const diff = end.diff(start, 'hours');
-        const createValue = {...values, role: props.offerRole};
+        const offer = {...values, role: props.offerRole};
         if (diff < offerValues.MIN_HOURS_VALUE) {
             errorMessage(
                 offersErrorMessages.CREATE_OFFER_FAILED,
                 offersErrorMessages.TIME_INTERVAL_INCORRECT
             );
         } else {
-            createOffer(createValue, clickedLatLng, history);
+            createOffer(offer, clickedLatLng, history);
         }
     };
 
