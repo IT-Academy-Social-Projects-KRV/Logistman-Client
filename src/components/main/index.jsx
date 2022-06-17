@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../navigation/header";
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { getUserVerifiedCarsAsync } from "../../services/cars";
 import { carsErrorMessages } from './../../constants/messages/cars';
 import { tripsMessages } from './../../constants/messages/trips';
@@ -32,15 +32,17 @@ function MainPage() {
 
             <div className="role-container">
                 <div className="role-block">
-                    <div className="role block-sender">
-                        <span>I can donate some goods</span>
-                    </div>
+                    <Link className="role-link" to="/create-offer">
+                        <div className="role block-sender">
+                            <span>I can donate some goods</span>
+                        </div>
+                    </Link>
 
                     <div className="role block-recipient">
                         <span>I need help</span>
                     </div>
                 </div>
-                
+
                 <div
                     onClick={() => onCreateTripTileClick()}
                     className="role block-driver"

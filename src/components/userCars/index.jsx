@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { getUserCars } from "../../services/cars";
+import {customPageSizeOptions, paginationDefaultFilter} from "../../constants/pagination";
+import React, {useEffect, useState} from "react";
+import {getUserCarsByEmail} from "../../services/cars";
 import Header from "../navigation/header";
-import { Result } from "antd";
-import MyCar from './myCar/index';
-import { Pagination } from 'antd';
-import { paginationDefaultFilter } from "../../constants/pagination";
-import { customPageSizeOptions } from "../../constants/pagination";
+import MyCar from "../myCars/myCar";
+import {Pagination, Result} from "antd";
+import { useLocation } from 'react-router-dom';
 
-function MyCarsPage() {
+function UserCarsPage() {
+    const location = useLocation();
+    const userData = location.state;
 
     let paginationFilterModel = {
         pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
@@ -17,21 +18,20 @@ function MyCarsPage() {
     const [cars, setCars] = useState();
 
     useEffect(async () => {
-        setCars(await getUserCars(paginationFilterModel));
+        setCars(await getUserCarsByEmail(paginationFilterModel, userData.email));
     }, []);
 
     const onPaginationChange = async (page, pageSize) => {
         paginationFilterModel.pageNumber = page;
         paginationFilterModel.pageSize = pageSize;
-
-        setCars(await getUserCars(paginationFilterModel));
+        setCars(await getUserCarsByEmail(paginationFilterModel, userData.email));
     };
 
     return (
         <div className="userCarsBody">
             <Header />
 
-            <p className="title">My cars</p>
+            <p className="title">{userData.name}'s cars</p>
 
             {cars != null ?
                 <div className="cars-container">
@@ -44,17 +44,17 @@ function MyCarsPage() {
                         showSizeChanger
                         showTotal={(total) => `Total ${total} items`}
                         pageSizeOptions={customPageSizeOptions}
-                        defaultPageSize={paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE} 
+                        defaultPageSize={paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE}
                     />
                 </div>
                 :
                 <Result
                     status="404"
-                    title="Looks like you haven't created any car yet."
+                    title="Looks like user hasn't added any car yet."
                 />
             }
         </div>
     );
 }
 
-export default MyCarsPage;
+export default UserCarsPage;

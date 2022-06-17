@@ -5,9 +5,11 @@ import { useHistory } from "react-router-dom";
 import user_icon from "../../assets/images/user.png";
 import { Link } from "react-router-dom";
 import { Button } from 'antd';
+import { store } from "../../store";
 
 function Menu({ isMenuOpen, data }) {
     let history = useHistory();
+    let role = store.getState().authReducer.role;
 
     const logOut = () => {
         logoutUser(history);
@@ -30,7 +32,7 @@ function Menu({ isMenuOpen, data }) {
             </Link>
 
             <div className="menu-items">
-                {menuItems.map((item, index) => (
+                {menuItems[role].map((item, index) => (
                     <Link to={item.itemLink} key={index}>
                         <img src={item.itemIcon} id="menu-icon" />
                         <p>{item.itemText}</p>

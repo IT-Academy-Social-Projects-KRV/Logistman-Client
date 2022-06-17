@@ -11,7 +11,8 @@ export const AUTHENTICATION_URLS = {
     REGISTRATION: AUTHENTICATION_URL + "/register",
     LOGIN: AUTHENTICATION_URL + "/login",
     LOGOUT: AUTHENTICATION_URL + "/logout",
-    REFRESH_TOKEN: AUTHENTICATION_URL + "/refresh-token"
+    REFRESH_TOKEN: AUTHENTICATION_URL + "/refresh-token",
+    CONFIRM_EMAIL: AUTHENTICATION_URL + "/confirm-email"
 };
 
 export const CAR_CATEGORIES_URLS = {
@@ -21,7 +22,11 @@ export const CAR_CATEGORIES_URLS = {
 export const CARS_URLS = {
     ADD: CAR_URL + "/add",
     GET_BY_USER: CAR_URL,
-    GET_USER_VERIFIED: CAR_URL + "/user-verified"
+    GET_USER_VERIFIED: CAR_URL + "/user-verified",
+    GET_BY_USER_EMAIL: CAR_URL + "/user-cars",
+    VERIFY: CAR_URL + "/verify",
+    UNVERIFY: CAR_URL + "/unverify",
+    DELETE: CAR_URL + "/delete"
 };
 
 export const GOOD_CATEGORIES_URLS = {
@@ -41,5 +46,10 @@ export const TRIPS_URL = {
 export const USERS_URLS = {
     PROFILE_INFO: USER_URL + "/user-info",
     EDIT: USER_URL + "/edit-info",
-    FULL_NAME: USER_URL + "/user-full-name"
+    FULL_NAME: USER_URL + "/user-full-name",
+    GET_ALL_USERS: USER_URL 
 };
+
+export const LOGIST_URLS = {
+    EDIT_USER_INFO: USER_URL + "/user-edit-info"
+}

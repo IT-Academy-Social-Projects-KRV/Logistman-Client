@@ -50,6 +50,13 @@ export default class InputRules {
         }
     }
 
+    static capitalDigitFirst(message) {
+        return {
+            pattern: new RegExp("^[0-9]"),
+            message: message
+        }
+    }
+
     static carModel() {
         return {
             pattern: new RegExp("^([A-Za-z\\d ]?)*$"),

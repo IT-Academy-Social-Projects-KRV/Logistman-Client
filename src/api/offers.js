@@ -10,7 +10,9 @@ export default class offersService {
         return instance.get(OFFERS_URLS.GET_ONE_BY_USER, model);
     }
 
-    static getAllByUser() {
-        return instance.get(OFFERS_URLS.GET_BY_USER);
+    static getAllByUser(paginationFilterModel) {
+        return instance.get(OFFERS_URLS.GET_BY_USER +
+            `?PageNumber=${paginationFilterModel.pageNumber}
+             &PageSize=${paginationFilterModel.pageSize}`);
     }
 }

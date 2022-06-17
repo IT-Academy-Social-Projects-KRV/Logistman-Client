@@ -17,6 +17,10 @@ import RegistrationPage from './components/authentication/registration/index';
 import LoginPage from './components/authentication/login/index';
 import HomePage from './components/home/index';
 import CreateTripPage from './components/createTrip/index';
+import ConfirmEmailPage from "./components/emailConfirmation";
+import ManageUsersPage from './components/users/index';
+import UserCarsPage from "./components/userCars";
+import CreateOfferPage from "./components/offerPage";
 
 const history = createBrowserHistory();
 
@@ -35,7 +39,7 @@ export default function App() {
                 <PrivateRoute
                     exact
                     path="/profile"
-                    allowedRoles={[userRoles.USER]}
+                    allowedRoles={[userRoles.USER, userRoles.LOGIST]}
                 >
                     <ProfilePage />
                 </PrivateRoute>
@@ -46,6 +50,21 @@ export default function App() {
                     allowedRoles={[userRoles.USER]}
                 >
                     <MyCarsPage />
+                </PrivateRoute>
+
+                <PrivateRoute
+                    exact
+                    path="/user-cars"
+                    allowedRoles={[userRoles.LOGIST]}
+                >
+                    <UserCarsPage />
+                </PrivateRoute>
+
+                <PrivateRoute
+                    path="/create-offer"
+                    allowedRoles={[userRoles.USER]}
+                >
+                    <CreateOfferPage />
                 </PrivateRoute>
 
                 <PrivateRoute
@@ -62,6 +81,14 @@ export default function App() {
                     allowedRoles={[userRoles.USER]}
                 >
                     <CreateTripPage />
+                </PrivateRoute>
+
+                <PrivateRoute
+                    exact
+                    path="/users"
+                    allowedRoles={[userRoles.LOGIST]}
+                >
+                    <ManageUsersPage />
                 </PrivateRoute>
 
                 <Route
@@ -83,6 +110,12 @@ export default function App() {
                     path="/home"
                 >
                     <HomePage />
+                </Route>
+
+                <Route
+                    path="/confirm-email"
+                >
+                    <ConfirmEmailPage/>
                 </Route>
 
                 <Redirect to="/login" />

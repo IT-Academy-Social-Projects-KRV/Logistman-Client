@@ -11,6 +11,10 @@ export const inputValidationErrorMessages = Object.freeze({
     EMPTY_DESTINATION_ADDRESS: "Please select the destination address!",
     EMPTY_DESCRIPTION: "Please enter the trip description!",
 
+    EMPTY_USER_NAME: "Please enter user name!",
+    EMPTY_USER_SURNAME: "Please enter user surname!",
+    EMPTY_USER_EMAIL: "Please enter user e-mail!",
+
     NOT_VALID_NAME: "The name must start with a capital letter and " +
         "continue with lowercase letters!\nAnd only latin letters!",
     NOT_VALID_SURNAME: "The surname must start with a capital letter " +
