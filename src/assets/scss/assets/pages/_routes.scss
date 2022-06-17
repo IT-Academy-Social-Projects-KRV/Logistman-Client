@@ -1,0 +1,128 @@
+@import '../variables/colors';
+@import '../variables/others';
+
+.routeBody {
+    padding: 105px 140px 50px 140px;
+
+    .routes-container {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 3%;
+    }
+
+    .addresses {
+        padding-left: 42px;
+    }
+
+    .title {
+        font-weight: bold;
+        font-size: 15pt;
+        text-align: center;
+        margin-top: -10px;
+        color: $title_color;
+    }
+
+    .ant-card.routeCard {
+        margin-bottom: 3%;
+        box-shadow: rgba(109, 122, 128, 0.12) 0 2px 4px 0, rgba(14, 30, 37, 0.32) 0 2px 16px 0;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: row;
+        width: 80%;
+    }
+
+    .ant-card-body {
+        width: 100%;
+    }
+
+    .cardBody {
+        .dataField {
+            display: flex;
+            justify-content: baseline;
+            color: #656565;
+        }
+        
+        .carInfo {
+            margin-top: 10px;
+        }
+
+        .description {
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: 550;
+            color: $title_color;
+            margin-left: 10px;
+            width: 90%;
+        }
+
+        .innerBody {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .bottom {
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .dates {
+            display: flex;
+            flex-direction: row;
+
+            .date {
+                display: flex;
+            }
+        }
+
+        .createTripButton {
+            background-color: $body_color;
+            border: none;
+            color: white;
+        }
+    }
+
+    .icon {
+        margin-right: 10px;
+        margin-left: 10px;
+        color: black;
+    }
+}
+
+@media only screen and (max-width: $the_middle_of_tablet_size) {
+    .routeBody {
+        padding: 105px 50px 50px 50px;
+        
+        .cardBody {
+            .dates, .innerBody {
+                flex-direction: column;
+            }
+            .bottom {
+                flex-direction: column;
+                align-items: stretch;
+            } 
+        }
+    }
+    .ant-card.routeCard {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: $max_phone_size) {
+    .routeBody {
+        padding: 105px 0 50px 0;
+        
+        .cardBody {
+            .dates, .innerBody {
+                flex-direction: column;
+            }
+            .bottom {
+                flex-direction: column;
+                align-items: stretch;
+            } 
+        }
+    }
+    .ant-card.routeCard {
+        width: 100%;
+    }
+}

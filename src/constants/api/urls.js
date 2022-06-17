@@ -39,7 +39,8 @@ export const OFFERS_URLS = {
 };
 
 export const TRIPS_URL = {
-    CREATE: TRIP_URL + "/create"
+    CREATE: TRIP_URL + "/create",
+    GET_ALL_ROUTES: TRIP_URL + "/routes"
 };
 
 export const USERS_URLS = {
