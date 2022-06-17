@@ -9,19 +9,12 @@ export const setDisabledDate = (current) => {
     return current && current < moment().startOf("day");
 };
 
-export const setDisabledTimeRangeDate = (_, type) => {
-    if (type === "start") {
-        return {
-            disabledHours: () => range(0, 60).splice(0, getCurrentHour() + 1)
-        }
-    }
-};
-
 export const checkTimeDifference = (dates) => {
-    const start = dates[0];
-    const end = dates[1];
+    const start = dates[0], end = dates[1];
+    const difference = end.diff(start, "hours"),
+        now = moment();
 
-    if (parseInt(moment(start).format("HH")) < getCurrentHour() + 1) {
+    if (moment(start) < now) {
         errorMessage(
             tripsMessages.START_DATE_IS_IN_THE_PAST,
             tripsMessages.CREATE_TRIP_BLOCKED
@@ -29,8 +22,6 @@ export const checkTimeDifference = (dates) => {
 
         return false;
     }
-
-    const difference = end.diff(start, "hours");
 
     if (difference < MIN_HOURS_VALUE_IN_TRIP) {
         errorMessage(
@@ -42,20 +33,4 @@ export const checkTimeDifference = (dates) => {
     }
 
     return true;
-}
-
-
-const range = (start, end) => {
-    const result = [];
-
-    for (let i = start; i < end; i++) {
-        result.push(i);
-    }
-
-    return result;
-};
-
-const getCurrentHour = () => {
-    let currentDate = new Date();
-    return currentDate.getHours();
 }

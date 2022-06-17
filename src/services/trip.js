@@ -1,18 +1,23 @@
 import tripsService from './../api/trips';
-import { errorMessage } from './alerts';
+import { errorMessage, successMessage } from './alerts';
 import { generalErrorMessages } from './../constants/messages/general';
+import { tripsMessages } from './../constants/messages/trips';
 
-export async function createTrip(model) {
-
-    return await tripsService
+export function createTrip(model, history) {
+    return tripsService
         .create(model)
         .then(
-            (response) => {
-                return response.data;
-            },
             () => {
+                history.push("/main");
+                successMessage(
+                    tripsMessages.SUCCESSFUL_TRIP_CREATION,
+                    2500
+                );
+            },
+            (err) => {
                 errorMessage(
-                    generalErrorMessages.SOMETHING_WENT_WRONG
+                    err.response.data,
+                    ''
                 );
             }
         )

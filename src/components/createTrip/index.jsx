@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Geocode from "react-geocode";
-import { Button, Layout, DatePicker, Form, Input, InputNumber, Table } from 'antd';
+import { Button, Layout, DatePicker, Form, Input, InputNumber, Table, Radio } from 'antd';
 import PlacesAutocomplete from "react-places-autocomplete";
 import { useJsApiLoader, GoogleMap, DirectionsRenderer, Marker } from '@react-google-maps/api';
 import Header from '../navigation/header';
@@ -10,7 +10,7 @@ import { mapErrorMessages } from './../../constants/messages/map';
 import { generalErrorMessages } from './../../constants/messages/general';
 import { inputValidationErrorMessages } from './../../constants/messages/inputValidationErrors';
 import InputRules from './../../constants/inputRules';
-import { setDisabledDate, setDisabledTimeRangeDate, CALENDER_DATE_FORMAT } from "../../constants/dates";
+import { checkTimeDifference, setDisabledDate, CALENDER_DATE_FORMAT } from "../../constants/dates";
 import { carsErrorMessages } from './../../constants/messages/cars';
 import { carTableColumns } from './carsTableColumns';
 import { CloseOutlined } from '@ant-design/icons';
@@ -18,8 +18,9 @@ import { unitsOfMeasurement } from './../../constants/others';
 import { getUserVerifiedCarsAsync } from './../../services/cars';
 import { tripsMessages } from './../../constants/messages/trips';
 import { buildTheRoute, getCoordinatesFromAddress } from './../../services/map';
-import { checkTimeDifference } from './../../constants/dates';
 import { pointsMessages } from './../../constants/messages/points';
+import { createTrip } from "../../services/trip";
+import { useHistory } from 'react-router-dom';
 
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;
@@ -30,6 +31,8 @@ Geocode.setRegion(geocodeLanguage);
 Geocode.enableDebug();
 
 function CreateTripPage() {
+    let history = useHistory();
+
     // points' table columns
     const pointsTableColumns = [
         {
@@ -60,6 +63,12 @@ function CreateTripPage() {
         }
     ];
 
+    const rowSelection = {
+        onChange: (selectedRowKeys, selectedRows) => {
+            setSelectedCarId(selectedRows[0].id);
+        }
+    }
+
     // addresses
     const [originAddress, setOriginAddress] = useState();
     const [destinationAddress, setDestinationAddress] = useState();
@@ -89,6 +98,13 @@ function CreateTripPage() {
     useEffect(() => {
         async function getCarsAsync() {
             const cars = await getUserVerifiedCarsAsync();
+
+            let key = 0;
+            cars.map(car => {
+                car.key = key;
+                key++;
+            });
+
             setVerifiedCars(cars);
         }
         getCarsAsync();
@@ -107,7 +123,18 @@ function CreateTripPage() {
 
         setPoints([]);
 
-        // form model & send the request to create trip
+        const model = {
+            startDate: formValues.dates[0]._d,
+            expirationDate: formValues.dates[1]._d,
+            description: formValues.description,
+            loadCapacity: formValues.loadCapacity,
+            maxRouteDeviationKm: formValues.maxRouteDeviationKm,
+            transportationCarId: selectedCarId,
+            distance: distance,
+            points: tripPoints
+        }
+
+        createTrip(model, history);
     };
 
     const onFinishFailed = () => {
@@ -222,7 +249,7 @@ function CreateTripPage() {
 
     // auxiliary functions
     const getPointDetailedAddressAsync = async (subPointCoordinates_, isStopover) => {
-        let house, street, settlement, region, country, postcode;
+        var house, street, settlement, region, country, postcode;
 
         await Geocode.fromLatLng(subPointCoordinates_.lat, subPointCoordinates_.lng)
             .then(
@@ -652,7 +679,6 @@ function CreateTripPage() {
                     >
                         <RangePicker
                             disabledDate={setDisabledDate}
-                            disabledTime={setDisabledTimeRangeDate}
                             showTime={{
                                 hideDisabledOptions: true
                             }}
@@ -683,9 +709,10 @@ function CreateTripPage() {
                         dataSource={verifiedCars}
                         size="small"
                         pagination={false}
-                        onRow={(record, rowIndex) => ({
-                            onClick: () => setSelectedCarId(record.id)
-                        })}
+                        rowSelection={{
+                            type: "radio",
+                            ...rowSelection
+                        }}
                     />
 
                     <Form.Item
