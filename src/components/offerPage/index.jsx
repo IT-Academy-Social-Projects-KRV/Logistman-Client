@@ -196,7 +196,7 @@ export default function CreateOfferPage(props) {
             <Header/>
 
             <div className="createOfferBody">
-                <h1>Create {props.offerRole} offer</h1>
+                <h1>Create {props.offerRole.toLowerCase()} offer</h1>
 
                 <Form
                     form={form}
