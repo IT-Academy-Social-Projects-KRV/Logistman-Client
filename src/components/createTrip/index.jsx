@@ -5,7 +5,7 @@ import PlacesAutocomplete from "react-places-autocomplete";
 import { useJsApiLoader, GoogleMap, DirectionsRenderer, Marker } from '@react-google-maps/api';
 import Header from '../navigation/header';
 import { geocodeLanguage, mapCenter } from './../../constants/map';
-import { errorMessage } from './../../services/alerts';
+import { errorMessage, confirmMessage } from './../../services/alerts';
 import { mapErrorMessages } from './../../constants/messages/map';
 import { generalErrorMessages } from './../../constants/messages/general';
 import { inputValidationErrorMessages } from './../../constants/messages/inputValidationErrors';
@@ -119,22 +119,26 @@ function CreateTripPage() {
         }
 
         const distance = await buildTheRouteAsync(true);
-        const tripPoints = await formTripPointsAsync();
+        const result = await confirmMessage();
 
-        setPoints([]);
+        if (result) {
+            const tripPoints = await formTripPointsAsync();
+            
+            setPoints([]);
 
-        const model = {
-            startDate: formValues.dates[0]._d,
-            expirationDate: formValues.dates[1]._d,
-            description: formValues.description,
-            loadCapacity: formValues.loadCapacity,
-            maxRouteDeviationKm: formValues.maxRouteDeviationKm,
-            transportationCarId: selectedCarId,
-            distance: distance,
-            points: tripPoints
+            const model = {
+                startDate: formValues.dates[0]._d,
+                expirationDate: formValues.dates[1]._d,
+                description: formValues.description,
+                loadCapacity: formValues.loadCapacity,
+                maxRouteDeviationKm: formValues.maxRouteDeviationKm,
+                transportationCarId: selectedCarId,
+                distance: distance,
+                points: tripPoints
+            }
+
+            createTrip(model, history);
         }
-
-        createTrip(model, history);
     };
 
     const onFinishFailed = () => {
@@ -181,7 +185,7 @@ function CreateTripPage() {
 
     // manage sub points
     const addSubPointAsync = async () => {
-        const coordinates = await getCoordinatesFromAddress(destinationAddress);
+        const coordinates = await getCoordinatesFromAddress(subPointAddress);
 
         if (subPointCoordinates.length !== 0) {
             const prevSubPointLocation = subPointCoordinates[subPointCoordinates.length - 1].location;
