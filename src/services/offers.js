@@ -3,7 +3,6 @@ import { errorMessage, successMessage } from "./alerts";
 import { generalErrorMessages } from "../constants/messages/general";
 import { offersErrorMessages } from "../constants/messages/offersMessages";
 import { statusCode } from "../constants/statusCodes";
-import { offerRoles } from '../constants/offerRoles';
 import { offerValues } from "../constants/offerValues";
 
 export async function getUserOffers(paginationFilterModel) {
@@ -39,7 +38,7 @@ export function createOffer(values, coordinates, history) {
     startDate: values.dates[0]._d,
     expirationDate: values.dates[1]._d,
     goodCategory: values.goodCategory,
-    role: offerRoles.SENDER,
+    role: values.role,
     point: {
       latitude: coordinates.lat,
       longitude: coordinates.lng,
