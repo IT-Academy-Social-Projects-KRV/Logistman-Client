@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Geocode from "react-geocode";
-import { Button, Layout, DatePicker, Form, Input, InputNumber, Table, Radio } from 'antd';
+import { Button, Layout, DatePicker, Form, Input, InputNumber, Table } from 'antd';
 import PlacesAutocomplete from "react-places-autocomplete";
 import { useJsApiLoader, GoogleMap, DirectionsRenderer, Marker } from '@react-google-maps/api';
 import Header from '../navigation/header';
@@ -126,10 +126,10 @@ function CreateRoutePage() {
         const distance = await buildTheRouteAsync(true);
         const result = await confirmMessage();
 
+        setPoints([]);
+
         if (result) {
             const tripPoints = await formTripPointsAsync();
-
-            setPoints([]);
 
             const model = {
                 startDate: formValues.dates[0]._d,
@@ -794,6 +794,12 @@ function CreateRoutePage() {
                             className="submitButton"
                         >
                             Create
+                        </Button>
+
+                        <Button
+                            onClick={() => buildTheRouteAsync(false)}
+                        >
+                            Build the route
                         </Button>
                     </div>
                 </Form>
