@@ -19,9 +19,8 @@ import { getUserVerifiedCarsAsync } from '../../services/cars';
 import { tripsMessages } from '../../constants/messages/trips';
 import { buildTheRoute, getCoordinatesFromAddress } from '../../services/map';
 import { pointsMessages } from '../../constants/messages/points';
-import { createTrip } from "../../services/trip";
+import { createTrip } from "../../services/trips";
 import { useHistory } from 'react-router-dom';
-import useStateWithCallback from "use-state-with-callback";
 
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;
@@ -82,10 +81,8 @@ function CreateRoutePage() {
     const [subPointsAddresses, setSubPointsAddresses] = useState([]);
 
     // coordinates
-    const [originCoordinates, setOriginCoordinates] = useStateWithCallback([],
-        async () => await buildTheRouteAsync(false));
-    const [destinationCoordinates, setDestinationCoordinates] = useStateWithCallback([],
-        async () => await buildTheRouteAsync(false));
+    const [originCoordinates, setOriginCoordinates] = useState([]);
+    const [destinationCoordinates, setDestinationCoordinates] = useState([]);
     const [subPointCoordinates, setSubPointCoordinates] = useState([]);
 
     // map
@@ -434,7 +431,7 @@ function CreateRoutePage() {
                     postcode: pointAddress.postcode,
                     region: pointAddress.region,
                     settlement: pointAddress.settlement,
-                    stopover: true,
+                    isStopover: true,
                     order: index + 1
                 });
             }
@@ -442,7 +439,7 @@ function CreateRoutePage() {
                 tripPoints.push({
                     latitude: point.location.lat,
                     longitude: point.location.lng,
-                    stopover: false,
+                    isStopover: false,
                     order: index + 1
                 });
             }

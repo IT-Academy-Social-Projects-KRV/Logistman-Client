@@ -1,7 +1,7 @@
-import tripsService from './../api/trips';
+import tripsService from '../api/trips';
 import { errorMessage, successMessage } from './alerts';
-import { generalErrorMessages } from './../constants/messages/general';
-import { tripsMessages } from './../constants/messages/trips';
+import { generalErrorMessages } from '../constants/messages/general';
+import { tripsMessages } from '../constants/messages/trips';
 
 export function createTrip(model, history) {
     return tripsService
