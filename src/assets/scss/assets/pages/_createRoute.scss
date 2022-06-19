@@ -1,0 +1,81 @@
+@use '../components/submitButton';
+@import "../variables/others";
+
+.createRouteBody {
+    padding: 95px 40px 40px 40px;
+    text-align: center;
+
+    #title {
+        margin-bottom: 25px;
+    }
+
+    #tripBlock {
+        padding: 40px 40px 25px 40px;
+        border: 2px solid rgb(0 0 0 / 15%);
+        border-radius: 10px;
+        background: white;
+        text-align: start;
+
+        .description-list {
+            box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px;
+            border-radius: 5px;
+            position: absolute;
+            z-index: 1;
+            background-color: white;
+            width: 100%;
+        }
+
+        .description-item {
+            padding: 8px;
+        }
+
+        #map {
+            margin-bottom: 40px;
+        }
+
+        table {
+            margin: 24px 0 40px 0;
+        }
+
+        #points tbody>tr>:nth-child(4) {
+            display: flex;
+            justify-content: center;
+        }
+
+        .button {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        button {
+            width: 200px;
+        }
+
+        textarea {
+            min-height: 50px;
+            max-height: 150px;
+        }
+
+        .ant-table {
+            z-index: 0;
+        }
+
+        @media only screen and (max-width: $max_tablet_size) {
+            button {
+                width: 150px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: $max_tablet_size) {
+    .createRouteBody {
+        padding: 100px 10px;
+
+        #tripBlock {
+            padding: 20px 10px 0 10px;
+        }
+    }
+}

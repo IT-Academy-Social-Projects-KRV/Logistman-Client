@@ -3,7 +3,7 @@
 @import "./assets/pages/profile";
 @import "./assets/pages/userCars";
 @import "./assets/pages/userOffers";
-@import "./assets/pages/createTrip";
+@import "./assets/pages/createRoute";
 @import "./assets/pages/emailConfirmation";
 @import "./assets/pages/users";
 @import "./assets/pages/offerPage";
@@ -14,4 +14,5 @@ body,
 html {
     min-height: 100%;
     font-family: $general_font;
+    width: 100vw;
 }

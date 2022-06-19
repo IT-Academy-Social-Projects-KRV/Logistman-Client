@@ -14,7 +14,7 @@ function MainPage() {
 
         if (verifiedCars !== undefined &&
             verifiedCars.length > 0) {
-            history.push("/create-trip");
+            history.push("/create-route");
         }
         else {
             errorMessage(

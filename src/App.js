@@ -16,7 +16,7 @@ import MyOffersPage from './components/myOffers/index';
 import RegistrationPage from './components/authentication/registration/index';
 import LoginPage from './components/authentication/login/index';
 import HomePage from './components/home/index';
-import CreateTripPage from './components/createTrip/index';
+import CreateRoutePage from './components/createRoute/index';
 import ConfirmEmailPage from "./components/emailConfirmation";
 import ManageUsersPage from './components/users/index';
 import UserCarsPage from "./components/userCars";
@@ -77,10 +77,10 @@ export default function App() {
 
                 <PrivateRoute
                     exact
-                    path="/create-trip"
+                    path="/create-route"
                     allowedRoles={[userRoles.USER]}
                 >
-                    <CreateTripPage />
+                    <CreateRoutePage />
                 </PrivateRoute>
 
                 <PrivateRoute

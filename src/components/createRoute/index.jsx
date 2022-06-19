@@ -4,23 +4,24 @@ import { Button, Layout, DatePicker, Form, Input, InputNumber, Table, Radio } fr
 import PlacesAutocomplete from "react-places-autocomplete";
 import { useJsApiLoader, GoogleMap, DirectionsRenderer, Marker } from '@react-google-maps/api';
 import Header from '../navigation/header';
-import { geocodeLanguage, mapCenter } from './../../constants/map';
-import { errorMessage, confirmMessage } from './../../services/alerts';
-import { mapErrorMessages } from './../../constants/messages/map';
-import { generalErrorMessages } from './../../constants/messages/general';
-import { inputValidationErrorMessages } from './../../constants/messages/inputValidationErrors';
-import InputRules from './../../constants/inputRules';
+import { geocodeLanguage, mapCenter } from '../../constants/map';
+import { errorMessage, confirmMessage } from '../../services/alerts';
+import { mapErrorMessages } from '../../constants/messages/map';
+import { generalErrorMessages } from '../../constants/messages/general';
+import { inputValidationErrorMessages } from '../../constants/messages/inputValidationErrors';
+import InputRules from '../../constants/inputRules';
 import { checkTimeDifference, setDisabledDate, CALENDER_DATE_FORMAT } from "../../constants/dates";
-import { carsErrorMessages } from './../../constants/messages/cars';
+import { carsErrorMessages } from '../../constants/messages/cars';
 import { carTableColumns } from './carsTableColumns';
 import { CloseOutlined } from '@ant-design/icons';
-import { unitsOfMeasurement } from './../../constants/others';
-import { getUserVerifiedCarsAsync } from './../../services/cars';
-import { tripsMessages } from './../../constants/messages/trips';
-import { buildTheRoute, getCoordinatesFromAddress } from './../../services/map';
-import { pointsMessages } from './../../constants/messages/points';
+import { unitsOfMeasurement } from '../../constants/others';
+import { getUserVerifiedCarsAsync } from '../../services/cars';
+import { tripsMessages } from '../../constants/messages/trips';
+import { buildTheRoute, getCoordinatesFromAddress } from '../../services/map';
+import { pointsMessages } from '../../constants/messages/points';
 import { createTrip } from "../../services/trip";
 import { useHistory } from 'react-router-dom';
+import useStateWithCallback from "use-state-with-callback";
 
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;
@@ -30,7 +31,7 @@ Geocode.setLanguage(geocodeLanguage);
 Geocode.setRegion(geocodeLanguage);
 Geocode.enableDebug();
 
-function CreateTripPage() {
+function CreateRoutePage() {
     let history = useHistory();
 
     // points' table columns
@@ -67,7 +68,12 @@ function CreateTripPage() {
         onChange: (selectedRowKeys, selectedRows) => {
             setSelectedCarId(selectedRows[0].id);
         }
-    }
+    };
+
+    const layout = {
+        labelCol: { md: { span: 10 }, lg: { span: 6 }, xl: { span: 6 } },
+        wrapperCol: { md: { span: 14 }, lg: { span: 18 }, xl: { span: 18 } }
+    };
 
     // addresses
     const [originAddress, setOriginAddress] = useState();
@@ -76,8 +82,10 @@ function CreateTripPage() {
     const [subPointsAddresses, setSubPointsAddresses] = useState([]);
 
     // coordinates
-    const [originCoordinates, setOriginCoordinates] = useState();
-    const [destinationCoordinates, setDestinationCoordinates] = useState();
+    const [originCoordinates, setOriginCoordinates] = useStateWithCallback([],
+        async () => await buildTheRouteAsync(false));
+    const [destinationCoordinates, setDestinationCoordinates] = useStateWithCallback([],
+        async () => await buildTheRouteAsync(false));
     const [subPointCoordinates, setSubPointCoordinates] = useState([]);
 
     // map
@@ -123,7 +131,7 @@ function CreateTripPage() {
 
         if (result) {
             const tripPoints = await formTripPointsAsync();
-            
+
             setPoints([]);
 
             const model = {
@@ -185,6 +193,13 @@ function CreateTripPage() {
 
     // manage sub points
     const addSubPointAsync = async () => {
+        if (subPointAddress === undefined) {
+            errorMessage(
+                pointsMessages.POINT_ADDRESS_IS_EMPTY_OR_INVALID,
+                ''
+            );
+        }
+
         const coordinates = await getCoordinatesFromAddress(subPointAddress);
 
         if (subPointCoordinates.length !== 0) {
@@ -192,7 +207,8 @@ function CreateTripPage() {
 
             if (JSON.stringify(prevSubPointLocation) == JSON.stringify(coordinates)) {
                 errorMessage(
-                    pointsMessages.POINT_IS_ALREADY_EXISTS
+                    pointsMessages.POINT_IS_ALREADY_EXISTS,
+                    ''
                 );
 
                 return;
@@ -503,20 +519,43 @@ function CreateTripPage() {
     };
 
     return isLoaded ? (
-        <div className="createTripBody">
+
+        <div className="createRouteBody">
             <Header />
 
-            <h1 id="title">Create a trip</h1>
+            <h1 id="title">Create a route</h1>
 
             <Layout id="tripBlock">
 
                 <Form
+                    {...layout}
                     initialValues={{ remember: true }}
                     onFinish={onFinishAsync}
                     onFinishFailed={onFinishFailed}
                     scrollToFirstError
                     id="tripForm"
                 >
+
+                    <div id="map" style={{ height: "500px", width: "100%" }}>
+                        <GoogleMap
+                            center={center}
+                            zoom={12}
+                            mapContainerStyle={{ width: '100%', height: '100%' }}
+                            options={{
+                                zoomControl: true,
+                                streetViewControl: false,
+                                mapTypeControl: true,
+                                fullscreenControl: true
+                            }}
+                            onLoad={map => setMap(map)}
+                        >
+                            <Marker position={center} />
+                            {directionResponse && (
+                                <DirectionsRenderer directions={directionResponse} />
+                            )}
+                        </GoogleMap>
+                    </div>
+
                     <Form.Item
                         label="Enter the origin's address: "
                         name="originAddress"
@@ -609,23 +648,6 @@ function CreateTripPage() {
                         </PlacesAutocomplete>
                     </Form.Item>
 
-                    {
-                        subPointsAddresses.length > 0 ?
-                            <>
-                                <p>Points</p>
-
-                                <Table
-                                    columns={pointsTableColumns}
-                                    dataSource={[...subPointsAddresses]}
-                                    pagination={false}
-                                    size="small"
-                                    style={{ 'maxWidth': '400px' }}
-                                />
-                            </>
-                            :
-                            <></>
-                    }
-
                     <Form.Item
                         label="Enter the sub point's address: "
                         name="subPointAddress"
@@ -643,7 +665,7 @@ function CreateTripPage() {
                                 <div>
                                     <Input
                                         {...getInputProps({
-                                            placeholder: 'Origin address'
+                                            placeholder: 'Sub. point address'
                                         })}
                                     />
 
@@ -666,11 +688,72 @@ function CreateTripPage() {
                         </PlacesAutocomplete>
                     </Form.Item>
 
-                    <Button
-                        onClick={() => addSubPointAsync()}
+                    <div className="button">
+                        <Button
+                            onClick={() => addSubPointAsync()}
+                        >
+                            Add sub point
+                        </Button>
+                    </div>
+
+                    {
+                        subPointsAddresses.length > 0 ?
+                            <Table
+                                columns={pointsTableColumns}
+                                dataSource={[...subPointsAddresses]}
+                                pagination={false}
+                                size="small"
+                                id="points"
+                                scroll={{
+                                    x: true
+                                }}
+                            />
+                            :
+                            <></>
+                    }
+
+                    <Table
+                        columns={carTableColumns}
+                        dataSource={verifiedCars}
+                        size="small"
+                        pagination={false}
+                        rowSelection={{
+                            type: "radio",
+                            ...rowSelection
+                        }}
+                        scroll={{
+                            x: true
+                        }}
+                    />
+
+                    <Form.Item
+                        label="Enter the load capacity: "
+                        name="loadCapacity"
+                        rules={[
+                            InputRules.required(carsErrorMessages.EMPTY_FIELD)
+                        ]}
                     >
-                        Add sub point
-                    </Button>
+                        <InputNumber
+                            min={1}
+                            addonAfter="kg"
+                            placeholder="Load capacity"
+                        />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="Enter the max route deviation: "
+                        name="maxRouteDeviationKm"
+                        rules={[
+                            InputRules.required(carsErrorMessages.EMPTY_FIELD)
+                        ]}
+                    >
+                        <InputNumber
+                            min={1}
+                            max={25}
+                            addonAfter="km"
+                            placeholder="Max route deviation"
+                        />
+                    </Form.Item>
 
                     <Form.Item
                         label="Select the trip's dates: "
@@ -707,69 +790,14 @@ function CreateTripPage() {
                         <TextArea placeholder="Description" value={""} />
                     </Form.Item>
 
-                    <p>Cars</p>
-                    <Table
-                        columns={carTableColumns}
-                        dataSource={verifiedCars}
-                        size="small"
-                        pagination={false}
-                        rowSelection={{
-                            type: "radio",
-                            ...rowSelection
-                        }}
-                    />
-
-                    <Form.Item
-                        label="Enter the load capacity: "
-                        name="loadCapacity"
-                        rules={[
-                            InputRules.required(carsErrorMessages.EMPTY_FIELD)
-                        ]}
-                    >
-                        <InputNumber min={1}
-                            addonAfter="kg"
-                            placeholder="Load capacity"
-                        />
-                    </Form.Item>
-
-                    <Form.Item
-                        label="Enter the max route deviation: "
-                        name="maxRouteDeviationKm"
-                        rules={[
-                            InputRules.required(carsErrorMessages.EMPTY_FIELD)
-                        ]}
-                    >
-                        <InputNumber min={1} max={25}
-                            addonAfter="km"
-                            placeholder="Max route deviation"
-                        />
-                    </Form.Item>
-
-                    <Button
-                        type="primary"
-                        htmlType="submit"
-                    >
-                        Ok
-                    </Button>
-
-                    <div style={{ height: "500px", width: "100%" }}>
-                        <GoogleMap
-                            center={center}
-                            zoom={12}
-                            mapContainerStyle={{ width: '100%', height: '100%' }}
-                            options={{
-                                zoomControl: true,
-                                streetViewControl: false,
-                                mapTypeControl: true,
-                                fullscreenControl: true
-                            }}
-                            onLoad={map => setMap(map)}
+                    <div className="button">
+                        <Button
+                            type="primary"
+                            htmlType="submit"
+                            className="submitButton"
                         >
-                            <Marker position={center} />
-                            {directionResponse && (
-                                <DirectionsRenderer directions={directionResponse} />
-                            )}
-                        </GoogleMap>
+                            Create
+                        </Button>
                     </div>
                 </Form>
             </Layout>
@@ -779,4 +807,4 @@ function CreateTripPage() {
     );
 }
 
-export default CreateTripPage;
+export default CreateRoutePage;
