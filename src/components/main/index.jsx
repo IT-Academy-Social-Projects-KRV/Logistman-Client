@@ -5,7 +5,6 @@ import { getUserVerifiedCarsAsync } from "../../services/cars";
 import { carsErrorMessages } from './../../constants/messages/cars';
 import { tripsMessages } from './../../constants/messages/trips';
 import { errorMessage } from './../../services/alerts';
-import {Link} from "react-router-dom";
 
 function MainPage() {
     let history = useHistory();

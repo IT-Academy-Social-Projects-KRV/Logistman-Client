@@ -65,14 +65,14 @@ export default function App() {
                     path="/create-sender-offer"
                     allowedRoles={[userRoles.USER]}
                 >
-                    <CreateOfferPage offerRole={offerRoles.SENDER}/>
+                    <CreateOfferPage offerRole={offerRoles.SENDER} />
                 </PrivateRoute>
 
                 <PrivateRoute
                     path="/create-recipient-offer"
                     allowedRoles={[userRoles.USER]}
                 >
-                    <CreateOfferPage offerRole={offerRoles.RECIPIENT}/>
+                    <CreateOfferPage offerRole={offerRoles.RECIPIENT} />
                 </PrivateRoute>
 
                 <PrivateRoute
@@ -123,7 +123,7 @@ export default function App() {
                 <Route
                     path="/confirm-email"
                 >
-                    <ConfirmEmailPage/>
+                    <ConfirmEmailPage />
                 </Route>
 
                 <Redirect to="/login" />
