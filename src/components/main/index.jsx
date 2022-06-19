@@ -5,6 +5,7 @@ import { getUserVerifiedCarsAsync } from "../../services/cars";
 import { carsErrorMessages } from './../../constants/messages/cars';
 import { tripsMessages } from './../../constants/messages/trips';
 import { errorMessage } from './../../services/alerts';
+import {Link} from "react-router-dom";
 
 function MainPage() {
     let history = useHistory();
@@ -32,15 +33,17 @@ function MainPage() {
 
             <div className="role-container">
                 <div className="role-block">
-                    <Link className="role-link" to="/create-offer">
+                    <Link className="role-link" to="/create-sender-offer">
                         <div className="role block-sender">
                             <span>I can donate some goods</span>
                         </div>
                     </Link>
 
-                    <div className="role block-recipient">
-                        <span>I need help</span>
-                    </div>
+                    <Link className="role-link" to="/create-recipient-offer">
+                        <div className="role block-recipient">
+                            <span>I need help</span>
+                        </div>
+                    </Link>
                 </div>
 
                 <div
