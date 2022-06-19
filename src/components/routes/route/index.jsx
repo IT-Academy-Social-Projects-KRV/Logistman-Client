@@ -15,6 +15,7 @@ function UserRoute(props) {
     
     const [allCities, setCities] = useState();
     const [throughCities, setThroughCities] = useState();
+    const renderButton = props.renderButton != null? props.renderButton : true;
 
     useEffect(() => {
         setCities(concatSettlements(props.data.points));
@@ -82,9 +83,13 @@ function UserRoute(props) {
                         <p className="description">
                             {props.data.description}
                         </p>
-                        <Button className="createTripButton">
-                            Create trip
-                        </Button>
+                        {renderButton? 
+                            <Button className="createTripButton">
+                                Create trip
+                            </Button>
+                            :
+                            <></>
+                        }
                     </div>
                 </div>
             </Card>

@@ -35,7 +35,7 @@ export const concatSettlements = (points) => {
     let settlements = [];
 
     points.forEach(point => {
-      if(point.settlement !== undefined) {
+      if(point.settlement !== null) {
         settlements.push(point.settlement);
       }
     });
@@ -48,7 +48,7 @@ export const concatThroughCities = (points) => {
     let result = [];
 
     points.forEach(point => {
-      if(point.settlement !== undefined) {
+      if(point.settlement !== null) {
         settlements.push(point.settlement);
       }
     });
