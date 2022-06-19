@@ -12,15 +12,15 @@ import { useEffect } from "react";
 import { concatSettlements, concatThroughCities } from "../../../services/trips";
 
 function UserRoute(props) {
-    
+
     const [allCities, setCities] = useState();
     const [throughCities, setThroughCities] = useState();
-    const renderButton = props.renderButton != null? props.renderButton : true;
+    const renderButton = props.renderButton != null ? props.renderButton : true;
 
     useEffect(() => {
         setCities(concatSettlements(props.data.points));
         setThroughCities(concatThroughCities(props.data.points));
-    }, []);
+    });
 
     return (
         <IconContext.Provider value={{ className: 'icon' }}>
@@ -30,36 +30,47 @@ function UserRoute(props) {
                         <FiUser size={DEFAULT_ICON_SIZE} />
                         {props.data.user.name + " " + props.data.user.surname}
                     </p>
+
                     <div className="addresses">
-                        <p>From: {props.data.points[0].address + 
-                                 ", " + props.data.points[0].settlement + 
-                                 ", " + props.data.points[0].region + 
-                                 ", " + props.data.points[0].country}</p>
-                        <p>To: {props.data.points[props.data.points.length - 1].address + 
-                                ", " + props.data.points[props.data.points.length - 1].settlement + 
-                                ", " + props.data.points[props.data.points.length - 1].region + 
-                                ", " + props.data.points[props.data.points.length - 1].country}</p>
+                        <p>
+                            From: {props.data.points[0].address +
+                                ", " + props.data.points[0].settlement +
+                                ", " + props.data.points[0].region +
+                                ", " + props.data.points[0].country}
+                        </p>
+
+                        <p>
+                            To: {props.data.points[props.data.points.length - 1].address +
+                                ", " + props.data.points[props.data.points.length - 1].settlement +
+                                ", " + props.data.points[props.data.points.length - 1].region +
+                                ", " + props.data.points[props.data.points.length - 1].country}
+                        </p>
                     </div>
+
                     <p className="addresses">
                         <Tooltip placement="top" title={allCities}>
                             {"Through: " + throughCities}
                         </Tooltip>
                     </p>
+
                     <div className="innerBody">
                         <div className="rightSide">
                             <p className="dataField">
                                 <AiOutlineCar size={DEFAULT_ICON_SIZE} />
                                 {props.data.car.model}
                             </p>
+
                             <p className="dataField">
                                 <AiOutlineInfoCircle size={DEFAULT_ICON_SIZE} />
                                 {props.data.car.registrationNumber}
                             </p>
+
                             <p className="dataField">
                                 <GiWeight size={DEFAULT_ICON_SIZE} />
                                 {props.data.loadCapacity + " kg"}
                             </p>
                         </div>
+
                         <div className="leftSide">
                             <p className="dataField">
                                 <div className="dates">
@@ -67,23 +78,27 @@ function UserRoute(props) {
                                         <FiCalendar size={DEFAULT_ICON_SIZE} />
                                         {moment(props.data.startDate).format('LLL') + " "}
                                     </div>
+
                                     <div className="date">
                                         <AiOutlineArrowRight size={DEFAULT_ICON_SIZE} />
                                         {moment(props.data.expirationDate).format('LLL')}
                                     </div>
                                 </div>
                             </p>
+
                             <p className="dataField">
                                 <RiPinDistanceLine size={DEFAULT_ICON_SIZE} />
                                 {props.data.distance + " km"}
                             </p>
                         </div>
                     </div>
+
                     <div className="bottom">
                         <p className="description">
                             {props.data.description}
                         </p>
-                        {renderButton? 
+
+                        {renderButton ?
                             <Button className="createTripButton">
                                 Create trip
                             </Button>

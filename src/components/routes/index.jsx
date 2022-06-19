@@ -38,13 +38,14 @@ function RoutesPage() {
                     {routes.items.map((route) =>
                         <UserRoute data={route} />
                     )}
+
                     <Pagination
                         onChange={onPaginationChange}
                         total={routes.totalItems}
                         showSizeChanger
                         showTotal={(total) => `Total ${total} items`}
                         pageSizeOptions={customPageSizeOptions}
-                        defaultPageSize={paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE} 
+                        defaultPageSize={paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE}
                     />
                 </div>
                 :
