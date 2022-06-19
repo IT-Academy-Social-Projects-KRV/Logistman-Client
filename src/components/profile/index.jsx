@@ -11,6 +11,7 @@ import InputRules from "../../constants/inputRules";
 import AddNewCarModal from './../addNewCarModal/index';
 import { userRoles } from "../../constants/userRoles";
 import { store } from "../../store";
+import {Link} from "react-router-dom";
 
 function ProfilePage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -217,6 +218,7 @@ function ProfilePage() {
 
                         {isModalOpen && <AddNewCarModal
                             myClose={() => setIsModalOpen(false)} />}
+                        <Link to={"/create-trip"}>Create Trip</Link>
                     </div>
                 </Form>
             </Layout>

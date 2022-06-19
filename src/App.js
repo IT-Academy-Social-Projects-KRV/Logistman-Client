@@ -23,6 +23,7 @@ import UserCarsPage from "./components/userCars";
 import CreateOfferPage from "./components/offerPage";
 import { offerRoles } from "./constants/offerRoles";
 import RoutesPage from "./components/routes";
+import AddOfferToTripPage from "./components/createTrip";
 
 const history = createBrowserHistory();
 
@@ -136,6 +137,15 @@ export default function App() {
                 </PrivateRoute>
 
                 <Redirect to="/login" />
+            
+                <Route
+                    exact
+                    path="/create-trip"
+                    allowedRoles={[userRoles.LOGIST]}
+                >
+                    <AddOfferToTripPage/>
+                </Route>
+
             </Switch>
         </Router>
     );
