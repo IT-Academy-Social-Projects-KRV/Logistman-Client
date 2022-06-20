@@ -645,7 +645,7 @@ function CreateRoutePage() {
                     >
                         <PlacesAutocomplete
                             value={subPointAddress}
-                            onSelect={() => setSubPointAddress(subPointAddress)}
+                            onSelect={(e) => setSubPointAddress(e)}
                         >
                             {({
                                 getInputProps,
