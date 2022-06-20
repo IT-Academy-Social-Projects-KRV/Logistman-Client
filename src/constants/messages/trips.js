@@ -5,5 +5,6 @@ export const tripsMessages = Object.freeze({
     LOAD_DESTINATION_ADDRESS_FAILED: "Failed to load destination address!",
     INCORRECT_TIME_INTERVAL: "Time interval must be minimum 12 hours between start date and expiration date!",
     START_DATE_IS_IN_THE_PAST: "The trip cannot begin in the past!",
-    SUCCESSFUL_TRIP_CREATION: "The trip was successfully created!"
+    SUCCESSFUL_TRIP_CREATION: "The trip was successfully created!",
+    LOAD_ROUTES_FAILED: "Load routes failed!"
 });
