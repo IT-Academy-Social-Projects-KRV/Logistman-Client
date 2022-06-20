@@ -249,6 +249,7 @@ function CreateRoutePage() {
         );
 
         setDirectionResponse(direction);
+        setCenter();
 
         if (isGetAllPoints) {
             if (points.length !== 0) {

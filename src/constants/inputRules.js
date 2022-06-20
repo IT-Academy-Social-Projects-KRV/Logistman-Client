@@ -97,7 +97,7 @@ export default class InputRules {
 
     static notEmpty(message) {
         return {
-            pattern: new RegExp(`^/[\S\s]+[\S]+/$`),
+            pattern: new RegExp(/^(?!\s*$).+/),
             message: message
         }
     }
