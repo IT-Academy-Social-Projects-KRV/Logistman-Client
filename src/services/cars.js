@@ -136,3 +136,25 @@ export async function unverifyCar(vin) {
             );
         });
 }
+
+export async function getUserVerifiedCarsAsync() {
+    return await carsService
+        .getUserVerified()
+        .then(
+            (response) => {
+                return response.data;
+            },
+            () => {
+                errorMessage(
+                    carsErrorMessages.LOAD_USER_CARS_FAILED,
+                    generalErrorMessages.SOMETHING_WENT_WRONG
+                );
+            }
+        )
+        .catch(() => {
+            errorMessage(
+                carsErrorMessages.LOAD_USER_CARS_FAILED,
+                generalErrorMessages.SOMETHING_WENT_WRONG
+            );
+        });
+}

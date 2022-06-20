@@ -1,12 +1,32 @@
 import React from "react";
 import Header from "../navigation/header";
-import {Link} from "react-router-dom";
+import { useHistory, Link } from 'react-router-dom';
+import { getUserVerifiedCarsAsync } from "../../services/cars";
+import { carsErrorMessages } from './../../constants/messages/cars';
+import { tripsMessages } from './../../constants/messages/trips';
+import { errorMessage } from './../../services/alerts';
 
 function MainPage() {
+    let history = useHistory();
+
+    const onCreateTripTileClick = async () => {
+        var verifiedCars = await getUserVerifiedCarsAsync();
+
+        if (verifiedCars !== undefined &&
+            verifiedCars.length > 0) {
+            history.push("/create-route");
+        }
+        else {
+            errorMessage(
+                carsErrorMessages.ANY_VERIFIED_CAR,
+                tripsMessages.CREATE_TRIP_BLOCKED
+            )
+        }
+    }
 
     return (
         <div className="mainPageBody">
-            <Header/>
+            <Header />
 
             <h2 className="status">What do you want to do?</h2>
 
@@ -25,7 +45,10 @@ function MainPage() {
                     </Link>
                 </div>
 
-                <div className="role block-driver">
+                <div
+                    onClick={() => onCreateTripTileClick()}
+                    className="role block-driver"
+                >
                     <span>I can deliver goods</span>
                 </div>
             </div>

@@ -1,8 +1,8 @@
-import tripsService from "../api/trips";
-import { tripsMessages } from "../constants/messages/trips";
+import tripsService from '../api/trips';
+import { errorMessage, successMessage } from './alerts';
+import { generalErrorMessages } from '../constants/messages/general';
+import { tripsMessages } from '../constants/messages/trips';
 import { statusCode } from "../constants/statusCodes";
-import { errorMessage } from "./alerts";
-import { generalErrorMessages } from "../constants/messages/general";
 import { tripValues } from "../constants/tripValues";
 
 export async function getAllRoutes(paginationFilterModel) {
@@ -64,4 +64,29 @@ export const concatThroughCities = (points) => {
 
     return result.join(", ");
   }
+}
+  
+  export function createTrip(model, history) {
+    return tripsService
+        .create(model)
+        .then(
+            () => {
+                history.push("/main");
+                successMessage(
+                    tripsMessages.SUCCESSFUL_TRIP_CREATION,
+                    2500
+                );
+            },
+            (err) => {
+                errorMessage(
+                    err.response.data,
+                    ''
+                );
+            }
+        )
+        .catch(() => {
+            errorMessage(
+                generalErrorMessages.SOMETHING_WENT_WRONG
+            );
+        });
 }

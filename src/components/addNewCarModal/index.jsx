@@ -96,7 +96,6 @@ function AddNewCarModal(props) {
                 <Form.Item name="loadCapacity"
                     label={"Load capacity: "}
                     rules={[
-                        InputRules.loadCapacity(),
                         InputRules.required(carsErrorMessages.EMPTY_FIELD)
                     ]}
                 >

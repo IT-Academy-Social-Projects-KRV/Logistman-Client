@@ -16,12 +16,13 @@ import MyOffersPage from './components/myOffers/index';
 import RegistrationPage from './components/authentication/registration/index';
 import LoginPage from './components/authentication/login/index';
 import HomePage from './components/home/index';
+import CreateRoutePage from './components/createRoute/index';
 import ConfirmEmailPage from "./components/emailConfirmation";
 import ManageUsersPage from './components/users/index';
 import UserCarsPage from "./components/userCars";
 import CreateOfferPage from "./components/offerPage";
+import { offerRoles } from "./constants/offerRoles";
 import RoutesPage from "./components/routes";
-import {offerRoles} from "./constants/offerRoles";
 
 const history = createBrowserHistory();
 
@@ -65,14 +66,14 @@ export default function App() {
                     path="/create-sender-offer"
                     allowedRoles={[userRoles.USER]}
                 >
-                    <CreateOfferPage offerRole={offerRoles.SENDER}/>
+                    <CreateOfferPage offerRole={offerRoles.SENDER} />
                 </PrivateRoute>
 
                 <PrivateRoute
                     path="/create-recipient-offer"
                     allowedRoles={[userRoles.USER]}
                 >
-                    <CreateOfferPage offerRole={offerRoles.RECIPIENT}/>
+                    <CreateOfferPage offerRole={offerRoles.RECIPIENT} />
                 </PrivateRoute>
 
                 <PrivateRoute
@@ -81,6 +82,14 @@ export default function App() {
                     allowedRoles={[userRoles.USER]}
                 >
                     <MyOffersPage />
+                </PrivateRoute>
+
+                <PrivateRoute
+                    exact
+                    path="/create-route"
+                    allowedRoles={[userRoles.USER]}
+                >
+                    <CreateRoutePage />
                 </PrivateRoute>
 
                 <PrivateRoute
@@ -115,7 +124,7 @@ export default function App() {
                 <Route
                     path="/confirm-email"
                 >
-                    <ConfirmEmailPage/>
+                    <ConfirmEmailPage />
                 </Route>
 
                 <PrivateRoute

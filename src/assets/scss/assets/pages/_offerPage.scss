@@ -107,14 +107,14 @@
 }
 
 @media only screen and (min-width: $max_phone_size) and (max-width: $max_tablet_size) {
-  .ant-form-item {
+  .createOfferBody .ant-form-item {
     width: calc(100% + 70px);
     display: flex;
     flex-direction: column;
     margin: 0;
   }
 
-  .ant-form-item-label{
+  .createOfferBody .ant-form-item-label{
     overflow: visible;
     margin-bottom: 5px;
   }
@@ -138,12 +138,12 @@
     }
   }
 
-  .ant-picker-datetime-panel {
+  .createOfferBody .ant-picker-datetime-panel {
     display: flex;
     flex-direction: column;
   }
 
-  .ant-picker-time-panel {
+  .createOfferBody .ant-picker-time-panel {
     height: 100px;
   }
 }

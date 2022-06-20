@@ -25,4 +25,8 @@ export default class carsService {
     static unverify(vin) {
         return instance.post(CARS_URLS.UNVERIFY, vin);
     }
+
+    static getUserVerified() {
+        return instance.get(CARS_URLS.GET_USER_VERIFIED);
+    }
 }
