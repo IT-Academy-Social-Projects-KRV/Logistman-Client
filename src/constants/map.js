@@ -8,3 +8,4 @@ export const geocodeLanguage = "ua";
 
 export const DEFAULT_TRAVEL_MODE = window.google.maps.TravelMode.DRIVING;
 export const DEFAULT_AVOID_TOLLS = true;
+export const MIN_KM_FOR_AUXILIARY_POINT = 5;

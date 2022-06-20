@@ -4,7 +4,7 @@ import { Button, Layout, DatePicker, Form, Input, InputNumber, Table } from 'ant
 import PlacesAutocomplete from "react-places-autocomplete";
 import { useJsApiLoader, GoogleMap, DirectionsRenderer, Marker } from '@react-google-maps/api';
 import Header from '../navigation/header';
-import { geocodeLanguage, mapCenter } from '../../constants/map';
+import { geocodeLanguage, mapCenter, MIN_KM_FOR_AUXILIARY_POINT } from '../../constants/map';
 import { errorMessage, confirmMessage } from '../../services/alerts';
 import { mapErrorMessages } from '../../constants/messages/map';
 import { generalErrorMessages } from '../../constants/messages/general';
@@ -14,7 +14,7 @@ import { checkTimeDifference, setDisabledDate, CALENDER_DATE_FORMAT } from "../.
 import { carsErrorMessages } from '../../constants/messages/cars';
 import { carTableColumns } from './carsTableColumns';
 import { CloseOutlined } from '@ant-design/icons';
-import { unitsOfMeasurement } from '../../constants/others';
+import { MAX_ROUTE_DEVIATION, MIN_ROUTE_DEVIATION, unitsOfMeasurement } from '../../constants/others';
 import { getUserVerifiedCarsAsync } from '../../services/cars';
 import { tripsMessages } from '../../constants/messages/trips';
 import { buildTheRoute, getCoordinatesFromAddress } from '../../services/map';
@@ -86,7 +86,6 @@ function CreateRoutePage() {
     const [subPointCoordinates, setSubPointCoordinates] = useState([]);
 
     // map
-    const [map, setMap] = useState();
     const [center, setCenter] = useState(mapCenter);
     const [directionResponse, setDirectionResponse] = useState();
     const [points, setPoints] = useState([]);
@@ -168,10 +167,6 @@ function CreateRoutePage() {
         setDestinationCoordinates(coordinates);
         setCenter(coordinates);
         setDestinationAddress(destinationAddress);
-    };
-
-    const selectSubPointAddress = (subPointAddress) => {
-        setSubPointAddress(subPointAddress);
     };
 
     const changeOriginAddress = () => {
@@ -478,7 +473,7 @@ function CreateRoutePage() {
 
                 const currentDistanceInKm = distance < 1000 ? 0 : parseFloat(distance / 1000);
 
-                if (currentDistanceInKm - 5 > previousKmPoint) {
+                if (currentDistanceInKm - MIN_KM_FOR_AUXILIARY_POINT > previousKmPoint) {
                     points.push(
                         {
                             location: {
@@ -544,7 +539,6 @@ function CreateRoutePage() {
                                 mapTypeControl: true,
                                 fullscreenControl: true
                             }}
-                            onLoad={map => setMap(map)}
                         >
                             <Marker position={center} />
                             {directionResponse && (
@@ -651,7 +645,7 @@ function CreateRoutePage() {
                     >
                         <PlacesAutocomplete
                             value={subPointAddress}
-                            onSelect={selectSubPointAddress}
+                            onSelect={() => setSubPointAddress(subPointAddress)}
                         >
                             {({
                                 getInputProps,
@@ -690,6 +684,12 @@ function CreateRoutePage() {
                             onClick={() => addSubPointAsync()}
                         >
                             Add sub point
+                        </Button>
+
+                        <Button
+                            onClick={() => buildTheRouteAsync(false)}
+                        >
+                            Build the route
                         </Button>
                     </div>
 
@@ -745,8 +745,8 @@ function CreateRoutePage() {
                         ]}
                     >
                         <InputNumber
-                            min={1}
-                            max={25}
+                            min={MIN_ROUTE_DEVIATION}
+                            max={MAX_ROUTE_DEVIATION}
                             addonAfter="km"
                             placeholder="Max route deviation"
                         />
@@ -781,10 +781,13 @@ function CreateRoutePage() {
                                 1,
                                 1000,
                                 inputValidationErrorMessages.DESCRIPTION_MUST_BE_BETWEEN_1_AND_1000
+                            ),
+                            InputRules.notEmpty(
+                                generalErrorMessages.FIELD_MUST_NOT_BE_EMPTY
                             )
                         ]}
                     >
-                        <TextArea placeholder="Description" value={""} />
+                        <TextArea placeholder="Description" />
                     </Form.Item>
 
                     <div className="button">
@@ -794,12 +797,6 @@ function CreateRoutePage() {
                             className="submitButton"
                         >
                             Create
-                        </Button>
-
-                        <Button
-                            onClick={() => buildTheRouteAsync(false)}
-                        >
-                            Build the route
                         </Button>
                     </div>
                 </Form>
