@@ -7,7 +7,6 @@ import { useHistory } from "react-router-dom";
 import { Form, Input, Button, DatePicker, Select } from "antd";
 import { errorMessage } from "../../services/alerts";
 import { offersErrorMessages } from "../../constants/messages/offersMessages";
-import moment from "moment";
 import Geocode from "react-geocode";
 import PlacesAutocomplete, { geocodeByAddress, getLatLng, } from "react-places-autocomplete";
 import { offerValues } from "../../constants/offerValues";
