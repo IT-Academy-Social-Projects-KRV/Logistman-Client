@@ -3,7 +3,6 @@ import { errorMessage, successMessage } from "./alerts";
 import { generalErrorMessages } from "../constants/messages/general";
 import { offersErrorMessages } from "../constants/messages/offersMessages";
 import { statusCode } from "../constants/statusCodes";
-import { offerValues } from "../constants/offerValues";
 
 export async function getUserOffers(paginationFilterModel) {
   return offersService
@@ -31,7 +30,7 @@ export async function getUserOffers(paginationFilterModel) {
     });
 }
 
-export function createOffer(values, coordinates, history) {
+export function createOffer(values, history, point) {
   const model = {
     description: values.description,
     goodsWeight: values.goodsWeight,
@@ -39,14 +38,7 @@ export function createOffer(values, coordinates, history) {
     expirationDate: values.dates[1]._d,
     goodCategory: values.goodCategory,
     role: values.role,
-    point: {
-      latitude: coordinates.lat,
-      longitude: coordinates.lng,
-      address: values.address,
-      settlement: values.settlement,
-      region: values.region,
-      order: offerValues.ORDER_BY_DEFAULT
-    },
+    point: point
   }
 
   offersService.create(model)

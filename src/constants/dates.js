@@ -17,7 +17,7 @@ export const checkTimeDifference = (dates) => {
     if (moment(start) < now) {
         errorMessage(
             tripsMessages.START_DATE_IS_IN_THE_PAST,
-            tripsMessages.CREATE_TRIP_BLOCKED
+            ""
         );
 
         return false;
@@ -26,7 +26,7 @@ export const checkTimeDifference = (dates) => {
     if (difference < MIN_HOURS_VALUE_IN_TRIP) {
         errorMessage(
             tripsMessages.INCORRECT_TIME_INTERVAL,
-            tripsMessages.CREATE_TRIP_BLOCKED
+            ""
         );
 
         return false;

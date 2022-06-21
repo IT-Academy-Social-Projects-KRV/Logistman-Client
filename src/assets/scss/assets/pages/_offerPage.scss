@@ -10,7 +10,7 @@
   margin-top: 80px;
   width: 100%;
   height: 100%;
-  
+
   .ant-form {
     width: 90%;
     height: 100%;
@@ -96,12 +96,6 @@
         box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
           rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
       }
-
-      .description {
-        div {
-          width: 100%;
-        }
-      }
     }
   }
 }
@@ -114,7 +108,7 @@
     margin: 0;
   }
 
-  .createOfferBody .ant-form-item-label{
+  .createOfferBody .ant-form-item-label {
     overflow: visible;
     margin-bottom: 5px;
   }
