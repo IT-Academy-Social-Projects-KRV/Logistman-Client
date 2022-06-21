@@ -22,11 +22,9 @@ function Menu({ isMenuOpen, data }) {
         <div className={`menu ${isMenuOpen && "open"}`}>
             <Link to="/profile" className="user-profile">
                 <div className="fullName">
-                    <div className="imgIcon">
-                        <img src={user_icon} alt="user-icon" id="menu-user-icon" />
-                    </div>
+                    <img src={user_icon} alt="user-icon" />
                     <h2 className="user-name">
-                        <p>{data.name} {data.surname}</p>
+                        {data.name} {data.surname}
                     </h2>
                 </div>
             </Link>

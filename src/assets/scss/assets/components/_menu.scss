@@ -5,7 +5,6 @@
   position: fixed;
   display: grid;
   place-items: center;
-  width: 300px;
   height: $left_menu_height;
   left: 0;
   bottom: 0;
@@ -14,6 +13,29 @@
   transform: translate(-100%);
   transition: all 0.45s;
   padding: 0 20px;
+
+  p,
+  svg,
+  div.menu-user-icon,
+  h2,
+  div.user-name {
+    display: inline-block;
+  }
+
+  div.fullName {
+    img {
+      width: 45px;
+      margin: 10px 0;
+    }
+
+    h2 {
+      font-size: 18pt;
+    }
+  }
+
+  p, div.fullName h2 {
+    margin: 10px 10px;
+  }
 }
 
 .menu.open {
@@ -37,12 +59,10 @@
   border-radius: 10px;
   background-color: $white_gray;
   margin-top: 10px;
-  display: flex;
-  align-items: center;
 }
 
 .user-profile {
-  display: inline;
+  display: flex;
   width: 100%;
   justify-content: space-around;
   align-items: center;
@@ -57,10 +77,6 @@
 
 #menu-icon {
   width: 35px;
-}
-
-#menu-user-icon {
-  width: 50px;
 }
 
 .logout {
@@ -114,20 +130,6 @@
   animation-duration: 1.3s;
 }
 
-.fullName {
-  display: flex;
-  justify-content: left;
-
-  h2 {
-    margin-left: 10px;
-  }
-}
-
-.imgIcon {
-  display: flex;
-  align-items: center;
-}
-
 @keyframes animate {
   0% {
     opacity: 0;
@@ -168,7 +170,6 @@
     overflow-y: scroll;
 
     .user-profile {
-      height: 60px;
       display: flex;
       align-items: center;
     }
