@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import {Form, Input, Button, DatePicker, Select} from "antd";
 import Geocode from "react-geocode";
+import AppK from "../../components/createTrip/offersTrip"
 import Header from "../navigation/header";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import { offerValues } from "../../constants/offerValues";
@@ -68,7 +69,8 @@ function AddOfferToTripPage() {
                 </div>
                 <div className="component-block">
                     <div className="offersComponent">
-                        <p>Offers</p>
+                        <AppK className = "appK" />
+
                     </div>
                     <div className="routeComponent">
                         <p>InfoTrip</p>

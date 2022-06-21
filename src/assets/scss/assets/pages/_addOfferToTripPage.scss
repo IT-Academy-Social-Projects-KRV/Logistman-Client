@@ -24,6 +24,10 @@
     border-radius: 10px;
     width: 90%;
     height: 350px;
+
+    #map {
+      border-radius: 10px;
+    }
   }
 
   .component-block {
@@ -34,17 +38,25 @@
     gap: 30px;
     margin-top: 30px;
     flex-wrap: wrap;
+    border-radius: 10px;
+
+
 
     .offersComponent {
       display: flex;
-      justify-content: center;
+      justify-content: left;
       align-items: center;
       width: 49%;
       height: 100%;
       border-radius: 10px;
       font-size: 18px;
       background-size: cover;
-      background-color: #20DF7F;
+      background-color: $unable_color;
+
+      .ant-table-header {
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+      }
     }
 
     .routeComponent {
