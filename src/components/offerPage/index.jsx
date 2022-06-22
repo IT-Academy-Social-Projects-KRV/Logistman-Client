@@ -12,12 +12,12 @@ import PlacesAutocomplete, { geocodeByAddress, getLatLng, } from "react-places-a
 import { offerValues } from "../../constants/offerValues";
 import InputRules from "../../constants/inputRules";
 import { mapCenter } from "../../constants/map";
-import { checkTimeDifference } from "../../constants/dates";
+import moment from "moment";
 import { setDisabledDate } from './../../constants/dates';
 import { generalErrorMessages } from './../../constants/messages/general';
+import { tripsMessages } from "../../constants/messages/trips";
 
 const { TextArea } = Input;
-const { RangePicker } = DatePicker;
 const { Option } = Select;
 
 Geocode.setApiKey(process.env.REACT_APP_API_KEY);
@@ -166,10 +166,6 @@ export default function CreateOfferPage(props) {
     }, []);
 
     const onFinish = (values) => {
-        const start = values.dates[0];
-        const end = values.dates[1];
-        const diff = end.diff(start, 'hours');
-
         const point = {
             latitude: clickedLatLng.lat,
             longitude: clickedLatLng.lng,
@@ -184,7 +180,11 @@ export default function CreateOfferPage(props) {
 
         const offer = { ...values, role: props.offerRole, point };
         
-        if (!checkTimeDifference(values.dates)) {
+        if (moment(values.dates) < moment()) {
+            errorMessage(
+                tripsMessages.START_DATE_IS_IN_THE_PAST,
+                ""
+            );
             return;
         }
 
@@ -286,7 +286,7 @@ export default function CreateOfferPage(props) {
                                 InputRules.required(offersErrorMessages.EMPTY_FIELD)
                             ]}
                         >
-                            <RangePicker
+                            <DatePicker
                                 disabledDate={setDisabledDate}
                                 showTime={{
                                     hideDisabledOptions: true

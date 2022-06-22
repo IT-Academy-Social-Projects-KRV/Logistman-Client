@@ -52,12 +52,6 @@ function MyOffer(data) {
                                 {moment(data.info.startDate).format("DD.MM.YYYY hh:mm")}
                             </span>
                         </p>
-
-                        <p className="fieldText">Expires at:
-                            <span id="date">
-                                {moment(data.info.expirationDate).format("DD.MM.YYYY hh:mm")}
-                            </span>
-                        </p>
                     </div>
                 </div>
             </div>
