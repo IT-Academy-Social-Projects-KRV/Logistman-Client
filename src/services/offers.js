@@ -34,7 +34,7 @@ export function createOffer(values, history, point) {
   const model = {
     description: values.description,
     goodsWeight: values.goodsWeight,
-    startDate: values.dates._d,
+    startDate: values.date._d,
     goodCategory: values.goodCategory,
     role: values.role,
     point: point

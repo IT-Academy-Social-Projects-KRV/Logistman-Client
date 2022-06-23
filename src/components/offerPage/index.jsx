@@ -8,7 +8,7 @@ import { Form, Input, Button, DatePicker, Select } from "antd";
 import { errorMessage } from "../../services/alerts";
 import { offersErrorMessages } from "../../constants/messages/offersMessages";
 import Geocode from "react-geocode";
-import PlacesAutocomplete, { geocodeByAddress, getLatLng, } from "react-places-autocomplete";
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import { offerValues } from "../../constants/offerValues";
 import InputRules from "../../constants/inputRules";
 import { mapCenter } from "../../constants/map";
@@ -180,7 +180,7 @@ export default function CreateOfferPage(props) {
 
         const offer = { ...values, role: props.offerRole, point };
         
-        if (moment(values.dates) < moment()) {
+        if (moment(values.date) < moment()) {
             errorMessage(
                 tripsMessages.START_DATE_IS_IN_THE_PAST,
                 ""
@@ -279,8 +279,8 @@ export default function CreateOfferPage(props) {
                         </Form.Item>
 
                         <Form.Item
-                            name="dates"
-                            label="Select dates: "
+                            name="date"
+                            label="Select date: "
                             labelAlign="left"
                             rules={[
                                 InputRules.required(offersErrorMessages.EMPTY_FIELD)
