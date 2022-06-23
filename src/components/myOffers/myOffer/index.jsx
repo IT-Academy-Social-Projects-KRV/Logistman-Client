@@ -14,7 +14,7 @@ function MyOffer(data) {
     return (
         <Card className="offerCard">
             <div className="cardHead">
-                <p className="creationDate">{moment(data.info.creationDate).format('LLL')}</p>
+                <p className="creationDate">{moment(data.info.creationDate).format('LL HH:mm')}</p>
                 <Text strong className="offerStatus">
 
                     {!data.info.isClosed ?
@@ -49,13 +49,7 @@ function MyOffer(data) {
                     <div>
                         <p className="fieldText">Active since:
                             <span id="date">
-                                {moment(data.info.startDate).format("DD.MM.YYYY hh:mm")}
-                            </span>
-                        </p>
-
-                        <p className="fieldText">Expires at:
-                            <span id="date">
-                                {moment(data.info.expirationDate).format("DD.MM.YYYY hh:mm")}
+                                {moment(data.info.startDate).format("DD.MM.YYYY HH:mm")}
                             </span>
                         </p>
                     </div>
