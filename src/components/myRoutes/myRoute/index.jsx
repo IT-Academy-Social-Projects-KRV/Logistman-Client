@@ -10,45 +10,16 @@ import { DEFAULT_ICON_SIZE } from "../../../constants/icon";
 import { useState } from "react";
 import { useEffect } from "react";
 import { concatSettlements, concatThroughCities } from "../../../services/trips";
+import { getStartPointAddress, getEndPointAddress } from "../../../constants/address";
 
 function MyRoute(props) {
     const [allCities, setCities] = useState();
     const [throughCities, setThroughCities] = useState();
-    let startPoint;
-    let endPoint;
 
     useEffect(() => {
         setCities(concatSettlements(props.data.points));
         setThroughCities(concatThroughCities(props.data.points));
     });
-
-    {
-        if (props.data.points[0].region != null) {
-            startPoint = props.data.points[0].address +
-                ", " + props.data.points[0].settlement +
-                ", " + props.data.points[0].region +
-                ", " + props.data.points[0].country;
-        }
-        else {
-            startPoint = props.data.points[0].address +
-                ", " + props.data.points[0].settlement +
-                ", " + props.data.points[0].country;
-        }
-    }
-
-    {
-        if (props.data.points[props.data.points.length - 1].region != null) {
-            endPoint = props.data.points[props.data.points.length - 1].address +
-            ", " + props.data.points[props.data.points.length - 1].settlement +
-            ", " + props.data.points[props.data.points.length - 1].region +
-            ", " + props.data.points[props.data.points.length - 1].country
-        }
-        else {
-            endPoint = props.data.points[props.data.points.length - 1].address +
-            ", " + props.data.points[props.data.points.length - 1].settlement +
-            ", " + props.data.points[props.data.points.length - 1].country
-        }
-    }
 
     return (
         <IconContext.Provider value={{ className: 'icon' }}>
@@ -56,11 +27,11 @@ function MyRoute(props) {
                 <div className="myRouteCardBody">
                     <div className="addresses">
                         <p>
-                            From: {startPoint}
+                            From: {getStartPointAddress(props.data.points)}
                         </p>
 
                         <p>
-                            To: {endPoint}
+                            To: {getEndPointAddress(props.data.points)}
                         </p>
                     </div>
 
