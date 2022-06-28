@@ -10,6 +10,7 @@ import { DEFAULT_ICON_SIZE } from "../../../constants/icon";
 import { useState } from "react";
 import { useEffect } from "react";
 import { concatSettlements, concatThroughCities } from "../../../services/trips";
+import { getStartPointAddress, getEndPointAddress } from "../../../constants/address";
 
 function UserRoute(props) {
 
@@ -33,17 +34,11 @@ function UserRoute(props) {
 
                     <div className="addresses">
                         <p>
-                            From: {props.data.points[0].address +
-                                ", " + props.data.points[0].settlement +
-                                ", " + props.data.points[0].region +
-                                ", " + props.data.points[0].country}
+                            From: {getStartPointAddress(props.data.points)}
                         </p>
 
                         <p>
-                            To: {props.data.points[props.data.points.length - 1].address +
-                                ", " + props.data.points[props.data.points.length - 1].settlement +
-                                ", " + props.data.points[props.data.points.length - 1].region +
-                                ", " + props.data.points[props.data.points.length - 1].country}
+                            To: {getEndPointAddress(props.data.points)}
                         </p>
                     </div>
 

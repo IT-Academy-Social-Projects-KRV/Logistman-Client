@@ -1,27 +1,27 @@
-export const getStartPointAddress = (props) => {
-    if (props[0].region != null) {
-        return props[0].address +
-            ", " + props[0].settlement +
-            ", " + props[0].region +
-            ", " + props[0].country
+export const getStartPointAddress = (points) => {
+    if (points[0].region != null) {
+        return points[0].address +
+            ", " + points[0].settlement +
+            ", " + points[0].region +
+            ", " + points[0].country
     }
     else {
-        return props[0].address +
-            ", " + props[0].settlement +
-            ", " + props[0].country
+        return points[0].address +
+            ", " + points[0].settlement +
+            ", " + points[0].country
     }
 }
 
-export const getEndPointAddress = (props) => {
-    if (props[props.length - 1].region != null) {
-        return props[props.length - 1].address +
-            ", " + props[props.length - 1].settlement +
-            ", " + props[props.length - 1].region +
-            ", " + props[props.length - 1].country
+export const getEndPointAddress = (points) => {
+    if (points[points.length - 1].region != null) {
+        return points[points.length - 1].address +
+            ", " + points[points.length - 1].settlement +
+            ", " + points[points.length - 1].region +
+            ", " + points[points.length - 1].country
     }
     else {
-        return props[props.length - 1].address +
-            ", " + props[props.length - 1].settlement +
-            ", " + props[props.length - 1].country
+        return points[points.length - 1].address +
+            ", " + points[points.length - 1].settlement +
+            ", " + points[points.length - 1].country
     }
 }
