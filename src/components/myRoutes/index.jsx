@@ -48,7 +48,6 @@ function MyRoutesPage() {
                         defaultPageSize={paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE}
                     />
                 </div>
-
                 :
                 <Result
                     status="404"
