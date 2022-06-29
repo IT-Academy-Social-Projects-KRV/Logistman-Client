@@ -1,7 +1,7 @@
 import React from "react";
-import { Card, Button, Tooltip } from "antd";
+import { Card, Tooltip } from "antd";
 import moment from "moment";
-import { FiUser, FiCalendar } from "react-icons/fi";
+import { FiCalendar } from "react-icons/fi";
 import { AiOutlineCar, AiOutlineArrowRight, AiOutlineInfoCircle } from "react-icons/ai";
 import { GiWeight } from "react-icons/gi";
 import { RiPinDistanceLine } from "react-icons/ri";
@@ -12,11 +12,9 @@ import { useEffect } from "react";
 import { concatSettlements, concatThroughCities } from "../../../services/trips";
 import { getStartPointAddress, getEndPointAddress } from "../../../constants/address";
 
-function UserRoute(props) {
-
+function MyRoute(props) {
     const [allCities, setCities] = useState();
     const [throughCities, setThroughCities] = useState();
-    const renderButton = props.renderButton != null ? props.renderButton : true;
 
     useEffect(() => {
         setCities(concatSettlements(props.data.points));
@@ -25,13 +23,8 @@ function UserRoute(props) {
 
     return (
         <IconContext.Provider value={{ className: 'icon' }}>
-            <Card className="routeCard">
-                <div className="cardBody">
-                    <p className="dataField">
-                        <FiUser size={DEFAULT_ICON_SIZE} />
-                        {props.data.user.name + " " + props.data.user.surname}
-                    </p>
-
+            <Card className="myRouteCard">
+                <div className="myRouteCardBody">
                     <div className="addresses">
                         <p>
                             From: {getStartPointAddress(props.data.points)}
@@ -87,24 +80,10 @@ function UserRoute(props) {
                             </p>
                         </div>
                     </div>
-
-                    <div className="bottom">
-                        <p className="description">
-                            {props.data.description}
-                        </p>
-
-                        {renderButton ?
-                            <Button className="createTripButton">
-                                Create trip
-                            </Button>
-                            :
-                            <></>
-                        }
-                    </div>
                 </div>
             </Card>
         </IconContext.Provider>
     )
 }
 
-export default UserRoute; 
+export default MyRoute;

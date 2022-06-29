@@ -26,6 +26,11 @@ export const menuItems = {
             itemIcon: offersInvites_icon,
             itemText: "My offers' invites",
             itemLink: "/offers-invites"
+        },
+        {
+            itemIcon: route_icon,
+            itemText: "My Routes",
+            itemLink: "/my-routes"
         }
     ],
     Logist: [

@@ -24,6 +24,7 @@ import CreateOfferPage from "./components/offerPage";
 import { offerRoles } from "./constants/offerRoles";
 import RoutesPage from "./components/routes";
 import OffersInvitesPage from './components/offersInvites/index';
+import MyRoutesPage from "./components/myRoutes";
 
 const history = createBrowserHistory();
 
@@ -142,6 +143,14 @@ export default function App() {
                     allowedRoles={[userRoles.LOGIST]}
                 >
                     <RoutesPage />
+                </PrivateRoute>
+
+                <PrivateRoute
+                    exact
+                    path="/my-routes"
+                    allowedRoles={[userRoles.USER]}
+                >
+                    <MyRoutesPage />
                 </PrivateRoute>
 
                 <Redirect to="/login" />
