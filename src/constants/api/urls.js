@@ -6,6 +6,7 @@ export const GOOD_CATEGORIES_URL = "/GoodCategories";
 export const OFFERS_URL = "/Offers";
 export const TRIP_URL = "/Trips";
 export const USER_URL = "/Users";
+export const INVITES_URL = "/Invites";
 
 export const AUTHENTICATION_URLS = {
     REGISTRATION: AUTHENTICATION_URL + "/register",
@@ -42,6 +43,11 @@ export const OFFERS_URLS = {
 export const TRIPS_URL = {
     CREATE: TRIP_URL + "/create",
     GET_ALL_ROUTES: TRIP_URL + "/routes"
+};
+
+export const INVITES_URLS = {
+    GET_OFFERS_INVITES: INVITES_URL + "/offers",
+    MANAGE: INVITES_URL + "/manage"
 };
 
 export const USERS_URLS = {
