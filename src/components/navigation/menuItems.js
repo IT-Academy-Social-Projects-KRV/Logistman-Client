@@ -20,6 +20,11 @@ export const menuItems = {
             itemIcon: userOffersMenuItem_icon,
             itemText: "My offers",
             itemLink: "/my-offers"
+        },
+        {
+            itemIcon: route_icon,
+            itemText: "My Routes",
+            itemLink: "/my-routes"
         }
     ],
     Logist: [

@@ -31,6 +31,32 @@ export async function getAllRoutes(paginationFilterModel) {
     });
 }
 
+export async function getAllRoutesByUser(paginationFilterModel) {
+  return tripsService
+    .getAllRoutesByUser(paginationFilterModel)
+    .then(
+      async (response) => {
+        if (response.status === statusCode.NO_CONTENT) {
+          return null;
+        }
+
+        return await response.data;
+      },
+      () => {
+        errorMessage(
+          tripsMessages.LOAD_ROUTES_FAILED,
+          generalErrorMessages.SOMETHING_WENT_WRONG
+        );
+      }
+    )
+    .catch(() => {
+      errorMessage(
+        tripsMessages.LOAD_ROUTES_FAILED,
+        generalErrorMessages.SOMETHING_WENT_WRONG
+      );
+    });
+}
+
 export const concatSettlements = (points) => {
   let settlements = [];
 
@@ -65,28 +91,28 @@ export const concatThroughCities = (points) => {
     return result.join(", ");
   }
 }
-  
-  export function createTrip(model, history) {
-    return tripsService
-        .create(model)
-        .then(
-            () => {
-                history.push("/main");
-                successMessage(
-                    tripsMessages.SUCCESSFUL_TRIP_CREATION,
-                    2500
-                );
-            },
-            (err) => {
-                errorMessage(
-                    err.response.data,
-                    ''
-                );
-            }
-        )
-        .catch(() => {
-            errorMessage(
-                generalErrorMessages.SOMETHING_WENT_WRONG
-            );
-        });
+
+export function createTrip(model, history) {
+  return tripsService
+    .create(model)
+    .then(
+      () => {
+        history.push("/main");
+        successMessage(
+          tripsMessages.SUCCESSFUL_TRIP_CREATION,
+          2500
+        );
+      },
+      (err) => {
+        errorMessage(
+          err.response.data,
+          ''
+        );
+      }
+    )
+    .catch(() => {
+      errorMessage(
+        generalErrorMessages.SOMETHING_WENT_WRONG
+      );
+    });
 }
