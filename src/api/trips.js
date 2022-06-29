@@ -15,6 +15,6 @@ export default class tripsService {
     static getAllRoutesByUser(paginationFilterModel){
         return instance.get(TRIPS_URL.GET_ROUTES_BY_USER +
             `?PageNumber=${paginationFilterModel.pageNumber}
-             &PageSize=${paginationFilterModel.pageSize}`)
+             &PageSize=${paginationFilterModel.pageSize}`);
     }
 }

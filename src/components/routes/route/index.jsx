@@ -52,17 +52,17 @@ function UserRoute(props) {
                         <div className="rightSide">
                             <p className="dataField">
                                 <AiOutlineCar size={DEFAULT_ICON_SIZE} />
-                                {props.data.car.model}
+                                Model: {props.data.car.model}
                             </p>
 
                             <p className="dataField">
                                 <AiOutlineInfoCircle size={DEFAULT_ICON_SIZE} />
-                                {props.data.car.registrationNumber}
+                                Registration number: {props.data.car.registrationNumber}
                             </p>
 
                             <p className="dataField">
                                 <GiWeight size={DEFAULT_ICON_SIZE} />
-                                {props.data.loadCapacity + " kg"}
+                                Load capacity: {props.data.loadCapacity + " kg"}
                             </p>
                         </div>
 
@@ -83,7 +83,7 @@ function UserRoute(props) {
 
                             <p className="dataField">
                                 <RiPinDistanceLine size={DEFAULT_ICON_SIZE} />
-                                {props.data.distance + " km"}
+                                Distance: {props.data.distance + " km"}
                             </p>
                         </div>
                     </div>

@@ -137,9 +137,9 @@ export default function App() {
                 </PrivateRoute>
 
                 <PrivateRoute
-                exact
-                path="/my-routes"
-                allowedRoles={[userRoles.USER]}
+                    exact
+                    path="/my-routes"
+                    allowedRoles={[userRoles.USER]}
                 >
                     <MyRoutesPage />
                 </PrivateRoute>
