@@ -1,7 +1,7 @@
 import React from "react";
-import { Card, Button, Tooltip } from "antd";
+import { Card, Tooltip } from "antd";
 import moment from "moment";
-import { FiUser, FiCalendar } from "react-icons/fi";
+import { FiCalendar } from "react-icons/fi";
 import { AiOutlineCar, AiOutlineArrowRight, AiOutlineInfoCircle } from "react-icons/ai";
 import { GiWeight } from "react-icons/gi";
 import { RiPinDistanceLine } from "react-icons/ri";
@@ -10,38 +10,21 @@ import { DEFAULT_ICON_SIZE } from "../../../constants/icon";
 import { useState } from "react";
 import { useEffect } from "react";
 import { concatSettlements, concatThroughCities } from "../../../services/trips";
-import {useHistory} from "react-router-dom";
 import { getStartPointAddress, getEndPointAddress } from "../../../constants/address";
 
-function UserRoute(props) {
-
-    const history = useHistory();
+function MyRoute(props) {
     const [allCities, setCities] = useState();
     const [throughCities, setThroughCities] = useState();
-    const renderButton = props.renderButton != null ? props.renderButton : true;
-
-    const moveToManageTrip = () => {
-        history.push({
-            pathname: `/manage-trip`,
-            state: props
-        });
-    };
 
     useEffect(() => {
-        console.log(props);
         setCities(concatSettlements(props.data.points));
         setThroughCities(concatThroughCities(props.data.points));
     });
 
     return (
         <IconContext.Provider value={{ className: 'icon' }}>
-            <Card className="routeCard">
-                <div className="cardBody">
-                    <p className="dataField">
-                        <FiUser size={DEFAULT_ICON_SIZE} />
-                        {props.data.user.name + " " + props.data.user.surname}
-                    </p>
-
+            <Card className="myRouteCard">
+                <div className="myRouteCardBody">
                     <div className="addresses">
                         <p>
                             From: {getStartPointAddress(props.data.points)}
@@ -97,27 +80,10 @@ function UserRoute(props) {
                             </p>
                         </div>
                     </div>
-
-                    <div className="bottom">
-                        <p className="description">
-                            {props.data.description}
-                        </p>
-
-                        {renderButton ?
-                            <Button
-                                className="createTripButton"
-                                onClick={() => moveToManageTrip()}
-                            >
-                                Manage trip
-                            </Button>
-                            :
-                            <></>
-                        }
-                    </div>
                 </div>
             </Card>
         </IconContext.Provider>
     )
 }
 
-export default UserRoute; 
+export default MyRoute;

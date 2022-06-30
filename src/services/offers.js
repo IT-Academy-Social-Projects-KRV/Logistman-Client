@@ -31,15 +31,14 @@ export async function getUserOffers(paginationFilterModel) {
 }
 
 export function createOffer(values, history, point) {
-    const model = {
-        description: values.description,
-        goodsWeight: values.goodsWeight,
-        startDate: values.dates[0]._d,
-        expirationDate: values.dates[1]._d,
-        goodCategory: values.goodCategory,
-        role: values.role,
-        point: point
-    }
+  const model = {
+    description: values.description,
+    goodsWeight: values.goodsWeight,
+    startDate: values.date._d,
+    goodCategory: values.goodCategory,
+    role: values.role,
+    point: point
+  }
 
     offersService.create(model)
         .then(

@@ -23,6 +23,7 @@ import UserCarsPage from "./components/userCars";
 import CreateOfferPage from "./components/offerPage";
 import { offerRoles } from "./constants/offerRoles";
 import RoutesPage from "./components/routes";
+import MyRoutesPage from "./components/myRoutes";
 import ManageTripPage from "./components/createTrip";
 
 const history = createBrowserHistory();
@@ -138,6 +139,14 @@ export default function App() {
 
                 <PrivateRoute
                     exact
+                    path="/my-routes"
+                    allowedRoles={[userRoles.USER]}
+                >
+                    <MyRoutesPage />
+                </PrivateRoute>
+
+                <PrivateRoute
+                    exact
                     path="/manage-trip"
                     allowedRoles={[userRoles.LOGIST]}
                 >
@@ -145,7 +154,6 @@ export default function App() {
                 </PrivateRoute>
 
                 <Redirect to="/login" />
-
             </Switch>
         </Router>
     );
