@@ -1,0 +1,51 @@
+@import '../variables/colors';
+
+offerPointbody {
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 105px;
+  width: 100%;
+  height: 100%;
+
+  //tr:hover {background-color: #D6EEEE;}
+}
+
+.pointsComponent {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 49%;
+  height: 100%;
+  border-radius: 10px;
+  font-size: 18px;
+  background-size: cover;
+  box-shadow: rgb(109 122 128 / 12%) 0 2px 4px 0, rgb(14 30 37 / 32%) 0 2px 16px 0;
+
+  .ant-table-header {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+  }
+}
+
+.offerComponent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 49%;
+  height: 100%;
+  border-radius: 10px;
+  font-size: 18px;
+  background-size: cover;
+  box-shadow: rgb(109 122 128 / 12%) 0 2px 4px 0, rgb(14 30 37 / 32%) 0 2px 16px 0;
+}
+
+tr.drop-over-downward td {
+  border-bottom: 2px dashed #1890ff;
+}
+
+tr.drop-over-upward td {
+  border-top: 2px dashed #1890ff;
+}

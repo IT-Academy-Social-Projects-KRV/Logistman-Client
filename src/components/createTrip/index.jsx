@@ -1,10 +1,11 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import {Form, Input, Button, DatePicker, Select} from "antd";
+import React, {useState, useCallback, useEffect} from 'react';
+import {Button} from "antd";
 import Geocode from "react-geocode";
-import AppK from "../../components/createTrip/offersTrip"
 import Header from "../navigation/header";
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
-import { offerValues } from "../../constants/offerValues";
+import {GoogleMap, useJsApiLoader} from "@react-google-maps/api";
+import {useLocation} from "react-router-dom";
+import AddOfferToTrip from "./offersPointTrip";
+import UserRoute from "./infoTrip";
 
 Geocode.setApiKey(process.env.REACT_APP_API_KEY);
 
@@ -14,8 +15,8 @@ const containerStyle = {
 };
 
 const center = {
-    lat: offerValues.DEFAULT_LAT_VALUE,
-    lng: offerValues.DEFAULT_LNG_VALUE,
+    lat: 34,
+    lng: 23,
 };
 
 const defaultOptions = {
@@ -31,9 +32,11 @@ const defaultOptions = {
     fullscreenControl: true,
 };
 
-function AddOfferToTripPage() {
-
-    const { isLoaded } = useJsApiLoader({
+function ManageTripPage() {
+    const location = useLocation();
+    const userData = location.state;
+    console.log(userData);
+    const {isLoaded} = useJsApiLoader({
         id: "google-map-script",
         googleMapsApiKey: process.env.REACT_APP_API_KEY,
     });
@@ -53,10 +56,10 @@ function AddOfferToTripPage() {
 
     return isLoaded ? (
         <>
-            <Header />
+            <Header/>
             <div className="createTripBody">
-                <p className="title">Create trip</p>
-                <div className="mapBlok_addOfferToTrip">
+                <p className="title">Manage trip</p>
+                <div className="mapComponent">
                     <GoogleMap
                         mapContainerStyle={containerStyle}
                         center={clickedLatLng}
@@ -67,14 +70,17 @@ function AddOfferToTripPage() {
                     >
                     </GoogleMap>
                 </div>
-                <div className="component-block">
-                    <div className="offersComponent">
-                        <AppK className = "appK" />
 
-                    </div>
-                    <div className="routeComponent">
-                        <p>InfoTrip</p>
-                    </div>
+                {userData != null ?
+                    <UserRoute props={userData}/>
+                    :
+                    <p>Trip not found</p>
+                }
+
+                <div className="component-block">
+
+                    <AddOfferToTrip/>
+
                     <Button
                         type="primary"
                         htmlType="submit"
@@ -83,6 +89,7 @@ function AddOfferToTripPage() {
                         Create trip
                     </Button>
                 </div>
+
 
             </div>
         </>
@@ -93,4 +100,4 @@ function AddOfferToTripPage() {
     );
 }
 
-export default AddOfferToTripPage;
+export default ManageTripPage;

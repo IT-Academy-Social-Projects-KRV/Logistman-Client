@@ -10,14 +10,24 @@ import { DEFAULT_ICON_SIZE } from "../../../constants/icon";
 import { useState } from "react";
 import { useEffect } from "react";
 import { concatSettlements, concatThroughCities } from "../../../services/trips";
+import {useHistory} from "react-router-dom";
 
 function UserRoute(props) {
 
+    const history = useHistory();
     const [allCities, setCities] = useState();
     const [throughCities, setThroughCities] = useState();
     const renderButton = props.renderButton != null ? props.renderButton : true;
 
+    const moveToManageTrip = () => {
+        history.push({
+            pathname: `/manage-trip`,
+            state: props
+        });
+    };
+
     useEffect(() => {
+        console.log(props);
         setCities(concatSettlements(props.data.points));
         setThroughCities(concatThroughCities(props.data.points));
     });
@@ -99,8 +109,11 @@ function UserRoute(props) {
                         </p>
 
                         {renderButton ?
-                            <Button className="createTripButton">
-                                Create trip
+                            <Button
+                                className="createTripButton"
+                                onClick={() => moveToManageTrip()}
+                            >
+                                Manage trip
                             </Button>
                             :
                             <></>

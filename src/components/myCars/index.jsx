@@ -16,8 +16,11 @@ function MyCarsPage() {
 
     const [cars, setCars] = useState();
 
-    useEffect(async () => {
-        setCars(await getUserCars(paginationFilterModel));
+    useEffect( () => {
+        async function fetchData() {
+            setCars(await getUserCars(paginationFilterModel));
+        }
+        fetchData();
     }, []);
 
     const onPaginationChange = async (page, pageSize) => {

@@ -1,6 +1,6 @@
 import { Table } from 'antd';
 
-const columns = [
+const offerColumns = [
   {
     title: 'Settlement',
     dataIndex: 'settlement',
@@ -26,10 +26,10 @@ const columns = [
   },
 ];
 
-const data = [];
+const offerData = [];
 
 for (let i = 0; i < 100; i++) {
-  data.push({
+  offerData.push({
     key: i,
     expirationDate: `Edward King ${i}`,
     weight: 32,
@@ -39,8 +39,9 @@ for (let i = 0; i < 100; i++) {
 
 const AppK = () => (
   <Table
-    columns={columns}
-    dataSource={data}
+      drg
+    columns={offerColumns}
+    dataSource={offerData}
     pagination={{
       pageSize: 10,
     }}

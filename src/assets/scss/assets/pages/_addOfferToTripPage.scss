@@ -17,14 +17,14 @@
     color: $title_color;
   }
 
-  .mapBlok_addOfferToTrip {
+  .mapComponent {
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 10px;
     width: 90%;
     height: 350px;
-
+    box-shadow: rgb(109 122 128 / 12%) 0 2px 4px 0, rgb(14 30 37 / 32%) 0 2px 16px 0;
     #map {
       border-radius: 10px;
     }
@@ -41,35 +41,6 @@
     border-radius: 10px;
 
 
-
-    .offersComponent {
-      display: flex;
-      justify-content: left;
-      align-items: center;
-      width: 49%;
-      height: 100%;
-      border-radius: 10px;
-      font-size: 18px;
-      background-size: cover;
-      background-color: $unable_color;
-
-      .ant-table-header {
-        border-top-right-radius: 10px;
-        border-top-left-radius: 10px;
-      }
-    }
-
-    .routeComponent {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 49%;
-      height: 80%;
-      border-radius: 10px;
-      font-size: 18px;
-      background-size: cover;
-      background-color: #20DF7F;
-    }
 
     .submitButton {
       width: 125px;

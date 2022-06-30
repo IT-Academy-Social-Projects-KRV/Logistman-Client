@@ -23,7 +23,7 @@ import UserCarsPage from "./components/userCars";
 import CreateOfferPage from "./components/offerPage";
 import { offerRoles } from "./constants/offerRoles";
 import RoutesPage from "./components/routes";
-import AddOfferToTripPage from "./components/createTrip";
+import ManageTripPage from "./components/createTrip";
 
 const history = createBrowserHistory();
 
@@ -136,15 +136,15 @@ export default function App() {
                     <RoutesPage />
                 </PrivateRoute>
 
-                <Redirect to="/login" />
-            
-                <Route
+                <PrivateRoute
                     exact
-                    path="/create-trip"
+                    path="/manage-trip"
                     allowedRoles={[userRoles.LOGIST]}
                 >
-                    <AddOfferToTripPage/>
-                </Route>
+                    <ManageTripPage />
+                </PrivateRoute>
+
+                <Redirect to="/login" />
 
             </Switch>
         </Router>

@@ -11,7 +11,6 @@ import InputRules from "../../constants/inputRules";
 import AddNewCarModal from './../addNewCarModal/index';
 import { userRoles } from "../../constants/userRoles";
 import { store } from "../../store";
-import {Link} from "react-router-dom";
 
 function ProfilePage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,16 +19,20 @@ function ProfilePage() {
     
     let role = store.getState().authReducer.role;
 
-    useEffect(async () => {
-        if (userData === undefined) {
-            let result = await getUserProfileInfo();
+    useEffect( () => {
+        async function fetchData() {
+            if (userData === undefined) {
+                let result = await getUserProfileInfo();
 
-            setUserData(result);
-            setTemporaryFullName({
-                name: result.name,
-                surname: result.surname
-            });
+                setUserData(result);
+                setTemporaryFullName({
+                    name: result.name,
+                    surname: result.surname
+                });
+            }
         }
+
+        fetchData();
     });
 
     const onFinishFailed = () => {
@@ -218,7 +221,6 @@ function ProfilePage() {
 
                         {isModalOpen && <AddNewCarModal
                             myClose={() => setIsModalOpen(false)} />}
-                        <Link to={"/create-trip"}>Create Trip</Link>
                     </div>
                 </Form>
             </Layout>

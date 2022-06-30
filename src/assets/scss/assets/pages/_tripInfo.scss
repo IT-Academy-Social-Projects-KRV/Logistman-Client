@@ -1,0 +1,56 @@
+@import '../variables/colors';
+@import '../variables/others';
+
+.tripBody {
+  padding-top: 30px;
+  display: flex;
+  justify-content: stretch;
+  padding-left: 5%;
+  padding-right: 5%;
+
+  .addresses {
+    padding-left: 42px;
+  }
+
+  .dataField {
+    display: flex;
+    color: #656565;
+  }
+
+  .carInfo {
+    margin-top: 10px;
+  }
+
+  .description {
+    margin-top: 15px;
+    font-size: 16px;
+    font-weight: 550;
+    color: $title_color;
+    margin-left: 10px;
+    width: 90%;
+  }
+
+  .innerBody {
+    display: flex;
+  }
+
+
+  .dates {
+    display: flex;
+    flex-direction: row;
+
+    .date {
+      display: flex;
+    }
+  }
+
+  .icon {
+    margin-right: 10px;
+    margin-left: 10px;
+    color: black;
+  }
+
+  .leftSide{
+    padding-left: 20%;
+  }
+}

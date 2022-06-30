@@ -7,8 +7,11 @@ function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [data, setData] = useState();
 
-    useEffect(async () => {
-        setData(await getFullUserName());
+    useEffect( () => {
+        async function fetchData(){
+            setData(await getFullUserName());
+        }
+        fetchData();
     }, []);
 
     return (
