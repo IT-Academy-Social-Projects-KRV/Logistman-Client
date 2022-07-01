@@ -1,6 +1,6 @@
 import tripsService from '../api/trips';
 import { errorMessage, successMessage } from './alerts';
-import { generalErrorMessages } from '../constants/messages/general';
+import { generalMessages } from '../constants/messages/general';
 import { tripsMessages } from '../constants/messages/trips';
 import { statusCode } from "../constants/statusCodes";
 import { tripValues } from "../constants/tripValues";
@@ -19,14 +19,14 @@ export async function getAllRoutes(paginationFilterModel) {
       () => {
         errorMessage(
           tripsMessages.LOAD_ROUTES_FAILED,
-          generalErrorMessages.SOMETHING_WENT_WRONG
+          generalMessages.SOMETHING_WENT_WRONG
         );
       }
     )
     .catch(() => {
       errorMessage(
         tripsMessages.LOAD_ROUTES_FAILED,
-        generalErrorMessages.SOMETHING_WENT_WRONG
+        generalMessages.SOMETHING_WENT_WRONG
       );
     });
 }
@@ -45,14 +45,14 @@ export async function getAllRoutesByUser(paginationFilterModel) {
       () => {
         errorMessage(
           tripsMessages.LOAD_ROUTES_FAILED,
-          generalErrorMessages.SOMETHING_WENT_WRONG
+          generalMessages.SOMETHING_WENT_WRONG
         );
       }
     )
     .catch(() => {
       errorMessage(
         tripsMessages.LOAD_ROUTES_FAILED,
-        generalErrorMessages.SOMETHING_WENT_WRONG
+        generalMessages.SOMETHING_WENT_WRONG
       );
     });
 }
@@ -112,7 +112,7 @@ export function createTrip(model, history) {
     )
     .catch(() => {
       errorMessage(
-        generalErrorMessages.SOMETHING_WENT_WRONG
+        generalMessages.SOMETHING_WENT_WRONG
       );
     });
 }

@@ -4,9 +4,9 @@ import Header from '../navigation/header';
 import { Button, Form, Input, Layout } from 'antd';
 import { CheckOutlined, CloseOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import { confirmMessage, errorMessage } from "../../services/alerts";
-import { generalErrorMessages } from "../../constants/messages/general";
+import { generalMessages } from "../../constants/messages/general";
 import { inputValidationErrorMessages } from "../../constants/messages/inputValidationErrors";
-import { userErrorMessages } from "../../constants/messages/user";
+import { userMessages } from "../../constants/messages/users";
 import InputRules from "../../constants/inputRules";
 import AddNewCarModal from './../addNewCarModal/index';
 import { userRoles } from "../../constants/userRoles";
@@ -33,8 +33,8 @@ function ProfilePage() {
 
     const onFinishFailed = () => {
         errorMessage(
-            userErrorMessages.EDIT_USER_PROFILE_BLOCKED,
-            generalErrorMessages.CORRECT_ALL_COMMENTS
+            userMessages.EDIT_USER_PROFILE_BLOCKED,
+            generalMessages.CORRECT_ALL_COMMENTS
         );
     };
 
@@ -53,8 +53,8 @@ function ProfilePage() {
                     });
                 } else {
                     errorMessage(
-                        userErrorMessages.EDIT_USER_PROFILE_NOT_CHANGE,
-                        generalErrorMessages.CHANGE_SOMETHING_TO_SAVE
+                        userMessages.EDIT_USER_PROFILE_NOT_CHANGE,
+                        generalMessages.CHANGE_SOMETHING_TO_SAVE
                     );
                 }
             }
@@ -113,7 +113,7 @@ function ProfilePage() {
                                     InputRules.lengthRange(
                                         2,
                                         50,
-                                        userErrorMessages.USER_NAME_LENGTH_RANGE
+                                        userMessages.USER_NAME_LENGTH_RANGE
                                     ),
                                     InputRules.required(
                                         inputValidationErrorMessages.EMPTY_NAME
@@ -143,7 +143,7 @@ function ProfilePage() {
                                     InputRules.lengthRange(
                                         2,
                                         50,
-                                        userErrorMessages.USER_NAME_LENGTH_RANGE
+                                        userMessages.USER_NAME_LENGTH_RANGE
                                     ),
                                     InputRules.required(
                                         inputValidationErrorMessages.EMPTY_SURNAME

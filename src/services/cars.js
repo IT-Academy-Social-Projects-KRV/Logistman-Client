@@ -1,7 +1,7 @@
 import { errorMessage, successMessage } from "./alerts";
-import { generalErrorMessages } from "../constants/messages/general";
+import { generalMessages } from "../constants/messages/general";
 import carsService from "../api/cars";
-import { carsErrorMessages } from '../constants/messages/cars';
+import { carsMessages } from '../constants/messages/cars';
 import { statusCode } from "../constants/statusCodes";
 
 export function addCar(values) {
@@ -19,25 +19,25 @@ export function addCar(values) {
         .add(model)
         .then(
             () => {
-                successMessage(carsErrorMessages.CAR_ADDED_SUCCESSFUL);
+                successMessage(carsMessages.SUCCESSFUL_CAR_ADD);
             },
             (err) => {
                 err.response.status === statusCode.NOT_ACCEPTABLE
                     ? errorMessage(
-                        carsErrorMessages.CAR_ADDING_FAILED,
-                        carsErrorMessages.CAR_EXISTS_ERROR
+                        carsMessages.ADD_CAR_FAILED,
+                        carsMessages.CAR_EXISTS_ERROR
                     )
                     : errorMessage(
-                        carsErrorMessages.CAR_ADDING_FAILED,
-                        generalErrorMessages.SOMETHING_WENT_WRONG
+                        carsMessages.ADD_CAR_FAILED,
+                        generalMessages.SOMETHING_WENT_WRONG
                     );
             }
         )
         .catch(() => {
             errorMessage(
-                carsErrorMessages.CAR_ADDING_FAILED,
-                carsErrorMessages.CAR_EXISTS_ERROR,
-                generalErrorMessages.SOMETHING_WENT_WRONG
+                carsMessages.ADD_CAR_FAILED,
+                carsMessages.CAR_EXISTS_ERROR,
+                generalMessages.SOMETHING_WENT_WRONG
             );
         });
 }
@@ -57,15 +57,15 @@ export async function getUserCars(paginationFilterModel) {
             },
             () => {
                 errorMessage(
-                    carsErrorMessages.LOAD_USER_CARS_FAILED,
-                    generalErrorMessages.SOMETHING_WENT_WRONG
+                    carsMessages.LOAD_USER_CARS_FAILED,
+                    generalMessages.SOMETHING_WENT_WRONG
                 );
             }
         )
         .catch(() => {
             errorMessage(
-                carsErrorMessages.LOAD_USER_CARS_FAILED,
-                generalErrorMessages.SOMETHING_WENT_WRONG
+                carsMessages.LOAD_USER_CARS_FAILED,
+                generalMessages.SOMETHING_WENT_WRONG
             );
         });
 }
@@ -84,15 +84,15 @@ export async function getUserCarsByEmail(paginationFilterModel, email) {
             },
             () => {
                 errorMessage(
-                    carsErrorMessages.LOAD_USER_CARS_FAILED,
-                    generalErrorMessages.SOMETHING_WENT_WRONG
+                    carsMessages.LOAD_USER_CARS_FAILED,
+                    generalMessages.SOMETHING_WENT_WRONG
                 );
             }
         )
         .catch(() => {
             errorMessage(
-                carsErrorMessages.LOAD_USER_CARS_FAILED,
-                generalErrorMessages.SOMETHING_WENT_WRONG
+                carsMessages.LOAD_USER_CARS_FAILED,
+                generalMessages.SOMETHING_WENT_WRONG
             );
         });
 }
@@ -104,15 +104,15 @@ export async function verifyCar(vin) {
             () => {},
             () => {
                 errorMessage(
-                    carsErrorMessages.CAR_VERIFICATION_FAILED,
-                    generalErrorMessages.SOMETHING_WENT_WRONG
+                    carsMessages.CAR_VERIFICATION_FAILED,
+                    generalMessages.SOMETHING_WENT_WRONG
                 );
             }
         )
         .catch(() => {
             errorMessage(
-                carsErrorMessages.CAR_VERIFICATION_FAILED,
-                generalErrorMessages.SOMETHING_WENT_WRONG
+                carsMessages.CAR_VERIFICATION_FAILED,
+                generalMessages.SOMETHING_WENT_WRONG
             );
         });
 }
@@ -124,15 +124,15 @@ export async function unverifyCar(vin) {
              () => {},
              () => {
                  errorMessage(
-                     carsErrorMessages.CAR_UNVERIFICATION_FAILED,
-                     generalErrorMessages.SOMETHING_WENT_WRONG
+                     carsMessages.CAR_UNVERIFICATION_FAILED,
+                     generalMessages.SOMETHING_WENT_WRONG
                  );
              }
          )
         .catch(() => {
             errorMessage(
-                carsErrorMessages.CAR_UNVERIFICATION_FAILED,
-                generalErrorMessages.SOMETHING_WENT_WRONG
+                carsMessages.CAR_UNVERIFICATION_FAILED,
+                generalMessages.SOMETHING_WENT_WRONG
             );
         });
 }
@@ -146,15 +146,15 @@ export async function getUserVerifiedCarsAsync() {
             },
             () => {
                 errorMessage(
-                    carsErrorMessages.LOAD_USER_CARS_FAILED,
-                    generalErrorMessages.SOMETHING_WENT_WRONG
+                    carsMessages.LOAD_USER_CARS_FAILED,
+                    generalMessages.SOMETHING_WENT_WRONG
                 );
             }
         )
         .catch(() => {
             errorMessage(
-                carsErrorMessages.LOAD_USER_CARS_FAILED,
-                generalErrorMessages.SOMETHING_WENT_WRONG
+                carsMessages.LOAD_USER_CARS_FAILED,
+                generalMessages.SOMETHING_WENT_WRONG
             );
         });
 }

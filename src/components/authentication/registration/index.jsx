@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 import { inputValidationErrorMessages } from "../../../constants/messages/inputValidationErrors";
 import { errorMessage } from "../../../services/alerts";
 import tokenService from "../../../services/tokens";
-import { authenticationErrorMessages } from "../../../constants/messages/authentication";
-import { generalErrorMessages } from './../../../constants/messages/general';
+import { authenticationMessages } from "../../../constants/messages/authentication";
+import { generalMessages } from './../../../constants/messages/general';
 import InputRules from "../../../constants/inputRules";
 
 function RegistrationPage() {
@@ -23,8 +23,8 @@ function RegistrationPage() {
 
     const onFinishFailed = () => {
         errorMessage(
-            authenticationErrorMessages.REGISTRATION_BLOCKED,
-            generalErrorMessages.CORRECT_ALL_COMMENTS
+            authenticationMessages.REGISTRATION_BLOCKED,
+            generalMessages.CORRECT_ALL_COMMENTS
         );
     };
 
@@ -136,7 +136,7 @@ function RegistrationPage() {
                                     }
                                     return Promise.reject(
                                         new Error(
-                                            inputValidationErrorMessages.PASSWORD_DONT_MATCH
+                                            inputValidationErrorMessages.PASSWORD_DOESNT_MATCH
                                         )
                                     );
                                 }

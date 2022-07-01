@@ -1,6 +1,6 @@
-import { userErrorMessages } from "../constants/messages/user";
+import { userMessages } from "../constants/messages/users";
 import { errorMessage, successMessage } from "./alerts";
-import { generalErrorMessages } from "../constants/messages/general";
+import { generalMessages } from "../constants/messages/general";
 import usersService from "../api/users";
 import { checkIsUserRoleValid } from "./authentication";
 import { statusCode } from "../constants/statusCodes";
@@ -14,15 +14,15 @@ export function getUserProfileInfo() {
             },
             () => {
                 errorMessage(
-                    userErrorMessages.GET_USER_INFO_FAILED,
-                    generalErrorMessages.SOMETHING_WENT_WRONG
+                    userMessages.GET_USER_INFO_FAILED,
+                    generalMessages.SOMETHING_WENT_WRONG
                 );
             }
         )
         .catch(() => {
             errorMessage(
-                userErrorMessages.GET_USER_INFO_FAILED,
-                generalErrorMessages.SOMETHING_WENT_WRONG
+                userMessages.GET_USER_INFO_FAILED,
+                generalMessages.SOMETHING_WENT_WRONG
             );
         });
 }
@@ -37,22 +37,22 @@ export async function editUserInfo(model) {
         .editUserInfo(model)
         .then(
             () => {
-                successMessage(userErrorMessages.EDIT_USER_PROFILE_SUCCESS);
+                successMessage(userMessages.EDIT_USER_PROFILE_SUCCESS);
 
                 return true;
             },
             () => {
                 errorMessage(
-                    userErrorMessages.EDIT_USER_PROFILE_FAILED,
-                    generalErrorMessages.SOMETHING_WENT_WRONG
+                    userMessages.EDIT_USER_PROFILE_FAILED,
+                    generalMessages.SOMETHING_WENT_WRONG
                 );
             }
         )
         .catch(() => {
             errorMessage(
-                userErrorMessages.EDIT_USER_PROFILE_FAILED,
-                userErrorMessages.EDIT_USER_PROFILE_INFO_FAILED_EMAIL_ALREADY_EXIST,
-                generalErrorMessages.SOMETHING_WENT_WRONG
+                userMessages.EDIT_USER_PROFILE_FAILED,
+                userMessages.EDIT_USER_PROFILE_INFO_FAILED_EMAIL_ALREADY_EXIST,
+                generalMessages.SOMETHING_WENT_WRONG
             );
         });
 }
@@ -64,22 +64,22 @@ export async function logistEditUserInfo(model, userEmail) {
         .logistEditUserInfo(model, userEmail)
         .then(
             () => {
-                successMessage(userErrorMessages.EDIT_USER_PROFILE_SUCCESS);
+                successMessage(userMessages.EDIT_USER_PROFILE_SUCCESS);
 
                 return true;
             },
             () => {
                 errorMessage(
-                    userErrorMessages.EDIT_USER_PROFILE_FAILED,
-                    generalErrorMessages.SOMETHING_WENT_WRONG
+                    userMessages.EDIT_USER_PROFILE_FAILED,
+                    generalMessages.SOMETHING_WENT_WRONG
                 );
             }
         )
         .catch(() => {
             errorMessage(
-                userErrorMessages.EDIT_USER_PROFILE_FAILED,
-                userErrorMessages.EDIT_USER_PROFILE_INFO_FAILED_EMAIL_ALREADY_EXIST,
-                generalErrorMessages.SOMETHING_WENT_WRONG
+                userMessages.EDIT_USER_PROFILE_FAILED,
+                userMessages.EDIT_USER_PROFILE_INFO_FAILED_EMAIL_ALREADY_EXIST,
+                generalMessages.SOMETHING_WENT_WRONG
             );
         });
 }
@@ -93,15 +93,15 @@ export async function getFullUserName() {
             },
             () => {
                 errorMessage(
-                    userErrorMessages.GET_USER_FULL_NAME_FAILED,
-                    generalErrorMessages.SOMETHING_WENT_WRONG
+                    userMessages.GET_USER_FULL_NAME_FAILED,
+                    generalMessages.SOMETHING_WENT_WRONG
                 );
             }
         )
         .catch(() => {
             errorMessage(
-                userErrorMessages.GET_USER_FULL_NAME_FAILED,
-                generalErrorMessages.SOMETHING_WENT_WRONG
+                userMessages.GET_USER_FULL_NAME_FAILED,
+                generalMessages.SOMETHING_WENT_WRONG
             );
         });
 }
@@ -120,15 +120,15 @@ export async function getAllUsers(paginationFilterModel) {
             },
             () => {
                 errorMessage(
-                    userErrorMessages.GET_LIST_OF_USERS_FAILED,
-                    generalErrorMessages.SOMETHING_WENT_WRONG
+                    userMessages.GET_LIST_OF_USERS_FAILED,
+                    generalMessages.SOMETHING_WENT_WRONG
                 );
             }
         )
         .catch(() => {
             errorMessage(
-                userErrorMessages.GET_LIST_OF_USERS_FAILED,
-                generalErrorMessages.SOMETHING_WENT_WRONG
+                userMessages.GET_LIST_OF_USERS_FAILED,
+                generalMessages.SOMETHING_WENT_WRONG
             );
         });
 }
