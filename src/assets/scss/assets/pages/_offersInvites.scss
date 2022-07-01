@@ -3,7 +3,6 @@
 
 .userOffersInvitesBody {
   padding: 105px 140px 50px 140px;
-  justify-content: center;
 
   .title {
     font-weight: bold;
@@ -33,16 +32,16 @@
   }
 
   h3 {
-    color: #656565;
+    color: $gray;
   }
 
   .fieldText {
-    color: #656565;
+    color: $gray;
     padding-bottom: 0;
     margin-bottom: 0;
 
     .date {
-      color: #656565;
+      color: $gray;
       padding-left: 7px;
     }
   }
