@@ -3,7 +3,7 @@ import userCarsMenuItem_icon_icon from "../../assets/images/car.png";
 import userOffersMenuItem_icon from "../../assets/images/location.png";
 import users_icon from "../../assets/images/users_icon.svg";
 import route_icon from "../../assets/images/route_icon.svg";
-import offersInvites_icon from "../../assets/images/invites-envelope-icon.svg";
+import invites_icon from "../../assets/images/invites-envelope-icon.svg";
 
 export const menuItems = {
     User: [
@@ -23,9 +23,14 @@ export const menuItems = {
             itemLink: "/my-offers"
         },
         {
-            itemIcon: offersInvites_icon,
+            itemIcon: invites_icon,
             itemText: "My offers' invites",
             itemLink: "/offers-invites"
+        },
+        {
+            itemIcon: invites_icon,
+            itemText: "My drivers' invites",
+            itemLink: "/drivers-invites"
         },
         {
             itemIcon: route_icon,

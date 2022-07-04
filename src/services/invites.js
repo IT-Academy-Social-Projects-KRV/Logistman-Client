@@ -24,6 +24,26 @@ export function getOffersInvites(model) {
         );
 }
 
+export function getDriversInvites(model) {
+    return invitesService
+        .getDriversInvites(model)
+        .then(
+            (response) => {
+                if (response.status === statusCode.NO_CONTENT) {
+                    return null;
+                }
+
+                return response.data;
+            },
+            () => {
+                errorMessage(
+                    invitesMessages.GET_FAILED,
+                    generalErrorMessages.SOMETHING_WENT_WRONG
+                );
+            }
+        );
+}
+
 export function manageInivite(model) {
     return invitesService
         .manage(model)
