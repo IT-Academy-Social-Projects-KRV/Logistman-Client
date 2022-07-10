@@ -17,4 +17,8 @@ export default class tripsService {
             `?PageNumber=${paginationFilterModel.pageNumber}
              &PageSize=${paginationFilterModel.pageSize}`);
     }
+
+    static deleteRoute(id) {
+        return instance.delete(TRIPS_URL.DELETE + `?TripId=${id}`);
+    }
 }

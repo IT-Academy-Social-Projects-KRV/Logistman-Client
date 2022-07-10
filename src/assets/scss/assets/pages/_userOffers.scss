@@ -79,7 +79,6 @@
   .description {
     margin-top: 15px;
     font-size: 16px;
-    font-weight: 550;
     color: $title_color;
   }
 
@@ -110,6 +109,11 @@
     width: 22px;
     height: 22px;
   }
+}
+
+.buttonsBlock {
+  display: flex;
+  justify-content: right;
 }
 
 @media only screen and (max-width: $max_tablet_size) {

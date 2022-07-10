@@ -27,7 +27,7 @@ export const CARS_URLS = {
     GET_BY_USER_EMAIL: CAR_URL + "/user-cars",
     VERIFY: CAR_URL + "/verify",
     UNVERIFY: CAR_URL + "/unverify",
-    DELETE: CAR_URL + "/delete"
+    DELETE: CAR_URL + "/delete-car"
 };
 
 export const GOOD_CATEGORIES_URLS = {
@@ -37,13 +37,15 @@ export const GOOD_CATEGORIES_URLS = {
 export const OFFERS_URLS = {
     CREATE: OFFERS_URL + "/create",
     GET_ONE_BY_USER: OFFERS_URL + "/user-offer",
-    GET_BY_USER: OFFERS_URL
+    GET_BY_USER: OFFERS_URL,
+    DELETE: OFFERS_URL + "/delete"
 };
 
 export const TRIPS_URL = {
     CREATE: TRIP_URL + "/create",
     GET_ALL_ROUTES: TRIP_URL + "/routes",
-    GET_ROUTES_BY_USER: TRIP_URL + "/my-routes"
+    GET_ROUTES_BY_USER: TRIP_URL + "/my-routes",
+    DELETE: TRIP_URL + "/delete-route"
 };
 
 export const INVITES_URLS = {
@@ -56,7 +58,8 @@ export const USERS_URLS = {
     PROFILE_INFO: USER_URL + "/user-info",
     EDIT: USER_URL + "/edit-info",
     FULL_NAME: USER_URL + "/user-full-name",
-    GET_ALL_USERS: USER_URL 
+    GET_ALL_USERS: USER_URL,
+    DELETE: USER_URL + "/delete"
 };
 
 export const LOGIST_URLS = {

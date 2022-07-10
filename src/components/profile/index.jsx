@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { editUserInfo, getUserProfileInfo } from '../../services/users';
+import { editUserInfo, getUserProfileInfo, deleteUser } from '../../services/users';
 import Header from '../navigation/header';
 import { Button, Form, Input, Layout } from 'antd';
 import { CheckOutlined, CloseOutlined, PlusCircleOutlined } from '@ant-design/icons';
-import { confirmMessage, errorMessage } from "../../services/alerts";
+import { confirmMessage, errorMessage, confirmDeleteMessage } from "../../services/alerts";
 import { generalErrorMessages } from "../../constants/messages/general";
 import { inputValidationErrorMessages } from "../../constants/messages/inputValidationErrors";
 import { userErrorMessages } from "../../constants/messages/user";
@@ -16,7 +16,7 @@ function ProfilePage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [temporaryFullName, setTemporaryFullName] = useState({});
     const [userData, setUserData] = useState(undefined);
-    
+
     let role = store.getState().authReducer.role;
 
     useEffect(async () => {
@@ -30,6 +30,14 @@ function ProfilePage() {
             });
         }
     });
+
+    const deleteProfile = () => {
+        confirmDeleteMessage().then((result) => {
+            if (result) {
+                deleteUser();
+            }
+        })
+    }
 
     const onFinishFailed = () => {
         errorMessage(
@@ -204,16 +212,26 @@ function ProfilePage() {
                             >
                                 Add car
                             </Button>
-                            : 
+                            :
                             <></>
                         }
 
-                        <Button
-                            htmlType={"submit"}
-                            type="primary"
-                        >
-                            Save
-                        </Button>
+                        <div className="profileButtons">
+                            <Button
+                                className="submitButton"
+                                htmlType={"submit"}
+                                type="primary"
+                            >
+                                Save
+                            </Button>
+                            <Button
+                                className="deleteButton"
+                                type="danger"
+                                onClick={() => deleteProfile()}
+                            >
+                                Delete Account
+                            </Button>
+                        </div>
 
                         {isModalOpen && <AddNewCarModal
                             myClose={() => setIsModalOpen(false)} />}

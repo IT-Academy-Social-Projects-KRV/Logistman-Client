@@ -15,4 +15,8 @@ export default class offersService {
             `?PageNumber=${paginationFilterModel.pageNumber}
              &PageSize=${paginationFilterModel.pageSize}`);
     }
+
+    static deleteById(id) {
+        return instance.delete(OFFERS_URLS.DELETE + `?offerId=${id}`);
+    }
 }

@@ -158,3 +158,34 @@ export async function getUserVerifiedCarsAsync() {
             );
         });
 }
+
+export async function deleteCar(id) {
+    await carsService
+    .deleteCar(id)
+    .then(
+        () => {
+            successMessage(
+                generalErrorMessages.DELETE_SUCCESSFULLY,
+                1500
+            )
+        },
+        (err) => {
+            err.response.status === 406
+                ? errorMessage(
+                    carsErrorMessages.FAILED_TO_DELETE_DUE_ROUTE
+                )
+                :
+                errorMessage(
+                    carsErrorMessages.DELETE_FAILED,
+                    generalErrorMessages.SOMETHING_WENT_WRONG
+                );
+        }
+    )
+    .catch(() => {
+        errorMessage(
+            carsErrorMessages.FAILED_TO_DELETE_DUE_ROUTE,
+            carsErrorMessages.DELETE_FAILED,
+            generalErrorMessages.SOMETHING_WENT_WRONG
+        );
+    });
+}

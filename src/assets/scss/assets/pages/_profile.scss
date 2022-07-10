@@ -40,6 +40,14 @@
   .blockButton {
     display: flex;
     justify-content: space-between;
+
+    .profileButtons {
+      justify-content: end;
+
+      .deleteButton {
+        margin-left: 7px;
+      }
+    }
   }
 
   .formItem {

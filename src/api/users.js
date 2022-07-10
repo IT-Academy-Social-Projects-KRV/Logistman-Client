@@ -25,4 +25,8 @@ export default class usersService {
           `?PageNumber=${paginationFilterModel.pageNumber}
            &PageSize=${paginationFilterModel.pageSize}`);
   }
+
+  static deleteUser() {
+      return instance.delete(USERS_URLS.DELETE);
+  }
 }

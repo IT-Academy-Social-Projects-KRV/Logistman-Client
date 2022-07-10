@@ -4,6 +4,8 @@ import { generalErrorMessages } from "../constants/messages/general";
 import usersService from "../api/users";
 import { checkIsUserRoleValid } from "./authentication";
 import { statusCode } from "../constants/statusCodes";
+import { logout } from "../reduxActions/auth";
+import { store } from "../store";
 
 export function getUserProfileInfo() {
     return usersService
@@ -128,6 +130,27 @@ export async function getAllUsers(paginationFilterModel) {
         .catch(() => {
             errorMessage(
                 userErrorMessages.GET_LIST_OF_USERS_FAILED,
+                generalErrorMessages.SOMETHING_WENT_WRONG
+            );
+        });
+}
+
+export async function deleteUser() {
+    await usersService
+        .deleteUser()
+        .then(
+        () => {
+            store.dispatch(logout());
+        },
+        () => {
+            errorMessage(
+                userErrorMessages.DELETE_USER_FAILED,
+                generalErrorMessages.SOMETHING_WENT_WRONG
+            );
+        })
+        .catch(() => {
+            errorMessage(
+                userErrorMessages.DELETE_USER_FAILED,
                 generalErrorMessages.SOMETHING_WENT_WRONG
             );
         });

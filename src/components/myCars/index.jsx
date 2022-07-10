@@ -16,6 +16,10 @@ function MyCarsPage() {
 
     const [cars, setCars] = useState();
 
+    const updateCars = async () => {
+        setCars(await getUserCars(paginationFilterModel));
+    }
+
     useEffect(async () => {
         setCars(await getUserCars(paginationFilterModel));
     }, []);
@@ -36,7 +40,10 @@ function MyCarsPage() {
             {cars != null ?
                 <div className="cars-container">
                     {cars.items.map((car) =>
-                        <MyCar info={car} />
+                        <MyCar
+                            info={car}
+                            updateCars={() => updateCars()}
+                        />
                     )}
                     <Pagination
                         onChange={onPaginationChange}

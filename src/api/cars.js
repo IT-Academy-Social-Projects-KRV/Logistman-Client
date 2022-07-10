@@ -29,4 +29,8 @@ export default class carsService {
     static getUserVerified() {
         return instance.get(CARS_URLS.GET_USER_VERIFIED);
     }
+
+    static deleteCar(id) {
+        return instance.delete(CARS_URLS.DELETE + `?carId=${id}`);
+    }
 }

@@ -41,3 +41,23 @@ export function confirmMessage(
         }
     });
 }
+
+export function confirmDeleteMessage(
+    title = "Are you sure?",
+    text = "This action cannot be canceled!",
+    confirmedText = "Delete"
+) {
+    return Swal.fire({
+        title: title,
+        text: text,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: confirmedText
+    }).then((result) => {
+        if (result.isConfirmed) {
+            return true;
+        }
+    });
+}

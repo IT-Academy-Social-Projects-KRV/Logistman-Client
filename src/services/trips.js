@@ -116,3 +116,32 @@ export function createTrip(model, history) {
       );
     });
 }
+
+export async function deleteRoute(id) {
+    await tripsService.deleteRoute(id)
+    .then(
+        () => {
+            successMessage(
+                generalErrorMessages.DELETE_SUCCESSFULLY,
+                1500
+            );
+        },
+        (err) => {
+            err.response.status === statusCode.BAD_REQUEST
+                ? errorMessage(
+                    tripsMessages.DELETE_FAILED_DUE_INVITES
+                )
+                :
+                errorMessage(
+                    tripsMessages.DELETE_FAILED,
+                    generalErrorMessages.SOMETHING_WENT_WRONG
+                );
+        }
+    )
+    .catch(() => {
+      errorMessage(
+          tripsMessages.DELETE_FAILED,
+          generalErrorMessages.SOMETHING_WENT_WRONG
+      );
+    });
+}

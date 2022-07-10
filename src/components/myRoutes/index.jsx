@@ -16,6 +16,9 @@ function MyRoutesPage() {
 
     const [routes, setRoutes] = useState();
 
+     const updateRoutes = async() => {
+         setRoutes(await getAllRoutesByUser(paginationFilterModel));
+     }
     useEffect(async () => {
         setRoutes(await getAllRoutesByUser(paginationFilterModel));
     }, []);
@@ -36,7 +39,10 @@ function MyRoutesPage() {
             {routes != null ?
                 <div className="my-routes-container">
                     {routes.items.map((route) =>
-                        <MyRoute data={route} />
+                        <MyRoute
+                            data={route}
+                            updateRoute={() => updateRoutes()}
+                        />
                     )}
 
                     <Pagination
@@ -51,7 +57,7 @@ function MyRoutesPage() {
                 :
                 <Result
                     status="404"
-                    title="There is no any created routes."
+                    title="There is no routes created."
                 />
             }
         </div>

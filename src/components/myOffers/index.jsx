@@ -16,6 +16,10 @@ function MyOffersPage() {
 
     const [offers, setOffers] = useState();
 
+    const updateOffers = async () => {
+        setOffers(await getUserOffers(paginationFilterModel));
+    }
+
     useEffect(async () => {
         setOffers(await getUserOffers(paginationFilterModel));
     }, []);
@@ -36,7 +40,10 @@ function MyOffersPage() {
             {offers != null ?
                 <div className="offers-container">
                     {offers.items.map((offer) =>
-                        <MyOffer info={offer} />
+                        <MyOffer
+                            info={offer}
+                            updateOffers={() => updateOffers()}
+                        />
                     )}
                     <Pagination
                         onChange={onPaginationChange}

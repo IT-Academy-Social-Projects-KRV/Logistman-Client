@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Tooltip } from "antd";
+import { Card, Tooltip, Button, Form } from "antd";
 import moment from "moment";
 import { FiCalendar } from "react-icons/fi";
 import { AiOutlineCar, AiOutlineArrowRight, AiOutlineInfoCircle } from "react-icons/ai";
@@ -9,8 +9,10 @@ import { IconContext } from "react-icons";
 import { DEFAULT_ICON_SIZE } from "../../../constants/icon";
 import { useState } from "react";
 import { useEffect } from "react";
-import { concatSettlements, concatThroughCities } from "../../../services/trips";
+import { concatSettlements, concatThroughCities, deleteRoute } from "../../../services/trips";
 import { getStartPointAddress, getEndPointAddress } from "../../../constants/address";
+import {confirmDeleteMessage} from "../../../services/alerts";
+import {logistEditUserInfo} from "../../../services/users";
 
 function MyRoute(props) {
     const [allCities, setCities] = useState();
@@ -21,17 +23,40 @@ function MyRoute(props) {
         setThroughCities(concatThroughCities(props.data.points));
     });
 
+    const updateRoute = () => {
+        props.updateRoute();
+    }
+
+    const onFinish = (values) => {
+        confirmDeleteMessage().then((result) => {
+            if (result)
+            {
+                deleteRoute(values.id).then(() => {
+                    updateRoute();
+                });
+            }
+        });
+    }
+
     return (
         <IconContext.Provider value={{ className: 'icon' }}>
             <Card className="myRouteCard">
-                <div className="myRouteCardBody">
+                <Form onFinish={() => onFinish(props.data)}
+                      className="myRouteCardBody"
+                >
                     <div className="addresses">
-                        <p>
-                            From: {getStartPointAddress(props.data.points)}
+                        <p className="fieldText">
+                            From:
+                            <span id="date">
+                                {getStartPointAddress(props.data.points)}
+                            </span>
                         </p>
 
-                        <p>
-                            To: {getEndPointAddress(props.data.points)}
+                        <p className="fieldText">
+                            To:
+                            <span id="date">
+                                {getEndPointAddress(props.data.points)}
+                            </span>
                         </p>
                     </div>
 
@@ -44,17 +69,17 @@ function MyRoute(props) {
                     <div className="innerBody">
                         <div className="rightSide">
                             <p className="dataField">
-                                <AiOutlineCar size={DEFAULT_ICON_SIZE} />
+                                <AiOutlineCar size={DEFAULT_ICON_SIZE} className="fieldIcon"/>
                                 Model: {props.data.car.model}
                             </p>
 
                             <p className="dataField">
-                                <AiOutlineInfoCircle size={DEFAULT_ICON_SIZE} />
+                                <AiOutlineInfoCircle size={DEFAULT_ICON_SIZE} className="fieldIcon"/>
                                 Registration number: {props.data.car.registrationNumber}
                             </p>
 
                             <p className="dataField">
-                                <GiWeight size={DEFAULT_ICON_SIZE} />
+                                <GiWeight size={DEFAULT_ICON_SIZE} className="fieldIcon"/>
                                 Load capacity: {props.data.loadCapacity + " kg"}
                             </p>
                         </div>
@@ -63,24 +88,32 @@ function MyRoute(props) {
                             <p className="dataField">
                                 <div className="dates">
                                     <div className="date">
-                                        <FiCalendar size={DEFAULT_ICON_SIZE} />
+                                        <FiCalendar size={DEFAULT_ICON_SIZE} className="fieldIcon"/>
                                         {moment(props.data.startDate).format('LLL') + " "}
                                     </div>
 
                                     <div className="date">
-                                        <AiOutlineArrowRight size={DEFAULT_ICON_SIZE} />
+                                        <AiOutlineArrowRight size={DEFAULT_ICON_SIZE} className="fieldIcon"/>
                                         {moment(props.data.expirationDate).format('LLL')}
                                     </div>
                                 </div>
                             </p>
 
                             <p className="dataField">
-                                <RiPinDistanceLine size={DEFAULT_ICON_SIZE} />
+                                <RiPinDistanceLine size={DEFAULT_ICON_SIZE} className="fieldIcon"/>
                                 Distance: {props.data.distance + " km"}
                             </p>
                         </div>
                     </div>
-                </div>
+                    <div className="buttonsBlock">
+                        <Button
+                            type="danger"
+                            htmlType={"submit"}
+                        >
+                            Delete
+                        </Button>
+                    </div>
+                </Form>
             </Card>
         </IconContext.Provider>
     )

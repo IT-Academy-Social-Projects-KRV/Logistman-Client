@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, Card} from "antd";
+import {Button, Card, Form} from "antd";
 import { FormOutlined } from "@ant-design/icons";
 import Text from "antd/es/typography/Text";
 import bucket_icon from "../../../assets/images/cars/bucket.svg";
@@ -9,7 +9,8 @@ import info_icon from "../../../assets/images/cars/info.svg";
 import insurance_icon from "../../../assets/images/cars/insurance.svg";
 import passport_icon from "../../../assets/images/cars/passport.svg";
 import {store} from "../../../store";
-import {unverifyCar, verifyCar} from "../../../services/cars";
+import {unverifyCar, verifyCar, deleteCar} from "../../../services/cars";
+import {confirmDeleteMessage} from '../../../services/alerts'
 
 function MyCar(data) {
     const [isCarVerified, setIsCarVerified] = useState(data.info.isVerified);
@@ -25,6 +26,20 @@ function MyCar(data) {
         setIsCarVerified(false)
     }
 
+    const updateCars = () => {
+        data.updateCars();
+    }
+
+    const onFinish = (values) => {
+        confirmDeleteMessage().then((result) => {
+            if (result) {
+                deleteCar(values.id).then(() => {
+                    updateCars();
+                });
+            }
+        });
+    }
+
     return (
         <Card className="carCard">
             <div className="cardHead">
@@ -37,6 +52,7 @@ function MyCar(data) {
                 </Text>
             </div>
 
+            <Form onFinish={() => onFinish(data.info)}>
             <div className="information">
                 <div className="leftSide">
                     <div className="field-group">
@@ -89,6 +105,9 @@ function MyCar(data) {
                             <p>Color: {data.info.color}</p>
                         </div>
                     </div>
+                </div>
+            </div>
+                <div className="buttonsBlock">
                     {role === "Logist" ?
                         <div className="buttons-group">
                             {isCarVerified ?
@@ -99,7 +118,7 @@ function MyCar(data) {
                                 </Button> :
                                 <Button
                                     onClick={() => verify()
-                                }>
+                                    }>
                                     Verify
                                 </Button>
                             }
@@ -107,8 +126,13 @@ function MyCar(data) {
                         :
                         <></>
                     }
+                    <Button type="danger"
+                            htmlType="submit"
+                    >
+                        Delete
+                    </Button>
                 </div>
-            </div>
+            </Form>
         </Card>
     );
 }

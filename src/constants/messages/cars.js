@@ -18,6 +18,7 @@ export const carsErrorMessages = Object.freeze({
     CAR_VERIFICATION_FAILED: "Failed to verify car",
     CAR_UNVERIFICATION_FAILED: "Failed to unverify car",
     DELETE_CAR_FAILED: "Failed to delete car",
+    FAILED_TO_DELETE_DUE_ROUTE: "Failed to delete the car! There`re routes using this car!",
 
     LOAD_USER_CARS_FAILED: "Load user's cars failed!",
     ANY_VERIFIED_CAR: "You don't have any verified car!",
