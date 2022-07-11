@@ -61,25 +61,26 @@ export function createOffer(values, history, point) {
     });
 }
 
-export async function deleteOfferById(id) {
-    await offersService.deleteById(id)
+export async function deleteById(id) {
+  await offersService
+    .deleteById(id)
     .then(
-        () => {
-            successMessage(
-                generalErrorMessages.DELETE_SUCCESSFULLY,
-                1500
-            );
-        },
-        () => {
-            errorMessage(
-                offersErrorMessages.DELETE_OFFER_FAILED,
-                generalErrorMessages.SOMETHING_WENT_WRONG
-            );
-        })
-    .catch(() => {
-        errorMessage(
-            offersErrorMessages.DELETE_OFFER_FAILED,
-            generalErrorMessages.SOMETHING_WENT_WRONG
+      () => {
+        successMessage(
+          generalErrorMessages.DELETE_SUCCESSFULLY,
+          1500
         );
+      },
+      () => {
+        errorMessage(
+          offersErrorMessages.DELETE_OFFER_FAILED,
+          generalErrorMessages.SOMETHING_WENT_WRONG
+        );
+      })
+    .catch(() => {
+      errorMessage(
+        offersErrorMessages.DELETE_OFFER_FAILED,
+        generalErrorMessages.SOMETHING_WENT_WRONG
+      );
     });
 }

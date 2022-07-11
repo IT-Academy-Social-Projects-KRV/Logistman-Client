@@ -57,7 +57,7 @@ function MyRoutesPage() {
                 :
                 <Result
                     status="404"
-                    title="There is no routes created."
+                    title="There are no routes created."
                 />
             }
         </div>

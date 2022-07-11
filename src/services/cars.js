@@ -159,15 +159,15 @@ export async function getUserVerifiedCarsAsync() {
         });
 }
 
-export async function deleteCar(id) {
+export async function deleteById(id) {
     await carsService
-    .deleteCar(id)
+    .deleteById(id)
     .then(
         () => {
             successMessage(
                 generalErrorMessages.DELETE_SUCCESSFULLY,
                 1500
-            )
+            );
         },
         (err) => {
             err.response.status === 406

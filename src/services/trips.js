@@ -117,8 +117,9 @@ export function createTrip(model, history) {
     });
 }
 
-export async function deleteRoute(id) {
-    await tripsService.deleteRoute(id)
+export async function deleteRouteById(id) {
+    await tripsService
+    .deleteRouteById(id)
     .then(
         () => {
             successMessage(
@@ -139,9 +140,9 @@ export async function deleteRoute(id) {
         }
     )
     .catch(() => {
-      errorMessage(
-          tripsMessages.DELETE_FAILED,
-          generalErrorMessages.SOMETHING_WENT_WRONG
-      );
+        errorMessage(
+            tripsMessages.DELETE_FAILED,
+            generalErrorMessages.SOMETHING_WENT_WRONG
+        );
     });
 }

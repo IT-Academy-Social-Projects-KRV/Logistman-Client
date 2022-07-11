@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { editUserInfo, getUserProfileInfo, deleteUser } from '../../services/users';
+import React, {useEffect, useState} from "react";
+import {editUserInfo, getUserProfileInfo, deleteUser} from '../../services/users';
 import Header from '../navigation/header';
-import { Button, Form, Input, Layout } from 'antd';
-import { CheckOutlined, CloseOutlined, PlusCircleOutlined } from '@ant-design/icons';
-import { confirmMessage, errorMessage, confirmDeleteMessage } from "../../services/alerts";
-import { generalErrorMessages } from "../../constants/messages/general";
-import { inputValidationErrorMessages } from "../../constants/messages/inputValidationErrors";
-import { userErrorMessages } from "../../constants/messages/user";
+import {Button, Form, Input, Layout} from 'antd';
+import {CheckOutlined, CloseOutlined, PlusCircleOutlined} from '@ant-design/icons';
+import {confirmMessage, errorMessage, confirmDeleteMessage} from "../../services/alerts";
+import {generalErrorMessages} from "../../constants/messages/general";
+import {inputValidationErrorMessages} from "../../constants/messages/inputValidationErrors";
+import {userErrorMessages} from "../../constants/messages/user";
 import InputRules from "../../constants/inputRules";
 import AddNewCarModal from './../addNewCarModal/index';
-import { userRoles } from "../../constants/userRoles";
-import { store } from "../../store";
+import {userRoles} from "../../constants/userRoles";
+import {store} from "../../store";
 
 function ProfilePage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -89,7 +89,7 @@ function ProfilePage() {
     }
     return (
         <Layout className="profilePageBody">
-            <Header />
+            <Header/>
 
             <Layout id="infoBlock">
                 <div className="info">
@@ -113,24 +113,24 @@ function ProfilePage() {
 
                         <div className="inputBlock">
                             <Form.Item className="formItem" name="name"
-                                initialValue={userData?.name}
-                                rules={[
-                                    InputRules.latinLetters(
-                                        inputValidationErrorMessages.NOT_VALID_NAME
-                                    ),
-                                    InputRules.lengthRange(
-                                        2,
-                                        50,
-                                        userErrorMessages.USER_NAME_LENGTH_RANGE
-                                    ),
-                                    InputRules.required(
-                                        inputValidationErrorMessages.EMPTY_NAME
-                                    )
-                                ]}
+                                       initialValue={userData?.name}
+                                       rules={[
+                                           InputRules.latinLetters(
+                                               inputValidationErrorMessages.NOT_VALID_NAME
+                                           ),
+                                           InputRules.lengthRange(
+                                               2,
+                                               50,
+                                               userErrorMessages.USER_NAME_LENGTH_RANGE
+                                           ),
+                                           InputRules.required(
+                                               inputValidationErrorMessages.EMPTY_NAME
+                                           )
+                                       ]}
                             >
                                 <Input onChange={(e) => {
                                     onNameChange(e)
-                                }} />
+                                }}/>
                             </Form.Item>
                         </div>
                     </div>
@@ -143,24 +143,24 @@ function ProfilePage() {
                         <div className="inputBlock">
 
                             <Form.Item className="formItem" name="surname"
-                                initialValue={userData?.surname}
-                                rules={[
-                                    InputRules.latinLetters(
-                                        inputValidationErrorMessages.NOT_VALID_SURNAME
-                                    ),
-                                    InputRules.lengthRange(
-                                        2,
-                                        50,
-                                        userErrorMessages.USER_NAME_LENGTH_RANGE
-                                    ),
-                                    InputRules.required(
-                                        inputValidationErrorMessages.EMPTY_SURNAME
-                                    )
-                                ]}
+                                       initialValue={userData?.surname}
+                                       rules={[
+                                           InputRules.latinLetters(
+                                               inputValidationErrorMessages.NOT_VALID_SURNAME
+                                           ),
+                                           InputRules.lengthRange(
+                                               2,
+                                               50,
+                                               userErrorMessages.USER_NAME_LENGTH_RANGE
+                                           ),
+                                           InputRules.required(
+                                               inputValidationErrorMessages.EMPTY_SURNAME
+                                           )
+                                       ]}
                             >
                                 <Input onChange={(e) => {
                                     onSurnameChange(e)
-                                }} />
+                                }}/>
                             </Form.Item>
                         </div>
                     </div>
@@ -173,18 +173,18 @@ function ProfilePage() {
                         <div className="inputBlock">
 
                             <Form.Item className="formItem" name="email"
-                                initialValue={userData?.email}
-                                rules={[
-                                    InputRules.specificType(
-                                        "email",
-                                        inputValidationErrorMessages.NOT_VALID_EMAIL
-                                    ),
-                                    InputRules.required(
-                                        inputValidationErrorMessages.EMPTY_EMAIL
-                                    )
-                                ]}
+                                       initialValue={userData?.email}
+                                       rules={[
+                                           InputRules.specificType(
+                                               "email",
+                                               inputValidationErrorMessages.NOT_VALID_EMAIL
+                                           ),
+                                           InputRules.required(
+                                               inputValidationErrorMessages.EMPTY_EMAIL
+                                           )
+                                       ]}
                             >
-                                <Input />
+                                <Input/>
                             </Form.Item>
                         </div>
                     </div>
@@ -196,8 +196,8 @@ function ProfilePage() {
 
                         <div className="infoInput">
                             {userData?.emailConfirmed ?
-                                <CheckOutlined /> :
-                                <CloseOutlined />
+                                <CheckOutlined/> :
+                                <CloseOutlined/>
                             }
                         </div>
                     </div>
@@ -206,9 +206,9 @@ function ProfilePage() {
 
                         {role == userRoles.USER ?
                             <Button type="primary"
-                                className="addItemButton"
-                                icon={<PlusCircleOutlined />}
-                                onClick={() => setIsModalOpen(true)}
+                                    className="addItemButton"
+                                    icon={<PlusCircleOutlined/>}
+                                    onClick={() => setIsModalOpen(true)}
                             >
                                 Add car
                             </Button>
@@ -219,7 +219,7 @@ function ProfilePage() {
                         <div className="profileButtons">
                             <Button
                                 className="submitButton"
-                                htmlType={"submit"}
+                                htmlType="submit"
                                 type="primary"
                             >
                                 Save
@@ -234,7 +234,7 @@ function ProfilePage() {
                         </div>
 
                         {isModalOpen && <AddNewCarModal
-                            myClose={() => setIsModalOpen(false)} />}
+                            myClose={() => setIsModalOpen(false)}/>}
                     </div>
                 </Form>
             </Layout>

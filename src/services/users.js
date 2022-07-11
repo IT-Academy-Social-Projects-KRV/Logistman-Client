@@ -137,9 +137,13 @@ export async function getAllUsers(paginationFilterModel) {
 
 export async function deleteUser() {
     await usersService
-        .deleteUser()
-        .then(
+    .deleteUser()
+    .then(
         () => {
+            successMessage(
+                generalErrorMessages.DELETE_SUCCESSFULLY,
+                1000
+            );
             store.dispatch(logout());
         },
         () => {
@@ -148,10 +152,10 @@ export async function deleteUser() {
                 generalErrorMessages.SOMETHING_WENT_WRONG
             );
         })
-        .catch(() => {
-            errorMessage(
-                userErrorMessages.DELETE_USER_FAILED,
-                generalErrorMessages.SOMETHING_WENT_WRONG
-            );
-        });
+    .catch(() => {
+        errorMessage(
+            userErrorMessages.DELETE_USER_FAILED,
+            generalErrorMessages.SOMETHING_WENT_WRONG
+        );
+    });
 }
