@@ -15,8 +15,11 @@ function OffersInvitesPage() {
 
     const [invites, setInvites] = useState();
 
-    useEffect(async () => {
-        setInvites(await getOffersInvites(paginationFilterModel));
+    useEffect( () => {
+        async function fetchData(){
+            setInvites(await getOffersInvites(paginationFilterModel));
+        }
+        fetchData();
     }, []);
 
     const onPaginationChange = async (page, pageSize) => {

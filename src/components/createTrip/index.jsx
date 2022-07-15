@@ -20,21 +20,21 @@ function ManageTripPage() {
     useEffect(() => {
         async function fetchData() {
             const data = await getTripById(userData.data.id);
+
             for (let i = 0; i < data.points.length; i++) {
                 data.points[i] = {...data.points[i], key: data.points[i].pointId};
             }
+
             data.points.sort((a, b) => a.order - b.order);
             setDataTrip(data);
         }
+
         fetchData();
     }, []);
 
     const getWeight = weight => {setTotalWeight(weight);}
-
     const getDataForCreatTrip = data => {setDataForCreatTrip(data);}
-
     const getPointsOffers = pointsOffers => {setAllPoints(pointsOffers);}
-
     const getDistance = distance => {setDistance(distance);}
 
     return (
@@ -48,7 +48,7 @@ function ManageTripPage() {
                         <div className="infoComponent">
                             {userData != null ?
                                 <UserRoute
-                                    props={dataTrip}
+                                    dataTrip={dataTrip}
                                     totalWeigth={totalWeight}
                                     creatTripData={dataForCreatTrip}
                                     distance={distance}

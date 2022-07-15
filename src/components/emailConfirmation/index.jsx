@@ -10,6 +10,7 @@ function ConfirmEmailPage() {
 
             await confirmEmailAsync(token);
         }
+
         fetchData();
     }, []);
 

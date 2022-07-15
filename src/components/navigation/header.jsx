@@ -11,6 +11,7 @@ function Header() {
         async function fetchData(){
             setData(await getFullUserName());
         }
+
         fetchData();
     }, []);
 

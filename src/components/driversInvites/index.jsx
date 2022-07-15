@@ -14,8 +14,11 @@ function DriversInvitesPage() {
 
     const [invites, setInvites] = useState();
 
-    useEffect(async () => {
-        setInvites(await getDriversInvites(paginationFilterModel));
+    useEffect( () => {
+        async function fetchData(){
+            setInvites(await getDriversInvites(paginationFilterModel));
+        }
+        fetchData();
     }, []);
 
     const onPaginationChange = async (page, pageSize) => {

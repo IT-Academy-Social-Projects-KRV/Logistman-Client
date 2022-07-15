@@ -23,6 +23,7 @@ function ManageUsersPage() {
         async function fetchDta(){
             setUsers(await getAllUsers(paginationFilterModel));
         }
+
         fetchDta();
     }, []);
 

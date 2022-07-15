@@ -20,6 +20,7 @@ function MyCarsPage() {
         async function fetchData() {
             setCars(await getUserCars(paginationFilterModel));
         }
+
         fetchData();
     }, []);
 

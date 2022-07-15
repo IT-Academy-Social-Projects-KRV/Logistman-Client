@@ -14,6 +14,7 @@ import {tooltipMessages} from "../../../constants/tooltipeMessages/tripInfoMasse
 import {errorMessage} from "../../../services/alerts";
 import {tripsMessages} from "../../../constants/messages/trips";
 import {useHistory} from 'react-router-dom';
+import {getEndPointAddress, getStartPointAddress} from "../../../constants/address";
 
 const {Panel} = Collapse;
 
@@ -25,12 +26,12 @@ function UserRoute(props) {
     const [dataManage, setDataManage] = useState();
 
     useEffect(() => {
-        setCities(concatSettlements(props.props.points));
-        setThroughCities(concatThroughCities(props.props.points));
+        setCities(concatSettlements(props.dataTrip.points));
+        setThroughCities(concatThroughCities(props.dataTrip.points));
         setDataManage({
-            tripId: props.props.id,
+            tripId: props.dataTrip.id,
             distance: props.distance,
-            totalWeight: props.props.loadCapacity
+            totalWeight: props.dataTrip.loadCapacity
         });
     }, [props.distance])
 
@@ -39,32 +40,27 @@ function UserRoute(props) {
         hasOffers = props.creatTripData.pointsTrip.some(item => item.offerId != null);
     }
 
-    if (props.totalWeigth >= props.props.loadCapacity) {
+    if (props.totalWeigth >= props.dataTrip.loadCapacity) {
         hasOffers = false;
         errorMessage(tripsMessages.TITLE_OVERLOAD, tripsMessages.TEXT_OVERLOAD);
     }
 
-    return (<IconContext.Provider value={{className: 'icon'}}>
+    return (
+        <IconContext.Provider value={{className: 'icon'}}>
             {props.creatTripData != null ?
                 <div className="tripBody">
                     <p className="dataField">
                         <FiUser size={DEFAULT_ICON_SIZE}/>
-                        {props.props.fullName.name + " " + props.props.fullName.surname}
+                        {props.dataTrip.fullName.name + " " + props.dataTrip.fullName.surname}
                     </p>
 
                     <div className="addresses">
                         <p>
-                            From: {props.props.points[0].address + ", "
-                            + props.props.points[0].settlement + ", "
-                            + props.props.points[0].region + ", "
-                            + props.props.points[0].country}
+                            From: {getStartPointAddress(props.dataTrip.points)}
                         </p>
 
                         <p>
-                            To: {props.props.points[props.props.points.length - 1].address + ", "
-                            + props.props.points[props.props.points.length - 1].settlement + ", "
-                            + props.props.points[props.props.points.length - 1].region + ", "
-                            + props.props.points[props.props.points.length - 1].country}
+                            To: {getEndPointAddress(props.dataTrip.points)}
                         </p>
                     </div>
 
@@ -73,6 +69,7 @@ function UserRoute(props) {
                             {"Through: " + throughCities}
                         </Tooltip>
                     </p>
+
                     <div>
                         <div className="innerBody">
                             <div className="rightSide">
@@ -83,7 +80,7 @@ function UserRoute(props) {
                                     <div className="dataField">
                                         <AiOutlineCar size={DEFAULT_ICON_SIZE}/>
                                         <p>
-                                            {props.props.model}
+                                            {props.dataTrip.model}
                                         </p>
                                     </div>
                                 </Tooltip>
@@ -94,7 +91,7 @@ function UserRoute(props) {
                                 >
                                     <div className="dataField">
                                         <AiOutlineInfoCircle size={DEFAULT_ICON_SIZE}/>
-                                        <p>{props.props.registrationNumber}</p>
+                                        <p>{props.dataTrip.registrationNumber}</p>
                                     </div>
                                 </Tooltip>
 
@@ -104,10 +101,10 @@ function UserRoute(props) {
                                 >
                                     <div className="dataField">
                                         <GiWeight size={DEFAULT_ICON_SIZE}/>
-                                        {props.totalWeigth > props.props.loadCapacity ?
+                                        {props.totalWeigth > props.dataTrip.loadCapacity ?
                                             <p style={{color: "red"}}>{props.totalWeigth + " kg"}</p> :
                                             <p>{props.totalWeigth + " kg"}</p>}
-                                        <p>{" / " + props.props.loadCapacity + " kg"}</p>
+                                        <p>{" / " + props.dataTrip.loadCapacity + " kg"}</p>
                                     </div>
                                 </Tooltip>
                             </div>
@@ -119,24 +116,24 @@ function UserRoute(props) {
                                             <Tooltip
                                                 placement="top"
                                                 title={tooltipMessages.START_DATE + ": "
-                                                    + `${moment(props.props.startDate).format('L')}` + " "
-                                                    + `${moment(props.props.startDate).format('LT')}`}
+                                                    + `${moment(props.dataTrip.startDate).format('L')}` + " "
+                                                    + `${moment(props.dataTrip.startDate).format('LT')}`}
                                             >
                                                 <div className="date">
                                                     <FiCalendar size={DEFAULT_ICON_SIZE}/>
-                                                    <p>{moment(props.props.startDate).format('LLL') + " "}</p>
+                                                    <p>{moment(props.dataTrip.startDate).format('LLL') + " "}</p>
                                                 </div>
                                             </Tooltip>
 
                                             <Tooltip
                                                 placement="top"
                                                 title={tooltipMessages.EXPIRATION_DATE + ": "
-                                                    + `${moment(props.props.expirationDate).format('L')}` + " "
-                                                    + `${moment(props.props.expirationDate).format('LT')}`}
+                                                    + `${moment(props.dataTrip.expirationDate).format('L')}` + " "
+                                                    + `${moment(props.dataTrip.expirationDate).format('LT')}`}
                                             >
                                                 <div className="date">
                                                     <AiOutlineArrowRight size={DEFAULT_ICON_SIZE}/>
-                                                    <p>{moment(props.props.expirationDate).format('LLL')}</p>
+                                                    <p>{moment(props.dataTrip.expirationDate).format('LLL')}</p>
                                                 </div>
                                             </Tooltip>
 
@@ -177,7 +174,7 @@ function UserRoute(props) {
                         <Collapse ghost>
                             <Panel className="description" header="Description" key="1">
                                 <p>
-                                    {props.props.description}
+                                    {props.dataTrip.description}
                                 </p>
                             </Panel>
                         </Collapse>

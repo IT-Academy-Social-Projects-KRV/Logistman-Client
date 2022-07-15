@@ -24,7 +24,6 @@ const DragHandle = SortableHandle(() => (
     />
 ));
 
-
 const AddOfferToTrip = (props) => {
     const pointColumns = [
         {
@@ -90,12 +89,9 @@ const AddOfferToTrip = (props) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [offers, setOffers] = useState([]);
-
     const [pointPosition, setPointPosition] = useState();
-
     const [points, setPoints] = useState(props.points);
     const [totalWeight, setTotalWeight] = useState(0);
-
 
     useEffect(() => {
         setDataOffers();
@@ -124,10 +120,13 @@ const AddOfferToTrip = (props) => {
         const creatTripPoints = {
             pointsTrip: []
         };
-        let dataPoints = points;
-        if (data != null) {
-            dataPoints = data;
-        }
+        let dataPoints = [];
+
+        data != null ?
+            dataPoints = data
+            :
+            dataPoints = points
+
         for (let i = 0; i < dataPoints.length; i++) {
             creatTripPoints.pointsTrip.push({
                 id: dataPoints[i].pointId,
@@ -135,6 +134,7 @@ const AddOfferToTrip = (props) => {
                 order: i + 1
             });
         }
+
         return creatTripPoints;
     }
 
@@ -249,10 +249,12 @@ const AddOfferToTrip = (props) => {
     const isCorectPositionOffer = data => {
         const isCorectPosinion = data[0].offerId != null ||
             data[data.length - 1].offerId != null;
+
         if (isCorectPosinion) {
             message.warning(tripsMessages.TEXT_OFFER_POSITION);
             return isCorectPosinion;
         }
+        return isCorectPosinion;
     }
 
     const setDataBack = data => {
@@ -276,74 +278,74 @@ const AddOfferToTrip = (props) => {
         return <SortableItem index={index} {...restProps} />;
     }
 
-    return(
-            <div style={{width: "100%"}}>
-                <div className="pointsComponent">
-                    <p>Points</p>
+    return (
+        <div style={{width: "100%"}}>
+            <div className="pointsComponent">
+                <p>Points</p>
 
-                    <Table
-                        style={{height: "100%", width: "100%"}}
-                        columns={pointColumns}
-                        dataSource={points}
-                        rowKey="key"
-                        expandable={{
-                            expandedRowRender: (record) => (
-                                record.offerId != null ?
-                                    <div className="expandedRow">
-                                        <div className="offerInfo">
-                                            <p>Creation Date: {record.creationDate}</p>
-                                            <p>Goods Weight: {record.goodsWeight} kg</p>
-                                            <p>Good Category: {record.goodCategoryName}</p>
-                                            <p>Role: {record.creatorRoleName}</p>
-                                        </div>
-
-                                        <Collapse ghost>
-                                            <Panel className="description" header="Description" key="1">
-                                                <p>
-                                                    {record.description}
-                                                </p>
-                                            </Panel>
-                                        </Collapse>
+                <Table
+                    style={{height: "100%", width: "100%"}}
+                    columns={pointColumns}
+                    dataSource={points}
+                    rowKey="key"
+                    expandable={{
+                        expandedRowRender: (record) => (
+                            record.offerId != null ?
+                                <div className="expandedRow">
+                                    <div className="offerInfo">
+                                        <p>Creation Date: {record.creationDate}</p>
+                                        <p>Goods Weight: {record.goodsWeight} kg</p>
+                                        <p>Good Category: {record.goodCategoryName}</p>
+                                        <p>Role: {record.creatorRoleName}</p>
                                     </div>
+
+                                    <Collapse ghost>
+                                        <Panel className="description" header="Description" key="1">
+                                            <p>
+                                                {record.description}
+                                            </p>
+                                        </Panel>
+                                    </Collapse>
+                                </div>
+                                :
+                                <></>
+                        ),
+                        expandIcon: ({expanded, onExpand, record}) =>
+                            expanded ? (
+                                record.offerId != null ?
+                                    <CaretDownOutlined onClick={e => {
+                                        forceUpdate();
+                                        return onExpand(record, e)
+                                    }}/>
                                     :
-                                    undefined
-                            ),
-                            expandIcon: ({expanded, onExpand, record}) =>
-                                expanded ? (
-                                    record.offerId != null ?
-                                        <CaretDownOutlined onClick={e => {
-                                            forceUpdate();
-                                            return onExpand(record, e)
-                                        }}/>
-                                        :
-                                        false
-                                ) : (
-                                    record.offerId != null ?
-                                        <CaretRightOutlined onClick={e => onExpand(record, e)}/>
-                                        :
-                                        false
-                                )
-                        }}
-                        components={{
-                            body: {
-                                wrapper: draggableContainer,
-                                row: draggableBodyRow,
-                            },
-                        }}
-                        pagination={{
-                            pageSize: 10,
-                            position: ["none", "bottomCenter"]
-                        }}
-                    /><
-            /div>
-                {isModalOpen && <AddNearOfferModal
-                    tripId={props.tripId}
-                    offers={offers}
-                    myClose={() => setIsModalOpen(false)}
-                    onModalClose={handleCloseModal}
-                />}
+                                    false
+                            ) : (
+                                record.offerId != null ?
+                                    <CaretRightOutlined onClick={e => onExpand(record, e)}/>
+                                    :
+                                    false
+                            )
+                    }}
+                    components={{
+                        body: {
+                            wrapper: draggableContainer,
+                            row: draggableBodyRow,
+                        },
+                    }}
+                    pagination={{
+                        pageSize: 10,
+                        position: ["none", "bottomCenter"]
+                    }}
+                />
             </div>
-       );
+            {isModalOpen && <AddNearOfferModal
+                tripId={props.tripId}
+                offers={offers}
+                myClose={() => setIsModalOpen(false)}
+                onModalClose={handleCloseModal}
+            />}
+        </div>
+    );
 }
 
 export default AddOfferToTrip;

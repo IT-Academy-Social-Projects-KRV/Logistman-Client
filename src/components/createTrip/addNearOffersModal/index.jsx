@@ -18,11 +18,12 @@ function AddNearOfferModal(props) {
                 return !props.offers.some(even);
             }));
         }
+
         fetchData();
     }, [])
 
     function swapDaysAndMonths(date) {
-        if(!Date.parse(date)){
+        if (!Date.parse(date)) {
             const splitCreationDate = date.split('.');
             const day = splitCreationDate[0];
 
@@ -31,10 +32,9 @@ function AddNearOfferModal(props) {
 
             const finalDate = splitCreationDate.join('.');
 
-            if(!Date.parse(finalDate)){
-            return finalDate;
-            }
-            else {
+            if (!Date.parse(finalDate)) {
+                return finalDate;
+            } else {
                 return date;
             }
         }

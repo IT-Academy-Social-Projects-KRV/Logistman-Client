@@ -21,13 +21,12 @@ function TripMap(props) {
 
     const {isLoaded} = useJsApiLoader({
         id: "google-map-script",
-        googleMapsApiKey: process.env.REACT_APP_API_KEY,
+        googleMapsApiKey: process.env.REACT_APP_API_KEY
     });
 
     useEffect(() => {
         async function fetchData() {
             const offers = await getOffersNearRout(props.tripId);
-            console.log("map", offers);
             for (let i = 0; i < offers.length; i++) {
                 offers[i] = {...offers[i], key: offers[i].pointId};
             }

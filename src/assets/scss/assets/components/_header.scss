@@ -12,7 +12,7 @@ header {
     align-items: center;
     text-align: center;
     z-index: 1;
-    background-color: #4DE599;
+    background-color: $green_color;
     gap: 30%;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 
@@ -24,7 +24,7 @@ header {
 
     button {
         border: none;
-        background-color: #4DE599;
+        background-color: $green_color;
         cursor: pointer;
     }
 
