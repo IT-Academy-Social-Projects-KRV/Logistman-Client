@@ -20,7 +20,7 @@
 .idea
 .env
 
-/public/index.html
+public/index.html
 
 npm-debug.log*
 yarn-debug.log*
