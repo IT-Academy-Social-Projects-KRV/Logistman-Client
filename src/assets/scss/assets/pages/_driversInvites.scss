@@ -1,0 +1,105 @@
+.userDriversInvitesBody {
+    padding: 105px 140px 50px 140px;
+
+    .ant-card.inviteCard {
+        width: 80%;
+        margin-bottom: 3%;
+        box-shadow: rgba(14, 30, 37, 0.12) 0 2px 4px 0, rgba(14, 30, 37, 0.32) 0 2px 16px 0;
+        border-radius: 10px;
+
+        .points {
+            margin-left: 40px;
+        }
+
+        .dataField {
+            display: flex;
+            justify-content: baseline;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+    .title {
+        font-weight: bold;
+        font-size: 15pt;
+        text-align: center;
+        margin-top: -10px;
+        color: $title_color;
+      }
+
+    .invites-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 3%;
+    }
+
+    .icon {
+        margin-right: 10px;
+        margin-left: 10px;
+        color: black;
+    }
+
+    #answered {
+        color: $green_color;
+    }
+    
+    #cardBottom {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 20px;
+        color: rgb(34, 139, 10);
+    
+        .acceptButton {
+          color: white;
+          border-color: rgb(34, 139, 10);
+          background: rgb(34, 139, 10);
+          text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+          box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+        }
+    
+        button {
+          width: 150px;
+          margin-left: 5px;
+        }
+    }
+}
+
+@media only screen and (max-width: $the_middle_of_tablet_size) {
+    .userDriversInvitesBody {
+        padding: 105px 50px 50px 50px;
+
+        #cardBottom {
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+    
+            button {
+                width: 90%;
+                margin: 5px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: $max_phone_size) {
+    .userDriversInvitesBody {
+        padding: 105px 0 50px 0;
+
+        #cardBottom {
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+    
+            button {
+                width: 90%;
+                margin: 5px;
+            }
+        }
+    }
+}
