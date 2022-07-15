@@ -10,7 +10,7 @@ import { DEFAULT_ICON_SIZE } from "../../../constants/icon";
 import { useState } from "react";
 import { useEffect } from "react";
 import { concatSettlements, concatThroughCities } from "../../../services/trips";
-import { getStartPointAddress, getEndPointAddress } from "../../../constants/address";
+import { getPointAddress } from "../../../constants/address";
 
 function MyRoute(props) {
     const [allCities, setCities] = useState();
@@ -27,11 +27,11 @@ function MyRoute(props) {
                 <div className="myRouteCardBody">
                     <div className="addresses">
                         <p>
-                            From: {getStartPointAddress(props.data.points)}
+                            From: {getPointAddress(props.data.points[0])}
                         </p>
 
                         <p>
-                            To: {getEndPointAddress(props.data.points)}
+                            To: {getPointAddress(props.data.points[props.data.points.length - 1])}
                         </p>
                     </div>
 

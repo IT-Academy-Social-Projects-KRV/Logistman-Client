@@ -1,5 +1,5 @@
 import { errorMessage } from "./alerts";
-import { generalErrorMessages } from "../constants/messages/general";
+import { generalMessages } from "../constants/messages/general";
 import invitesService from './../api/invites';
 import { statusCode } from './../constants/statusCodes';
 import { invitesMessages } from './../constants/messages/invites';
@@ -18,7 +18,7 @@ export function getOffersInvites(model) {
             () => {
                 errorMessage(
                     invitesMessages.GET_FAILED,
-                    generalErrorMessages.SOMETHING_WENT_WRONG
+                    generalMessages.SOMETHING_WENT_WRONG
                 );
             }
         );
@@ -38,7 +38,7 @@ export function getDriversInvites(model) {
             () => {
                 errorMessage(
                     invitesMessages.GET_FAILED,
-                    generalErrorMessages.SOMETHING_WENT_WRONG
+                    generalMessages.SOMETHING_WENT_WRONG
                 );
             }
         );
@@ -55,12 +55,12 @@ export function manageInivite(model) {
                 model.isAccepted ?
                     errorMessage(
                         invitesMessages.ACCEPTION_FAILED,
-                        generalErrorMessages.SOMETHING_WENT_WRONG
+                        generalMessages.SOMETHING_WENT_WRONG
                     )
                     :
                     errorMessage(
                         invitesMessages.DECLINATION_FAILED,
-                        generalErrorMessages.SOMETHING_WENT_WRONG
+                        generalMessages.SOMETHING_WENT_WRONG
                     );
 
                 return false;

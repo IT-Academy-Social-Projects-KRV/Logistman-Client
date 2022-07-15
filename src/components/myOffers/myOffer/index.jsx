@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Card, Tag } from "antd";
 import {
     CalendarOutlined,
@@ -8,20 +8,9 @@ import {
 import moment from 'moment';
 import Text from "antd/es/typography/Text";
 import { offerRoles } from '../../../constants/offerRoles';
+import { getPointAddress } from "../../../constants/address";
 
 function MyOffer(data) {
-    const [address, setAddress] = useState();
-
-    useEffect(async () => {
-        if (address === undefined) {
-            if (data.info.region !== undefined) {
-                setAddress(data.info.address + ", " + data.info.settlement + ", " + data.info.region);
-            }
-            else {
-                setAddress(data.info.address + ", " + data.info.settlement);
-            }
-        }
-    }, []);
 
     return (
         <Card className="offerCard">
@@ -50,7 +39,7 @@ function MyOffer(data) {
             <div>
                 <div className="cardField">
                     <EnvironmentOutlined className="fieldIcon" />
-                    <p className="fieldText">{address}</p>
+                    <p className="fieldText">{getPointAddress(data.info)}</p>
                 </div>
             </div>
 
