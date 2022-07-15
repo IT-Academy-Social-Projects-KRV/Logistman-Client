@@ -1,101 +1,90 @@
-import React, {useState, useCallback, useEffect} from 'react';
-import {Button} from "antd";
-import Geocode from "react-geocode";
+import React, {useState, useEffect} from 'react';
 import Header from "../navigation/header";
-import {GoogleMap, useJsApiLoader} from "@react-google-maps/api";
 import {useLocation} from "react-router-dom";
 import AddOfferToTrip from "./offersPointTrip";
 import UserRoute from "./infoTrip";
-
-Geocode.setApiKey(process.env.REACT_APP_API_KEY);
-
-const containerStyle = {
-    width: "100%",
-    height: "100%",
-};
-
-const center = {
-    lat: 34,
-    lng: 23,
-};
-
-const defaultOptions = {
-    panControl: true,
-    zoomControl: true,
-    zoomEnabled: true,
-    mapTypeControl: true,
-    disableDefaultUI: true,
-    streetViewControl: true,
-    rotateControl: true,
-    clickableIcons: true,
-    keyboardShortcuts: true,
-    fullscreenControl: true,
-};
+import {getTripById} from "../../services/trips";
+import {Result} from "antd";
+import TripMap from "./Map";
 
 function ManageTripPage() {
     const location = useLocation();
     const userData = location.state;
-    console.log(userData);
-    const {isLoaded} = useJsApiLoader({
-        id: "google-map-script",
-        googleMapsApiKey: process.env.REACT_APP_API_KEY,
-    });
 
-    const [map, setMap] = useState();
-    const [clickedLatLng, setClickedLatLng] = useState(center);
+    const [dataTrip, setDataTrip] = useState();
+    const [allPoints,setAllPoints] = useState();
+    const [totalWeight, setTotalWeight] = useState(0);
+    const [dataForCreatTrip, setDataForCreatTrip] = useState();
+    const [distance, setDistance] = useState();
 
-    const onLoad = useCallback(function callback(map) {
-        const bounds = new window.google.maps.LatLngBounds(center);
-        map.fitBounds(bounds);
-        setMap(map);
+    useEffect(() => {
+        async function fetchData() {
+            const data = await getTripById(userData.data.id);
+            for (let i = 0; i < data.points.length; i++) {
+                data.points[i] = {...data.points[i], key: data.points[i].pointId};
+            }
+            data.points.sort((a, b) => a.order - b.order);
+            setDataTrip(data);
+        }
+        fetchData();
     }, []);
 
-    const onUnmount = useCallback(function callback(map) {
-        setMap(null);
-    }, []);
+    const getWeight = weight => {setTotalWeight(weight);}
 
-    return isLoaded ? (
+    const getDataForCreatTrip = data => {setDataForCreatTrip(data);}
+
+    const getPointsOffers = pointsOffers => {setAllPoints(pointsOffers);}
+
+    const getDistance = distance => {setDistance(distance);}
+
+    return (
         <>
             <Header/>
+
             <div className="createTripBody">
                 <p className="title">Manage trip</p>
-                <div className="mapComponent">
-                    <GoogleMap
-                        mapContainerStyle={containerStyle}
-                        center={clickedLatLng}
-                        onLoad={onLoad}
-                        onUnmount={onUnmount}
-                        options={defaultOptions}
-                        id="map"
-                    >
-                    </GoogleMap>
-                </div>
+                {dataTrip != null ?
+                    <div className="meanBody">
+                        <div className="infoComponent">
+                            {userData != null ?
+                                <UserRoute
+                                    props={dataTrip}
+                                    totalWeigth={totalWeight}
+                                    creatTripData={dataForCreatTrip}
+                                    distance={distance}
+                                />
+                                :
+                                <p>Trip not found</p>
+                            }
+                            <div className="mapComponent">
+                                <TripMap
+                                points={allPoints}
+                                tripId={dataTrip.id}
+                                getDistance={getDistance}
+                                />
+                            </div>
+                        </div>
 
-                {userData != null ?
-                    <UserRoute props={userData}/>
+                        <div className="component-block">
+                            <AddOfferToTrip
+                                tripId={dataTrip.id}
+                                points={dataTrip.points}
+                                totalWeight={getWeight}
+                                creatTrip={getDataForCreatTrip}
+                                expirationDateTrip={dataTrip.expirationDate}
+                                getPointsOffers={getPointsOffers}
+                            />
+                        </div>
+                    </div>
                     :
-                    <p>Trip not found</p>
+                    <Result
+                        status="404"
+                        title="There is no route information."
+                    />
                 }
 
-                <div className="component-block">
-
-                    <AddOfferToTrip/>
-
-                    <Button
-                        type="primary"
-                        htmlType="submit"
-                        className="submitButton"
-                    >
-                        Create trip
-                    </Button>
-                </div>
-
-
             </div>
-        </>
-    ) : (
-        <>
-            <span>Map is not loaded!</span>
+
         </>
     );
 }

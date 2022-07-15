@@ -1,241 +1,349 @@
 import React, {useEffect} from 'react';
-import {Table} from 'antd';
-import update from 'immutability-helper';
-import {useCallback, useRef, useState} from 'react';
-import {DndProvider, useDrag, useDrop} from 'react-dnd';
-import {HTML5Backend} from 'react-dnd-html5-backend';
-import {getOffersNearRout} from "../../../services/offers";
-import {paginationDefaultFilter} from "../../../constants/pagination";
+import {Table, Collapse, Popconfirm, message} from 'antd';
+import {useState} from 'react';
+import AddNearOfferModal from "../addNearOffersModal";
+import {SortableContainer, SortableElement, SortableHandle} from 'react-sortable-hoc';
+import {arrayMoveImmutable} from 'array-move';
+import {MenuOutlined} from '@ant-design/icons';
+import {CaretRightOutlined, CaretDownOutlined} from "@ant-design/icons";
+import {offerRoles} from "../../../constants/offerRoles";
+import moment from "moment";
+import {errorMessage} from "../../../services/alerts";
+import {tripsMessages} from "../../../constants/messages/trips";
 
-const offerColumns = [
-    {
-        title: 'Settlement',
-        dataIndex: 'settlement'
-    },
-    {
-        title: 'Creation Date',
-        dataIndex: 'creationDate'
-    },
-    {
-        title: 'Weight',
-        dataIndex: 'goodsWeight'
-    },
-    {
-        title: 'Goods',
-        dataIndex: 'goodCategoryName',
-    },
-    {
-        title: 'Role',
-        dataIndex: 'creatorRoleName',
-    },
-];
+const {Panel} = Collapse;
+const SortableItem = SortableElement((props) => <tr {...props} />);
+const SortableBody = SortableContainer((props) => <tbody {...props} />);
 
-const offerData = [];
+const DragHandle = SortableHandle(() => (
+    <MenuOutlined
+        style={{
+            cursor: 'grab',
+            color: '#999',
+        }}
+    />
+));
 
-for (let i = 0; i < 100; i++) {
-    offerData.push({
-        key: i,
-        expirationDate: `Edward King ${i}`,
-        weight: 32,
-        goods: `good no. ${i}`,
-    });
-}
 
-const type = 'DraggableBodyRow';
-
-const DraggableBodyRow = ({index, moveRow, className, style, ...restProps}) => {
-    const ref = useRef(null);
-    const [{isOver, dropClassName}, drop] = useDrop({
-        accept: type,
-        collect: (monitor) => {
-            const {index: dragIndex} = monitor.getItem() || {};
-
-            if (dragIndex === index) {
-                return {};
-            }
-
-            return {
-                isOver: monitor.isOver(),
-                dropClassName: dragIndex < index ? ' drop-over-downward' : ' drop-over-upward',
-            };
+const AddOfferToTrip = (props) => {
+    const pointColumns = [
+        {
+            title: 'Sort',
+            dataIndex: 'sort',
+            key: 'sort',
+            render: (_, record) =>
+                (
+                    record.offerId != null ?
+                        <DragHandle/>
+                        :
+                        <p></p>
+                )
         },
-        drop: (item) => {
-            moveRow(item.index, index);
+        Table.EXPAND_COLUMN,
+        {
+            title: 'Address',
+            dataIndex: 'address',
+            key: 'address'
         },
-    });
-    const [, drag] = useDrag({
-        type,
-        item: {
-            index,
+        {
+            title: 'Settlement',
+            dataIndex: 'settlement',
+            key: 'settlement'
         },
-        collect: (monitor) => ({
-            isDragging: monitor.isDragging(),
-        }),
-    });
-    drop(drag(ref));
-    return (
-        <tr
-            ref={ref}
-            className={`${className}${isOver ? dropClassName : ''}`}
-            style={{
-                cursor: 'move',
-                ...style,
-            }}
-            {...restProps}
-        />
-    );
-};
-
-const columns = [
-    {
-        title: 'Address',
-        dataIndex: 'address',
-        key: 'address',
-    },
-    {
-        title: 'Settlement',
-        dataIndex: 'settlement',
-        key: 'settlement',
-    },
-    {
-        title: 'Region',
-        dataIndex: 'region',
-        key: 'region',
-    },
-    {
-        title: 'Country',
-        dataIndex: 'country',
-        key: 'country',
-    },
-    {
-        title: 'Postcode',
-        dataIndex: 'postcode',
-        key: 'postcode',
-    }
-];
-
-const AddOfferToTrip = () => {
-
-    let paginationFilterModel = {
-        pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
-        pageSize: paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE
-    }
-
-    const [offers, setOffers] = useState();
-    useEffect(() => {
-        async function fetchData() {
-            setOffers(await getOffersNearRout(paginationFilterModel, 1));
+        {
+            title: 'Region',
+            dataIndex: 'region',
+            key: 'region'
+        },
+        {
+            title: 'Country',
+            dataIndex: 'country',
+            key: 'country'
+        },
+        {
+            title: 'Postcode',
+            dataIndex: 'postcode',
+            key: 'postcode'
+        },
+        {
+            title: 'Action',
+            key: 'action',
+            render: (_, record) => (
+                record.offerId != null ?
+                    <Popconfirm title="Sure to delete?" onConfirm={() => {
+                        if (record.offerId != null) {
+                            handlePointDelete(record.key);
+                            handleOfferDelete(record.key);
+                            handleDecreaseTotalWeight(record);
+                        }
+                    }}>
+                        <a>Delete</a>
+                    </Popconfirm>
+                    :
+                    <a onClick={() => {
+                        setPointPosition(record);
+                        setIsModalOpen(true);
+                    }}>Add offer</a>
+            )
         }
+    ];
 
-        fetchData();
-        console.log(offers);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [offers, setOffers] = useState([]);
 
+    const [pointPosition, setPointPosition] = useState();
+
+    const [points, setPoints] = useState(props.points);
+    const [totalWeight, setTotalWeight] = useState(0);
+
+
+    useEffect(() => {
+        setDataOffers();
+        setDataTotalWeight();
+        props.creatTrip(setDataForCreatOffer());
+        props.getPointsOffers(points);
     }, [])
 
-    const [data, setData] = useState([
-        {
-            key: '1',
-            address: 'вулиця Східна, 32',
-            settlement: 'Дніпро',
-            region: 'Дніпропетровська область',
-            country: 'Україна',
-            postcode: '49000'
-        },
-        {
-            key: '2',
-            address: 'вулиця Садова, 1',
-            settlement: 'Нікольське',
-            region: 'Донецька область',
-            country: 'Україна',
-            postcode: '87000'
-        },
-        {
-            key: '3',
-            address: 'вулиця Чкалова, 20',
-            settlement: 'Кропивницький',
-            region: 'Кіровоградська область',
-            country: 'Україна',
-            postcode: '25000'
-        },
-    ]);
-    const components = {
-        body: {
-            row: DraggableBodyRow,
-        },
-    };
-    const moveRow = useCallback(
-        (dragIndex, hoverIndex) => {
-            const dragRow = data[dragIndex];
-            setData(
-                update(data, {
-                    $splice: [
-                        [dragIndex, 1],
-                        [hoverIndex, 0, dragRow],
-                    ],
-                }),
-            );
-        },
-        [data],
+    const setDataOffers = () => {
+        setOffers(points.filter((item) => item.offerId != null));
+    }
+
+    const setDataTotalWeight = () => {
+        const weight = points.reduce((sum, item) => {
+            if (item.creatorRoleName === offerRoles.SENDER) {
+                return sum + item.goodsWeight;
+            } else {
+                return sum;
+            }
+        }, 0)
+        props.totalWeight(weight);
+        setTotalWeight(weight);
+    }
+
+    const setDataForCreatOffer = data => {
+        const creatTripPoints = {
+            pointsTrip: []
+        };
+        let dataPoints = points;
+        if (data != null) {
+            dataPoints = data;
+        }
+        for (let i = 0; i < dataPoints.length; i++) {
+            creatTripPoints.pointsTrip.push({
+                id: dataPoints[i].pointId,
+                offerId: dataPoints[i].offerId,
+                order: i + 1
+            });
+        }
+        return creatTripPoints;
+    }
+
+    const handleDecreaseTotalWeight = record => {
+        if (record.creatorRoleName === offerRoles.SENDER) {
+            const deleteWeight = totalWeight - record.goodsWeight;
+            props.totalWeight(deleteWeight);
+            setTotalWeight(deleteWeight);
+        }
+    }
+
+    const handlePointDelete = (key) => {
+        const dataSource = points;
+        const filteredPoints = dataSource.filter(item => item.key !== key);
+        setPoints(filteredPoints);
+        props.creatTrip(setDataForCreatOffer(filteredPoints));
+    }
+
+    const handleOfferDelete = (key) => {
+        const dataSource = offers;
+        setOffers(dataSource.filter(item => item.key !== key));
+    }
+
+    const [, updateState] = useState();
+    const forceUpdate = React.useCallback(() => updateState({}), []);
+
+    function handlerIncrementTotalWeight(selectedOffers) {
+        let weight = selectedOffers.reduce((sum, item) => {
+            if (item.creatorRoleName === offerRoles.SENDER) {
+                return sum + item.goodsWeight;
+            } else {
+                return sum;
+            }
+        }, 0)
+        props.totalWeight(weight + totalWeight);
+        setTotalWeight(weight + totalWeight);
+    }
+
+    const handlerSetPointsOffers = (selectedOffers, data) => {
+        let finalPoints = [];
+        const pointIndex = points.indexOf(pointPosition);
+        const beforePoints = points.slice(0, pointIndex);
+        const afterPoints = points.slice(pointIndex);
+
+        finalPoints = beforePoints.concat(selectedOffers);
+        finalPoints = finalPoints.concat(afterPoints);
+
+        if (isCorectPositionOffer(finalPoints)) {
+            return;
+        }
+
+        setPoints(finalPoints);
+        setOffers(data);
+        setDataBack(finalPoints);
+    }
+
+    const swapDaysAndMonths = date => {
+        if (!Date.parse(date)) {
+            const splitCreationDate = date.split('.');
+            const day = splitCreationDate[0];
+
+            splitCreationDate[0] = splitCreationDate[1];
+            splitCreationDate[1] = day;
+            return splitCreationDate.join('.');
+        }
+        return date;
+    }
+
+    const handleCloseModal = (event, data, selectedOffers) => {
+        let isValidOffer = false;
+
+        if (selectedOffers.length > 0) {
+            for (let i = 0; i < selectedOffers.length; i++) {
+                const offerCreationDate = swapDaysAndMonths(selectedOffers[i].creationDate);
+
+                const offerDate = new Date(moment(offerCreationDate).format('LLL'));
+                const tripDate = new Date(moment(props.expirationDateTrip).format('LLL'));
+
+                if (offerDate > tripDate) {
+                    errorMessage("Data Time",
+                        `The offer with Settlement: \"${selectedOffers[i].settlement}\" 
+                        is not included in the time range during which the Trip will take place!`);
+                    return;
+                }
+            }
+        }
+
+        if (!isValidOffer) {
+            handlerSetPointsOffers(selectedOffers, data);
+            handlerIncrementTotalWeight(selectedOffers);
+        }
+        setIsModalOpen(false);
+    }
+
+    const onSortEnd = ({oldIndex, newIndex}) => {
+        if (oldIndex !== newIndex) {
+            const newPoint = arrayMoveImmutable(
+                points.slice(),
+                oldIndex,
+                newIndex)
+                .filter((el) => !!el);
+
+            if (isCorectPositionOffer(newPoint)) {
+                return;
+            }
+
+            setPoints(newPoint);
+            setDataBack(newPoint);
+        }
+    }
+
+    const isCorectPositionOffer = data => {
+        const isCorectPosinion = data[0].offerId != null ||
+            data[data.length - 1].offerId != null;
+        if (isCorectPosinion) {
+            message.warning(tripsMessages.TEXT_OFFER_POSITION);
+            return isCorectPosinion;
+        }
+    }
+
+    const setDataBack = data => {
+        props.creatTrip(setDataForCreatOffer(data));
+        props.getPointsOffers(data);
+    }
+
+    const draggableContainer = props => (
+        <SortableBody
+            useDragHandle
+            disableAutoscroll
+            helperClass="row-dragging"
+            onSortEnd={onSortEnd}
+            {...props}
+        />
     );
 
-    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+    const draggableBodyRow = ({className, style, ...restProps}) => {
+        // function findIndex base on Table rowKey props and should always be a right array index
+        const index = points.findIndex((x) => x.key === restProps['data-row-key']);
+        return <SortableItem index={index} {...restProps} />;
+    }
 
-    const onSelectChange = (newSelectedRowKeys) => {
-        console.log('selectedRowKeys changed: ', selectedRowKeys);
-        setSelectedRowKeys(newSelectedRowKeys);
-    };
+    return(
+            <div style={{width: "100%"}}>
+                <div className="pointsComponent">
+                    <p>Points</p>
 
-    const rowSelection = {
-        selectedRowKeys,
-        onChange: onSelectChange
-    };
-
-    return (
-        <DndProvider backend={HTML5Backend}>
-            <div className="pointsComponent">
-                <Table
-                    columns={columns}
-                    dataSource={data}
-                    components={components}
-                    onRow={(_, index) => {
-                        const attr = {
-                            index,
-                            moveRow,
-                        };
-                        return attr;
-                    }}
-                    pagination={{
-                        pageSize: 10,
-                    }}
-                    scroll={{
-                        y: 240,
-                    }}
-                /><
-            /div>
-
-            {offers != null ?
-                <div className="offerComponent">
                     <Table
-                        columns={offerColumns}
-                        dataSource={offers.items}
+                        style={{height: "100%", width: "100%"}}
+                        columns={pointColumns}
+                        dataSource={points}
+                        rowKey="key"
+                        expandable={{
+                            expandedRowRender: (record) => (
+                                record.offerId != null ?
+                                    <div className="expandedRow">
+                                        <div className="offerInfo">
+                                            <p>Creation Date: {record.creationDate}</p>
+                                            <p>Goods Weight: {record.goodsWeight} kg</p>
+                                            <p>Good Category: {record.goodCategoryName}</p>
+                                            <p>Role: {record.creatorRoleName}</p>
+                                        </div>
+
+                                        <Collapse ghost>
+                                            <Panel className="description" header="Description" key="1">
+                                                <p>
+                                                    {record.description}
+                                                </p>
+                                            </Panel>
+                                        </Collapse>
+                                    </div>
+                                    :
+                                    undefined
+                            ),
+                            expandIcon: ({expanded, onExpand, record}) =>
+                                expanded ? (
+                                    record.offerId != null ?
+                                        <CaretDownOutlined onClick={e => {
+                                            forceUpdate();
+                                            return onExpand(record, e)
+                                        }}/>
+                                        :
+                                        false
+                                ) : (
+                                    record.offerId != null ?
+                                        <CaretRightOutlined onClick={e => onExpand(record, e)}/>
+                                        :
+                                        false
+                                )
+                        }}
+                        components={{
+                            body: {
+                                wrapper: draggableContainer,
+                                row: draggableBodyRow,
+                            },
+                        }}
                         pagination={{
                             pageSize: 10,
+                            position: ["none", "bottomCenter"]
                         }}
-                        scroll={{
-                            y: 240,
-                        }}
-                        rowSelection={rowSelection}
-                    />
-                </div>
-                :
-                <div className="offerComponent">
-                    <Table
-                        columns={offerColumns}
-                        dataSource={undefined}
-                    />
-                </div>
-            }
-        </DndProvider>);
-};
+                    /><
+            /div>
+                {isModalOpen && <AddNearOfferModal
+                    tripId={props.tripId}
+                    offers={offers}
+                    myClose={() => setIsModalOpen(false)}
+                    onModalClose={handleCloseModal}
+                />}
+            </div>
+       );
+}
 
 export default AddOfferToTrip;

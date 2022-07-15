@@ -28,7 +28,6 @@ function UserRoute(props) {
     };
 
     useEffect(() => {
-        console.log(props);
         setCities(concatSettlements(props.data.points));
         setThroughCities(concatThroughCities(props.data.points));
     });

@@ -61,9 +61,9 @@ export function createOffer(values, history, point) {
         });
 }
 
-export async function getOffersNearRout(paginationFilterModel, routId) {
+export async function getOffersNearRout(routId) {
     return offersService
-        .getOffersNearRout(paginationFilterModel, routId)
+        .getOffersNearRout(routId)
         .then(
             async (response) => {
                 if (response.status === statusCode.NO_CONTENT) {

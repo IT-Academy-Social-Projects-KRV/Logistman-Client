@@ -17,4 +17,13 @@ export default class tripsService {
             `?PageNumber=${paginationFilterModel.pageNumber}
              &PageSize=${paginationFilterModel.pageSize}`);
     }
+
+    static getById(tripId){
+        return instance.get(TRIPS_URL.GET_BY_ID +
+            `?tripId=${tripId}`);
+    }
+
+    static manage(model) {
+        return instance.post(TRIPS_URL.MANAGE, model);
+    }
 }
