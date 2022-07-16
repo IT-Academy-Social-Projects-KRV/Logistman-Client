@@ -1,17 +1,17 @@
 import React from "react";
 import {Card, Tooltip, Button, Form} from "antd";
 import moment from "moment";
-import {FiCalendar} from "react-icons/fi";
-import {AiOutlineCar, AiOutlineArrowRight, AiOutlineInfoCircle} from "react-icons/ai";
-import {GiWeight} from "react-icons/gi";
-import {RiPinDistanceLine} from "react-icons/ri";
-import {IconContext} from "react-icons";
-import {DEFAULT_ICON_SIZE} from "../../../constants/icon";
-import {useState} from "react";
-import {useEffect} from "react";
-import {concatSettlements, concatThroughCities, deleteRouteById} from "../../../services/trips";
-import {getStartPointAddress, getEndPointAddress} from "../../../constants/address";
-import {confirmDeleteMessage} from "../../../services/alerts";
+import { FiCalendar } from "react-icons/fi";
+import { AiOutlineCar, AiOutlineArrowRight, AiOutlineInfoCircle } from "react-icons/ai";
+import { GiWeight } from "react-icons/gi";
+import { RiPinDistanceLine } from "react-icons/ri";
+import { IconContext } from "react-icons";
+import { DEFAULT_ICON_SIZE } from "../../../constants/icon";
+import { useState } from "react";
+import { useEffect } from "react";
+import { concatSettlements, concatThroughCities } from "../../../services/trips";
+import { getPointAddress } from "../../../constants/address";
+import { confirmDeleteMessage } from "../../../services/alerts";
 
 function MyRoute(props) {
     const [allCities, setCities] = useState();
@@ -41,18 +41,12 @@ function MyRoute(props) {
             <Card className="myRouteCard">
                 <Form className="myRouteCardBody">
                     <div className="addresses">
-                        <p className="fieldText">
-                            From:
-                            <span id="date">
-                                {getStartPointAddress(props.data.points)}
-                            </span>
+                        <p>
+                            From: {getPointAddress(props.data.points[0])}
                         </p>
 
-                        <p className="fieldText">
-                            To:
-                            <span id="date">
-                                {getEndPointAddress(props.data.points)}
-                            </span>
+                        <p>
+                            To: {getPointAddress(props.data.points[props.data.points.length - 1])}
                         </p>
                     </div>
 

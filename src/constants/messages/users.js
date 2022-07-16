@@ -1,4 +1,4 @@
-export const userErrorMessages = Object.freeze({
+export const userMessages = Object.freeze({
     EDIT_USER_PROFILE_SUCCESS: "You have successfully edited the information in your profile!",
     EDIT_USER_PROFILE_FAILED: "Edit user profile failed!",
     EDIT_USER_PROFILE_INFO_FAILED_EMAIL_ALREADY_EXIST:

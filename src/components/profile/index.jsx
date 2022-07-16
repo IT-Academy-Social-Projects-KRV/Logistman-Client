@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {editUserInfo, getUserProfileInfo, deleteUser} from '../../services/users';
 import Header from '../navigation/header';
-import {Button, Form, Input, Layout} from 'antd';
-import {CheckOutlined, CloseOutlined, PlusCircleOutlined} from '@ant-design/icons';
-import {confirmMessage, errorMessage, confirmDeleteMessage} from "../../services/alerts";
-import {generalErrorMessages} from "../../constants/messages/general";
-import {inputValidationErrorMessages} from "../../constants/messages/inputValidationErrors";
-import {userErrorMessages} from "../../constants/messages/user";
+import { Button, Form, Input, Layout } from 'antd';
+import { CheckOutlined, CloseOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import { confirmMessage, errorMessage } from "../../services/alerts";
+import { generalMessages } from "../../constants/messages/general";
+import { inputValidationErrorMessages } from "../../constants/messages/inputValidationErrors";
+import { userMessages } from "../../constants/messages/users";
 import InputRules from "../../constants/inputRules";
 import AddNewCarModal from './../addNewCarModal/index';
 import {userRoles} from "../../constants/userRoles";
@@ -41,8 +41,8 @@ function ProfilePage() {
 
     const onFinishFailed = () => {
         errorMessage(
-            userErrorMessages.EDIT_USER_PROFILE_BLOCKED,
-            generalErrorMessages.CORRECT_ALL_COMMENTS
+            userMessages.EDIT_USER_PROFILE_BLOCKED,
+            generalMessages.CORRECT_ALL_COMMENTS
         );
     };
 
@@ -61,8 +61,8 @@ function ProfilePage() {
                     });
                 } else {
                     errorMessage(
-                        userErrorMessages.EDIT_USER_PROFILE_NOT_CHANGE,
-                        generalErrorMessages.CHANGE_SOMETHING_TO_SAVE
+                        userMessages.EDIT_USER_PROFILE_NOT_CHANGE,
+                        generalMessages.CHANGE_SOMETHING_TO_SAVE
                     );
                 }
             }
@@ -113,20 +113,20 @@ function ProfilePage() {
 
                         <div className="inputBlock">
                             <Form.Item className="formItem" name="name"
-                                       initialValue={userData?.name}
-                                       rules={[
-                                           InputRules.latinLetters(
-                                               inputValidationErrorMessages.NOT_VALID_NAME
-                                           ),
-                                           InputRules.lengthRange(
-                                               2,
-                                               50,
-                                               userErrorMessages.USER_NAME_LENGTH_RANGE
-                                           ),
-                                           InputRules.required(
-                                               inputValidationErrorMessages.EMPTY_NAME
-                                           )
-                                       ]}
+                                initialValue={userData?.name}
+                                rules={[
+                                    InputRules.latinLetters(
+                                        inputValidationErrorMessages.NOT_VALID_NAME
+                                    ),
+                                    InputRules.lengthRange(
+                                        2,
+                                        50,
+                                        userMessages.USER_NAME_LENGTH_RANGE
+                                    ),
+                                    InputRules.required(
+                                        inputValidationErrorMessages.EMPTY_NAME
+                                    )
+                                ]}
                             >
                                 <Input onChange={(e) => {
                                     onNameChange(e)
@@ -143,20 +143,20 @@ function ProfilePage() {
                         <div className="inputBlock">
 
                             <Form.Item className="formItem" name="surname"
-                                       initialValue={userData?.surname}
-                                       rules={[
-                                           InputRules.latinLetters(
-                                               inputValidationErrorMessages.NOT_VALID_SURNAME
-                                           ),
-                                           InputRules.lengthRange(
-                                               2,
-                                               50,
-                                               userErrorMessages.USER_NAME_LENGTH_RANGE
-                                           ),
-                                           InputRules.required(
-                                               inputValidationErrorMessages.EMPTY_SURNAME
-                                           )
-                                       ]}
+                                initialValue={userData?.surname}
+                                rules={[
+                                    InputRules.latinLetters(
+                                        inputValidationErrorMessages.NOT_VALID_SURNAME
+                                    ),
+                                    InputRules.lengthRange(
+                                        2,
+                                        50,
+                                        userMessages.USER_NAME_LENGTH_RANGE
+                                    ),
+                                    InputRules.required(
+                                        inputValidationErrorMessages.EMPTY_SURNAME
+                                    )
+                                ]}
                             >
                                 <Input onChange={(e) => {
                                     onSurnameChange(e)

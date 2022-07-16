@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../navigation/header";
 import { useHistory, Link } from 'react-router-dom';
 import { getUserVerifiedCarsAsync } from "../../services/cars";
-import { carsErrorMessages } from './../../constants/messages/cars';
+import { carsMessages } from './../../constants/messages/cars';
 import { tripsMessages } from './../../constants/messages/trips';
 import { errorMessage } from './../../services/alerts';
 
@@ -18,7 +18,7 @@ function MainPage() {
         }
         else {
             errorMessage(
-                carsErrorMessages.ANY_VERIFIED_CAR,
+                carsMessages.ANY_VERIFIED_CAR,
                 tripsMessages.CREATE_TRIP_BLOCKED
             )
         }

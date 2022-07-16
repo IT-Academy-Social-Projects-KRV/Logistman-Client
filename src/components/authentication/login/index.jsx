@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import { inputValidationErrorMessages } from "../../../constants/messages/inputValidationErrors";
 import { login } from "../../../services/authentication";
 import { errorMessage } from "../../../services/alerts";
-import { authenticationErrorMessages } from "../../../constants/messages/authentication";
-import { generalErrorMessages } from "../../../constants/messages/general";
+import { authenticationMessages } from "../../../constants/messages/authentication";
+import { generalMessages } from "../../../constants/messages/general";
 import InputRules from "../../../constants/inputRules";
 import tokenService from "../../../services/tokens";
 
@@ -23,8 +23,8 @@ function LoginPage() {
 
     const onFinishFailed = () => {
         errorMessage(
-            authenticationErrorMessages.LOGIN_BLOCKED,
-            generalErrorMessages.CORRECT_ALL_COMMENTS
+            authenticationMessages.LOGIN_BLOCKED,
+            generalMessages.CORRECT_ALL_COMMENTS
         );
     };
 

@@ -3,7 +3,7 @@ import * as types from '../reduxActions/auth/types';
 import tokenService from "../services/tokens";
 import jwt from 'jwt-decode';
 import { errorMessage } from '../services/alerts';
-import { authenticationErrorMessages } from '../constants/messages/authentication';
+import { authenticationMessages } from '../constants/messages/authentication';
 
 const intialState = {
     role: userRoles.GUEST,
@@ -33,8 +33,8 @@ const authReducer = (state = intialState, action) => {
             }
 
             errorMessage(
-                authenticationErrorMessages.LOGIN_FAILED,                    // because we set a role only after login
-                authenticationErrorMessages.LOGIN_FAILED_USER_ALREADY_EXIST
+                authenticationMessages.LOGIN_FAILED,                    // because we set a role only after login
+                authenticationMessages.LOGIN_FAILED_USER_ALREADY_EXIST
             );
 
             break;

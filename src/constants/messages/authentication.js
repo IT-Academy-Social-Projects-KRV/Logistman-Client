@@ -1,4 +1,4 @@
-export const authenticationErrorMessages = Object.freeze({
+export const authenticationMessages = Object.freeze({
     LOGIN_FAILED: "Login failed!",
     LOGIN_FAILED_USER_ALREADY_EXIST: "Invalid credentials!",
     LOGIN_BLOCKED: "Log in is blocked!",
