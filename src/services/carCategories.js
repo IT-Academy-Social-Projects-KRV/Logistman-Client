@@ -1,7 +1,7 @@
 import carCategoriesService from "../api/carCategories";
 import { errorMessage } from "./alerts";
-import { generalErrorMessages } from "../constants/messages/general";
-import { carsErrorMessages } from "../constants/messages/cars";
+import { generalMessages } from "../constants/messages/general";
+import { carsMessages } from "../constants/messages/cars";
 import { statusCode } from "../constants/statusCodes";
 
 export async function getCarCategories() {
@@ -15,18 +15,18 @@ export async function getCarCategories() {
                 
                 err.response.status === statusCode.NOT_FOUND
                     ? errorMessage(
-                        carsErrorMessages.CAR_CATEGORIES_NOT_FOUND
+                        carsMessages.CAR_CATEGORIES_NOT_FOUND
                     )
                     :
                     errorMessage(
-                        generalErrorMessages.SOMETHING_WENT_WRONG
+                        generalMessages.SOMETHING_WENT_WRONG
                     );
             }
         )
         .catch(() => {
             errorMessage(
-                carsErrorMessages.CAR_CATEGORIES_NOT_FOUND,
-                generalErrorMessages.SOMETHING_WENT_WRONG
+                carsMessages.CAR_CATEGORIES_NOT_FOUND,
+                generalMessages.SOMETHING_WENT_WRONG
             );
         });
 }

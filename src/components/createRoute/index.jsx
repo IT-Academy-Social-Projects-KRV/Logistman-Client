@@ -6,18 +6,18 @@ import { useJsApiLoader, GoogleMap, DirectionsRenderer, Marker } from '@react-go
 import Header from '../navigation/header';
 import { geocodeLanguage, mapCenter, MIN_KM_FOR_AUXILIARY_POINT } from '../../constants/map';
 import { errorMessage, confirmMessage } from '../../services/alerts';
-import { mapErrorMessages } from '../../constants/messages/map';
-import { generalErrorMessages } from '../../constants/messages/general';
+import { mapMessages } from '../../constants/messages/maps';
+import { generalMessages } from '../../constants/messages/general';
 import { inputValidationErrorMessages } from '../../constants/messages/inputValidationErrors';
 import InputRules from '../../constants/inputRules';
 import { checkTimeDifference, setDisabledDate, CALENDER_DATE_FORMAT } from "../../constants/dates";
-import { carsErrorMessages } from '../../constants/messages/cars';
+import { carsMessages } from '../../constants/messages/cars';
 import { carTableColumns } from './carsTableColumns';
 import { CloseOutlined } from '@ant-design/icons';
 import { MAX_ROUTE_DEVIATION, MIN_ROUTE_DEVIATION, unitsOfMeasurement } from '../../constants/others';
 import { getUserVerifiedCarsAsync } from '../../services/cars';
 import { tripsMessages } from '../../constants/messages/trips';
-import { buildTheRoute, getCoordinatesFromAddress } from '../../services/map';
+import { buildTheRoute, getCoordinatesFromAddress } from '../../services/maps';
 import { pointsMessages } from '../../constants/messages/points';
 import { createTrip } from "../../services/trips";
 import { useHistory } from 'react-router-dom';
@@ -148,7 +148,7 @@ function CreateRoutePage() {
     const onFinishFailed = () => {
         errorMessage(
             tripsMessages.CREATE_TRIP_BLOCKED,
-            generalErrorMessages.CORRECT_ALL_COMMENTS
+            generalMessages.CORRECT_ALL_COMMENTS
         );
     };
 
@@ -306,16 +306,16 @@ function CreateRoutePage() {
                 },
                 () => {
                     errorMessage(
-                        mapErrorMessages.LOAD_ADDRESS_FAILED,
-                        generalErrorMessages.SOMETHING_WENT_WRONG
+                        mapMessages.LOAD_ADDRESS_FAILED,
+                        generalMessages.SOMETHING_WENT_WRONG
                     );
                     return undefined;
                 }
             )
             .catch(() => {
                 errorMessage(
-                    mapErrorMessages.LOAD_ADDRESS_FAILED,
-                    generalErrorMessages.SOMETHING_WENT_WRONG
+                    mapMessages.LOAD_ADDRESS_FAILED,
+                    generalMessages.SOMETHING_WENT_WRONG
                 );
                 return undefined;
             });
@@ -329,8 +329,8 @@ function CreateRoutePage() {
             settlement === undefined &&
             region === undefined) {
             errorMessage(
-                mapErrorMessages.LOAD_ADDRESS_FAILED,
-                generalErrorMessages.SOMETHING_WENT_WRONG
+                mapMessages.LOAD_ADDRESS_FAILED,
+                generalMessages.SOMETHING_WENT_WRONG
             );
 
             return undefined;
@@ -378,7 +378,7 @@ function CreateRoutePage() {
 
         if (selectedCarId === undefined) {
             errorMessage(
-                carsErrorMessages.ANY_SELECTED_CAR,
+                carsMessages.ANY_SELECTED_CAR,
                 tripsMessages.CREATE_TRIP_BLOCKED
             );
             return false;
@@ -394,7 +394,7 @@ function CreateRoutePage() {
             if (car.id === selectedCarId &&
                 parseFloat(loadCapacity) > parseFloat(car.loadCapacity)) {
                 errorMessage(
-                    carsErrorMessages.NOT_VALID_LOAD_CAPACITY_FOR_TRIP,
+                    carsMessages.NOT_VALID_LOAD_CAPACITY_FOR_TRIP,
                     tripsMessages.CREATE_TRIP_BLOCKED
                 );
                 return false;
@@ -728,7 +728,7 @@ function CreateRoutePage() {
                         label="Enter the load capacity: "
                         name="loadCapacity"
                         rules={[
-                            InputRules.required(carsErrorMessages.EMPTY_FIELD)
+                            InputRules.required(generalMessages.FIELD_MUST_NOT_BE_EMPTY)
                         ]}
                     >
                         <InputNumber
@@ -742,7 +742,7 @@ function CreateRoutePage() {
                         label="Enter the max route deviation: "
                         name="maxRouteDeviationKm"
                         rules={[
-                            InputRules.required(carsErrorMessages.EMPTY_FIELD)
+                            InputRules.required(generalMessages.FIELD_MUST_NOT_BE_EMPTY)
                         ]}
                     >
                         <InputNumber
@@ -784,7 +784,7 @@ function CreateRoutePage() {
                                 inputValidationErrorMessages.DESCRIPTION_MUST_BE_BETWEEN_1_AND_1000
                             ),
                             InputRules.notEmpty(
-                                generalErrorMessages.FIELD_MUST_NOT_BE_EMPTY
+                                generalMessages.FIELD_MUST_NOT_BE_EMPTY
                             )
                         ]}
                     >

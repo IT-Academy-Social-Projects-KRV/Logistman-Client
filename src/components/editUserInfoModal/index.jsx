@@ -1,8 +1,8 @@
 import React from "react";
 import { Modal, Form, Input, Button } from "antd";
 import { confirmMessage, errorMessage } from "../../services/alerts";
-import { userErrorMessages } from "../../constants/messages/user";
-import { generalErrorMessages } from "../../constants/messages/general";
+import { userMessages } from "../../constants/messages/users";
+import { generalMessages } from "../../constants/messages/general";
 import { inputValidationErrorMessages } from "../../constants/messages/inputValidationErrors";
 import InputRules from "../../constants/inputRules";
 import { logistEditUserInfo } from '../../services/users';
@@ -33,8 +33,8 @@ function EditUserInfoModal(props) {
                     });
                 } else {
                     errorMessage(
-                        userErrorMessages.EDIT_USER_PROFILE_NOT_CHANGE,
-                        generalErrorMessages.CHANGE_SOMETHING_TO_SAVE
+                        userMessages.EDIT_USER_PROFILE_NOT_CHANGE,
+                        generalMessages.CHANGE_SOMETHING_TO_SAVE
                     );
                 }
             }
@@ -43,8 +43,8 @@ function EditUserInfoModal(props) {
 
     const onFinishFailed = () => {
         errorMessage(
-            userErrorMessages.EDIT_USER_PROFILE_FAILED,
-            generalErrorMessages.CORRECT_ALL_COMMENTS
+            userMessages.EDIT_USER_PROFILE_FAILED,
+            generalMessages.CORRECT_ALL_COMMENTS
         );
     };
 
@@ -81,7 +81,7 @@ function EditUserInfoModal(props) {
                         InputRules.lengthRange(
                             2,
                             50,
-                            userErrorMessages.USER_NAME_LENGTH_RANGE
+                            userMessages.USER_NAME_LENGTH_RANGE
                         ),
                         InputRules.required(
                             inputValidationErrorMessages.EMPTY_USER_NAME
@@ -101,7 +101,7 @@ function EditUserInfoModal(props) {
                         InputRules.lengthRange(
                             2,
                             50,
-                            userErrorMessages.USER_NAME_LENGTH_RANGE
+                            userMessages.USER_NAME_LENGTH_RANGE
                         ),
                         InputRules.required(
                             inputValidationErrorMessages.EMPTY_USER_SURNAME

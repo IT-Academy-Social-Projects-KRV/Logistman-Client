@@ -6,7 +6,6 @@ import { getAllGoodCategories } from "../../services/goodCategories";
 import { useHistory } from "react-router-dom";
 import { Form, Input, Button, DatePicker, Select } from "antd";
 import { errorMessage } from "../../services/alerts";
-import { offersErrorMessages } from "../../constants/messages/offersMessages";
 import Geocode from "react-geocode";
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import { offerValues } from "../../constants/offerValues";
@@ -14,8 +13,10 @@ import InputRules from "../../constants/inputRules";
 import { mapCenter } from "../../constants/map";
 import moment from "moment";
 import { setDisabledDate } from './../../constants/dates';
-import { generalErrorMessages } from './../../constants/messages/general';
+import { generalMessages } from './../../constants/messages/general';
 import { tripsMessages } from "../../constants/messages/trips";
+import { mapMessages } from '../../constants/messages/maps';
+import { offersMessages } from './../../constants/messages/offers';
 
 const { TextArea } = Input;
 const { Option } = Select;
@@ -123,14 +124,14 @@ export default function CreateOfferPage(props) {
                 },
                 () => {
                     errorMessage(
-                        offersErrorMessages.CREATE_OFFER_FAILED,
-                        offersErrorMessages.MAP_IS_NOT_WORK
+                        offersMessages.CREATE_OFFER_FAILED,
+                        mapMessages.MAP_IS_NOT_WORK
                     )
                 }
             ) .catch(() => {
                 errorMessage(
-                    offersErrorMessages.CREATE_OFFER_FAILED,
-                    offersErrorMessages.MAP_IS_NOT_WORK
+                    offersMessages.CREATE_OFFER_FAILED,
+                    mapMessages.MAP_IS_NOT_WORK
                 );
             });
 
@@ -139,8 +140,8 @@ export default function CreateOfferPage(props) {
             country === undefined ||
             postcode === undefined) {
             errorMessage(
-                offersErrorMessages.CREATE_OFFER_FAILED,
-                offersErrorMessages.MAP_IS_NOT_WORK
+                offersMessages.CREATE_OFFER_FAILED,
+                mapMessages.MAP_IS_NOT_WORK
             );
         }
 
@@ -197,8 +198,8 @@ export default function CreateOfferPage(props) {
 
     const onFinishFailed = () => {
         errorMessage(
-            offersErrorMessages.CREATE_OFFER_FAILED,
-            offersErrorMessages.ENTER_ALL_INPUTS
+            offersMessages.CREATE_OFFER_FAILED,
+            generalMessages.FIELD_MUST_NOT_BE_EMPTY
         );
     }
 
@@ -225,8 +226,8 @@ export default function CreateOfferPage(props) {
                             label="Select your address: "
                             labelAlign="left"
                             rules={[
-                                InputRules.specificType("string", offersErrorMessages.EMPTY_FIELD),
-                                InputRules.required(offersErrorMessages.EMPTY_FIELD)
+                                InputRules.specificType("string", generalMessages.FIELD_MUST_NOT_BE_EMPTY),
+                                InputRules.required(generalMessages.FIELD_MUST_NOT_BE_EMPTY)
                             ]}
                         >
                             <PlacesAutocomplete
@@ -268,7 +269,7 @@ export default function CreateOfferPage(props) {
                             label="Select good categories: "
                             labelAlign="left"
                             rules={[
-                                InputRules.required(offersErrorMessages.EMPTY_FIELD)
+                                InputRules.required(generalMessages.FIELD_MUST_NOT_BE_EMPTY)
                             ]}
                         >
                             <Select
@@ -287,7 +288,7 @@ export default function CreateOfferPage(props) {
                             label="Select date: "
                             labelAlign="left"
                             rules={[
-                                InputRules.required(offersErrorMessages.EMPTY_FIELD)
+                                InputRules.required(generalMessages.FIELD_MUST_NOT_BE_EMPTY)
                             ]}
                         >
                             <DatePicker
@@ -304,8 +305,8 @@ export default function CreateOfferPage(props) {
                             label="Select good weight: "
                             labelAlign="left"
                             rules={[
-                                InputRules.capitalDigitFirst(offersErrorMessages.NOT_VALID_GOOD_WEIGHT_MESSAGE),
-                                InputRules.required(offersErrorMessages.EMPTY_FIELD)
+                                InputRules.capitalDigitFirst(offersMessages.NOT_VALID_GOOD_WEIGHT_MESSAGE),
+                                InputRules.required(generalMessages.FIELD_MUST_NOT_BE_EMPTY)
                             ]}
                         >
                             <Input
@@ -321,9 +322,9 @@ export default function CreateOfferPage(props) {
                             label="Write description: "
                             labelAlign="left"
                             rules={[
-                                InputRules.specificType("string", offersErrorMessages.EMPTY_FIELD),
-                                InputRules.required(offersErrorMessages.EMPTY_FIELD),
-                                InputRules.notEmpty(generalErrorMessages.FIELD_MUST_NOT_BE_EMPTY)
+                                InputRules.specificType("string", generalMessages.FIELD_MUST_NOT_BE_EMPTY),
+                                InputRules.required(generalMessages.FIELD_MUST_NOT_BE_EMPTY),
+                                InputRules.notEmpty(generalMessages.FIELD_MUST_NOT_BE_EMPTY)
                             ]}
                         >
                             <TextArea placeholder="Description" />
