@@ -10,6 +10,7 @@ import moment from 'moment';
 import { offerRoles } from '../../../constants/offerRoles';
 import heavy_icon from "../../../assets/images/cars/heavy.svg";
 import { manageInivite } from "../../../services/invites";
+import { getPointAddress } from './../../../constants/address';
 
 function OfferInvite(data) {
     const [isAnswered, setIsAnswered] = useState(data.info.isAnswered);
@@ -43,7 +44,7 @@ function OfferInvite(data) {
                     <div className="field-group">
                         <div className="cardField">
                             <EnvironmentOutlined className="fieldIcon" />
-                            <p className="fieldText">{data.info.offerInfo.address}, {data.info.offerInfo.settlement}</p>
+                            <p className="fieldText">{getPointAddress(data.info.offerInfo.settlement)}</p>
                         </div>
                     </div>
 

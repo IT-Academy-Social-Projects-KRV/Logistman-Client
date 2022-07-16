@@ -7,6 +7,7 @@ import { DEFAULT_ICON_SIZE } from "../../../constants/icon";
 import { GiWeight } from "react-icons/gi";
 import { RiPinDistanceLine } from "react-icons/ri";
 import { manageInivite } from "../../../services/invites";
+import { getPointAddress } from './../../../constants/address';
 
 function DriversInvite(props) {
     const [isAnswered, setIsAnswered] = useState(props.data.isAnswered);
@@ -26,27 +27,11 @@ function DriversInvite(props) {
                 <div className="top">
                     <div className="points">
                         <p>
-                            From:
-                            {" " +
-                                props.data.pointFromInfo.address +
-                                " " +
-                                props.data.pointFromInfo.settlement +
-                                " " +
-                                props.data.pointFromInfo.region +
-                                " " +
-                                props.data.pointFromInfo.country}
+                            From: {getPointAddress(props.data.pointFromInfo)}
                         </p>
 
                         <p>
-                            To:
-                            {" " +
-                                props.data.pointToInfo.address +
-                                " " +
-                                props.data.pointToInfo.settlement +
-                                " " +
-                                props.data.pointToInfo.region +
-                                " " +
-                                props.data.pointToInfo.country}
+                            To: {getPointAddress(props.data.pointToInfo)}
                         </p>
                     </div>
 
@@ -62,17 +47,13 @@ function DriversInvite(props) {
                         <p className="dataField">
                             <BsPinMap size={DEFAULT_ICON_SIZE} />
 
-                            {offer.creatorRoleName +
+                            {
+                                offer.creatorRoleName +
                                 " " +
                                 offer.goodCategoryName +
                                 " at " +
-                                offer.pointInfo.address +
-                                ", " +
-                                offer.pointInfo.settlement +
-                                ", " +
-                                offer.pointInfo.region +
-                                ", " +
-                                offer.pointInfo.country}
+                                getPointAddress(offer.pointInfo)
+                            }
                         </p>
                     )}
 
@@ -88,7 +69,7 @@ function DriversInvite(props) {
                         Total route distance: {props.data.totalDistance} km
                     </p>
                 </div>
-                
+
                 {isAnswered ?
                     <div id="cardBottom">
                         <Button>

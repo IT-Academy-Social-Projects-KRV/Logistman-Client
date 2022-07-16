@@ -1,7 +1,7 @@
 import offersService from "../api/offers";
 import { errorMessage, successMessage } from "./alerts";
-import { generalErrorMessages } from "../constants/messages/general";
-import { offersErrorMessages } from "../constants/messages/offersMessages";
+import { generalMessages } from "../constants/messages/general";
+import { offersMessages } from "../constants/messages/offers";
 import { statusCode } from "../constants/statusCodes";
 
 export async function getUserOffers(paginationFilterModel) {
@@ -17,15 +17,15 @@ export async function getUserOffers(paginationFilterModel) {
       },
       () => {
         errorMessage(
-          offersErrorMessages.LOAD_USER_OFFERS_FAILED,
-          generalErrorMessages.SOMETHING_WENT_WRONG
+          offersMessages.LOAD_USER_OFFERS_FAILED,
+          generalMessages.SOMETHING_WENT_WRONG
         );
       }
     )
     .catch(() => {
       errorMessage(
-        offersErrorMessages.LOAD_USER_OFFERS_FAILED,
-        generalErrorMessages.SOMETHING_WENT_WRONG
+        offersMessages.LOAD_USER_OFFERS_FAILED,
+        generalMessages.SOMETHING_WENT_WRONG
       );
     });
 }
@@ -43,20 +43,20 @@ export function createOffer(values, history, point) {
   offersService.create(model)
     .then(
       () => {
-        successMessage(offersErrorMessages.CREATE_OFFER_SUCCESS);
+        successMessage(offersMessages.CREATE_OFFER_SUCCESS);
         history.push("/main");
       },
       () => {
         errorMessage(
-          offersErrorMessages.CREATE_OFFER_FAILED,
-          generalErrorMessages.SOMETHING_WENT_WRONG
+          offersMessages.CREATE_OFFER_FAILED,
+          generalMessages.SOMETHING_WENT_WRONG
         );
       }
     )
     .catch(() => {
       errorMessage(
-        offersErrorMessages.CREATE_OFFER_FAILED,
-        generalErrorMessages.SOMETHING_WENT_WRONG
+        offersMessages.CREATE_OFFER_FAILED,
+        generalMessages.SOMETHING_WENT_WRONG
       );
     });
 }

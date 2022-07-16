@@ -25,7 +25,7 @@ export const inputValidationErrorMessages = Object.freeze({
         "The password must be between 8 and 50 symbols!",
 
     CONFIRM_PASSWORD: "Please confirm your password!",
-    PASSWORD_DONT_MATCH: "The two passwords that you entered do not match!",
+    PASSWORD_DOESNT_MATCH: "The two passwords that you entered does not match!",
 
     UNSELECTED_DATE: "Choose a date!"
 });

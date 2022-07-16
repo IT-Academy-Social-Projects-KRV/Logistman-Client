@@ -8,6 +8,7 @@ import {
 import moment from 'moment';
 import Text from "antd/es/typography/Text";
 import { offerRoles } from '../../../constants/offerRoles';
+import { getPointAddress } from "../../../constants/address";
 
 function MyOffer(data) {
 
@@ -18,8 +19,8 @@ function MyOffer(data) {
                 <Text strong className="offerStatus">
 
                     {!data.info.isClosed ?
-                        <p id="opened">Opened</p> :
-                        <p id="closed">Closed</p>
+                            <p id="opened">Opened</p> :
+                            <p id="closed">Closed</p>
                     }
                 </Text>
             </div>
@@ -38,7 +39,7 @@ function MyOffer(data) {
             <div>
                 <div className="cardField">
                     <EnvironmentOutlined className="fieldIcon" />
-                    <p className="fieldText">{data.info.address}</p>
+                    <p className="fieldText">{getPointAddress(data.info)}</p>
                 </div>
             </div>
 

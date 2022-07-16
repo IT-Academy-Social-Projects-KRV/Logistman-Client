@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Modal, Form, Input, InputNumber, Select, Button } from 'antd';
 import { addCar } from "../../services/cars";
 import { errorMessage } from "../../services/alerts";
-import { carsErrorMessages } from "../../constants/messages/cars";
+import { carsMessages } from "../../constants/messages/cars";
 import { getCarCategories } from "../../services/carCategories";
 import InputRules from "../../constants/inputRules";
-import { generalErrorMessages } from '../../constants/messages/general';
+import { generalMessages } from '../../constants/messages/general';
 
 function AddNewCarModal(props) {
     const [categories, setCategories] = useState([]);
@@ -38,8 +38,8 @@ function AddNewCarModal(props) {
 
     const onFinishFailed = () => {
         errorMessage(
-            carsErrorMessages.ADD_CAR_FAILED,
-            generalErrorMessages.CORRECT_ALL_COMMENTS
+            carsMessages.ADD_CAR_FAILED,
+            generalMessages.CORRECT_ALL_COMMENTS
         );
     };
 
@@ -64,10 +64,10 @@ function AddNewCarModal(props) {
                     label={"Model: "}
                     rules={[
                         InputRules.capitalLetterFirst(
-                            carsErrorMessages.CAPITAL_LETTER_FIRST
+                            carsMessages.CAPITAL_LETTER_FIRST
                         ),
                         InputRules.carModel(),
-                        InputRules.required(carsErrorMessages.EMPTY_FIELD)
+                        InputRules.required(generalMessages.FIELD_MUST_NOT_BE_EMPTY)
                     ]}
                 >
                     <Input placeholder="Model" />
@@ -77,7 +77,7 @@ function AddNewCarModal(props) {
                     label="Technical passport: "
                     rules={[
                         InputRules.technicalPassport(),
-                        InputRules.required(carsErrorMessages.EMPTY_FIELD)
+                        InputRules.required(generalMessages.FIELD_MUST_NOT_BE_EMPTY)
                     ]}
                 >
                     <Input placeholder="Technical passport" />
@@ -87,7 +87,7 @@ function AddNewCarModal(props) {
                     label={"Registration number: "}
                     rules={[
                         InputRules.registrationNumber(),
-                        InputRules.required(carsErrorMessages.EMPTY_FIELD)
+                        InputRules.required(generalMessages.FIELD_MUST_NOT_BE_EMPTY)
                     ]}
                 >
                     <Input placeholder="Registration number" />
@@ -96,7 +96,7 @@ function AddNewCarModal(props) {
                 <Form.Item name="loadCapacity"
                     label={"Load capacity: "}
                     rules={[
-                        InputRules.required(carsErrorMessages.EMPTY_FIELD)
+                        InputRules.required(generalMessages.FIELD_MUST_NOT_BE_EMPTY)
                     ]}
                 >
                     <InputNumber min={0}
@@ -111,9 +111,9 @@ function AddNewCarModal(props) {
                         InputRules.vin(),
                         InputRules.length(
                             17,
-                            carsErrorMessages.NOT_VALID_VIN_LENGTH
+                            carsMessages.NOT_VALID_VIN_LENGTH
                         ),
-                        InputRules.required(carsErrorMessages.EMPTY_FIELD)
+                        InputRules.required(generalMessages.FIELD_MUST_NOT_BE_EMPTY)
                     ]}
                 >
                     <Input placeholder="VIN" />
@@ -122,7 +122,7 @@ function AddNewCarModal(props) {
                 <Form.Item name="category"
                     label={"Category: "}
                     rules={[
-                        InputRules.required(carsErrorMessages.EMPTY_FIELD)
+                        InputRules.required(generalMessages.FIELD_MUST_NOT_BE_EMPTY)
 
                     ]}
                 >
@@ -142,9 +142,9 @@ function AddNewCarModal(props) {
                     label={"Color: "}
                     rules={[
                         InputRules.latinLetters(
-                            carsErrorMessages.NOT_VALID_COLOR
+                            carsMessages.NOT_VALID_COLOR
                         ),
-                        InputRules.required(carsErrorMessages.EMPTY_FIELD)
+                        InputRules.required(generalMessages.FIELD_MUST_NOT_BE_EMPTY)
                     ]}
                 >
                     <Input placeholder="Color" />

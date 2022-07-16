@@ -1,8 +1,8 @@
 import authenticationService from "../api/authentication";
 import {successMessage, errorMessage} from "./alerts";
-import {authenticationErrorMessages} from "../constants/messages/authentication";
+import {authenticationMessages} from "../constants/messages/authentication";
 import {setAccess, logout} from "../reduxActions/auth";
-import {generalErrorMessages} from "../constants/messages/general";
+import {generalMessages} from "../constants/messages/general";
 import tokenService from "../services/tokens";
 import jwt from 'jwt-decode';
 import { statusCode } from "../constants/statusCodes";
@@ -21,26 +21,26 @@ export function register(values, history) {
         .register(model)
         .then(
             () => {
-                successMessage(authenticationErrorMessages.REGISTRATION_SUCCESS);
+                successMessage(authenticationMessages.SUCCESSFUL_REGISTRATION);
 
                 history.push("/login");
             },
             (err) => {
                 err.response.status === statusCode.BAD_REQUEST
                     ? errorMessage(
-                        authenticationErrorMessages.REGISTRATION_FAILED,
-                        authenticationErrorMessages.REGISTRATION_FAILED_USER_ALREADY_EXIST
+                        authenticationMessages.REGISTRATION_FAILED,
+                        authenticationMessages.REGISTRATION_FAILED_USER_ALREADY_EXIST
                     )
                     : errorMessage(
-                        authenticationErrorMessages.REGISTRATION_FAILED,
-                        generalErrorMessages.SOMETHING_WENT_WRONG
+                        authenticationMessages.REGISTRATION_FAILED,
+                        generalMessages.SOMETHING_WENT_WRONG
                     );
             }
         )
         .catch(() => {
             errorMessage(
-                authenticationErrorMessages.REGISTRATION_FAILED,
-                generalErrorMessages.SOMETHING_WENT_WRONG
+                authenticationMessages.REGISTRATION_FAILED,
+                generalMessages.SOMETHING_WENT_WRONG
             );
         });
 }
@@ -68,8 +68,8 @@ export function login(values, history) {
                         break;
                     default:
                         errorMessage(
-                            authenticationErrorMessages.LOGIN_FAILED,
-                            generalErrorMessages.SOMETHING_WENT_WRONG
+                            authenticationMessages.LOGIN_FAILED,
+                            generalMessages.SOMETHING_WENT_WRONG
                         );
                         break;
                 }
@@ -77,19 +77,19 @@ export function login(values, history) {
             (err) => {
                 err.response.status === statusCode.BAD_REQUEST
                     ? errorMessage(
-                        authenticationErrorMessages.LOGIN_FAILED,
-                        authenticationErrorMessages.LOGIN_FAILED_USER_ALREADY_EXIST
+                        authenticationMessages.LOGIN_FAILED,
+                        authenticationMessages.LOGIN_FAILED_USER_ALREADY_EXIST
                     )
                     : errorMessage(
-                        authenticationErrorMessages.LOGIN_FAILED,
-                        generalErrorMessages.SOMETHING_WENT_WRONG
+                        authenticationMessages.LOGIN_FAILED,
+                        generalMessages.SOMETHING_WENT_WRONG
                     );
             }
         )
         .catch(() => {
             errorMessage(
-                authenticationErrorMessages.LOGIN_FAILED,
-                generalErrorMessages.SOMETHING_WENT_WRONG
+                authenticationMessages.LOGIN_FAILED,
+                generalMessages.SOMETHING_WENT_WRONG
             );
         });
 }
@@ -107,15 +107,15 @@ export function logoutUser() {
             },
             () => {
                 errorMessage(
-                    authenticationErrorMessages.LOGOUT_FAILED,
-                    generalErrorMessages.SOMETHING_WENT_WRONG
+                    authenticationMessages.LOGOUT_FAILED,
+                    generalMessages.SOMETHING_WENT_WRONG
                 );
             }
         )
         .catch(() => {
             errorMessage(
-                authenticationErrorMessages.LOGOUT_FAILED,
-                generalErrorMessages.SOMETHING_WENT_WRONG
+                authenticationMessages.LOGOUT_FAILED,
+                generalMessages.SOMETHING_WENT_WRONG
             );
         });
 }
@@ -141,18 +141,18 @@ export async function confirmEmailAsync(token) {
         .confirmEmail({token})
         .then(
             () => {
-                successMessage(authenticationErrorMessages.SUCCESSFUL_EMAIL_CONFIRMATION);
+                successMessage(authenticationMessages.SUCCESSFUL_EMAIL_CONFIRMATION);
             },
             () => {
                 errorMessage(
-                    authenticationErrorMessages.SEND_EMAIL_CONFIRMATION_FAILED,
-                    authenticationErrorMessages.EMAIL_CONFIRMATION
+                    authenticationMessages.SEND_EMAIL_CONFIRMATION_FAILED,
+                    authenticationMessages.EMAIL_CONFIRMATION
                 );
             })
         .catch(() => {
             errorMessage(
-                authenticationErrorMessages.SEND_EMAIL_CONFIRMATION_FAILED,
-                generalErrorMessages.SOMETHING_WENT_WRONG
+                authenticationMessages.SEND_EMAIL_CONFIRMATION_FAILED,
+                generalMessages.SOMETHING_WENT_WRONG
             );
         });
 }

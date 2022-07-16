@@ -1,4 +1,4 @@
-import { carsErrorMessages } from './messages/cars';
+import { carsMessages } from './messages/cars';
 
 export default class InputRules {
     static latinLetters(message) {
@@ -60,28 +60,28 @@ export default class InputRules {
     static carModel() {
         return {
             pattern: new RegExp("^([A-Za-z\\d ]?)*$"),
-            message: carsErrorMessages.NOT_VALID_MODEL
+            message: carsMessages.NOT_VALID_MODEL
         }
     }
 
     static technicalPassport() {
         return {
             pattern: new RegExp("^[a-zA-Z\\d ]*$"),
-            message: carsErrorMessages.NOT_VALID_TECH_PASSPORT
+            message: carsMessages.NOT_VALID_TECH_PASSPORT
         }
     }
 
     static registrationNumber() {
         return {
             pattern: new RegExp("^[a-zA-Z\\d ]*$"),
-            message: carsErrorMessages.NOT_VALID_REGISTRATION_NUMBER
+            message: carsMessages.NOT_VALID_REGISTRATION_NUMBER
         }
     }
 
     static vin() {
         return {
             pattern: new RegExp("^[a-zA-Z\\d]*$"),
-            message: carsErrorMessages.NOT_VALID_VIN
+            message: carsMessages.NOT_VALID_VIN
         }
     }
 

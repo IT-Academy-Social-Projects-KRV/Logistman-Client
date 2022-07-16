@@ -1,6 +1,6 @@
 import { errorMessage } from "./alerts";
-import { generalErrorMessages } from "../constants/messages/general";
-import { goodCategoryMessages } from "../constants/messages/goodCategory";
+import { generalMessages } from "../constants/messages/general";
+import { goodCategoryMessages } from "../constants/messages/goodCategories";
 import goodCategoryService from "../api/goodCategories";
 
 export function getAllGoodCategories() {
@@ -13,14 +13,14 @@ export function getAllGoodCategories() {
       () => {
         errorMessage(
           goodCategoryMessages.GET_GOOD_CATEGORIES_FAILED,
-          generalErrorMessages.SOMETHING_WENT_WRONG
+          generalMessages.SOMETHING_WENT_WRONG
         );
       }
     )
     .catch(() => {
       errorMessage(
         goodCategoryMessages.GET_GOOD_CATEGORIES_FAILED,
-        generalErrorMessages.SOMETHING_WENT_WRONG
+        generalMessages.SOMETHING_WENT_WRONG
       );
     });
 }
