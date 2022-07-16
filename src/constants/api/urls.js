@@ -27,7 +27,7 @@ export const CARS_URLS = {
     GET_BY_USER_EMAIL: CAR_URL + "/user-cars",
     VERIFY: CAR_URL + "/verify",
     UNVERIFY: CAR_URL + "/unverify",
-    DELETE: CAR_URL + "/delete-car"
+    DELETE: CAR_URL + "/delete"
 };
 
 export const GOOD_CATEGORIES_URLS = {

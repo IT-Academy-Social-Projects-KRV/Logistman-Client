@@ -170,15 +170,18 @@ export async function deleteById(id) {
             );
         },
         (err) => {
-            err.response.status === 406
-                ? errorMessage(
-                    carsErrorMessages.FAILED_TO_DELETE_DUE_ROUTE
-                )
-                :
+            if (err.response.status === statusCode.FORBIDDEN) {
+                errorMessage(
+                    carsErrorMessages.DELETE_CAR_FAILED,
+                    carsErrorMessages.FAILED_TO_DELETE_CAR_DUE_ROUTE
+                )    
+            }
+            else {
                 errorMessage(
                     carsErrorMessages.DELETE_FAILED,
                     generalErrorMessages.SOMETHING_WENT_WRONG
                 );
+            } 
         }
     )
     .catch(() => {

@@ -26,14 +26,14 @@ function MyRoute(props) {
         props.updateRoute();
     }
 
-    const deleteRoute = (id) => {
-        confirmDeleteMessage().then((result) => {
-            if (result) {
-                deleteRouteById(id).then(() => {
-                    updateRoute();
-                });
-            }
-        });
+    const deleteRoute = async (model) => {
+        var result = await confirmDeleteMessage();
+
+        if (result) {
+            deleteRouteById(model).then(() => {
+                updateRoute();
+            });
+        }
     }
 
     return (

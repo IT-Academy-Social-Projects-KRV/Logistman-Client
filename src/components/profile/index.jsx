@@ -31,12 +31,12 @@ function ProfilePage() {
         }
     });
 
-    const deleteProfile = () => {
-        confirmDeleteMessage().then((result) => {
-            if (result) {
-                deleteUser();
-            }
-        })
+    const deleteProfile = async () => {
+        var result = await confirmDeleteMessage();
+
+        if (result) {
+            deleteUser();
+        }
     }
 
     const onFinishFailed = () => {

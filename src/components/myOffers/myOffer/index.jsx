@@ -1,5 +1,5 @@
 import React from "react";
-import {Card, Tag, Button, Form} from "antd";
+import {Card, Tag, Button} from "antd";
 import {
     CalendarOutlined,
     EnvironmentOutlined,
@@ -16,14 +16,14 @@ function MyOffer(data) {
         data.updateOffers();
     }
 
-    const deleteOffer = (id) => {
-        confirmDeleteMessage().then((result) => {
-            if (result) {
-                deleteById(id).then(() => {
-                    updateOffers();
-                });
-            }
-        });
+    const deleteOffer = async (model) => {
+        var result = await confirmDeleteMessage();
+
+        if (result) {
+            deleteById(model).then(() => {
+                updateOffers();
+            });
+        }
     }
 
     return (
@@ -38,7 +38,6 @@ function MyOffer(data) {
                     }
                 </Text>
             </div>
-
 
             <Tag>{data.info.creatorRoleName === offerRoles.SENDER.toUpperCase() ? "Donate" : "Need"}</Tag>
 
@@ -71,10 +70,8 @@ function MyOffer(data) {
                     </div>
                 </div>
             </div>
-            {data.info.tripId === null
+            {data.info.relatedTripId === null
                 ?
-                <></>
-                :
                 <div className="buttonsBlock">
                     <Button
                         type="danger"
@@ -83,6 +80,8 @@ function MyOffer(data) {
                         Delete
                     </Button>
                 </div>
+                :
+                <></>
             }
 
         </Card>

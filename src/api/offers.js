@@ -16,7 +16,7 @@ export default class offersService {
              &PageSize=${paginationFilterModel.pageSize}`);
     }
 
-    static deleteById(id) {
-        return instance.delete(OFFERS_URLS.DELETE + `?offerId=${id}`);
+    static deleteById(model) {
+        return instance.delete(OFFERS_URLS.DELETE + `?offerId=${model}`);
     }
 }

@@ -6,12 +6,12 @@ import Header from "../navigation/header";
 import { Pagination } from 'antd';
 import { paginationDefaultFilter } from "../../constants/pagination";
 
-function ManageUsersPage() {
+let paginationFilterModel = {
+    pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
+    pageSize: paginationDefaultFilter.DEFAULT_LARGE_PAGE_SIZE
+}
 
-    let paginationFilterModel = {
-        pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
-        pageSize: paginationDefaultFilter.DEFAULT_LARGE_PAGE_SIZE
-    }
+function ManageUsersPage() {
 
     const [users, setUsers] = useState();
 

@@ -6,12 +6,12 @@ import { customPageSizeOptions } from "../../constants/pagination";
 import { getOffersInvites } from "../../services/invites";
 import OfferInvite from './offerInvite/index';
 
-function OffersInvitesPage() {
+let paginationFilterModel = {
+    pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
+    pageSize: paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE
+};
 
-    let paginationFilterModel = {
-        pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
-        pageSize: paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE
-    };
+function OffersInvitesPage() {
 
     const [invites, setInvites] = useState();
 

@@ -139,18 +139,27 @@ export async function deleteUser() {
     await usersService
     .deleteUser()
     .then(
-        () => {
+        (response) => {
+            console.log(response.status);
             successMessage(
                 generalErrorMessages.DELETE_SUCCESSFULLY,
                 1000
             );
             store.dispatch(logout());
         },
-        () => {
-            errorMessage(
-                userErrorMessages.DELETE_USER_FAILED,
-                generalErrorMessages.SOMETHING_WENT_WRONG
-            );
+        (err) => {
+            if(err.response.status === statusCode.FORBIDDEN) {
+                errorMessage(
+                    userErrorMessages.DELETE_USER_FAILED,
+                    userErrorMessages.DELETE_USER_FORBIDDEN
+                );
+            }
+            else {
+                errorMessage(
+                    userErrorMessages.DELETE_USER_FAILED,
+                    generalErrorMessages.SOMETHING_WENT_WRONG
+                );
+            }
         })
     .catch(() => {
         errorMessage(

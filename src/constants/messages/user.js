@@ -11,5 +11,6 @@ export const userErrorMessages = Object.freeze({
     GET_USER_FULL_NAME_FAILED: "Get user full name failed!",
     GET_USER_INFO_FAILED: "Get user info failed!",
     GET_LIST_OF_USERS_FAILED: "Get list of users failed!",
+    DELETE_USER_FORBIDDEN: "You can`t delete account while you are participating in active trip!",
     DELETE_USER_FAILED: "Failed to delete user!"
 });

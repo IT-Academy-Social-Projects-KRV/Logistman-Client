@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, Card, Form} from "antd";
+import {Button, Card } from "antd";
 import {FormOutlined} from "@ant-design/icons";
 import Text from "antd/es/typography/Text";
 import bucket_icon from "../../../assets/images/cars/bucket.svg";
@@ -30,14 +30,14 @@ function MyCar(data) {
         data.updateCars();
     }
 
-    const deleteCar = (id) => {
-        confirmDeleteMessage().then((result) => {
-            if (result) {
-                deleteById(id).then(() => {
-                    updateCars();
-                });
-            }
-        });
+    const deleteCar = async (model) => {
+        var result = await confirmDeleteMessage();
+
+        if (result) {
+            deleteById(model).then(() => {
+                updateCars();
+            });
+        }
     }
 
     return (

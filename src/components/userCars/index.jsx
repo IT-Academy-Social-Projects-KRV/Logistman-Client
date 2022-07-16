@@ -6,14 +6,14 @@ import MyCar from "../myCars/myCar";
 import {Pagination, Result} from "antd";
 import { useLocation } from 'react-router-dom';
 
+let paginationFilterModel = {
+    pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
+    pageSize: paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE
+}
+
 function UserCarsPage() {
     const location = useLocation();
     const userData = location.state;
-
-    let paginationFilterModel = {
-        pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
-        pageSize: paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE
-    }
 
     const [cars, setCars] = useState();
 

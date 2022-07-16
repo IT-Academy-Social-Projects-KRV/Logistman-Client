@@ -7,17 +7,18 @@ import { Pagination } from 'antd';
 import { paginationDefaultFilter } from "../../constants/pagination";
 import { customPageSizeOptions } from "../../constants/pagination";
 
+let paginationFilterModel = {
+    pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
+    pageSize: paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE
+}
+
 function MyOffersPage() {
-
-    let paginationFilterModel = {
-        pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
-        pageSize: paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE
-    }
-
+    
     const [offers, setOffers] = useState();
 
     const updateOffers = async () => {
         setOffers(await getUserOffers(paginationFilterModel));
+        console.log(paginationFilterModel);
     }
 
     useEffect(async () => {

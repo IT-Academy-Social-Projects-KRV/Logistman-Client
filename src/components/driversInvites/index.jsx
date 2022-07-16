@@ -6,11 +6,12 @@ import { customPageSizeOptions } from "../../constants/pagination";
 import DriversInvite from "./driversInvite";
 import { getDriversInvites } from "../../services/invites";
 
+let paginationFilterModel = {
+    pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
+    pageSize: paginationDefaultFilter.DEFAULT_LARGE_PAGE_SIZE
+}
+
 function DriversInvitesPage() {
-    let paginationFilterModel = {
-        pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
-        pageSize: paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE
-    };
 
     const [invites, setInvites] = useState();
 
