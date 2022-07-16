@@ -142,7 +142,7 @@ export async function deleteUser() {
         (response) => {
             console.log(response.status);
             successMessage(
-                generalErrorMessages.DELETE_SUCCESSFULLY,
+                generalMessages.DELETE_SUCCESSFULLY,
                 1000
             );
             store.dispatch(logout());
@@ -150,21 +150,21 @@ export async function deleteUser() {
         (err) => {
             if(err.response.status === statusCode.FORBIDDEN) {
                 errorMessage(
-                    userErrorMessages.DELETE_USER_FAILED,
-                    userErrorMessages.DELETE_USER_FORBIDDEN
+                    userMessages.DELETE_USER_FAILED,
+                    userMessages.DELETE_USER_FORBIDDEN
                 );
             }
             else {
                 errorMessage(
-                    userErrorMessages.DELETE_USER_FAILED,
-                    generalErrorMessages.SOMETHING_WENT_WRONG
+                    userMessages.DELETE_USER_FAILED,
+                    generalMessages.SOMETHING_WENT_WRONG
                 );
             }
         })
     .catch(() => {
         errorMessage(
-            userErrorMessages.DELETE_USER_FAILED,
-            generalErrorMessages.SOMETHING_WENT_WRONG
+            userMessages.DELETE_USER_FAILED,
+            generalMessages.SOMETHING_WENT_WRONG
         );
     });
 }

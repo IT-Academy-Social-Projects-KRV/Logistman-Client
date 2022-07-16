@@ -165,30 +165,30 @@ export async function deleteById(id) {
     .then(
         () => {
             successMessage(
-                generalErrorMessages.DELETE_SUCCESSFULLY,
+                generalMessages.DELETE_SUCCESSFULLY,
                 1500
             );
         },
         (err) => {
             if (err.response.status === statusCode.FORBIDDEN) {
                 errorMessage(
-                    carsErrorMessages.DELETE_CAR_FAILED,
-                    carsErrorMessages.FAILED_TO_DELETE_CAR_DUE_ROUTE
+                    carsMessages.DELETE_CAR_FAILED,
+                    carsMessages.FAILED_TO_DELETE_CAR_DUE_ROUTE
                 )    
             }
             else {
                 errorMessage(
-                    carsErrorMessages.DELETE_FAILED,
-                    generalErrorMessages.SOMETHING_WENT_WRONG
+                    carsMessages.DELETE_FAILED,
+                    generalMessages.SOMETHING_WENT_WRONG
                 );
             } 
         }
     )
     .catch(() => {
         errorMessage(
-            carsErrorMessages.FAILED_TO_DELETE_DUE_ROUTE,
-            carsErrorMessages.DELETE_FAILED,
-            generalErrorMessages.SOMETHING_WENT_WRONG
+            carsMessages.FAILED_TO_DELETE_DUE_ROUTE,
+            carsMessages.DELETE_FAILED,
+            generalMessages.SOMETHING_WENT_WRONG
         );
     });
 }

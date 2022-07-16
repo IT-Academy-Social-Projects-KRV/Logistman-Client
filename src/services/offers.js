@@ -67,20 +67,20 @@ export async function deleteById(id) {
     .then(
       () => {
         successMessage(
-          generalErrorMessages.DELETE_SUCCESSFULLY,
+          generalMessages.DELETE_SUCCESSFULLY,
           1500
         );
       },
       () => {
         errorMessage(
-          offersErrorMessages.DELETE_OFFER_FAILED,
-          generalErrorMessages.SOMETHING_WENT_WRONG
+          offersMessages.DELETE_OFFER_FAILED,
+          generalMessages.SOMETHING_WENT_WRONG
         );
       })
     .catch(() => {
       errorMessage(
-        offersErrorMessages.DELETE_OFFER_FAILED,
-        generalErrorMessages.SOMETHING_WENT_WRONG
+        offersMessages.DELETE_OFFER_FAILED,
+        generalMessages.SOMETHING_WENT_WRONG
       );
     });
 }

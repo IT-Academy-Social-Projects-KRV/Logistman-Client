@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { concatSettlements, concatThroughCities } from "../../../services/trips";
 import { getPointAddress } from "../../../constants/address";
 import { confirmDeleteMessage } from "../../../services/alerts";
+import { deleteRouteById } from "../../../services/trips";
 
 function MyRoute(props) {
     const [allCities, setCities] = useState();

@@ -123,7 +123,7 @@ export async function deleteRouteById(id) {
     .then(
         () => {
             successMessage(
-                generalErrorMessages.DELETE_SUCCESSFULLY,
+                generalMessages.DELETE_SUCCESSFULLY,
                 1500
             );
         },
@@ -135,14 +135,14 @@ export async function deleteRouteById(id) {
                 :
                 errorMessage(
                     tripsMessages.DELETE_FAILED,
-                    generalErrorMessages.SOMETHING_WENT_WRONG
+                    generalMessages.SOMETHING_WENT_WRONG
                 );
         }
     )
     .catch(() => {
         errorMessage(
             tripsMessages.DELETE_FAILED,
-            generalErrorMessages.SOMETHING_WENT_WRONG
+            generalMessages.SOMETHING_WENT_WRONG
         );
     });
 }

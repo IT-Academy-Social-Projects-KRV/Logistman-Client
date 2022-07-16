@@ -11,6 +11,7 @@ import InputRules from "../../constants/inputRules";
 import AddNewCarModal from './../addNewCarModal/index';
 import {userRoles} from "../../constants/userRoles";
 import {store} from "../../store";
+import { confirmDeleteMessage } from "../../services/alerts";
 
 function ProfilePage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
