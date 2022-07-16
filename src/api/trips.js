@@ -18,9 +18,9 @@ export default class tripsService {
              &PageSize=${paginationFilterModel.pageSize}`);
     }
 
-    static getById(tripId){
+    static getById(model){
         return instance.get(TRIPS_URL.GET_BY_ID +
-            `?tripId=${tripId}`);
+            `?tripId=${model}`);
     }
 
     static manage(model) {

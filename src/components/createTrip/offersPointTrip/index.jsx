@@ -96,6 +96,7 @@ const AddOfferToTrip = (props) => {
     useEffect(() => {
         setDataOffers();
         setDataTotalWeight();
+
         props.creatTrip(setDataForCreatOffer());
         props.getPointsOffers(points);
     }, [])
@@ -109,14 +110,16 @@ const AddOfferToTrip = (props) => {
             if (item.creatorRoleName === offerRoles.SENDER) {
                 return sum + item.goodsWeight;
             } else {
+
                 return sum;
             }
-        }, 0)
+        }, 0);
+
         props.totalWeight(weight);
         setTotalWeight(weight);
     }
 
-    const setDataForCreatOffer = data => {
+    const setDataForCreatOffer = (data) => {
         const creatTripPoints = {
             pointsTrip: []
         };
@@ -138,9 +141,10 @@ const AddOfferToTrip = (props) => {
         return creatTripPoints;
     }
 
-    const handleDecreaseTotalWeight = record => {
+    const handleDecreaseTotalWeight = (record) => {
         if (record.creatorRoleName === offerRoles.SENDER) {
             const deleteWeight = totalWeight - record.goodsWeight;
+
             props.totalWeight(deleteWeight);
             setTotalWeight(deleteWeight);
         }
@@ -149,6 +153,7 @@ const AddOfferToTrip = (props) => {
     const handlePointDelete = (key) => {
         const dataSource = points;
         const filteredPoints = dataSource.filter(item => item.key !== key);
+
         setPoints(filteredPoints);
         props.creatTrip(setDataForCreatOffer(filteredPoints));
     }
@@ -161,14 +166,17 @@ const AddOfferToTrip = (props) => {
     const [, updateState] = useState();
     const forceUpdate = React.useCallback(() => updateState({}), []);
 
-    function handlerIncrementTotalWeight(selectedOffers) {
+    const handlerIncrementTotalWeight = (selectedOffers) => {
         let weight = selectedOffers.reduce((sum, item) => {
             if (item.creatorRoleName === offerRoles.SENDER) {
+
                 return sum + item.goodsWeight;
             } else {
+
                 return sum;
             }
-        }, 0)
+        }, 0);
+
         props.totalWeight(weight + totalWeight);
         setTotalWeight(weight + totalWeight);
     }
@@ -183,6 +191,7 @@ const AddOfferToTrip = (props) => {
         finalPoints = finalPoints.concat(afterPoints);
 
         if (isCorectPositionOffer(finalPoints)) {
+
             return;
         }
 
@@ -191,15 +200,17 @@ const AddOfferToTrip = (props) => {
         setDataBack(finalPoints);
     }
 
-    const swapDaysAndMonths = date => {
+    const swapDaysAndMonths = (date) => {
         if (!Date.parse(date)) {
             const splitCreationDate = date.split('.');
             const day = splitCreationDate[0];
 
             splitCreationDate[0] = splitCreationDate[1];
             splitCreationDate[1] = day;
+
             return splitCreationDate.join('.');
         }
+
         return date;
     }
 
@@ -217,6 +228,7 @@ const AddOfferToTrip = (props) => {
                     errorMessage("Data Time",
                         `The offer with Settlement: \"${selectedOffers[i].settlement}\" 
                         is not included in the time range during which the Trip will take place!`);
+
                     return;
                 }
             }
@@ -226,6 +238,7 @@ const AddOfferToTrip = (props) => {
             handlerSetPointsOffers(selectedOffers, data);
             handlerIncrementTotalWeight(selectedOffers);
         }
+
         setIsModalOpen(false);
     }
 
@@ -238,6 +251,7 @@ const AddOfferToTrip = (props) => {
                 .filter((el) => !!el);
 
             if (isCorectPositionOffer(newPoint)) {
+
                 return;
             }
 
@@ -246,23 +260,25 @@ const AddOfferToTrip = (props) => {
         }
     }
 
-    const isCorectPositionOffer = data => {
+    const isCorectPositionOffer = (data) => {
         const isCorectPosinion = data[0].offerId != null ||
             data[data.length - 1].offerId != null;
 
         if (isCorectPosinion) {
             message.warning(tripsMessages.TEXT_OFFER_POSITION);
+
             return isCorectPosinion;
         }
+
         return isCorectPosinion;
     }
 
-    const setDataBack = data => {
+    const setDataBack = (data) => {
         props.creatTrip(setDataForCreatOffer(data));
         props.getPointsOffers(data);
     }
 
-    const draggableContainer = props => (
+    const draggableContainer = (props) => (
         <SortableBody
             useDragHandle
             disableAutoscroll
@@ -279,71 +295,70 @@ const AddOfferToTrip = (props) => {
     }
 
     return (
-        <div style={{width: "100%"}}>
-            <div className="pointsComponent">
-                <p>Points</p>
+        <div className="pointsComponent">
+            <p>Points</p>
 
-                <Table
-                    style={{height: "100%", width: "100%"}}
-                    columns={pointColumns}
-                    dataSource={points}
-                    rowKey="key"
-                    expandable={{
-                        expandedRowRender: (record) => (
-                            record.offerId != null ?
-                                <div className="expandedRow">
-                                    <div className="offerInfo">
-                                        <p>Creation Date: {record.creationDate}</p>
-                                        <p>Goods Weight: {record.goodsWeight} kg</p>
-                                        <p>Good Category: {record.goodCategoryName}</p>
-                                        <p>Role: {record.creatorRoleName}</p>
-                                    </div>
-
-                                    <Collapse ghost>
-                                        <Panel className="description" header="Description" key="1">
-                                            <p>
-                                                {record.description}
-                                            </p>
-                                        </Panel>
-                                    </Collapse>
+            <Table
+                className="tablePoints"
+                columns={pointColumns}
+                dataSource={points}
+                rowKey="key"
+                expandable={{
+                    expandedRowRender: (record) => (
+                        record.offerId != null ?
+                            <div className="expandedRow">
+                                <div className="offerInfo">
+                                    <p>Start Date: {record.startDate}</p>
+                                    <p>Goods Weight: {record.goodsWeight} kg</p>
+                                    <p>Good Category: {record.goodCategoryName}</p>
+                                    <p>Role: {record.creatorRoleName}</p>
                                 </div>
+
+                                <Collapse ghost>
+                                    <Panel className="description" header="Description" key="1">
+                                        <p>
+                                            {record.description}
+                                        </p>
+                                    </Panel>
+                                </Collapse>
+                            </div>
+                            :
+                            <></>
+                    ),
+                    expandIcon: ({expanded, onExpand, record}) =>
+                        expanded ? (
+                            record.offerId != null ?
+                                <CaretDownOutlined onClick={e => {
+                                    forceUpdate();
+                                    return onExpand(record, e)
+                                }}/>
                                 :
-                                <></>
-                        ),
-                        expandIcon: ({expanded, onExpand, record}) =>
-                            expanded ? (
-                                record.offerId != null ?
-                                    <CaretDownOutlined onClick={e => {
-                                        forceUpdate();
-                                        return onExpand(record, e)
-                                    }}/>
-                                    :
-                                    false
-                            ) : (
-                                record.offerId != null ?
-                                    <CaretRightOutlined onClick={e => onExpand(record, e)}/>
-                                    :
-                                    false
-                            )
-                    }}
-                    components={{
-                        body: {
-                            wrapper: draggableContainer,
-                            row: draggableBodyRow,
-                        },
-                    }}
-                    pagination={{
-                        pageSize: 10,
-                        position: ["none", "bottomCenter"]
-                    }}
-                />
-            </div>
-            {isModalOpen && <AddNearOfferModal
-                tripId={props.tripId}
-                offers={offers}
-                myClose={() => setIsModalOpen(false)}
-                onModalClose={handleCloseModal}
-            />}
+                                false
+                        ) : (
+                            record.offerId != null ?
+                                <CaretRightOutlined onClick={e => onExpand(record, e)}/>
+                                :
+                                false
+                        )
+                }}
+                components={{
+                    body: {
+                        wrapper: draggableContainer,
+                        row: draggableBodyRow,
+                    },
+                }}
+                pagination={{
+                    pageSize: 10,
+                    position: ["none", "bottomCenter"]
+                }}
+            />
+            {isModalOpen &&
+                <AddNearOfferModal
+                    tripId={props.tripId}
+                    offers={offers}
+                    myClose={() => setIsModalOpen(false)}
+                    onModalClose={handleCloseModal}
+                />}
         </div>
     );
 }

@@ -18,6 +18,7 @@ function DriversInvitesPage() {
         async function fetchData(){
             setInvites(await getDriversInvites(paginationFilterModel));
         }
+
         fetchData();
     }, []);
 

@@ -13,7 +13,6 @@ import {offerRoles} from "../../../constants/offerRoles";
 Geocode.setApiKey(process.env.REACT_APP_API_KEY);
 
 function TripMap(props) {
-
     const [center, setCenter] = useState(mapCenter);
     const [directionResponse, setDirectionResponse] = useState();
     const [offers, setOffers] = useState([]);
@@ -27,6 +26,7 @@ function TripMap(props) {
     useEffect(() => {
         async function fetchData() {
             const offers = await getOffersNearRout(props.tripId);
+
             for (let i = 0; i < offers.length; i++) {
                 offers[i] = {...offers[i], key: offers[i].pointId};
             }
@@ -34,11 +34,13 @@ function TripMap(props) {
             setOffers(offers);
             setDirectionResponse(await setAuxiliaryPoints(props.points));
         }
+
         fetchData();
     }, [props.points])
 
     const setAuxiliaryPoints = async (points) => {
         if (points == null || points.length < 2) {
+
             return;
         }
 
@@ -64,7 +66,9 @@ function TripMap(props) {
             },
             subPointCoordinates
         )
+
         setCenter();
+
         return direction
     }
 
@@ -88,10 +92,13 @@ function TripMap(props) {
                     legDistanceInM = legDistanceInM.replace(',', '.');
                     distance += legDistanceInM * 1000;
                 }
+
                 previousKmPoint = distance / 1000;
             }
         }
+
         distance /= 1000;
+
         return distance;
     };
 
@@ -101,6 +108,7 @@ function TripMap(props) {
 
     const handleActiveMarker = (marker) => {
         if (marker === activeMarker) {
+
             return;
         }
         setActiveMarker(marker);
@@ -108,7 +116,6 @@ function TripMap(props) {
 
     return isLoaded != null && offers != null ? (
             <GoogleMap
-                mapContainerStyle={{width: '100%', height: '100%'}}
                 center={center}
                 zoom={12}
                 options={{
@@ -120,24 +127,27 @@ function TripMap(props) {
                 id="map"
             >
                 <DirectionsRenderer directions={directionResponse}/>
-                {offers.map(item =>
-                    (<Marker
-                        icon={item.creatorRoleName == offerRoles.SENDER ? marker_S : marker_R}
-                        key={item.key}
-                        position={{lat: item.latitude, lng: item.longitude}}
-                        onClick={() => handleActiveMarker(item.key)}
-                    >
-                        {activeMarker === item.key ? (
-                            <InfoWindow onCloseClick={() => setActiveMarker(null)}>
-                                <div>
-                                    <p>Address: {item.country}, {item.address}</p>
-                                    <p>Role: {item.creatorRoleName}</p>
-                                    <p>Good category: {item.goodCategoryName}</p>
-                                </div>
-                            </InfoWindow>
-                        ) : null}
-                    </Marker>)
-                )}
+                {
+                    offers.map(item =>
+                        (
+                            <Marker
+                                icon={item.creatorRoleName == offerRoles.SENDER ? marker_S : marker_R}
+                                key={item.key}
+                                position={{lat: item.latitude, lng: item.longitude}}
+                                onClick={() => handleActiveMarker(item.key)}
+                            >
+                                {activeMarker === item.key ? (
+                                    <InfoWindow onCloseClick={() => setActiveMarker(null)}>
+                                        <div>
+                                            <p>Address: {item.country}, {item.address}</p>
+                                            <p>Role: {item.creatorRoleName}</p>
+                                            <p>Good category: {item.goodCategoryName}</p>
+                                        </div>
+                                    </InfoWindow>
+                                ) : null}
+                            </Marker>)
+                    )
+                }
             </GoogleMap>
         )
         :
@@ -147,7 +157,6 @@ function TripMap(props) {
                 title="No route information."
             />
         );
-
 }
 
 export default TripMap;

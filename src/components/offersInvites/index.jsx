@@ -19,6 +19,7 @@ function OffersInvitesPage() {
         async function fetchData(){
             setInvites(await getOffersInvites(paginationFilterModel));
         }
+
         fetchData();
     }, []);
 

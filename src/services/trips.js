@@ -142,6 +142,7 @@ export function getTripById(tripId) {
 }
 
 export function manageTrip(model, history) {
+
     return tripsService
         .manage(model)
         .then(

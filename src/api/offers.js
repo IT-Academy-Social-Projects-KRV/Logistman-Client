@@ -16,8 +16,8 @@ export default class offersService {
              &PageSize=${paginationFilterModel.pageSize}`);
     }
 
-    static getOffersNearRout(tripId) {
+    static getOffersNearRout(model) {
         return instance.get(OFFERS_URLS.GET_BY_NEAR_ROUT +
-            `?tripId=${tripId}`);
+            `?tripId=${model}`);
     }
 }

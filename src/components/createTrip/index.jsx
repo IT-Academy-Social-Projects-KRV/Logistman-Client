@@ -12,7 +12,7 @@ function ManageTripPage() {
     const userData = location.state;
 
     const [dataTrip, setDataTrip] = useState();
-    const [allPoints,setAllPoints] = useState();
+    const [allPoints, setAllPoints] = useState();
     const [totalWeight, setTotalWeight] = useState(0);
     const [dataForCreatTrip, setDataForCreatTrip] = useState();
     const [distance, setDistance] = useState();
@@ -32,10 +32,21 @@ function ManageTripPage() {
         fetchData();
     }, []);
 
-    const getWeight = weight => {setTotalWeight(weight);}
-    const getDataForCreatTrip = data => {setDataForCreatTrip(data);}
-    const getPointsOffers = pointsOffers => {setAllPoints(pointsOffers);}
-    const getDistance = distance => {setDistance(distance);}
+    const getWeight = (weight) => {
+        setTotalWeight(weight);
+    }
+
+    const getDataForCreatTrip = (data) => {
+        setDataForCreatTrip(data);
+    }
+
+    const getPointsOffers = (pointsOffers) => {
+        setAllPoints(pointsOffers);
+    }
+
+    const getDistance = (distance) => {
+        setDistance(distance);
+    }
 
     return (
         <>
@@ -43,6 +54,7 @@ function ManageTripPage() {
 
             <div className="createTripBody">
                 <p className="title">Manage trip</p>
+
                 {dataTrip != null ?
                     <div className="meanBody">
                         <div className="infoComponent">
@@ -58,9 +70,9 @@ function ManageTripPage() {
                             }
                             <div className="mapComponent">
                                 <TripMap
-                                points={allPoints}
-                                tripId={dataTrip.id}
-                                getDistance={getDistance}
+                                    points={allPoints}
+                                    tripId={dataTrip.id}
+                                    getDistance={getDistance}
                                 />
                             </div>
                         </div>
@@ -84,7 +96,6 @@ function ManageTripPage() {
                 }
 
             </div>
-
         </>
     );
 }

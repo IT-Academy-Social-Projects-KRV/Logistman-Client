@@ -67,6 +67,7 @@ export async function getOffersNearRout(routId) {
         .then(
             async (response) => {
                 if (response.status === statusCode.NO_CONTENT) {
+
                     return null;
                 }
 
@@ -86,4 +87,3 @@ export async function getOffersNearRout(routId) {
             );
         });
 }
-

@@ -1,27 +1,5 @@
 @import '../variables/colors';
-
-offerPointBody {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-top: 105px;
-  width: 100%;
-  height: 100%;
-}
-
-.row-dragging {
-  background: #fafafa;
-  border: 1px solid #ccc;
-}
-
-.row-dragging td {
-  padding: 16px;
-}
-
-.row-dragging .drag-visible {
-  visibility: visible;
-}
+@import '../variables/others';
 
 .pointsComponent {
   display: flex;
@@ -35,7 +13,16 @@ offerPointBody {
   background-size: cover;
   box-shadow: rgb(109 122 128 / 12%) 0 2px 4px 0, rgb(14 30 37 / 32%) 0 2px 16px 0;
 
-  p{
+  .offersModal{
+    height: 90%;
+  }
+
+  .tablePoints {
+    height: 100%;
+    width: 100%;
+  }
+
+  p {
     margin-top: 1em;
   }
 
@@ -43,6 +30,37 @@ offerPointBody {
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
   }
+
+  .row-dragging {
+    background: #fafafa;
+    border: 1px solid #ccc;
+  }
+
+  @media only screen and (min-width: $the_middle_of_tablet_size){
+    .expandedRow {
+      margin: 0;
+
+      .offerInfo {
+        padding-right: 60px;
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+
+        p {
+          width: 25%;
+          text-align: right;
+        }
+      }
+    }
+  }
+}
+
+.row-dragging td {
+  padding: 16px;
+}
+
+.row-dragging .drag-visible {
+  visibility: visible;
 }
 
 tr.drop-over-downward td {
@@ -51,21 +69,4 @@ tr.drop-over-downward td {
 
 tr.drop-over-upward td {
   border-top: 2px dashed #1890ff;
-}
-
-@media only screen and (min-width: $max_phone_size) and (max-width: 1660px) {
-
-  .expandedRow{
-    margin: 0;
-    .offerInfo{
-      padding-right: 60px;
-      display: flex;
-      flex-direction: row;
-      width: 100%;
-      p{
-        width: 25%;
-        text-align: right;
-      }
-    }
-  }
 }

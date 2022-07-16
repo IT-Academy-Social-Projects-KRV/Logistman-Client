@@ -20,6 +20,7 @@ const {Panel} = Collapse;
 
 function UserRoute(props) {
     let history = useHistory();
+    let hasOffers = false;
 
     const [allCities, setCities] = useState();
     const [throughCities, setThroughCities] = useState();
@@ -35,7 +36,6 @@ function UserRoute(props) {
         });
     }, [props.distance])
 
-    let hasOffers = false;
     if (props.creatTripData != null) {
         hasOffers = props.creatTripData.pointsTrip.some(item => item.offerId != null);
     }
@@ -166,8 +166,6 @@ function UserRoute(props) {
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
 
                     <div>

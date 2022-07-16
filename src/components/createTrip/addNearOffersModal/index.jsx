@@ -5,16 +5,19 @@ import {offerRoles} from "../../../constants/offerRoles";
 
 function AddNearOfferModal(props) {
     const [offers, setOffers] = useState([]);
+    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
             const offers = await getOffersNearRout(props.tripId);
+
             for (let i = 0; i < offers.length; i++) {
                 offers[i] = {...offers[i], key: offers[i].pointId};
             }
             //Retrieves all offers except those that have already been selected.
             setOffers(offers.filter((value) => {
-                const even = (element) => element.pointId === value.pointId
+                const even = (element) => element.pointId === value.pointId;
+
                 return !props.offers.some(even);
             }));
         }
@@ -22,7 +25,7 @@ function AddNearOfferModal(props) {
         fetchData();
     }, [])
 
-    function swapDaysAndMonths(date) {
+    const swapDaysAndMonths = (date) => {
         if (!Date.parse(date)) {
             const splitCreationDate = date.split('.');
             const day = splitCreationDate[0];
@@ -35,9 +38,11 @@ function AddNearOfferModal(props) {
             if (!Date.parse(finalDate)) {
                 return finalDate;
             } else {
+
                 return date;
             }
         }
+
         return date;
     }
 
@@ -47,25 +52,23 @@ function AddNearOfferModal(props) {
             dataIndex: 'settlement',
             filterMultiple: false,
             onFilter: (value, record) => record.settlement.indexOf(value) === 0,
-            sorter: (a, b) => a.settlement.length - b.settlement.length,
+            sorter: (a, b) => a.settlement.length - b.settlement.length
         },
         {
             title: 'Start Date',
-            dataIndex: 'creationDate',
-            sorter: (a, b) => Date.parse(swapDaysAndMonths(a.creationDate)) - Date.parse(swapDaysAndMonths(b.creationDate))
+            dataIndex: 'startDate'
         },
         {
             title: 'Weight',
             dataIndex: 'goodsWeight',
-            sorter: (a, b) => a.age - b.age,
+            sorter: (a, b) => a.age - b.age
         },
         {
             title: 'Goods',
             dataIndex: 'goodCategoryName',
             filterMultiple: false,
             onFilter: (value, record) => record.goodCategoryName.indexOf(value) === 0,
-            sorter: (a, b) => a.goodCategoryName.length - b.goodCategoryName.length,
-
+            sorter: (a, b) => a.goodCategoryName.length - b.goodCategoryName.length
         },
         {
             title: 'Role',
@@ -83,15 +86,13 @@ function AddNearOfferModal(props) {
                 ],
             filterMultiple: false,
             onFilter: (value, record) => record.creatorRoleName.indexOf(value) === 0,
-            sorter: (a, b) => a.creatorRoleName.length - b.creatorRoleName.length,
+            sorter: (a, b) => a.creatorRoleName.length - b.creatorRoleName.length
         }
     ];
 
     const close = () => {
         props.myClose();
     };
-
-    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
     const onSelectChange = (newSelectedRowKeys) => {
         setSelectedRowKeys(newSelectedRowKeys);
@@ -102,34 +103,36 @@ function AddNearOfferModal(props) {
         onChange: onSelectChange,
     };
 
-    function onModalClose(event) {
+    const onModalClose = (event) => {
         const data = [];
-        const selectedOffers = []
+        const selectedOffers = [];
+
         //Add the offers that have been chosen
         offers.map((item) => {
-            const even = (element) => element === item.pointId
+            const even = (element) => element === item.pointId;
+
             if (selectedRowKeys.some(even)) {
                 data.push(item);
                 selectedOffers.push(item);
             }
-        })
+        });
+
         //Add offers that have already been selected
         props.offers.map((item) => {
             data.push(item);
-        })
+        });
+
         props.onModalClose(event, data, selectedOffers);
     }
 
     return (
         <Modal
+            className="offersModal"
             title="Near offers"
             visible={true}
             onCancel={() => close()}
-            cancelButtonProps={{style: {display: 'none'}}}
-            okButtonProps={{style: {display: 'none'}}}
             footer={null}
             width="90%"
-            style={{height: "90%"}}
         >
             {offers != null ?
                 <div>
@@ -138,6 +141,7 @@ function AddNearOfferModal(props) {
                         dataSource={offers}
                         pagination={{
                             pageSize: 10,
+                            position: ["none", "bottomCenter"]
                         }}
                         scroll={{
                             y: 240,
