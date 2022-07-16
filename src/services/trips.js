@@ -123,27 +123,28 @@ export function getTripById(tripId) {
         .then(
             async (response) => {
                 if (response.status === statusCode.NO_CONTENT) {
+
                     return null;
                 }
+
                 return response.data;
             },
             () => {
                 errorMessage(
                     tripsMessages.NOT_FOUND,
-                    generalErrorMessages.SOMETHING_WENT_WRONG
+                    generalMessages.SOMETHING_WENT_WRONG
                 );
             }
         )
         .catch(() => {
             errorMessage(
                 tripsMessages.NOT_FOUND,
-                generalErrorMessages.SOMETHING_WENT_WRONG
+                generalMessages.SOMETHING_WENT_WRONG
             );
         });
 }
 
 export function manageTrip(model, history) {
-
     return tripsService
         .manage(model)
         .then(
@@ -157,14 +158,14 @@ export function manageTrip(model, history) {
             () => {
                 errorMessage(
                     tripsMessages.MANAGE_TRIP,
-                    generalErrorMessages.SOMETHING_WENT_WRONG
+                    generalMessages.SOMETHING_WENT_WRONG
                 );
             }
         )
         .catch(() => {
             errorMessage(
                 tripsMessages.MANAGE_TRIP,
-                generalErrorMessages.SOMETHING_WENT_WRONG
+                generalMessages.SOMETHING_WENT_WRONG
             );
         });
 }

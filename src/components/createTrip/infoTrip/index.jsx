@@ -14,7 +14,7 @@ import {tooltipMessages} from "../../../constants/tooltipeMessages/tripInfoMasse
 import {errorMessage} from "../../../services/alerts";
 import {tripsMessages} from "../../../constants/messages/trips";
 import {useHistory} from 'react-router-dom';
-import {getEndPointAddress, getStartPointAddress} from "../../../constants/address";
+import {getPointAddress} from "../../../constants/address";
 
 const {Panel} = Collapse;
 
@@ -56,11 +56,11 @@ function UserRoute(props) {
 
                     <div className="addresses">
                         <p>
-                            From: {getStartPointAddress(props.dataTrip.points)}
+                            From: {getPointAddress(props.dataTrip.points[0])}
                         </p>
 
                         <p>
-                            To: {getEndPointAddress(props.dataTrip.points)}
+                            To: {getPointAddress(props.dataTrip.points[props.dataTrip.points.length - 1])}
                         </p>
                     </div>
 

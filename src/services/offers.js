@@ -1,9 +1,8 @@
 import offersService from "../api/offers";
 import {errorMessage, successMessage} from "./alerts";
-import {generalErrorMessages} from "../constants/messages/general";
 import {statusCode} from "../constants/statusCodes";
-import { errorMessage, successMessage } from "./alerts";
-import { statusCode } from "../constants/statusCodes";
+import {offersMessages} from "../constants/messages/offers";
+import {generalMessages} from "../constants/messages/general";
 
 export async function getUserOffers(paginationFilterModel) {
   return offersService
@@ -77,14 +76,14 @@ export async function getOffersNearRout(routId) {
             () => {
                 errorMessage(
                     offersMessages.LOAD_USER_OFFERS_FAILED,
-                    generalErrorMessages.SOMETHING_WENT_WRONG
+                    generalMessages.SOMETHING_WENT_WRONG
                 );
             }
         )
         .catch(() => {
             errorMessage(
                 offersMessages.LOAD_USER_OFFERS_FAILED,
-                generalErrorMessages.SOMETHING_WENT_WRONG
+                generalMessages.SOMETHING_WENT_WRONG
             );
         });
 }

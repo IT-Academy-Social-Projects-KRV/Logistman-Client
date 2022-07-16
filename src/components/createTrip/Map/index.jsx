@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Geocode from "react-geocode";
 import {DirectionsRenderer, GoogleMap, Marker, InfoWindow, useJsApiLoader} from "@react-google-maps/api";
 import {Result} from "antd";
-import {buildTheRoute} from "../../../services/map";
+import {buildTheRoute} from "../../../services/maps";
 import {mapCenter} from "../../../constants/map";
 import {unitsOfMeasurement} from "../../../constants/others";
 import {getOffersNearRout} from "../../../services/offers";
