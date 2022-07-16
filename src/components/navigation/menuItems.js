@@ -24,8 +24,8 @@ export const menuItems = {
         },
         {
             itemIcon: invites_icon,
-            itemText: "My offers' invites",
-            itemLink: "/offers-invites"
+            itemText: "My notifications",
+            itemLink: "/by-user"
         },
         {
             itemIcon: invites_icon,
