@@ -60,6 +60,14 @@
         .innerBody {
             display: flex;
             justify-content: space-between;
+
+            .rightSide {
+                width: 40%;
+            }
+
+            .leftSide {
+                width: 40%;
+            }
         }
 
         .dates {
@@ -92,6 +100,14 @@
         .myRouteCardBody {
             .dates, .innerBody {
                 flex-direction: column;
+
+                .rightSide {
+                    width: 100%;
+                }
+    
+                .leftSide {
+                    width: 100%;
+                }
             }
         }
     }
@@ -107,6 +123,14 @@
         .myRouteCardBody {
             .dates, .innerBody {
                 flex-direction: column;
+
+                .rightSide {
+                    width: 100%;
+                }
+    
+                .leftSide {
+                    width: 100%;
+                }
             }
             .bottom {
                 flex-direction: column;
