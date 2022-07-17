@@ -200,45 +200,9 @@ const AddOfferToTrip = (props) => {
         setDataBack(finalPoints);
     }
 
-    const swapDaysAndMonths = (date) => {
-        if (!Date.parse(date)) {
-            console.log(date)
-            const splitCreationDate = date.split('.');
-            const day = splitCreationDate[0];
-
-            splitCreationDate[0] = splitCreationDate[1];
-            splitCreationDate[1] = day;
-
-            return splitCreationDate.join('.');
-        }
-
-        return date;
-    }
-
     const handleCloseModal = (event, data, selectedOffers) => {
-        let isValidOffer = false;
-
-        if (selectedOffers.length > 0) {
-            for (let i = 0; i < selectedOffers.length; i++) {
-                const offerCreationDate = swapDaysAndMonths(selectedOffers[i].startDate);
-
-                const offerDate = new Date(moment(offerCreationDate).format('LLL'));
-                const tripDate = new Date(moment(props.expirationDateTrip).format('LLL'));
-
-                if (offerDate > tripDate) {
-                    errorMessage("Data Time",
-                        `The offer with Settlement: \"${selectedOffers[i].settlement}\" 
-                        is not included in the time range during which the Trip will take place!`);
-
-                    return;
-                }
-            }
-        }
-
-        if (!isValidOffer) {
-            handlerSetPointsOffers(selectedOffers, data);
-            handlerIncrementTotalWeight(selectedOffers);
-        }
+        handlerSetPointsOffers(selectedOffers, data);
+        handlerIncrementTotalWeight(selectedOffers);
 
         setIsModalOpen(false);
     }

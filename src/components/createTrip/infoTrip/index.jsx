@@ -102,8 +102,8 @@ function UserRoute(props) {
                                     <div className="dataField">
                                         <GiWeight size={DEFAULT_ICON_SIZE}/>
                                         {props.totalWeigth > props.dataTrip.loadCapacity ?
-                                            <p style={{color: "red"}}>{props.totalWeigth + " kg"}</p> :
-                                            <p>{props.totalWeigth + " kg"}</p>}
+                                            <p style={{color: "red"}}>{Math.round(props.totalWeigth, 1) + " kg"}</p> :
+                                            <p>{Math.round(props.totalWeigth, 1) + " kg"}</p>}
                                         <p>{" / " + props.dataTrip.loadCapacity + " kg"}</p>
                                     </div>
                                 </Tooltip>
@@ -115,28 +115,15 @@ function UserRoute(props) {
                                         <div className="dates">
                                             <Tooltip
                                                 placement="top"
-                                                title={tooltipMessages.START_DATE + ": "
-                                                    + `${moment(props.dataTrip.startDate).format('L')}` + " "
-                                                    + `${moment(props.dataTrip.startDate).format('LT')}`}
+                                                title={tooltipMessages.DEPARTURE_DATE + ": "
+                                                    + `${moment(props.dataTrip.departureDate).format('L')}` + " "
+                                                    + `${moment(props.dataTrip.departureDate).format('LT')}`}
                                             >
                                                 <div className="date">
                                                     <FiCalendar size={DEFAULT_ICON_SIZE}/>
-                                                    <p>{moment(props.dataTrip.startDate).format('LLL') + " "}</p>
+                                                    <p>{moment(props.dataTrip.departureDate).format('LLL') + " "}</p>
                                                 </div>
                                             </Tooltip>
-
-                                            <Tooltip
-                                                placement="top"
-                                                title={tooltipMessages.EXPIRATION_DATE + ": "
-                                                    + `${moment(props.dataTrip.expirationDate).format('L')}` + " "
-                                                    + `${moment(props.dataTrip.expirationDate).format('LT')}`}
-                                            >
-                                                <div className="date">
-                                                    <AiOutlineArrowRight size={DEFAULT_ICON_SIZE}/>
-                                                    <p>{moment(props.dataTrip.expirationDate).format('LLL')}</p>
-                                                </div>
-                                            </Tooltip>
-
                                         </div>
                                     </div>
 
