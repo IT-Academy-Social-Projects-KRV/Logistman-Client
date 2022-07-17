@@ -36,6 +36,11 @@ export const menuItems = {
             itemIcon: route_icon,
             itemText: "My Routes",
             itemLink: "/my-routes"
+        },
+        {
+            itemIcon: route_icon,
+            itemText: "My Active Trip",
+            itemLink: "/my-active-trip"
         }
     ],
     Logist: [

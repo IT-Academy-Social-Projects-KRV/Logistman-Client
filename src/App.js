@@ -26,6 +26,7 @@ import RoutesPage from "./components/routes";
 import OffersInvitesPage from './components/offersInvites/index';
 import MyRoutesPage from "./components/myRoutes";
 import DriversInvitesPage from "./components/driversInvites";
+import ConfirmGoodsDeliveryForDriver from "./components/confirmGoodsDeliveryForDriver";
 
 const history = createBrowserHistory();
 
@@ -160,6 +161,14 @@ export default function App() {
                     allowedRoles={[userRoles.USER]}
                 >
                     <DriversInvitesPage />
+                </PrivateRoute>
+
+                <PrivateRoute
+                    exact
+                    path="/my-active-trip"
+                    allowedRoles={[userRoles.USER]}
+                >
+                    <ConfirmGoodsDeliveryForDriver/>
                 </PrivateRoute>
 
                 <Redirect to="/login" />

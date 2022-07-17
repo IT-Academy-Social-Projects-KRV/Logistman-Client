@@ -116,3 +116,29 @@ export function createTrip(model, history) {
       );
     });
 }
+
+export function getTripOfferByUser(){
+    return tripsService
+        .getTripOfferByUser()
+        .then(
+            async (response) => {
+                if (response.status === statusCode.NO_CONTENT) {
+                    return null;
+                }
+
+                return await response.data;
+            },
+            () => {
+                errorMessage(
+                    tripsMessages.LOAD_TRIP_FAILED,
+                    generalMessages.LOAD_TRIP_OFFERS_FAILED
+                );
+            }
+        )
+        .catch(() => {
+            errorMessage(
+                tripsMessages.LOAD_TRIP_FAILED,
+                generalMessages.SOMETHING_WENT_WRONG
+            );
+        });
+}

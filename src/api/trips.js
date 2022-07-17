@@ -17,4 +17,8 @@ export default class tripsService {
             `?PageNumber=${paginationFilterModel.pageNumber}
              &PageSize=${paginationFilterModel.pageSize}`);
     }
+
+    static getTripOfferByUser(){
+        return instance.get(TRIPS_URL.GET_TRIP_OFFER_BY_USER);
+    }
 }

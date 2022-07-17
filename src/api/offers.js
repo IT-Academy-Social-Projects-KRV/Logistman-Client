@@ -15,4 +15,8 @@ export default class offersService {
             `?PageNumber=${paginationFilterModel.pageNumber}
              &PageSize=${paginationFilterModel.pageSize}`);
     }
+
+    static confirmGoodsTransfer(model){
+        return instance.post(OFFERS_URLS.CONFIRM_GOODS_TRANSFER, model);
+    }
 }
