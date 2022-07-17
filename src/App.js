@@ -105,7 +105,7 @@ export default function App() {
 
                 <PrivateRoute
                     exact
-                    path="/by-user"
+                    path="/notifications"
                     allowedRoles={[userRoles.USER]}
                 >
                     <NotificationsPage />

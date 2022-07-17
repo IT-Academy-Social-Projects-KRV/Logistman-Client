@@ -21,5 +21,11 @@ export function getNotificationsByUser(model) {
                     generalMessages.SOMETHING_WENT_WRONG
                 );
             }
-        );
+        )
+        .catch(() => {
+            errorMessage(
+                notificationsMessages.GET_FAILED,
+                generalMessages.SOMETHING_WENT_WRONG
+            );
+        });
 }

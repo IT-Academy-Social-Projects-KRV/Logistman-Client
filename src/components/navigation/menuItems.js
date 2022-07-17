@@ -25,7 +25,7 @@ export const menuItems = {
         {
             itemIcon: invites_icon,
             itemText: "My notifications",
-            itemLink: "/by-user"
+            itemLink: "/notifications"
         },
         {
             itemIcon: invites_icon,
