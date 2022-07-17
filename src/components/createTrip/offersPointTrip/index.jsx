@@ -202,6 +202,7 @@ const AddOfferToTrip = (props) => {
 
     const swapDaysAndMonths = (date) => {
         if (!Date.parse(date)) {
+            console.log(date)
             const splitCreationDate = date.split('.');
             const day = splitCreationDate[0];
 
@@ -219,7 +220,7 @@ const AddOfferToTrip = (props) => {
 
         if (selectedOffers.length > 0) {
             for (let i = 0; i < selectedOffers.length; i++) {
-                const offerCreationDate = swapDaysAndMonths(selectedOffers[i].creationDate);
+                const offerCreationDate = swapDaysAndMonths(selectedOffers[i].startDate);
 
                 const offerDate = new Date(moment(offerCreationDate).format('LLL'));
                 const tripDate = new Date(moment(props.expirationDateTrip).format('LLL'));
