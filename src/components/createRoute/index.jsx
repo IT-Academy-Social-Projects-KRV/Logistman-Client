@@ -10,7 +10,7 @@ import { mapMessages } from '../../constants/messages/maps';
 import { generalMessages } from '../../constants/messages/general';
 import { inputValidationErrorMessages } from '../../constants/messages/inputValidationErrors';
 import InputRules from '../../constants/inputRules';
-import { checkTimeDifference, setDisabledDate, CALENDER_DATE_FORMAT } from "../../constants/dates";
+import { setDisabledDate, CALENDER_DATE_FORMAT } from "../../constants/dates";
 import { carsMessages } from '../../constants/messages/cars';
 import { carTableColumns } from './carsTableColumns';
 import { CloseOutlined } from '@ant-design/icons';
@@ -23,7 +23,6 @@ import { createTrip } from "../../services/trips";
 import { useHistory } from 'react-router-dom';
 
 const { TextArea } = Input;
-const { RangePicker } = DatePicker;
 
 Geocode.setApiKey(process.env.REACT_APP_API_KEY);
 Geocode.setLanguage(geocodeLanguage);
@@ -117,8 +116,7 @@ function CreateRoutePage() {
     // form functions
     const onFinishAsync = async (formValues) => {
         if (!checkIsTripReadyForCreating() ||
-            !checkIsValidLoadCapacity(formValues.loadCapacity) ||
-            !checkTimeDifference(formValues.dates)) {
+            !checkIsValidLoadCapacity(formValues.loadCapacity)) {
             return;
         }
 
@@ -131,8 +129,7 @@ function CreateRoutePage() {
             const tripPoints = await formTripPointsAsync();
 
             const model = {
-                startDate: formValues.dates[0]._d,
-                expirationDate: formValues.dates[1]._d,
+                departureDate: formValues.dates._d,
                 description: formValues.description,
                 loadCapacity: formValues.loadCapacity,
                 maxRouteDeviationKm: formValues.maxRouteDeviationKm,
@@ -754,7 +751,7 @@ function CreateRoutePage() {
                     </Form.Item>
 
                     <Form.Item
-                        label="Select the trip's dates: "
+                        label="Select the trip's departure date: "
                         name="dates"
                         rules={[
                             InputRules.required(
@@ -762,7 +759,7 @@ function CreateRoutePage() {
                             )
                         ]}
                     >
-                        <RangePicker
+                        <DatePicker
                             disabledDate={setDisabledDate}
                             showTime={{
                                 hideDisabledOptions: true

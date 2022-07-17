@@ -2,7 +2,7 @@ import React from "react";
 import { Card, Button, Tooltip } from "antd";
 import moment from "moment";
 import { FiUser, FiCalendar } from "react-icons/fi";
-import { AiOutlineCar, AiOutlineArrowRight, AiOutlineInfoCircle } from "react-icons/ai";
+import { AiOutlineCar, AiOutlineInfoCircle } from "react-icons/ai";
 import { GiWeight } from "react-icons/gi";
 import { RiPinDistanceLine } from "react-icons/ri";
 import { IconContext } from "react-icons";
@@ -80,12 +80,7 @@ function UserRoute(props) {
                                 <div className="dates">
                                     <div className="date">
                                         <FiCalendar size={DEFAULT_ICON_SIZE} />
-                                        {moment(props.data.startDate).format('LLL') + " "}
-                                    </div>
-
-                                    <div className="date">
-                                        <AiOutlineArrowRight size={DEFAULT_ICON_SIZE} />
-                                        {moment(props.data.expirationDate).format('LLL')}
+                                        {moment(props.data.departureDate).format('LL HH:mm')}
                                     </div>
                                 </div>
                             </p>
