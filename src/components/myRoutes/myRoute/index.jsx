@@ -2,7 +2,7 @@ import React from "react";
 import {Card, Tooltip, Button, Form} from "antd";
 import moment from "moment";
 import { FiCalendar } from "react-icons/fi";
-import { AiOutlineCar, AiOutlineArrowRight, AiOutlineInfoCircle } from "react-icons/ai";
+import { AiOutlineCar, AiOutlineInfoCircle } from "react-icons/ai";
 import { GiWeight } from "react-icons/gi";
 import { RiPinDistanceLine } from "react-icons/ri";
 import { IconContext } from "react-icons";
@@ -88,19 +88,8 @@ function MyRoute(props) {
                             <p className="dataField">
                                 <div className="dates">
                                     <div className="date">
-                                        <FiCalendar
-                                            size={DEFAULT_ICON_SIZE}
-                                            className="fieldIcon"
-                                        />
-                                        {moment(props.data.startDate).format('LLL') + " "}
-                                    </div>
-
-                                    <div className="date">
-                                        <AiOutlineArrowRight
-                                            size={DEFAULT_ICON_SIZE}
-                                            className="fieldIcon"
-                                        />
-                                        {moment(props.data.expirationDate).format('LLL')}
+                                        <FiCalendar size={DEFAULT_ICON_SIZE} />
+                                        {moment(props.data.departureDate).format('LL HH:mm')}
                                     </div>
                                 </div>
                             </p>
