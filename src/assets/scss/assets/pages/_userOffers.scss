@@ -32,6 +32,26 @@
     }
   }
 
+  .buttons-group {
+    margin-right: 5px;
+    display: flex;
+  }
+
+  .buttonsBlock {
+    display: flex;
+    justify-content: right;
+  }
+
+  .confirmButton {
+    background-color: $body_color;
+    border: none;
+
+    &:hover,
+    &:focus {
+      background-color: $green_color;
+    }
+  }
+
   .cardHead {
     height: 50px;
     margin-top: 0;
@@ -59,6 +79,10 @@
       #closed {
         color: $unable_color;
       }
+
+      #failed {
+        color: $input_error_message_color;
+      }
     }
   }
 
@@ -79,7 +103,6 @@
   .description {
     margin-top: 15px;
     font-size: 16px;
-    font-weight: 550;
     color: $title_color;
   }
 
@@ -99,6 +122,10 @@
       color: $title_color;
       padding-left: 7px;
     }
+
+    #driver {
+      color: $body_color;
+    }
   }
 
   .category {
@@ -109,6 +136,10 @@
   .fieldIcon svg {
     width: 22px;
     height: 22px;
+  }
+
+  #carIcon {
+    color: $body_color;
   }
 }
 

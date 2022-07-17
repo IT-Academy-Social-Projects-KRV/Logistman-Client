@@ -60,3 +60,46 @@ export function createOffer(values, history, point) {
       );
     });
 }
+
+export async function getOffersToConfirm(paginationFilterModel) {
+  return offersService
+  .getToConfirm(paginationFilterModel)
+  .then(
+      async (response) => {
+        if (response.status === statusCode.NO_CONTENT) {
+          return null;
+        }
+
+        return await response.data;
+      },
+      () => {
+        errorMessage(
+            offersMessages.LOAD_USER_OFFERS_FAILED,
+            generalMessages.SOMETHING_WENT_WRONG
+        );
+      }
+  )
+  .catch(() => {
+    errorMessage(
+        offersMessages.LOAD_USER_OFFERS_FAILED,
+        generalMessages.SOMETHING_WENT_WRONG
+    );
+  });
+}
+
+export async function confirmGoodsTransfer(model) {
+  await offersService
+  .confirmGoodsTransfer(model)
+  .then(
+      () => {},
+      () => {
+        errorMessage(
+            generalMessages.SOMETHING_WENT_WRONG
+        );
+      })
+  .catch(() => {
+    errorMessage(
+        generalMessages.SOMETHING_WENT_WRONG
+    );
+  });
+}

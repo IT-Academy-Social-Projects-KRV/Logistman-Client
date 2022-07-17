@@ -15,4 +15,14 @@ export default class offersService {
             `?PageNumber=${paginationFilterModel.pageNumber}
              &PageSize=${paginationFilterModel.pageSize}`);
     }
+
+    static getToConfirm(paginationFilterModel) {
+        return instance.get(OFFERS_URLS.GET_TO_CONFIRM +
+            `?PageNumber=${paginationFilterModel.pageNumber}
+             &PageSize=${paginationFilterModel.pageSize}`);
+    }
+
+    static confirmGoodsTransfer(model) {
+        return instance.post(OFFERS_URLS.CONFIRM_GOODS_TRANSFER, model)
+    }
 }

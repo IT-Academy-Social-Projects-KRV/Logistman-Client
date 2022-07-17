@@ -37,7 +37,9 @@ export const GOOD_CATEGORIES_URLS = {
 export const OFFERS_URLS = {
     CREATE: OFFERS_URL + "/create",
     GET_ONE_BY_USER: OFFERS_URL + "/user-offer",
-    GET_BY_USER: OFFERS_URL
+    GET_BY_USER: OFFERS_URL,
+    GET_TO_CONFIRM: OFFERS_URL + "/to-confirm",
+    CONFIRM_GOODS_TRANSFER: OFFERS_URL + "/confirm-goods-transfer"
 };
 
 export const TRIPS_URL = {

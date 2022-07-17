@@ -24,6 +24,11 @@ export const menuItems = {
         },
         {
             itemIcon: invites_icon,
+            itemText: "Confirm goods delivery",
+            itemLink: "/confirm-goods-delivery"
+        },
+        {
+            itemIcon: invites_icon,
             itemText: "My offers' invites",
             itemLink: "/offers-invites"
         },
