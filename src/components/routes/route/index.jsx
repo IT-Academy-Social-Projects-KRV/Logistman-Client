@@ -71,7 +71,7 @@ function UserRoute(props) {
                                 <div className="dates">
                                     <div className="date">
                                         <FiCalendar size={DEFAULT_ICON_SIZE} />
-                                        {moment(props.data.departureDate).format('LLL') + " "}
+                                        {moment(props.data.departureDate).format('MMMM Do YYYY, HH:mm:ss')}
                                     </div>
                                 </div>
                             </p>
