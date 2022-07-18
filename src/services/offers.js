@@ -127,9 +127,9 @@ export async function getOffersToConfirm(paginationFilterModel) {
       });
     }
     
-    export async function getOffersNearRout(routId) {
+    export async function getOffersNearRoute(routId) {
         return offersService
-            .getOffersNearRout(routId)
+            .getOffersNearRoute(routId)
             .then(
                 async (response) => {
     
