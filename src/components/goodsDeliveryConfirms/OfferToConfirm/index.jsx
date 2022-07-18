@@ -82,14 +82,14 @@ function OfferToConfirm(data) {
                     <div className="buttons-group">
                         {data.info.creatorRoleName === offerRoles.SENDER.toUpperCase() ?
                             <Button
-                                className="confirmButton"
+                                className="submitButton"
                                 type="primary"
                                 onClick={() => confirmDelivery(data.info, true)}
                             >
                                 I gave it away!
                             </Button> :
                             <Button
-                                className="confirmButton"
+                                className="submitButton"
                                 type="primary"
                                 onClick={() => confirmDelivery(data.info, true)}
                             >

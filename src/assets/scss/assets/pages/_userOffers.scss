@@ -42,16 +42,6 @@
     justify-content: right;
   }
 
-  .confirmButton {
-    background-color: $body_color;
-    border: none;
-
-    &:hover,
-    &:focus {
-      background-color: $green_color;
-    }
-  }
-
   .cardHead {
     height: 50px;
     margin-top: 0;
