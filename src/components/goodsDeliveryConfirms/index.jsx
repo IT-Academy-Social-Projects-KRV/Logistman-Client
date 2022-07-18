@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Header from "../navigation/header";
 import {customPageSizeOptions, paginationDefaultFilter} from "../../constants/pagination";
 import {getOffersToConfirm} from "../../services/offers";
 import {Pagination, Result} from "antd";
-import OfferToConfirm from "./OfferToConfirm";
+import OfferToConfirm from "./offerToConfirm";
 
-function GoodsDeliveryConfirmationPage ()
-{
+function GoodsDeliveryConfirmationPage() {
     let paginationFilterModel = {
         pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
         pageSize: paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE
@@ -18,12 +17,13 @@ function GoodsDeliveryConfirmationPage ()
         setOffers(await getOffersToConfirm(paginationFilterModel));
     }
 
-    useEffect( () => {
+    useEffect(() => {
         async function fetchData() {
             setOffers(await getOffersToConfirm(paginationFilterModel));
         }
+
         fetchData();
-    }, []);
+    }, [paginationFilterModel]);
 
     const onPaginationChange = async (page, pageSize) => {
         paginationFilterModel.pageNumber = page;
@@ -34,7 +34,7 @@ function GoodsDeliveryConfirmationPage ()
 
     return (
         <div className="userOffersBody">
-            <Header />
+            <Header/>
 
             <p className="title">Confirm goods delivery</p>
 
@@ -46,6 +46,7 @@ function GoodsDeliveryConfirmationPage ()
                             updateOffers={() => updateOffers()}
                         />
                     )}
+
                     <Pagination
                         onChange={onPaginationChange}
                         total={offers.totalItems}

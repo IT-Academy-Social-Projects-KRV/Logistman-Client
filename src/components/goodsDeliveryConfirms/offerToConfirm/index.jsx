@@ -7,8 +7,8 @@ import {
 } from "@ant-design/icons";
 import moment from 'moment';
 import Text from "antd/es/typography/Text";
-import { offerRoles } from '../../../constants/offerRoles';
-import { getPointAddress } from "../../../constants/address";
+import {offerRoles} from '../../../constants/offerRoles';
+import {getPointAddress} from "../../../constants/address";
 import {confirmGoodsTransfer} from "../../../services/offers";
 
 function OfferToConfirm(data) {
@@ -23,22 +23,22 @@ function OfferToConfirm(data) {
             isConfirmed: response
         };
         await confirmGoodsTransfer(model);
-        updateOffers()
+
+        updateOffers();
     }
 
     return (
         <Card className="offerCard">
             <div className="cardHead">
-                <p className="creationDate">{moment(data.info.creationDate).format('LL HH:mm')}</p>
+                <p className="creationDate">{moment.utc(data.info.creationDate).format('LL HH:mm')}</p>
                 <Text strong className="offerStatus">
-
                     {data.info.isAnsweredByCreator ?
                         data.info.isConfirmedByCreator ?
                             data.info.creatorRoleName === offerRoles.SENDER.toUpperCase() ?
                                 <p id="opened">Donated</p> :
                                 <p id="opened">Received</p>
                             :
-                        <p id="failed">Failed</p> :
+                            <p id="failed">Failed</p> :
                         <></>
                     }
                 </Text>
@@ -50,14 +50,14 @@ function OfferToConfirm(data) {
 
             <div className="field-group">
                 <div className="cardField">
-                    <TagOutlined className="fieldIcon" />
+                    <TagOutlined className="fieldIcon"/>
                     <p className="fieldText category">{data.info.goodCategoryName}</p>
                 </div>
             </div>
 
             <div>
                 <div className="cardField">
-                    <EnvironmentOutlined className="fieldIcon" />
+                    <EnvironmentOutlined className="fieldIcon"/>
                     <p className="fieldText">{getPointAddress(data.info)}</p>
                 </div>
             </div>
@@ -65,7 +65,7 @@ function OfferToConfirm(data) {
             <p></p>
 
             <div className="cardField">
-                <CarOutlined className="fieldIcon" id="carIcon" />
+                <CarOutlined className="fieldIcon" id="carIcon"/>
                 <div>
                     <div>
                         <p className="fieldText">
@@ -87,14 +87,16 @@ function OfferToConfirm(data) {
                                 onClick={() => confirmDelivery(data.info, true)}
                             >
                                 I gave it away!
-                            </Button> :
+                            </Button>
+                            :
                             <Button
                                 className="submitButton"
                                 type="primary"
                                 onClick={() => confirmDelivery(data.info, true)}
                             >
                                 I got it!
-                            </Button>}
+                            </Button>
+                        }
                     </div>
                     <Button
                         type="danger"
