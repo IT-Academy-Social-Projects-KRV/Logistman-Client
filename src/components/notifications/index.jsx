@@ -8,16 +8,18 @@ import OfferInvite from './offerInvite/index';
 
 function OffersInvitesPage() {
 
-    let paginationFilterModel = {
-        pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
-        pageSize: paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE
-    };
+let paginationFilterModel = {
+    pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
+    pageSize: paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE
+};
 
-    const [invites, setInvites] = useState();
+function NotificationsPage() {
+
+    const [notifications, setNotifications] = useState();
 
     useEffect( () => {
         async function fetchData(){
-            setInvites(await getOffersInvites(paginationFilterModel));
+            setNotifications(await getNotificationsByUser(paginationFilterModel));
         }
 
         fetchData();
@@ -27,24 +29,24 @@ function OffersInvitesPage() {
         paginationFilterModel.pageNumber = page;
         paginationFilterModel.pageSize = pageSize;
 
-        setInvites(await getOffersInvites(paginationFilterModel));
+        setNotifications(await getNotificationsByUser(paginationFilterModel));
     };
 
     return (
-        <div className="userOffersInvitesBody">
+        <div className="userNotificationsBody">
             <Header />
 
-            <p className="title">My offers invites</p>
+            <p className="title">My notifications</p>
 
             {
-                invites != null ?
-                    <div className="invites-container">
-                        {invites.items.map((invite) =>
-                            <OfferInvite info={invite} />
+                notifications != null ?
+                    <div className="notifications-container">
+                        {notifications.items.map((invite) =>
+                            <Notification info={invite} />
                         )}
                         <Pagination
                             onChange={onPaginationChange}
-                            total={invites.totalItems}
+                            total={notifications.totalItems}
                             showSizeChanger
                             showTotal={(total) => `Total ${total} items`}
                             pageSizeOptions={customPageSizeOptions}
@@ -54,11 +56,11 @@ function OffersInvitesPage() {
                     :
                     <Result
                         status="404"
-                        title="Looks like you haven't had any offers' invites yet."
+                        title="Looks like you don`t have any notifications yet."
                     />
             }
         </div>
     );
 }
 
-export default OffersInvitesPage;
+export default NotificationsPage;
