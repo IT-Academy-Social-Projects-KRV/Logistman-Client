@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Tooltip } from "antd";
+import {Card, Tooltip, Button, Form} from "antd";
 import moment from "moment";
 import { FiCalendar } from "react-icons/fi";
 import { AiOutlineCar, AiOutlineInfoCircle } from "react-icons/ai";
@@ -11,6 +11,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { concatSettlements, concatThroughCities } from "../../../services/trips";
 import { getPointAddress } from "../../../constants/address";
+import { confirmDeleteMessage } from "../../../services/alerts";
+import { deleteRouteById } from "../../../services/trips";
 
 function MyRoute(props) {
     const [allCities, setCities] = useState();
@@ -21,10 +23,24 @@ function MyRoute(props) {
         setThroughCities(concatThroughCities(props.data.points));
     });
 
+    const updateRoute = () => {
+        props.updateRoute();
+    }
+
+    const deleteRoute = async (model) => {
+        var result = await confirmDeleteMessage();
+
+        if (result) {
+            deleteRouteById(model).then(() => {
+                updateRoute();
+            });
+        }
+    }
+
     return (
-        <IconContext.Provider value={{ className: 'icon' }}>
+        <IconContext.Provider value={{className: 'icon'}}>
             <Card className="myRouteCard">
-                <div className="myRouteCardBody">
+                <Form className="myRouteCardBody">
                     <div className="addresses">
                         <p>
                             From: {getPointAddress(props.data.points[0])}
@@ -44,17 +60,26 @@ function MyRoute(props) {
                     <div className="innerBody">
                         <div className="rightSide">
                             <p className="dataField">
-                                <AiOutlineCar size={DEFAULT_ICON_SIZE} />
+                                <AiOutlineCar
+                                    size={DEFAULT_ICON_SIZE}
+                                    className="fieldIcon"
+                                />
                                 Model: {props.data.car.model}
                             </p>
 
                             <p className="dataField">
-                                <AiOutlineInfoCircle size={DEFAULT_ICON_SIZE} />
+                                <AiOutlineInfoCircle
+                                    size={DEFAULT_ICON_SIZE}
+                                    className="fieldIcon"
+                                />
                                 Registration number: {props.data.car.registrationNumber}
                             </p>
 
                             <p className="dataField">
-                                <GiWeight size={DEFAULT_ICON_SIZE} />
+                                <GiWeight
+                                    size={DEFAULT_ICON_SIZE}
+                                    className="fieldIcon"
+                                />
                                 Load capacity: {props.data.loadCapacity + " kg"}
                             </p>
                         </div>
@@ -64,18 +89,29 @@ function MyRoute(props) {
                                 <div className="dates">
                                     <div className="date">
                                         <FiCalendar size={DEFAULT_ICON_SIZE} />
-                                        {moment(props.data.departureDate).format('LL HH:mm')}
+                                        {moment.utc(props.data.departureDate).format('LL HH:mm')}
                                     </div>
                                 </div>
                             </p>
 
                             <p className="dataField">
-                                <RiPinDistanceLine size={DEFAULT_ICON_SIZE} />
+                                <RiPinDistanceLine
+                                    size={DEFAULT_ICON_SIZE}
+                                    className="fieldIcon"
+                                />
                                 Distance: {props.data.distance + " km"}
                             </p>
                         </div>
                     </div>
-                </div>
+                    <div className="buttonsBlock">
+                        <Button
+                            type="danger"
+                            onClick={() => deleteRoute(props.data.id)}
+                        >
+                            Delete
+                        </Button>
+                    </div>
+                </Form>
             </Card>
         </IconContext.Provider>
     )

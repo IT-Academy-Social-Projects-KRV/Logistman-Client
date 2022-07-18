@@ -1,8 +1,8 @@
 import offersService from "../api/offers";
-import {errorMessage, successMessage} from "./alerts";
-import {statusCode} from "../constants/statusCodes";
-import {offersMessages} from "../constants/messages/offers";
-import {generalMessages} from "../constants/messages/general";
+import { errorMessage, successMessage } from "./alerts";
+import { statusCode } from "../constants/statusCodes";
+import { offersMessages } from "../constants/messages/offers";
+import { generalMessages } from "../constants/messages/general";
 
 export async function getUserOffers(paginationFilterModel) {
   return offersService
@@ -37,10 +37,11 @@ export function createOffer(values, history, point) {
     startDate: values.date._d,
     goodCategory: values.goodCategory,
     role: values.role,
-    point: point
-  }
+    point: point,
+  };
 
-  offersService.create(model)
+  offersService
+    .create(model)
     .then(
       () => {
         successMessage(offersMessages.CREATE_OFFER_SUCCESS);
@@ -61,6 +62,28 @@ export function createOffer(values, history, point) {
     });
 }
 
+export async function deleteById(id) {
+  await offersService
+    .deleteById(id)
+    .then(
+      () => {
+        successMessage(generalMessages.DELETE_SUCCESSFULLY, 1500);
+      },
+      () => {
+        errorMessage(
+          offersMessages.DELETE_OFFER_FAILED,
+          generalMessages.SOMETHING_WENT_WRONG
+        );
+      }
+    )
+    .catch(() => {
+      errorMessage(
+        offersMessages.DELETE_OFFER_FAILED,
+        generalMessages.SOMETHING_WENT_WRONG
+      );
+    });
+}
+
 export async function getOffersToConfirm(paginationFilterModel) {
   return offersService
   .getToConfirm(paginationFilterModel)
@@ -74,55 +97,55 @@ export async function getOffersToConfirm(paginationFilterModel) {
       },
       () => {
         errorMessage(
-            offersMessages.LOAD_USER_OFFERS_FAILED,
-            generalMessages.SOMETHING_WENT_WRONG
+          offersMessages.LOAD_USER_OFFERS_FAILED,
+          generalMessages.SOMETHING_WENT_WRONG
         );
       }
-  )
-  .catch(() => {
-    errorMessage(
+    )
+    .catch(() => {
+      errorMessage(
         offersMessages.LOAD_USER_OFFERS_FAILED,
         generalMessages.SOMETHING_WENT_WRONG
-    );
-  });
-}
-
-export async function confirmGoodsTransfer(model) {
-  await offersService
-  .confirmGoodsTransfer(model)
-  .then(
-      () => {},
-      () => {
+      );
+    });
+  }
+    
+    export async function confirmGoodsTransfer(model) {
+      await offersService
+      .confirmGoodsTransfer(model)
+      .then(
+          () => {},
+          () => {
+            errorMessage(
+                generalMessages.SOMETHING_WENT_WRONG
+            );
+          })
+      .catch(() => {
         errorMessage(
             generalMessages.SOMETHING_WENT_WRONG
         );
-      })
-  .catch(() => {
-    errorMessage(
-        generalMessages.SOMETHING_WENT_WRONG
-    );
-  });
-}
-
-export async function getOffersNearRout(routId) {
-    return offersService
-        .getOffersNearRout(routId)
-        .then(
-            async (response) => {
-
-                return await response.data;
-            },
-            () => {
+      });
+    }
+    
+    export async function getOffersNearRoute(routId) {
+        return offersService
+            .getOffersNearRoute(routId)
+            .then(
+                async (response) => {
+    
+                    return await response.data;
+                },
+                () => {
+                    errorMessage(
+                        offersMessages.LOAD_USER_OFFERS_FAILED,
+                        generalMessages.SOMETHING_WENT_WRONG
+                    );
+                }
+            )
+            .catch(() => {
                 errorMessage(
                     offersMessages.LOAD_USER_OFFERS_FAILED,
                     generalMessages.SOMETHING_WENT_WRONG
                 );
-            }
-        )
-        .catch(() => {
-            errorMessage(
-                offersMessages.LOAD_USER_OFFERS_FAILED,
-                generalMessages.SOMETHING_WENT_WRONG
-            );
-        });
-}
+            });
+    }

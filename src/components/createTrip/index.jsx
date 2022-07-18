@@ -6,7 +6,7 @@ import UserRoute from "./infoTrip";
 import {getTripById} from "../../services/trips";
 import {Result} from "antd";
 import TripMap from "./Map";
-import {getOffersNearRout} from "../../services/offers";
+import {getOffersNearRoute} from "../../services/offers";
 
 function ManageTripPage() {
     const location = useLocation();
@@ -30,7 +30,7 @@ function ManageTripPage() {
             data.points.sort((a, b) => a.order - b.order);
             setDataTrip(data);
 
-            setNearOffers(await getOffersNearRout(data.id));
+            setNearOffers(await getOffersNearRoute(data.id));
         }
 
         fetchData();

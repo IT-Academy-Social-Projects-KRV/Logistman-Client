@@ -5,7 +5,7 @@ import {Result} from "antd";
 import {buildTheRoute} from "../../../services/maps";
 import {mapCenter} from "../../../constants/map";
 import {unitsOfMeasurement} from "../../../constants/others";
-import {getOffersNearRout} from "../../../services/offers";
+import {getOffersNearRoute} from "../../../services/offers";
 import marker_S from "../../../assets/images/mapMarkers/marker_S.png";
 import marker_R from "../../../assets/images/mapMarkers/marker_R.png";
 import {offerRoles} from "../../../constants/offerRoles";

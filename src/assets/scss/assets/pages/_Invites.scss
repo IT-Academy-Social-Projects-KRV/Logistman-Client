@@ -1,4 +1,4 @@
-.userDriversInvitesBody {
+.userInvitesBody {
     padding: 105px 140px 50px 140px;
 
     .ant-card.inviteCard {
@@ -55,14 +55,6 @@
         margin-top: 20px;
         color: rgb(34, 139, 10);
     
-        .acceptButton {
-          color: white;
-          border-color: rgb(34, 139, 10);
-          background: rgb(34, 139, 10);
-          text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
-          box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
-        }
-    
         button {
           width: 150px;
           margin-left: 5px;
@@ -71,7 +63,7 @@
 }
 
 @media only screen and (max-width: $the_middle_of_tablet_size) {
-    .userDriversInvitesBody {
+    .userInvitesBody {
         padding: 105px 50px 50px 50px;
 
         #cardBottom {
@@ -88,7 +80,7 @@
 }
 
 @media only screen and (max-width: $max_phone_size) {
-    .userDriversInvitesBody {
+    .userInvitesBody {
         padding: 105px 0 50px 0;
 
         #cardBottom {

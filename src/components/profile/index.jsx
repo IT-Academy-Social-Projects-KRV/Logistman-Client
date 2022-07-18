@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { editUserInfo, getUserProfileInfo } from '../../services/users';
+import React, {useEffect, useState} from "react";
+import {editUserInfo, getUserProfileInfo, deleteUser} from '../../services/users';
 import Header from '../navigation/header';
 import { Button, Form, Input, Layout } from 'antd';
 import { CheckOutlined, CloseOutlined, PlusCircleOutlined } from '@ant-design/icons';
@@ -9,14 +9,15 @@ import { inputValidationErrorMessages } from "../../constants/messages/inputVali
 import { userMessages } from "../../constants/messages/users";
 import InputRules from "../../constants/inputRules";
 import AddNewCarModal from './../addNewCarModal/index';
-import { userRoles } from "../../constants/userRoles";
-import { store } from "../../store";
+import {userRoles} from "../../constants/userRoles";
+import {store} from "../../store";
+import { confirmDeleteMessage } from "../../services/alerts";
 
 function ProfilePage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [temporaryFullName, setTemporaryFullName] = useState({});
     const [userData, setUserData] = useState(undefined);
-    
+
     let role = store.getState().authReducer.role;
 
     useEffect( () => {
@@ -34,6 +35,14 @@ function ProfilePage() {
 
         fetchData();
     });
+
+    const deleteProfile = async () => {
+        var result = await confirmDeleteMessage();
+
+        if (result) {
+            deleteUser();
+        }
+    }
 
     const onFinishFailed = () => {
         errorMessage(
@@ -85,7 +94,7 @@ function ProfilePage() {
     }
     return (
         <Layout className="profilePageBody">
-            <Header />
+            <Header/>
 
             <Layout id="infoBlock">
                 <div className="info">
@@ -126,7 +135,7 @@ function ProfilePage() {
                             >
                                 <Input onChange={(e) => {
                                     onNameChange(e)
-                                }} />
+                                }}/>
                             </Form.Item>
                         </div>
                     </div>
@@ -156,7 +165,7 @@ function ProfilePage() {
                             >
                                 <Input onChange={(e) => {
                                     onSurnameChange(e)
-                                }} />
+                                }}/>
                             </Form.Item>
                         </div>
                     </div>
@@ -169,18 +178,18 @@ function ProfilePage() {
                         <div className="inputBlock">
 
                             <Form.Item className="formItem" name="email"
-                                initialValue={userData?.email}
-                                rules={[
-                                    InputRules.specificType(
-                                        "email",
-                                        inputValidationErrorMessages.NOT_VALID_EMAIL
-                                    ),
-                                    InputRules.required(
-                                        inputValidationErrorMessages.EMPTY_EMAIL
-                                    )
-                                ]}
+                                       initialValue={userData?.email}
+                                       rules={[
+                                           InputRules.specificType(
+                                               "email",
+                                               inputValidationErrorMessages.NOT_VALID_EMAIL
+                                           ),
+                                           InputRules.required(
+                                               inputValidationErrorMessages.EMPTY_EMAIL
+                                           )
+                                       ]}
                             >
-                                <Input />
+                                <Input/>
                             </Form.Item>
                         </div>
                     </div>
@@ -192,8 +201,8 @@ function ProfilePage() {
 
                         <div className="infoInput">
                             {userData?.emailConfirmed ?
-                                <CheckOutlined /> :
-                                <CloseOutlined />
+                                <CheckOutlined/> :
+                                <CloseOutlined/>
                             }
                         </div>
                     </div>
@@ -202,25 +211,35 @@ function ProfilePage() {
 
                         {role == userRoles.USER ?
                             <Button type="primary"
-                                className="addItemButton"
-                                icon={<PlusCircleOutlined />}
-                                onClick={() => setIsModalOpen(true)}
+                                    className="addItemButton"
+                                    icon={<PlusCircleOutlined/>}
+                                    onClick={() => setIsModalOpen(true)}
                             >
                                 Add car
                             </Button>
-                            : 
+                            :
                             <></>
                         }
 
-                        <Button
-                            htmlType={"submit"}
-                            type="primary"
-                        >
-                            Save
-                        </Button>
+                        <div className="profileButtons">
+                            <Button
+                                className="submitButton"
+                                htmlType="submit"
+                                type="primary"
+                            >
+                                Save
+                            </Button>
+                            <Button
+                                className="deleteButton"
+                                type="danger"
+                                onClick={() => deleteProfile()}
+                            >
+                                Delete Account
+                            </Button>
+                        </div>
 
                         {isModalOpen && <AddNewCarModal
-                            myClose={() => setIsModalOpen(false)} />}
+                            myClose={() => setIsModalOpen(false)}/>}
                     </div>
                 </Form>
             </Layout>

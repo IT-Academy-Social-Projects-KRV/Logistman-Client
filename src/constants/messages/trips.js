@@ -6,7 +6,9 @@ export const tripsMessages = Object.freeze({
     INCORRECT_TIME_INTERVAL: "Time interval must be minimum 12 hours between start date and expiration date!",
     START_DATE_IS_IN_THE_PAST: "The trip cannot begin in the past!",
     SUCCESSFUL_TRIP_CREATION: "The trip was successfully created!",
-    LOAD_ROUTES_FAILED: "Load routes failed!",
+    LOAD_ROUTES_FAILED: "Failed to load routes!",
+    DELETE_FAILED: "Failed to delete the route!",
+    DELETE_FAILED_DUE_INVITES: "The route has invites! To delete route decline the invites!",
     NOT_FOUND: "Trip not found!",
 
     TITLE_OVERLOAD: "Overload",

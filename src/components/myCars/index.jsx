@@ -7,14 +7,18 @@ import { Pagination } from 'antd';
 import { paginationDefaultFilter } from "../../constants/pagination";
 import { customPageSizeOptions } from "../../constants/pagination";
 
+let paginationFilterModel = {
+    pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
+    pageSize: paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE
+}
+
 function MyCarsPage() {
 
-    let paginationFilterModel = {
-        pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
-        pageSize: paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE
-    }
-
     const [cars, setCars] = useState();
+
+    const updateCars = async () => {
+        setCars(await getUserCars(paginationFilterModel));
+    }
 
     useEffect( () => {
         async function fetchData() {
@@ -40,7 +44,10 @@ function MyCarsPage() {
             {cars != null ?
                 <div className="cars-container">
                     {cars.items.map((car) =>
-                        <MyCar info={car} />
+                        <MyCar
+                            info={car}
+                            updateCars={() => updateCars()}
+                        />
                     )}
                     <Pagination
                         onChange={onPaginationChange}

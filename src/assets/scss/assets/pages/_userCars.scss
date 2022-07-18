@@ -13,12 +13,6 @@
         color: $title_color;
     }
 
-    img.fieldIcon {
-        height: 22px;
-        width: 22px;
-        margin-right: 15px;
-    }
-
     .leftSide,
     .rightSide {
         display: inline-block;
@@ -53,7 +47,7 @@
     .cardHead {
         margin-top: 0;
         padding-top: 0;
-        display: flex-end;
+        display: flex;
 
         .carStatus {
             float: right;
@@ -72,16 +66,15 @@
         }
     }
 
+    .icon {
+        margin-right: 10px;
+        color: black;
+    }
+
     .cardField {
         display: inline-flex;
         color: #656565;
         font-size: 15px;
-    }
-
-    .fieldIcon svg {
-        width: 22px;
-        height: 22px;
-        margin-right: 15px;
     }
 
     .fieldText {
@@ -93,16 +86,59 @@
 
     .buttons-group {
         margin-right: 5px;
+        display: flex;
+    }
+
+    .buttonsBlock {
+        display: flex;
+        justify-content: right;
+    }
+}
+
+@media only screen and (max-width: $max_laptop_size) {
+    .userCarsBody {
+        padding: 100px 0;
     }
 }
 
 @media only screen and (max-width: $the_middle_of_tablet_size) {
     .userCarsBody {
         padding: 100px 0;
-    }
 
-    .information {
-        flex-direction: column;
-        font-size: 14px;
+        .ant-card.carCard {
+            .information {
+                flex-direction: column;
+                font-size: 14px;
+                padding: 0;
+
+                .leftSide {
+                    width: 100%;
+                    padding-right: 0;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: $max_phone_size) {
+    .userCarsBody {
+        padding: 100px 0;
+
+        .ant-card.carCard {
+            .information {
+                flex-direction: column;
+                font-size: 14px;
+                padding: 0;
+
+                .leftSide {
+                    width: 100%;
+                    padding-right: 0;
+                }
+            }
+        }
+
+        .ant-card-body {
+            padding: 12px;
+        }
     }
 }

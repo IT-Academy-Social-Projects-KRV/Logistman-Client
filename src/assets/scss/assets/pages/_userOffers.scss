@@ -123,9 +123,14 @@
     font-weight: 550;
   }
 
-  .fieldIcon svg {
-    width: 22px;
-    height: 22px;
+  .icon {
+    margin-right: 10px;
+    color: black;
+  }
+
+  .buttonsBlock {
+    display: flex;
+    justify-content: right;
   }
 
   #carIcon {
