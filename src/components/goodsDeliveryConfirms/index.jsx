@@ -23,7 +23,7 @@ function GoodsDeliveryConfirmationPage() {
         }
 
         fetchData();
-    }, [paginationFilterModel]);
+    }, []);
 
     const onPaginationChange = async (page, pageSize) => {
         paginationFilterModel.pageNumber = page;
