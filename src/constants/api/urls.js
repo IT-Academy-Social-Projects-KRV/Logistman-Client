@@ -39,13 +39,16 @@ export const OFFERS_URLS = {
     CREATE: OFFERS_URL + "/create",
     GET_ONE_BY_USER: OFFERS_URL + "/user-offer",
     GET_BY_USER: OFFERS_URL,
-    CONFIRM_GOODS_TRANSFER: OFFERS_URL + "/confirm-goods-transfer"
+    CONFIRM_GOODS_TRANSFER: OFFERS_URL + "/confirm-goods-transfer",
+    GET_BY_NEAR_ROUT: OFFERS_URL + "/near-route"
 };
 
 export const TRIPS_URL = {
     CREATE: TRIP_URL + "/create",
     GET_ALL_ROUTES: TRIP_URL + "/routes",
     GET_ROUTES_BY_USER: TRIP_URL + "/my-routes",
+    GET_BY_ID: TRIP_URL + "/by-id",
+    MANAGE: TRIP_URL + "/manage",
     GET_TRIP_INFO: TRIP_URL + "/info-by-user"
 };
 

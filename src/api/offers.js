@@ -16,6 +16,11 @@ export default class offersService {
              &PageSize=${paginationFilterModel.pageSize}`);
     }
 
+    static getOffersNearRout(model) {
+        return instance.get(OFFERS_URLS.GET_BY_NEAR_ROUT +
+            `?tripId=${model}`);
+    }
+
     static confirmGoodsTransfer(model){
         return instance.post(OFFERS_URLS.CONFIRM_GOODS_TRANSFER, model);
     }

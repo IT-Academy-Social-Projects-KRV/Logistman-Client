@@ -22,4 +22,13 @@ export default class tripsService {
         return instance.get(TRIPS_URL.GET_TRIP_INFO +
         `?tripId=${model}`);
     }
+
+    static getById(model){
+        return instance.get(TRIPS_URL.GET_BY_ID +
+            `?tripId=${model}`);
+    }
+
+    static manage(model) {
+        return instance.post(TRIPS_URL.MANAGE, model);
+    }
 }

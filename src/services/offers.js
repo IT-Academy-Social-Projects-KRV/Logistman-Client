@@ -1,8 +1,8 @@
 import offersService from "../api/offers";
-import { errorMessage, successMessage } from "./alerts";
-import { generalMessages } from "../constants/messages/general";
-import { offersMessages } from "../constants/messages/offers";
-import { statusCode } from "../constants/statusCodes";
+import {errorMessage, successMessage} from "./alerts";
+import {statusCode} from "../constants/statusCodes";
+import {offersMessages} from "../constants/messages/offers";
+import {generalMessages} from "../constants/messages/general";
 
 export async function getUserOffers(paginationFilterModel) {
   return offersService
@@ -59,4 +59,27 @@ export function createOffer(values, history, point) {
         generalMessages.SOMETHING_WENT_WRONG
       );
     });
+}
+
+export async function getOffersNearRout(routId) {
+    return offersService
+        .getOffersNearRout(routId)
+        .then(
+            async (response) => {
+
+                return await response.data;
+            },
+            () => {
+                errorMessage(
+                    offersMessages.LOAD_USER_OFFERS_FAILED,
+                    generalMessages.SOMETHING_WENT_WRONG
+                );
+            }
+        )
+        .catch(() => {
+            errorMessage(
+                offersMessages.LOAD_USER_OFFERS_FAILED,
+                generalMessages.SOMETHING_WENT_WRONG
+            );
+        });
 }

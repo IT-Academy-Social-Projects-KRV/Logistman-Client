@@ -6,6 +6,15 @@ export const tripsMessages = Object.freeze({
     INCORRECT_TIME_INTERVAL: "Time interval must be minimum 12 hours between start date and expiration date!",
     START_DATE_IS_IN_THE_PAST: "The trip cannot begin in the past!",
     SUCCESSFUL_TRIP_CREATION: "The trip was successfully created!",
+    NOT_FOUND: "Trip not found!",
+
+    TITLE_OVERLOAD: "Overload",
+    TEXT_OVERLOAD: "The weight of the cargo exceeds the permissible weight!",
+
+    TEXT_OFFER_POSITION: "Offer cannot be Trip's beginning or end!",
+
+    MANAGE_TRIP_FAILED: "Manage Trip Failed",
+
     LOAD_ROUTES_FAILED: "Load routes failed!",
     LOAD_TRIP_FAILED: "Load trip failed",
     LOAD_TRIP_OFFERS_FAILED: "Trip data cannot be loaded!"
