@@ -40,6 +40,8 @@ export const OFFERS_URLS = {
     GET_ONE_BY_USER: OFFERS_URL + "/user-offer",
     GET_BY_USER: OFFERS_URL,
     DELETE: OFFERS_URL + "/delete",
+    GET_TO_CONFIRM: OFFERS_URL + "/to-confirm",
+    CONFIRM_GOODS_TRANSFER: OFFERS_URL + "/confirm-goods-transfer",
     GET_BY_NEAR_ROUT: OFFERS_URL + "/near-route"
 };
 

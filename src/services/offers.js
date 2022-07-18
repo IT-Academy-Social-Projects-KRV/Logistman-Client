@@ -84,11 +84,15 @@ export async function deleteById(id) {
     });
 }
 
-export async function getOffersNearRout(routId) {
+export async function getOffersToConfirm(paginationFilterModel) {
   return offersService
-    .getOffersNearRout(routId)
-    .then(
+  .getToConfirm(paginationFilterModel)
+  .then(
       async (response) => {
+        if (response.status === statusCode.NO_CONTENT) {
+          return null;
+        }
+
         return await response.data;
       },
       () => {
@@ -104,4 +108,44 @@ export async function getOffersNearRout(routId) {
         generalMessages.SOMETHING_WENT_WRONG
       );
     });
-}
+  }
+    
+    export async function confirmGoodsTransfer(model) {
+      await offersService
+      .confirmGoodsTransfer(model)
+      .then(
+          () => {},
+          () => {
+            errorMessage(
+                generalMessages.SOMETHING_WENT_WRONG
+            );
+          })
+      .catch(() => {
+        errorMessage(
+            generalMessages.SOMETHING_WENT_WRONG
+        );
+      });
+    }
+    
+    export async function getOffersNearRout(routId) {
+        return offersService
+            .getOffersNearRout(routId)
+            .then(
+                async (response) => {
+    
+                    return await response.data;
+                },
+                () => {
+                    errorMessage(
+                        offersMessages.LOAD_USER_OFFERS_FAILED,
+                        generalMessages.SOMETHING_WENT_WRONG
+                    );
+                }
+            )
+            .catch(() => {
+                errorMessage(
+                    offersMessages.LOAD_USER_OFFERS_FAILED,
+                    generalMessages.SOMETHING_WENT_WRONG
+                );
+            });
+    }

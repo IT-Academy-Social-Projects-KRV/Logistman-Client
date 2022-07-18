@@ -20,6 +20,16 @@ export default class offersService {
         return instance.delete(OFFERS_URLS.DELETE + `?offerId=${model}`);
     }
     
+    static getToConfirm(paginationFilterModel) {
+        return instance.get(OFFERS_URLS.GET_TO_CONFIRM +
+            `?PageNumber=${paginationFilterModel.pageNumber}
+             &PageSize=${paginationFilterModel.pageSize}`);
+    }
+
+    static confirmGoodsTransfer(model) {
+        return instance.post(OFFERS_URLS.CONFIRM_GOODS_TRANSFER, model);
+    }
+    
     static getOffersNearRout(model) {
         return instance.get(OFFERS_URLS.GET_BY_NEAR_ROUT +
             `?tripId=${model}`);
