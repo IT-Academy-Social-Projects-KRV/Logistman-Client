@@ -1,6 +1,21 @@
 @import '../variables/colors';
 @import '../variables/others';
 
-.confirmTripOfferBody{
+.confirmGoodsDeliveryForDriverPage {
 
+  .confirmTripOfferBody {
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    border-radius: 10px;
+    margin: 20px 50px 50px 50px;
+  }
+
+  .titel{
+
+    font-weight: bold;
+    font-size: 15pt;
+    text-align: center;
+    margin-top: 80px;
+    color: $title_color;
+  }
 }
