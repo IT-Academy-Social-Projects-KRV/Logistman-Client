@@ -40,7 +40,8 @@ export const OFFERS_URLS = {
     GET_ONE_BY_USER: OFFERS_URL + "/user-offer",
     GET_BY_USER: OFFERS_URL,
     CONFIRM_GOODS_TRANSFER: OFFERS_URL + "/confirm-goods-transfer",
-    GET_BY_NEAR_ROUT: OFFERS_URL + "/near-route"
+    GET_BY_NEAR_ROUT: OFFERS_URL + "/near-route",
+    DRIVER_TO_CONFIRM: OFFERS_URL + "/driver-to-confirm"
 };
 
 export const TRIPS_URL = {

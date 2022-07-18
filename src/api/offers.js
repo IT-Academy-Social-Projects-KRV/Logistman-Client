@@ -24,4 +24,9 @@ export default class offersService {
     static confirmGoodsTransfer(model){
         return instance.post(OFFERS_URLS.CONFIRM_GOODS_TRANSFER, model);
     }
+
+    static getDriverConfirmGoodsDelivery(model){
+        return instance.get(OFFERS_URLS.DRIVER_TO_CONFIRM +
+            `?tripId=${model}`);
+    }
 }

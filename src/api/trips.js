@@ -1,5 +1,5 @@
 import instance from "./configurations/configurations";
-import { TRIPS_URL } from "../constants/api/urls";
+import {TRIP_URL, TRIPS_URL} from "../constants/api/urls";
 
 export default class tripsService {
     static create(model) {
@@ -18,9 +18,8 @@ export default class tripsService {
              &PageSize=${paginationFilterModel.pageSize}`);
     }
 
-    static getTripInfo(model){
-        return instance.get(TRIPS_URL.GET_TRIP_INFO +
-        `?tripId=${model}`);
+    static getUserTripInfo(){
+        return instance.get(TRIP_URL);
     }
 
     static getById(model){

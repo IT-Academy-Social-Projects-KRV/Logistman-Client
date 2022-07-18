@@ -7,9 +7,10 @@
     box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
     rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
     border-radius: 10px;
-    margin: 20px 150px 20px 150px;
+    margin: 20px 100px 10px 100px;
     padding-left: 40px;
-    padding-right: 60px;
+    padding-right: 40px;
+    padding-bottom: 10px;
   }
 
   .titel{
@@ -20,4 +21,16 @@
     margin-top: 80px;
     color: $title_color;
   }
+
+  h2{
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  @media only screen and (max-width: $max_tablet_size){
+    .confirmTripOfferBody {
+      margin: 20px;
+    }
+  }
+
 }

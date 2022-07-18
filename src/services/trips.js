@@ -166,14 +166,11 @@ export function manageTrip(model, history) {
         });
 }
 
-export function getTripInfo(tripId){
+export function getUserTripInfo(){
     return tripsService
-        .getTripInfo(tripId)
+        .getUserTripInfo()
         .then(
             async (response) => {
-                if (response.status === statusCode.NO_CONTENT) {
-                    return null;
-                }
 
                 return await response.data;
             },

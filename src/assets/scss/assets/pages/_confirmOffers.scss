@@ -1,37 +1,130 @@
 @import '../variables/colors';
 @import '../variables/others';
 
-.confirmOffers{
+.confirmOffers {
 
-  .cardHead{
+  padding: 0px 10px 10px 10px;
+  margin-right: 70px;
+  margin-left: 70px;
+  margin-bottom: 30px;
+  justify-content: center;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+  rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  border-radius: 10px;
 
+  .title {
+    font-weight: bold;
+    font-size: 15pt;
+    text-align: center;
+    margin-top: -10px;
+    color: $title_color;
   }
 
-  .offerStatus{
-
+  .offers-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
   }
 
-  .description{
+  .cardHead {
+    height: 50px;
+    margin-top: 0;
+    padding-top: 0;
+    display: flex;
 
+    .offerStatus {
+      float: right;
+      margin-left: auto;
+      padding: 16px 0;
+      font-size: 15px;
+    }
   }
 
-  .field-group{
-
+  .ant-tag {
+    width: 85px;
+    height: 27px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: $header_color 0 0 2px;
+    border-radius: 5px;
+    border-color: $header_color;
+    color: $header_color;
+    background-color: white;
+    font-size: 15px;
+    margin-top: 15px;
   }
 
-  .cardField{
-
+  .ant-card-body {
+    padding: 10px;
   }
 
-  .fieldIcon{
-
+  .description {
+    margin-top: 15px;
+    font-size: 16px;
+    font-weight: 550;
+    color: $title_color;
   }
 
-  .fieldText{
-
+  .cardField {
+    display: inline-flex;
+    color: #656565;
+    font-size: 15px;
   }
 
-  .category{
+  .fieldText {
+    margin-left: 25px;
+    color: #656565;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
 
+  .category {
+    color: $body_color;
+    font-weight: 550;
+  }
+
+  .fieldIcon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .button {
+    width: 125px;
+    height: 35px;
+    color: white;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    padding-top: 6px;
+    float: right;
+    margin-left: 10px;
+  }
+
+  .confirm {
+    background-color: $green_color;
+  }
+
+  .decline {
+    background-color: $input_error_message_color;
+  }
+
+  .declineLabel {
+    color: $input_error_message_color;
+    float: right;
+  }
+
+  .confirmLabel {
+    color: $green_color;
+    float: right;
+  }
+
+  .nextLabel {
+    float: right;
+  }
+
+  .eventPlace{
+    margin-top: 10px;
   }
 }
