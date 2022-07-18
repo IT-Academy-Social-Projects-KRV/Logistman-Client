@@ -80,7 +80,7 @@ function UserRoute(props) {
                                 <div className="dates">
                                     <div className="date">
                                         <FiCalendar size={DEFAULT_ICON_SIZE} />
-                                        {moment(props.data.departureDate).format('LL HH:mm')}
+                                        {moment.utc(props.data.departureDate).format('LL HH:mm')}
                                     </div>
                                 </div>
                             </p>

@@ -29,7 +29,7 @@ function MyOffer(data) {
         <IconContext.Provider value={{ className: 'icon' }}>
             <Card className="offerCard">
                 <div className="cardHead">
-                    <p className="creationDate">{moment(data.info.creationDate).format('LL HH:mm')}</p>
+                    <p className="creationDate">{moment.utc(data.info.creationDate).format('LL HH:mm')}</p>
                     <Text strong className="offerStatus">
 
                         {!data.info.isClosed ?
@@ -64,7 +64,7 @@ function MyOffer(data) {
                         <div>
                             <p className="fieldText">Active since:
                                 <span id="date">
-                                    {moment(data.info.startDate).format("DD.MM.YYYY HH:mm")}
+                                    {moment.utc(data.info.startDate).format("LL HH:mm")}
                                 </span>
                             </p>
                         </div>

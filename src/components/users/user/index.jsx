@@ -7,7 +7,6 @@ import { useHistory } from 'react-router-dom';
 import { IconContext } from "react-icons";
 import { DEFAULT_ICON_SIZE } from "../../../constants/icon";
 
-
 function User(props) {
     const history = useHistory();
     const [isModalOpen, setIsModalOpen] = useState(false);

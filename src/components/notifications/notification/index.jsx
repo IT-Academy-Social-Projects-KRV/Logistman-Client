@@ -63,7 +63,7 @@ function Notification(data) {
                             <div>
                                 <p className="fieldText">Departure date:
                                     <span className="fieldText date">
-                                        {moment(data.info.tripInfo.departureDate).format('LL HH:mm')}
+                                        {moment.utc(data.info.tripInfo.departureDate).format('LL HH:mm')}
                                     </span>
                                 </p>
                             </div>
