@@ -7,6 +7,7 @@ export const OFFERS_URL = "/Offers";
 export const TRIP_URL = "/Trips";
 export const USER_URL = "/Users";
 export const INVITES_URL = "/Invites";
+export const NOTIFICATIONS_URL = "/Notifications";
 
 export const AUTHENTICATION_URLS = {
     REGISTRATION: AUTHENTICATION_URL + "/register",
@@ -47,7 +48,6 @@ export const TRIPS_URL = {
 };
 
 export const INVITES_URLS = {
-    GET_OFFERS_INVITES: INVITES_URL + "/offers",
     GET_DRIVERS_INVITES: INVITES_URL + "/drivers",
     MANAGE: INVITES_URL + "/manage"
 };
@@ -61,4 +61,8 @@ export const USERS_URLS = {
 
 export const LOGIST_URLS = {
     EDIT_USER_INFO: USER_URL + "/user-edit-info"
+}
+
+export const NOTIFICATIONS_URLS = {
+    GET_NOTIFICATIONS_BY_USER: NOTIFICATIONS_URL + "/by-user"
 }
