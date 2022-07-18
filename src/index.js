@@ -2,20 +2,20 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import App from './App'
 import './assets/css/main.css'
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './store';
 
-const rootElement = document.getElementById('root');
+const container  = document.getElementById('root');
+const root = createRoot(container);
 
-ReactDOM.render(
+root.render(
   <Provider store={store}>
     <PersistGate
       persistor={persistor}>
       <App />
     </PersistGate>
-  </Provider>,
-  rootElement
+  </Provider>
 );
 
 export default store;

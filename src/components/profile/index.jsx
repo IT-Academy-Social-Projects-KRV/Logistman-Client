@@ -20,16 +20,20 @@ function ProfilePage() {
 
     let role = store.getState().authReducer.role;
 
-    useEffect(async () => {
-        if (userData === undefined) {
-            let result = await getUserProfileInfo();
+    useEffect( () => {
+        async function fetchData() {
+            if (userData === undefined) {
+                let result = await getUserProfileInfo();
 
-            setUserData(result);
-            setTemporaryFullName({
-                name: result.name,
-                surname: result.surname
-            });
+                setUserData(result);
+                setTemporaryFullName({
+                    name: result.name,
+                    surname: result.surname
+                });
+            }
         }
+
+        fetchData();
     });
 
     const deleteProfile = async () => {

@@ -1,7 +1,7 @@
-import tripsService from '../api/trips';
-import { errorMessage, successMessage } from './alerts';
-import { generalMessages } from '../constants/messages/general';
-import { tripsMessages } from '../constants/messages/trips';
+import tripsService from "../api/trips";
+import { errorMessage, successMessage } from "./alerts";
+import { generalMessages } from "../constants/messages/general";
+import { tripsMessages } from "../constants/messages/trips";
 import { statusCode } from "../constants/statusCodes";
 import { tripValues } from "../constants/tripValues";
 
@@ -60,20 +60,20 @@ export async function getAllRoutesByUser(paginationFilterModel) {
 export const concatSettlements = (points) => {
   let settlements = [];
 
-  points.forEach(point => {
+  points.forEach((point) => {
     if (point.settlement !== null) {
       settlements.push(point.settlement);
     }
   });
 
   return settlements.join(", ");
-}
+};
 
 export const concatThroughCities = (points) => {
   let settlements = [];
   let result = [];
 
-  points.forEach(point => {
+  points.forEach((point) => {
     if (point.settlement !== null) {
       settlements.push(point.settlement);
     }
@@ -81,8 +81,7 @@ export const concatThroughCities = (points) => {
 
   if (settlements.length < tripValues.MAX_SETTLEMENTS_COUNT) {
     return settlements.join(", ");
-  }
-  else {
+  } else {
     result.push(settlements[0]);
     result.push(settlements[1]);
     result.push(settlements[settlements.length - 2]);
@@ -90,7 +89,7 @@ export const concatThroughCities = (points) => {
 
     return result.join(", ");
   }
-}
+};
 
 export function createTrip(model, history) {
   return tripsService
@@ -98,51 +97,82 @@ export function createTrip(model, history) {
     .then(
       () => {
         history.push("/main");
-        successMessage(
-          tripsMessages.SUCCESSFUL_TRIP_CREATION,
-          2500
-        );
+        successMessage(tripsMessages.SUCCESSFUL_TRIP_CREATION, 2500);
       },
       (err) => {
-        errorMessage(
-          err.response.data,
-          ''
-        );
+        errorMessage(err.response.data, "");
+      }
+    )
+    .catch(() => {
+      errorMessage(generalMessages.SOMETHING_WENT_WRONG);
+    });
+}
+
+export async function deleteRouteById(id) {
+  await tripsService
+    .deleteRouteById(id)
+    .then(
+      () => {
+        successMessage(generalMessages.DELETE_SUCCESSFULLY, 1500);
+      },
+      (err) => {
+        err.response.status === statusCode.BAD_REQUEST
+          ? errorMessage(tripsMessages.DELETE_FAILED_DUE_INVITES)
+          : errorMessage(
+              tripsMessages.DELETE_FAILED,
+              generalMessages.SOMETHING_WENT_WRONG
+            );
       }
     )
     .catch(() => {
       errorMessage(
+        tripsMessages.DELETE_FAILED,
         generalMessages.SOMETHING_WENT_WRONG
       );
     });
 }
 
-export async function deleteRouteById(id) {
-    await tripsService
-    .deleteRouteById(id)
+export function getTripById(tripId) {
+  return tripsService
+    .getById(tripId)
     .then(
-        () => {
-            successMessage(
-                generalMessages.DELETE_SUCCESSFULLY,
-                1500
-            );
-        },
-        (err) => {
-            err.response.status === statusCode.BAD_REQUEST
-                ? errorMessage(
-                    tripsMessages.DELETE_FAILED_DUE_INVITES
-                )
-                :
-                errorMessage(
-                    tripsMessages.DELETE_FAILED,
-                    generalMessages.SOMETHING_WENT_WRONG
-                );
-        }
+      async (response) => {
+        return response.data;
+      },
+      () => {
+        errorMessage(
+          tripsMessages.NOT_FOUND,
+          generalMessages.SOMETHING_WENT_WRONG
+        );
+      }
     )
     .catch(() => {
+      errorMessage(
+        tripsMessages.NOT_FOUND,
+        generalMessages.SOMETHING_WENT_WRONG
+      );
+    });
+}
+
+export function manageTrip(model, history) {
+  return tripsService
+    .manage(model)
+    .then(
+      () => {
+        successMessage(tripsMessages.SUCCESSFUL_TRIP_CREATION, 2000);
+        history.push("/routes");
+      },
+      () => {
         errorMessage(
-            tripsMessages.DELETE_FAILED,
-            generalMessages.SOMETHING_WENT_WRONG
+          tripsMessages.MANAGE_TRIP_FAILED,
+          generalMessages.SOMETHING_WENT_WRONG
         );
+      }
+    )
+    .catch(() => {
+      errorMessage(
+        tripsMessages.MANAGE_TRIP_FAILED,
+        generalMessages.SOMETHING_WENT_WRONG
+      );
     });
 }

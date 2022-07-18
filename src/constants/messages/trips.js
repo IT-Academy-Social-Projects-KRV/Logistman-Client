@@ -8,5 +8,13 @@ export const tripsMessages = Object.freeze({
     SUCCESSFUL_TRIP_CREATION: "The trip was successfully created!",
     LOAD_ROUTES_FAILED: "Failed to load routes!",
     DELETE_FAILED: "Failed to delete the route!",
-    DELETE_FAILED_DUE_INVITES: "The route has invites! To delete route decline the invites!"
+    DELETE_FAILED_DUE_INVITES: "The route has invites! To delete route decline the invites!",
+    NOT_FOUND: "Trip not found!",
+
+    TITLE_OVERLOAD: "Overload",
+    TEXT_OVERLOAD: "The weight of the cargo exceeds the permissible weight!",
+
+    TEXT_OFFER_POSITION: "Offer cannot be Trip's beginning or end!",
+
+    MANAGE_TRIP_FAILED: "Manage Trip Failed"
 });

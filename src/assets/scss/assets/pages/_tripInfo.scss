@@ -1,0 +1,89 @@
+@import '../variables/colors';
+@import '../variables/others';
+
+.tripBody {
+  padding-top: 30px;
+  width: 50%;
+  padding-right: 5px;
+
+  .addresses {
+    padding-left: 42px;
+  }
+
+  .dataField {
+    color: #656565;
+    display: flex;
+    margin-right: 10px ;
+  }
+
+  .carInfo {
+    margin-top: 10px;
+  }
+
+  .description {
+    span{
+      color: $body_color;
+    }
+    width: 90%;
+  }
+
+  .description {
+    span:hover{
+      color: $input_color;
+    }
+  }
+
+  .innerBody {
+    display: flex;
+  }
+
+  .dates {
+    display: flex;
+    flex-direction: row;
+
+    .date {
+      display: flex;
+    }
+  }
+
+  .icon {
+    margin-right: 10px;
+    color: black;
+    width: 50px;
+  }
+
+  .leftSide {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rightSide{
+    width: 50%;
+  }
+
+  .submitButton {
+    width: 125px;
+    height: 35px;
+    border-radius: 5px;
+    background-color: $input_color;
+    display: flex;
+    justify-content: center;
+    padding-top: 6px;
+    float: right;
+    margin-right: 10px;
+  }
+
+  .ant-btn-primary[disabled]{
+    color: #b9b9b9;
+  }
+
+  .submitButton:hover{
+    background-color: #0e5670;
+  }
+
+  .dateDistance{
+    display: flex;
+    justify-content: right;
+    width: 50%;
+  }
+}

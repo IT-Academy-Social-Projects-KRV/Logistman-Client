@@ -16,11 +16,16 @@ function MyRoutesPage() {
 
     const [routes, setRoutes] = useState();
 
-     const updateRoutes = async() => {
-         setRoutes(await getAllRoutesByUser(paginationFilterModel));
-     }
-    useEffect(async () => {
+    const updateRoutes = async() => {
         setRoutes(await getAllRoutesByUser(paginationFilterModel));
+    }
+
+    useEffect( () => {
+        async function fetchData(){
+            setRoutes(await getAllRoutesByUser(paginationFilterModel));
+        }
+
+        fetchData();
     }, []);
 
     const onPaginationChange = async (page, pageSize) => {

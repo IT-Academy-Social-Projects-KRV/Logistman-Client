@@ -20,8 +20,12 @@ function MyCarsPage() {
         setCars(await getUserCars(paginationFilterModel));
     }
 
-    useEffect(async () => {
-        setCars(await getUserCars(paginationFilterModel));
+    useEffect( () => {
+        async function fetchData() {
+            setCars(await getUserCars(paginationFilterModel));
+        }
+
+        fetchData();
     }, []);
 
     const onPaginationChange = async (page, pageSize) => {

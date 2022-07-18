@@ -1,8 +1,8 @@
 import offersService from "../api/offers";
 import { errorMessage, successMessage } from "./alerts";
-import { generalMessages } from "../constants/messages/general";
-import { offersMessages } from "../constants/messages/offers";
 import { statusCode } from "../constants/statusCodes";
+import { offersMessages } from "../constants/messages/offers";
+import { generalMessages } from "../constants/messages/general";
 
 export async function getUserOffers(paginationFilterModel) {
   return offersService
@@ -37,10 +37,11 @@ export function createOffer(values, history, point) {
     startDate: values.date._d,
     goodCategory: values.goodCategory,
     role: values.role,
-    point: point
-  }
+    point: point,
+  };
 
-  offersService.create(model)
+  offersService
+    .create(model)
     .then(
       () => {
         successMessage(offersMessages.CREATE_OFFER_SUCCESS);
@@ -66,20 +67,40 @@ export async function deleteById(id) {
     .deleteById(id)
     .then(
       () => {
-        successMessage(
-          generalMessages.DELETE_SUCCESSFULLY,
-          1500
-        );
+        successMessage(generalMessages.DELETE_SUCCESSFULLY, 1500);
       },
       () => {
         errorMessage(
           offersMessages.DELETE_OFFER_FAILED,
           generalMessages.SOMETHING_WENT_WRONG
         );
-      })
+      }
+    )
     .catch(() => {
       errorMessage(
         offersMessages.DELETE_OFFER_FAILED,
+        generalMessages.SOMETHING_WENT_WRONG
+      );
+    });
+}
+
+export async function getOffersNearRout(routId) {
+  return offersService
+    .getOffersNearRout(routId)
+    .then(
+      async (response) => {
+        return await response.data;
+      },
+      () => {
+        errorMessage(
+          offersMessages.LOAD_USER_OFFERS_FAILED,
+          generalMessages.SOMETHING_WENT_WRONG
+        );
+      }
+    )
+    .catch(() => {
+      errorMessage(
+        offersMessages.LOAD_USER_OFFERS_FAILED,
         generalMessages.SOMETHING_WENT_WRONG
       );
     });

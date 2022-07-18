@@ -15,8 +15,12 @@ function InvitesPage() {
 
     const [invites, setInvites] = useState();
 
-    useEffect(async () => {
-        setInvites(await getInvites(paginationFilterModel));
+    useEffect( () => {
+        async function fetchData(){
+            setInvites(await getInvites(paginationFilterModel));
+        }
+
+        fetchData();
     }, []);
 
     const onPaginationChange = async (page, pageSize) => {

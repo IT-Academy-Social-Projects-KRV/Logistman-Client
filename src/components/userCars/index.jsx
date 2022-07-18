@@ -17,8 +17,12 @@ function UserCarsPage() {
 
     const [cars, setCars] = useState();
 
-    useEffect(async () => {
-        setCars(await getUserCarsByEmail(paginationFilterModel, userData.email));
+    useEffect( () => {
+        async function fetchData(){
+            setCars(await getUserCarsByEmail(paginationFilterModel, userData.email));
+        }
+
+        fetchData();
     }, []);
 
     const onPaginationChange = async (page, pageSize) => {

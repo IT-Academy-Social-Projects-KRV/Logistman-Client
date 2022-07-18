@@ -10,21 +10,24 @@ import { generalMessages } from '../../constants/messages/general';
 function AddNewCarModal(props) {
     const [categories, setCategories] = useState([]);
 
-    useEffect(async () => {
-        let carCategories = await getCarCategories();
-        
-        if (carCategories !== undefined &&
-            carCategories.length > 0) {
-            carCategories.map(category => {
-                category.value = category.name;
-                category.label = category.name;
-            });
+    useEffect( () => {
+        async function fetchData() {
+            let carCategories = await getCarCategories();
 
-            setCategories(carCategories);
+            if (carCategories !== undefined &&
+                carCategories.length > 0) {
+                carCategories.map(category => {
+                    category.value = category.name;
+                    category.label = category.name;
+                });
+
+                setCategories(carCategories);
+            }
+            else {
+                props.myClose();
+            }
         }
-        else {
-            props.myClose();
-        }
+        fetchData();
     }, []);
 
     const close = () => {

@@ -19,4 +19,9 @@ export default class offersService {
     static deleteById(model) {
         return instance.delete(OFFERS_URLS.DELETE + `?offerId=${model}`);
     }
+    
+    static getOffersNearRout(model) {
+        return instance.get(OFFERS_URLS.GET_BY_NEAR_ROUT +
+            `?tripId=${model}`);
+    }
 }
