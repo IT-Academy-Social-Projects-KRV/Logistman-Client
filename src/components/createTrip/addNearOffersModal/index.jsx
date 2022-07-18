@@ -16,35 +16,14 @@ function AddNearOfferModal(props) {
             }
             //Retrieves all offers except those that have already been selected.
             setOffers(offers.filter((value) => {
-                const even = (element) => element.pointId === value.pointId;
+                const filter = (element) => element.pointId === value.pointId;
 
-                return !props.offers.some(even);
+                return !props.offers.some(filter);
             }));
         }
 
         fetchData();
     }, [])
-
-    const swapDaysAndMonths = (date) => {
-        if (!Date.parse(date)) {
-            const splitCreationDate = date.split('.');
-            const day = splitCreationDate[0];
-
-            splitCreationDate[0] = splitCreationDate[1];
-            splitCreationDate[1] = day;
-
-            const finalDate = splitCreationDate.join('.');
-
-            if (!Date.parse(finalDate)) {
-                return finalDate;
-            } else {
-
-                return date;
-            }
-        }
-
-        return date;
-    }
 
     const offerColumns = [
         {
@@ -109,9 +88,9 @@ function AddNearOfferModal(props) {
 
         //Add the offers that have been chosen
         offers.map((item) => {
-            const even = (element) => element === item.pointId;
+            const filter = (element) => element === item.pointId;
 
-            if (selectedRowKeys.some(even)) {
+            if (selectedRowKeys.some(filter)) {
                 data.push(item);
                 selectedOffers.push(item);
             }

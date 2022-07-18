@@ -114,7 +114,7 @@ function TripMap(props) {
         setActiveMarker(marker);
     };
 
-    return isLoaded != null && offers != null ? (
+    return isLoaded && offers != null ? (
             <GoogleMap
                 center={center}
                 zoom={12}

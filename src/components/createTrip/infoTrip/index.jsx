@@ -36,8 +36,8 @@ function UserRoute(props) {
         });
     }, [props.distance])
 
-    if (props.creatTripData != null) {
-        hasOffers = props.creatTripData.pointsTrip.some(item => item.offerId != null);
+    if (props.createTripData != null) {
+        hasOffers = props.createTripData.pointsTrip.some(item => item.offerId != null);
     }
 
     if (props.totalWeigth >= props.dataTrip.loadCapacity) {
@@ -47,7 +47,7 @@ function UserRoute(props) {
 
     return (
         <IconContext.Provider value={{className: 'icon'}}>
-            {props.creatTripData != null ?
+            {props.createTripData != null ?
                 <div className="tripBody">
                     <p className="dataField">
                         <FiUser size={DEFAULT_ICON_SIZE}/>
@@ -117,11 +117,11 @@ function UserRoute(props) {
                                                 placement="top"
                                                 title={tooltipMessages.DEPARTURE_DATE + ": "
                                                     + `${moment(props.dataTrip.departureDate).format('L')}` + " "
-                                                    + `${moment(props.dataTrip.departureDate).format('LT')}`}
+                                                    + `${moment(props.dataTrip.departureDate).format('HH:mm')}`}
                                             >
                                                 <div className="date">
                                                     <FiCalendar size={DEFAULT_ICON_SIZE}/>
-                                                    <p>{moment(props.dataTrip.departureDate).format('LLL') + " "}</p>
+                                                    <p>{moment(props.dataTrip.departureDate).format('LL HH:mm') + " "}</p>
                                                 </div>
                                             </Tooltip>
                                         </div>
@@ -143,7 +143,7 @@ function UserRoute(props) {
                                             htmlType="submit"
                                             className="submitButton"
                                             onClick={() => {
-                                                manageTrip({...dataManage, ...props.creatTripData}, history);
+                                                manageTrip({...dataManage, ...props.createTripData}, history);
                                             }}
                                             disabled={!hasOffers}
                                         >

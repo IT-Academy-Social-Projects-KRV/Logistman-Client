@@ -122,10 +122,6 @@ export function getTripById(tripId) {
         .getById(tripId)
         .then(
             async (response) => {
-                if (response.status === statusCode.NO_CONTENT) {
-
-                    return null;
-                }
 
                 return response.data;
             },
@@ -157,14 +153,14 @@ export function manageTrip(model, history) {
             },
             () => {
                 errorMessage(
-                    tripsMessages.MANAGE_TRIP,
+                    tripsMessages.MANAGE_TRIP_FAILED,
                     generalMessages.SOMETHING_WENT_WRONG
                 );
             }
         )
         .catch(() => {
             errorMessage(
-                tripsMessages.MANAGE_TRIP,
+                tripsMessages.MANAGE_TRIP_FAILED,
                 generalMessages.SOMETHING_WENT_WRONG
             );
         });

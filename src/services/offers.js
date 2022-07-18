@@ -66,10 +66,6 @@ export async function getOffersNearRout(routId) {
         .getOffersNearRout(routId)
         .then(
             async (response) => {
-                if (response.status === statusCode.NO_CONTENT) {
-
-                    return null;
-                }
 
                 return await response.data;
             },

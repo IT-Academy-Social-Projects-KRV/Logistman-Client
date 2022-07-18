@@ -3,10 +3,8 @@ import Header from "../navigation/header";
 import { Pagination, Result } from 'antd';
 import { paginationDefaultFilter } from "../../constants/pagination";
 import { customPageSizeOptions } from "../../constants/pagination";
-import { getOffersInvites } from "../../services/invites";
-import OfferInvite from './offerInvite/index';
-
-function OffersInvitesPage() {
+import {getNotificationsByUser} from "../../services/notifications";
+import Notification from "./notification/index";
 
 let paginationFilterModel = {
     pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
@@ -63,4 +61,4 @@ function NotificationsPage() {
     );
 }
 
-export default NotificationsPage;
+export default NotificationsPage

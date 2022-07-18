@@ -20,6 +20,7 @@ function MyRoutesPage() {
         async function fetchData(){
             setRoutes(await getAllRoutesByUser(paginationFilterModel));
         }
+
         fetchData();
     }, []);
 

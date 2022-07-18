@@ -14,5 +14,5 @@ export const tripsMessages = Object.freeze({
 
     TEXT_OFFER_POSITION: "Offer cannot be Trip's beginning or end!",
 
-    MANAGE_TRIP: "Manage Trip"
+    MANAGE_TRIP_FAILED: "Manage Trip Failed"
 });

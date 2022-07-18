@@ -298,12 +298,12 @@ const AddOfferToTrip = (props) => {
                                     return onExpand(record, e)
                                 }}/>
                                 :
-                                false
+                                <></>
                         ) : (
                             record.offerId != null ?
                                 <CaretRightOutlined onClick={e => onExpand(record, e)}/>
                                 :
-                                false
+                                <></>
                         )
                 }}
                 components={{

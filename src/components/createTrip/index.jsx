@@ -32,22 +32,6 @@ function ManageTripPage() {
         fetchData();
     }, []);
 
-    const getWeight = (weight) => {
-        setTotalWeight(weight);
-    }
-
-    const getDataForCreatTrip = (data) => {
-        setDataForCreatTrip(data);
-    }
-
-    const getPointsOffers = (pointsOffers) => {
-        setAllPoints(pointsOffers);
-    }
-
-    const getDistance = (distance) => {
-        setDistance(distance);
-    }
-
     return (
         <>
             <Header/>
@@ -62,7 +46,7 @@ function ManageTripPage() {
                                 <UserRoute
                                     dataTrip={dataTrip}
                                     totalWeigth={totalWeight}
-                                    creatTripData={dataForCreatTrip}
+                                    createTripData={dataForCreatTrip}
                                     distance={distance}
                                 />
                                 :
@@ -72,7 +56,9 @@ function ManageTripPage() {
                                 <TripMap
                                     points={allPoints}
                                     tripId={dataTrip.id}
-                                    getDistance={getDistance}
+                                    getDistance={(distance) => {
+                                        setDistance(distance);
+                                    }}
                                 />
                             </div>
                         </div>
@@ -81,10 +67,16 @@ function ManageTripPage() {
                             <AddOfferToTrip
                                 tripId={dataTrip.id}
                                 points={dataTrip.points}
-                                totalWeight={getWeight}
-                                creatTrip={getDataForCreatTrip}
+                                totalWeight={(weight) => {
+                                    setTotalWeight(weight);
+                                }}
+                                creatTrip={(data) => {
+                                    setDataForCreatTrip(data);
+                                }}
                                 expirationDateTrip={dataTrip.expirationDate}
-                                getPointsOffers={getPointsOffers}
+                                getPointsOffers={(pointsOffers) => {
+                                    setAllPoints(pointsOffers);
+                                }}
                             />
                         </div>
                     </div>
