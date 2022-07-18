@@ -18,8 +18,11 @@ function GoodsDeliveryConfirmationPage ()
         setOffers(await getOffersToConfirm(paginationFilterModel));
     }
 
-    useEffect(async () => {
-        setOffers(await getOffersToConfirm(paginationFilterModel));
+    useEffect( () => {
+        async function fetchData() {
+            setOffers(await getOffersToConfirm(paginationFilterModel));
+        }
+        fetchData();
     }, []);
 
     const onPaginationChange = async (page, pageSize) => {
@@ -32,10 +35,12 @@ function GoodsDeliveryConfirmationPage ()
     return (
         <div className="userOffersBody">
             <Header />
-            <p></p>
+
+            <p className="title">Confirm goods delivery</p>
+
             {offers != null ?
                 <div className="offers-container">
-                    {offers.items.map((offer) =>
+                    {offers.items.map((offer, key) =>
                         <OfferToConfirm
                             info={offer}
                             updateOffers={() => updateOffers()}

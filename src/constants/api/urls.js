@@ -1,4 +1,4 @@
-export const SERVER_URL = "https://localhost:44319/api";
+export const SERVER_URL = "https://localhost:5000/api";
 export const AUTHENTICATION_URL = "/Authentication";
 export const CAR_CATEGORIES_URL = "/CarCategories";
 export const CAR_URL = "/Cars";
