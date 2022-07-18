@@ -23,7 +23,7 @@ import UserCarsPage from "./components/userCars";
 import CreateOfferPage from "./components/offerPage";
 import { offerRoles } from "./constants/offerRoles";
 import RoutesPage from "./components/routes";
-import OffersInvitesPage from './components/offersInvites/index';
+import NotificationsPage from "./components/notifications";
 import MyRoutesPage from "./components/myRoutes";
 import DriversInvitesPage from "./components/driversInvites";
 import GoodsDeliveryConfirmationPage from "./components/goodsDeliveryConfirms";
@@ -106,10 +106,10 @@ export default function App() {
 
                 <PrivateRoute
                     exact
-                    path="/offers-invites"
+                    path="/notifications"
                     allowedRoles={[userRoles.USER]}
                 >
-                    <OffersInvitesPage />
+                    <NotificationsPage />
                 </PrivateRoute>
 
                 <Route

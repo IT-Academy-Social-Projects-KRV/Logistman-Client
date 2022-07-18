@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, Card, Tag } from "antd";
+import React from "react";
+import { Card, Tag } from "antd";
 import {
     UserOutlined,
     EnvironmentOutlined,
@@ -9,24 +9,13 @@ import {
 import moment from 'moment';
 import { offerRoles } from '../../../constants/offerRoles';
 import heavy_icon from "../../../assets/images/cars/heavy.svg";
-import { manageInivite } from "../../../services/invites";
-import { getPointAddress } from './../../../constants/address';
+import { getPointAddress } from '../../../constants/address';
 
-function OfferInvite(data) {
-    const [isAnswered, setIsAnswered] = useState(data.info.isAnswered);
-
-    const onClick = async (isAccepted) => {
-        var answer = await manageInivite({
-            inviteId: data.info.id,
-            isAccepted: isAccepted
-        });
-
-        setIsAnswered(answer);
-    }
-
+function Notification(data) {
+   
     return (
-        <Card className="inviteCard">
-            <h3>My offer :</h3>
+        <Card className="notificationCard">
+            <h3>My offer:</h3>
 
             <Card className="innerCard offerCard">
                 <Tag>{data.info.offerInfo.creatorRoleName === offerRoles.SENDER.toUpperCase() ? "Donate" : "Need"}</Tag>
@@ -44,7 +33,7 @@ function OfferInvite(data) {
                     <div className="field-group">
                         <div className="cardField">
                             <EnvironmentOutlined className="fieldIcon" />
-                            <p className="fieldText">{getPointAddress(data.info.offerInfo.settlement)}</p>
+                            <p className="fieldText">{getPointAddress(data.info.offerInfo)}</p>
                         </div>
                     </div>
 
@@ -57,7 +46,7 @@ function OfferInvite(data) {
                 </div>
             </Card>
 
-            <h3>Trip :</h3>
+            <h3>Trip:</h3>
 
             <Card className="innerCard">
                 <div className="field-group">
@@ -74,7 +63,7 @@ function OfferInvite(data) {
 
                     <div>
                         <div>
-                            <p className="fieldText">Active until:
+                            <p className="fieldText">Departure date:
                                 <span className="fieldText date">
                                     {moment(data.info.tripInfo.expirationDate).format('LL HH:mm')}
                                 </span>
@@ -85,31 +74,8 @@ function OfferInvite(data) {
 
                 <p className="down-field description">{data.info.tripInfo.description}</p>
             </Card>
-
-            {
-                isAnswered ?
-                    <div id="cardBottom">
-                        <p id="answered">Answered</p>
-                    </div>
-                    :
-                    <div id="cardBottom">
-                        <Button
-                            className="acceptButton"
-                            onClick={() => onClick(true)}
-                        >
-                            Accept
-                        </Button>
-
-                        <Button
-                            type="danger"
-                            onClick={() => onClick(false)}
-                        >
-                            Decline
-                        </Button>
-                    </div>
-            }
         </Card>
     );
 }
 
-export default OfferInvite;
+export default Notification;
