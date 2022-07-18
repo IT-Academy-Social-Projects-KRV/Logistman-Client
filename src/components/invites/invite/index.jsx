@@ -72,9 +72,7 @@ function Invite(props) {
 
                 {isAnswered ?
                     <div id="cardBottom">
-                        <Button>
-                            Details
-                        </Button>
+                        <></>   
                     </div>
                     :
                     <div id="cardBottom">
@@ -91,10 +89,6 @@ function Invite(props) {
                             onClick={() => onClick(false)}
                         >
                             Decline
-                        </Button>
-
-                        <Button>
-                            Details
                         </Button>
                     </div>
                 }
