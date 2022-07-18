@@ -23,6 +23,11 @@ export default class offersService {
     }
 
     static confirmGoodsTransfer(model) {
-        return instance.post(OFFERS_URLS.CONFIRM_GOODS_TRANSFER, model)
+        return instance.post(OFFERS_URLS.CONFIRM_GOODS_TRANSFER, model);
+    }
+    
+    static getOffersNearRout(model) {
+        return instance.get(OFFERS_URLS.GET_BY_NEAR_ROUT +
+            `?tripId=${model}`);
     }
 }

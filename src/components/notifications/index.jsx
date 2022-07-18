@@ -3,8 +3,8 @@ import Header from "../navigation/header";
 import { Pagination, Result } from 'antd';
 import { paginationDefaultFilter } from "../../constants/pagination";
 import { customPageSizeOptions } from "../../constants/pagination";
-import { getNotificationsByUser } from "../../services/notifications";
-import Notification from "../notifications/notification/index";
+import {getNotificationsByUser} from "../../services/notifications";
+import Notification from "./notification/index";
 
 let paginationFilterModel = {
     pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
@@ -15,8 +15,12 @@ function NotificationsPage() {
 
     const [notifications, setNotifications] = useState();
 
-    useEffect(async () => {
-        setNotifications(await getNotificationsByUser(paginationFilterModel));
+    useEffect( () => {
+        async function fetchData(){
+            setNotifications(await getNotificationsByUser(paginationFilterModel));
+        }
+
+        fetchData();
     }, []);
 
     const onPaginationChange = async (page, pageSize) => {
@@ -57,4 +61,4 @@ function NotificationsPage() {
     );
 }
 
-export default NotificationsPage;
+export default NotificationsPage

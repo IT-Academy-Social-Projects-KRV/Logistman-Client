@@ -25,6 +25,7 @@ import { offerRoles } from "./constants/offerRoles";
 import RoutesPage from "./components/routes";
 import NotificationsPage from "./components/notifications";
 import MyRoutesPage from "./components/myRoutes";
+import ManageTripPage from "./components/createTrip";
 import DriversInvitesPage from "./components/driversInvites";
 import GoodsDeliveryConfirmationPage from "./components/goodsDeliveryConfirms";
 
@@ -153,6 +154,14 @@ export default function App() {
                     allowedRoles={[userRoles.USER]}
                 >
                     <MyRoutesPage />
+                </PrivateRoute>
+
+                <PrivateRoute
+                    exact
+                    path="/manage-trip"
+                    allowedRoles={[userRoles.LOGIST]}
+                >
+                    <ManageTripPage />
                 </PrivateRoute>
 
                 <PrivateRoute

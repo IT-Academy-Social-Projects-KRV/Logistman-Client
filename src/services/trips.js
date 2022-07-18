@@ -116,3 +116,52 @@ export function createTrip(model, history) {
       );
     });
 }
+
+export function getTripById(tripId) {
+    return tripsService
+        .getById(tripId)
+        .then(
+            async (response) => {
+
+                return response.data;
+            },
+            () => {
+                errorMessage(
+                    tripsMessages.NOT_FOUND,
+                    generalMessages.SOMETHING_WENT_WRONG
+                );
+            }
+        )
+        .catch(() => {
+            errorMessage(
+                tripsMessages.NOT_FOUND,
+                generalMessages.SOMETHING_WENT_WRONG
+            );
+        });
+}
+
+export function manageTrip(model, history) {
+    return tripsService
+        .manage(model)
+        .then(
+            () => {
+                successMessage(
+                    tripsMessages.SUCCESSFUL_TRIP_CREATION,
+                    2000
+                );
+                history.push("/routes");
+            },
+            () => {
+                errorMessage(
+                    tripsMessages.MANAGE_TRIP_FAILED,
+                    generalMessages.SOMETHING_WENT_WRONG
+                );
+            }
+        )
+        .catch(() => {
+            errorMessage(
+                tripsMessages.MANAGE_TRIP_FAILED,
+                generalMessages.SOMETHING_WENT_WRONG
+            );
+        });
+}

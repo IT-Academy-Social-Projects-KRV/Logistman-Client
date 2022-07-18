@@ -1,0 +1,69 @@
+@import '../variables/colors';
+
+.createTripBody {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 105px;
+  width: 100%;
+  height: 100%;
+
+  .meanBody{
+    padding: 30px;
+    width: 95%;
+    height: 100%;
+    box-shadow: rgb(109 122 128 / 12%) 0 2px 4px 0, rgb(14 30 37 / 32%) 0 2px 16px 0;
+    border-radius: 10px;
+  }
+
+  .title {
+    font-weight: bold;
+    font-size: 15pt;
+    text-align: center;
+    margin-top: -20px;
+    color: $title_color;
+  }
+
+  .infoComponent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    height: 100%;
+  }
+
+  .mapComponent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    width: 50%;
+    margin-left: 5px;
+    height: 350px;
+    box-shadow: rgb(109 122 128 / 12%) 0 2px 4px 0, rgb(14 30 37 / 32%) 0 2px 16px 0;
+
+    #map {
+      border-radius: 10px;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .component-block {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 30px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    border-radius: 10px;
+
+    .submitButton {
+      width: 125px;
+      height: 35px;
+      border-radius: 5px;
+      background-color: $input_color;
+      padding-right: 15px;
+    }
+  }
+}

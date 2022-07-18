@@ -162,8 +162,12 @@ export default function CreateOfferPage(props) {
     };
 
     // for mapping good categories
-    useEffect(async () => {
-        setData(await getAllGoodCategories());
+    useEffect( () => {
+        async function fetchData(){
+            setData(await getAllGoodCategories());
+        }
+
+        fetchData();
     }, []);
 
     const onFinish = (values) => {
