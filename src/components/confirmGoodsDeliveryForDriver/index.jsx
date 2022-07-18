@@ -1,23 +1,28 @@
 import React, { useEffect, useState } from "react";
-import {getTripOfferByUser} from "../../services/trips";
+import {getTripInfo} from "../../services/trips";
 import Header from "../navigation/header";
+import TripInfo from "./infoTrip";
 
 function ConfirmGoodsDeliveryForDriver() {
-    const[data,setData] = useState();
+    const[tripInfo,setTripInfo] = useState();
 
     useEffect(() => {
        async function fetchData(){
-           setData(await getTripOfferByUser());
+           setTripInfo(await getTripInfo(1));
        }
 
         fetchData();
     },[])
 
-    console.log("data", data);
+    console.log("data", tripInfo);
 
     return(
         <div>
             <Header />
+
+            <div className="confirmTripOfferBody">
+                <TripInfo tripInfo={tripInfo}/>
+            </div>
         </div>
     );
 }

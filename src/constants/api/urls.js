@@ -45,7 +45,7 @@ export const TRIPS_URL = {
     CREATE: TRIP_URL + "/create",
     GET_ALL_ROUTES: TRIP_URL + "/routes",
     GET_ROUTES_BY_USER: TRIP_URL + "/my-routes",
-    GET_TRIP_OFFER_BY_USER: TRIP_URL + "/by-user"
+    GET_TRIP_INFO: TRIP_URL + "/info-by-user"
 };
 
 export const INVITES_URLS = {

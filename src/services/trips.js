@@ -117,9 +117,9 @@ export function createTrip(model, history) {
     });
 }
 
-export function getTripOfferByUser(){
+export function getTripInfo(tripId){
     return tripsService
-        .getTripOfferByUser()
+        .getTripInfo(tripId)
         .then(
             async (response) => {
                 if (response.status === statusCode.NO_CONTENT) {

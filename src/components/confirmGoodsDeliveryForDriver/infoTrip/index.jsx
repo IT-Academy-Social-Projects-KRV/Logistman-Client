@@ -1,32 +1,22 @@
-import React, {useState} from "react";
+import React from "react";
 
 function TripInfo(props) {
-    const [data, setData] = useState();
+
+    console.log("props", props.tripInfo);
 
     return (
         <>
-            {props != null ?
+            {props.tripInfo != null ?
                 <div className="confirmInfoTrip">
-                    <p className="dataField">
-                        <FiUser size={DEFAULT_ICON_SIZE}/>
-                        {props.dataTrip.fullName.name + " " + props.dataTrip.fullName.surname}
-                    </p>
-
                     <div className="addresses">
                         <p>
-                            From: {getPointAddress(props.dataTrip.points[0])}
+                            From: {getPointAddress(props.tripInfo.points[0])}
                         </p>
 
                         <p>
-                            To: {getPointAddress(props.dataTrip.points[props.dataTrip.points.length - 1])}
+                            To: {getPointAddress(props.tripInfo.points[1])}
                         </p>
                     </div>
-
-                    <p className="addresses">
-                        <Tooltip placement="top" title={allCities}>
-                            {"Through: " + throughCities}
-                        </Tooltip>
-                    </p>
 
                     <div>
                         <div className="innerBody">
@@ -38,7 +28,7 @@ function TripInfo(props) {
                                     <div className="dataField">
                                         <AiOutlineCar size={DEFAULT_ICON_SIZE}/>
                                         <p>
-                                            {props.dataTrip.model}
+                                            {props.tripInfo.model}
                                         </p>
                                     </div>
                                 </Tooltip>
@@ -49,7 +39,7 @@ function TripInfo(props) {
                                 >
                                     <div className="dataField">
                                         <AiOutlineInfoCircle size={DEFAULT_ICON_SIZE}/>
-                                        <p>{props.dataTrip.registrationNumber}</p>
+                                        <p>{props.tripInfo.registrationNumber}</p>
                                     </div>
                                 </Tooltip>
 
@@ -59,10 +49,7 @@ function TripInfo(props) {
                                 >
                                     <div className="dataField">
                                         <GiWeight size={DEFAULT_ICON_SIZE}/>
-                                        {props.totalWeigth > props.dataTrip.loadCapacity ?
-                                            <p style={{color: "red"}}>{props.totalWeigth + " kg"}</p> :
-                                            <p>{props.totalWeigth + " kg"}</p>}
-                                        <p>{" / " + props.dataTrip.loadCapacity + " kg"}</p>
+                                        <p>{props.tripInfo.loadCapacity + " kg"}</p>
                                     </div>
                                 </Tooltip>
                             </div>
@@ -73,24 +60,13 @@ function TripInfo(props) {
                                         <div className="dates">
                                             <Tooltip
                                                 placement="top"
-                                                title={tooltipMessages.START_DATE + ": " + `${moment(props.dataTrip.startDate).format('L')}` + " " + `${moment(props.dataTrip.startDate).format('LT')}`}
+                                                title={tooltipMessages.START_DATE + ": " + `${moment(props.tripInfo.departureDate).format('L')}` + " " + `${moment(props.tripInfo.departureDate).format('LT')}`}
                                             >
                                                 <div className="date">
                                                     <FiCalendar size={DEFAULT_ICON_SIZE}/>
-                                                    <p>{moment(props.dataTrip.startDate).format('LLL') + " "}</p>
+                                                    <p>{moment(props.tripInfo.departureDate).format('LLL') + " "}</p>
                                                 </div>
                                             </Tooltip>
-
-                                            <Tooltip
-                                                placement="top"
-                                                title={tooltipMessages.EXPIRATION_DATE + ": " + `${moment(props.dataTrip.expirationDate).format('L')}` + " " + `${moment(props.dataTrip.expirationDate).format('LT')}`}
-                                            >
-                                                <div className="date">
-                                                    <AiOutlineArrowRight size={DEFAULT_ICON_SIZE}/>
-                                                    <p>{moment(props.dataTrip.expirationDate).format('LLL')}</p>
-                                                </div>
-                                            </Tooltip>
-
                                         </div>
                                     </div>
 
@@ -103,20 +79,6 @@ function TripInfo(props) {
                                             <p>{props.distance + " km"}</p>
                                         </div>
                                     </Tooltip>
-
-                                    <div>
-                                        <Button
-                                            type="primary"
-                                            htmlType="submit"
-                                            className="submitButton"
-                                            onClick={() => {
-                                                manageTrip({...dataManage, ...props.creatTripData}, history);
-                                            }}
-                                            disabled={!hasOffers}
-                                        >
-                                            Manage trip
-                                        </Button>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -126,7 +88,7 @@ function TripInfo(props) {
                         <Collapse ghost>
                             <Panel className="description" header="Description" key="1">
                                 <p>
-                                    {props.dataTrip.description}
+                                    {props.tripInfo.description}
                                 </p>
                             </Panel>
                         </Collapse>

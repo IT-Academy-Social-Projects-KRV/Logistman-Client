@@ -18,7 +18,8 @@ export default class tripsService {
              &PageSize=${paginationFilterModel.pageSize}`);
     }
 
-    static getTripOfferByUser(){
-        return instance.get(TRIPS_URL.GET_TRIP_OFFER_BY_USER);
+    static getTripInfo(model){
+        return instance.get(TRIPS_URL.GET_TRIP_INFO +
+        `?tripId=${model}`);
     }
 }
