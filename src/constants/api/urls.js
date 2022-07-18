@@ -39,6 +39,7 @@ export const OFFERS_URLS = {
     CREATE: OFFERS_URL + "/create",
     GET_ONE_BY_USER: OFFERS_URL + "/user-offer",
     GET_BY_USER: OFFERS_URL,
+    GET_TO_CONFIRM: OFFERS_URL + "/to-confirm",
     CONFIRM_GOODS_TRANSFER: OFFERS_URL + "/confirm-goods-transfer",
     GET_BY_NEAR_ROUT: OFFERS_URL + "/near-route",
     DRIVER_TO_CONFIRM: OFFERS_URL + "/driver-to-confirm"
@@ -54,7 +55,7 @@ export const TRIPS_URL = {
 };
 
 export const INVITES_URLS = {
-    GET_DRIVERS_INVITES: INVITES_URL + "/drivers",
+    GET_DRIVERS_INVITES: INVITES_URL,
     MANAGE: INVITES_URL + "/manage"
 };
 
