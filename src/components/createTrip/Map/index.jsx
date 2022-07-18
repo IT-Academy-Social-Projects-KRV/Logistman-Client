@@ -25,7 +25,7 @@ function TripMap(props) {
 
     useEffect(() => {
         async function fetchData() {
-            const offers = await getOffersNearRout(props.tripId);
+            const offers = props.nearOffers;
 
             for (let i = 0; i < offers.length; i++) {
                 offers[i] = {...offers[i], key: offers[i].pointId};
@@ -36,7 +36,7 @@ function TripMap(props) {
         }
 
         fetchData();
-    }, [props.points])
+    }, [props.points, props.nearOffers])
 
     const setAuxiliaryPoints = async (points) => {
         if (points == null || points.length < 2) {

@@ -94,11 +94,12 @@ const AddOfferToTrip = (props) => {
     const [totalWeight, setTotalWeight] = useState(0);
 
     useEffect(() => {
-        setDataOffers();
         setDataTotalWeight();
 
         props.creatTrip(setDataForCreatOffer());
         props.getPointsOffers(points);
+
+        setDataOffers();
     }, [])
 
     const setDataOffers = () => {
@@ -319,7 +320,7 @@ const AddOfferToTrip = (props) => {
             />
             {isModalOpen &&
                 <AddNearOfferModal
-                    tripId={props.tripId}
+                    nearOffers={props.nearOffers}
                     offers={offers}
                     myClose={() => setIsModalOpen(false)}
                     onModalClose={handleCloseModal}

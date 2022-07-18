@@ -6,6 +6,7 @@ import UserRoute from "./infoTrip";
 import {getTripById} from "../../services/trips";
 import {Result} from "antd";
 import TripMap from "./Map";
+import {getOffersNearRout} from "../../services/offers";
 
 function ManageTripPage() {
     const location = useLocation();
@@ -16,6 +17,7 @@ function ManageTripPage() {
     const [totalWeight, setTotalWeight] = useState(0);
     const [dataForCreatTrip, setDataForCreatTrip] = useState();
     const [distance, setDistance] = useState();
+    const [nearOffers, setNearOffers] = useState();
 
     useEffect(() => {
         async function fetchData() {
@@ -27,6 +29,8 @@ function ManageTripPage() {
 
             data.points.sort((a, b) => a.order - b.order);
             setDataTrip(data);
+
+            setNearOffers(await getOffersNearRout(data.id));
         }
 
         fetchData();
@@ -55,7 +59,7 @@ function ManageTripPage() {
                             <div className="mapComponent">
                                 <TripMap
                                     points={allPoints}
-                                    tripId={dataTrip.id}
+                                    nearOffers={nearOffers}
                                     getDistance={(distance) => {
                                         setDistance(distance);
                                     }}
@@ -65,7 +69,7 @@ function ManageTripPage() {
 
                         <div className="component-block">
                             <AddOfferToTrip
-                                tripId={dataTrip.id}
+                                nearOffers={nearOffers}
                                 points={dataTrip.points}
                                 totalWeight={(weight) => {
                                     setTotalWeight(weight);
