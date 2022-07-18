@@ -1,4 +1,14 @@
 import React from "react";
+import {Tooltip, Collapse} from "antd";
+import moment from "moment";
+import {FiCalendar} from "react-icons/fi";
+import {AiOutlineCar, AiOutlineInfoCircle} from "react-icons/ai";
+import {GiWeight} from "react-icons/gi";
+import {RiPinDistanceLine} from "react-icons/ri";
+import {DEFAULT_ICON_SIZE} from "../../../constants/icon";
+import {getPointAddress} from "../../../constants/address";
+
+const {Panel} = Collapse;
 
 function TripInfo(props) {
 
@@ -23,7 +33,7 @@ function TripInfo(props) {
                             <div className="rightSide">
                                 <Tooltip
                                     placement="top"
-                                    title={tooltipMessages.CAR}
+                                    title={"tooltipMessages.CAR"}
                                 >
                                     <div className="dataField">
                                         <AiOutlineCar size={DEFAULT_ICON_SIZE}/>
@@ -35,7 +45,7 @@ function TripInfo(props) {
 
                                 <Tooltip
                                     placement="top"
-                                    title={tooltipMessages.REGISTR_NUMBER}
+                                    title={"tooltipMessages.REGISTR_NUMBER"}
                                 >
                                     <div className="dataField">
                                         <AiOutlineInfoCircle size={DEFAULT_ICON_SIZE}/>
@@ -45,7 +55,7 @@ function TripInfo(props) {
 
                                 <Tooltip
                                     placement="top"
-                                    title={tooltipMessages.LOAD_CAPACITY}
+                                    title={"tooltipMessages.LOAD_CAPACITY"}
                                 >
                                     <div className="dataField">
                                         <GiWeight size={DEFAULT_ICON_SIZE}/>
@@ -60,7 +70,7 @@ function TripInfo(props) {
                                         <div className="dates">
                                             <Tooltip
                                                 placement="top"
-                                                title={tooltipMessages.START_DATE + ": " + `${moment(props.tripInfo.departureDate).format('L')}` + " " + `${moment(props.tripInfo.departureDate).format('LT')}`}
+                                                title={"tooltipMessages.START_DATE" + ": " + `${moment(props.tripInfo.departureDate).format('L')}` + " " + `${moment(props.tripInfo.departureDate).format('LT')}`}
                                             >
                                                 <div className="date">
                                                     <FiCalendar size={DEFAULT_ICON_SIZE}/>
@@ -72,7 +82,7 @@ function TripInfo(props) {
 
                                     <Tooltip
                                         placement="top"
-                                        title={tooltipMessages.DISTANCE}
+                                        title={"tooltipMessages.DISTANCE"}
                                     >
                                         <div className="dataField">
                                             <RiPinDistanceLine size={DEFAULT_ICON_SIZE}/>
