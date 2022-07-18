@@ -155,7 +155,6 @@ const AddOfferToTrip = (props) => {
         const filteredPoints = dataSource.filter(item => item.key !== key);
 
         setPoints(filteredPoints);
-        props.creatTrip(setDataForCreatOffer(filteredPoints));
         setDataBack(filteredPoints);
     }
 
