@@ -12,18 +12,20 @@ header {
     align-items: center;
     text-align: center;
     z-index: 1;
-    background-color: $main_header_color;
+    background-color: $green_color;
     gap: 30%;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 
     h1 {
         margin-left: 6%;
         font-size: 20px;
+        color: white;
     }
 
     button {
         border: none;
-        background-color: $main_header_color;
+        background-color: $green_color;
+        cursor: pointer;
     }
 
     .support_block {

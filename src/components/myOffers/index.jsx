@@ -16,8 +16,12 @@ function MyOffersPage() {
 
     const [offers, setOffers] = useState();
 
-    useEffect(async () => {
-        setOffers(await getUserOffers(paginationFilterModel));
+    useEffect( () => {
+        async function fetchData() {
+            setOffers(await getUserOffers(paginationFilterModel));
+        }
+
+        fetchData();
     }, []);
 
     const onPaginationChange = async (page, pageSize) => {

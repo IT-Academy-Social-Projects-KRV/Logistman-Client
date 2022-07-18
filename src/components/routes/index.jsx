@@ -16,8 +16,12 @@ function RoutesPage() {
 
     const [routes, setRoutes] = useState();
 
-    useEffect(async () => {
-        setRoutes(await getAllRoutes(paginationFilterModel));
+    useEffect( () => {
+        async function fetchData(){
+            setRoutes(await getAllRoutes(paginationFilterModel));
+        }
+
+        fetchData();
     }, []);
 
     const onPaginationChange = async (page, pageSize) => {
@@ -36,7 +40,7 @@ function RoutesPage() {
             {routes != null ?
                 <div className="routes-container">
                     {routes.items.map((route) =>
-                        <UserRoute data={route} />
+                        <UserRoute key={routes.items.indexOf(route) + 1} data={route} />
                     )}
 
                     <Pagination
