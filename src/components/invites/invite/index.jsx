@@ -7,9 +7,9 @@ import { DEFAULT_ICON_SIZE } from "../../../constants/icon";
 import { GiWeight } from "react-icons/gi";
 import { RiPinDistanceLine } from "react-icons/ri";
 import { manageInivite } from "../../../services/invites";
-import { getPointAddress } from './../../../constants/address';
+import { getPointAddress } from '../../../constants/address';
 
-function DriversInvite(props) {
+function Invite(props) {
     const [isAnswered, setIsAnswered] = useState(props.data.isAnswered);
 
     const onClick = async (isAccepted) => {
@@ -60,7 +60,7 @@ function DriversInvite(props) {
                     <p className="dataField">
                         <GiWeight size={DEFAULT_ICON_SIZE} />
 
-                        Total goods weight: {props.data.totalGoodsWeight} kg
+                        Total goods weight: {Math.round(props.data.totalGoodsWeight)} kg
                     </p>
 
                     <p className="dataField">
@@ -79,7 +79,8 @@ function DriversInvite(props) {
                     :
                     <div id="cardBottom">
                         <Button
-                            className="acceptButton"
+                            className="submitButton"
+                            type="primary"
                             onClick={() => onClick(true)}
                         >
                             Accept
@@ -102,4 +103,4 @@ function DriversInvite(props) {
     );
 }
 
-export default DriversInvite;
+export default Invite;

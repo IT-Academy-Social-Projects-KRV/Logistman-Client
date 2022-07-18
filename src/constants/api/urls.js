@@ -50,7 +50,7 @@ export const TRIPS_URL = {
 };
 
 export const INVITES_URLS = {
-    GET_DRIVERS_INVITES: INVITES_URL + "/drivers",
+    GET_INVITES: INVITES_URL,
     MANAGE: INVITES_URL + "/manage"
 };
 
