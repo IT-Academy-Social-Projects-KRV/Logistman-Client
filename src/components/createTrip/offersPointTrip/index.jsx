@@ -156,6 +156,7 @@ const AddOfferToTrip = (props) => {
 
         setPoints(filteredPoints);
         props.creatTrip(setDataForCreatOffer(filteredPoints));
+        setDataBack(filteredPoints);
     }
 
     const handleOfferDelete = (key) => {
