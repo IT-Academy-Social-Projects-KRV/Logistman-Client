@@ -50,7 +50,7 @@ export const TRIPS_URL = {
 
 export const INVITES_URLS = {
     GET_OFFERS_INVITES: INVITES_URL + "/offers",
-    GET_DRIVERS_INVITES: INVITES_URL + "/drivers",
+    GET_DRIVERS_INVITES: INVITES_URL,
     MANAGE: INVITES_URL + "/manage"
 };
 
