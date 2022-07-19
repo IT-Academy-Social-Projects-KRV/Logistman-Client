@@ -87,23 +87,6 @@ export async function getOffersToConfirm(paginationFilterModel) {
   });
 }
 
-export async function confirmGoodsTransfer(model) {
-  await offersService
-  .confirmGoodsTransfer(model)
-  .then(
-      () => {},
-      () => {
-        errorMessage(
-            generalMessages.SOMETHING_WENT_WRONG
-        );
-      })
-  .catch(() => {
-    errorMessage(
-        generalMessages.SOMETHING_WENT_WRONG
-    );
-  });
-}
-
 export async function getOffersNearRout(routId) {
     return offersService
         .getOffersNearRout(routId)

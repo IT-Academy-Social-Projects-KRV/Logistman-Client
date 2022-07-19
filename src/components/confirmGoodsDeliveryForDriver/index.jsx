@@ -14,29 +14,29 @@ function ConfirmGoodsDeliveryForDriver() {
         async function fetchData() {
             const data = await getUserTripInfo()
             setTripInfo(data);
-            setOffers(await getDriverConfirmGoodsDelivery(data.id));
+
+            if (data != null) {
+                setOffers(await getDriverConfirmGoodsDelivery(data.id));
+            }
         }
 
         fetchData();
     }, [])
-
-    console.log(offers);
 
     return (
         <div>
             <Header/>
 
             <div className="confirmGoodsDeliveryForDriverPage">
-                <h1 className="titel">Active Trip</h1>
+                <h1 className="title">Active Trip</h1>
 
                 {tripInfo != null ?
                     <div className="confirmTripOfferBody">
                         <TripInfo tripInfo={tripInfo}/>
                         <h2>Offers</h2>
                         <div>
-                            {offers != null ?
+                            { offers != null && offers.length != 0 ?
                                 offers.map((item, iter) => {
-                                    console.log(iter, item);
                                     if (iter == 1 && !item.isAnsweredByDriver) {
 
                                         return (
@@ -59,7 +59,7 @@ function ConfirmGoodsDeliveryForDriver() {
                                                 offerData={item}
                                                 key={item.id}/>
                                         );
-                                    } else if (iter == offers.length - 1){
+                                    } else if (iter == offers.length - 1) {
 
                                         return (
                                             <ConfirmOffers

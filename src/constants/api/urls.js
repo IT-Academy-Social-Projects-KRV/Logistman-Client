@@ -41,7 +41,7 @@ export const OFFERS_URLS = {
     GET_BY_USER: OFFERS_URL,
     GET_TO_CONFIRM: OFFERS_URL + "/to-confirm",
     CONFIRM_GOODS_TRANSFER: OFFERS_URL + "/confirm-goods-transfer",
-    GET_BY_NEAR_ROUT: OFFERS_URL + "/near-route",
+    GET_BY_NEAR_ROUTE: OFFERS_URL + "/near-route",
     DRIVER_TO_CONFIRM: OFFERS_URL + "/driver-to-confirm"
 };
 

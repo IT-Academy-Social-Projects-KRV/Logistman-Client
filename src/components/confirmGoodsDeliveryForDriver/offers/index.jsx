@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import Text from "antd/es/typography/Text";
 import {Button, Card, Collapse, Tag} from "antd";
 import {offerRoles} from "../../../constants/offerRoles";
@@ -50,7 +50,7 @@ function ConfirmOffers(props) {
                             isConfirmed: true
                         }
                     );
-                    console.log("Confirm", {offerId: props.offerData.id, Role: offerRoles.DRIVER, isConfirmed: true});
+
                     await props.resetOffers();
                 }} className="confirm button">Confirm</Button>
                 <Button onClick={async () => {
@@ -61,7 +61,7 @@ function ConfirmOffers(props) {
                             isConfirmed: false
                         }
                     );
-                    console.log("Decline", {offerId: props.offerData.id, Role: offerRoles.DRIVER, isConfirmed: false});
+
                     await props.resetOffers();
                 }} className="decline button">Decline</Button>
             </div>

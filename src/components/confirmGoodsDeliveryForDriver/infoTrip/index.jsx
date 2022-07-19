@@ -72,7 +72,7 @@ function TripInfo(props) {
                                         >
                                             <div className="date">
                                                 <FiCalendar size={DEFAULT_ICON_SIZE}/>
-                                                <p>{moment(props.tripInfo.departureDate).format('LL HH:mm') + " "}</p>
+                                                <p>{moment.utc(props.tripInfo.departureDate).format('LL HH:mm') + " "}</p>
                                             </div>
                                         </Tooltip>
                                     </div>

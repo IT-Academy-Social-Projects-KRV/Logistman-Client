@@ -27,7 +27,7 @@ export default class offersService {
     }
     
     static getOffersNearRout(model) {
-        return instance.get(OFFERS_URLS.GET_BY_NEAR_ROUT +
+        return instance.get(OFFERS_URLS.GET_BY_NEAR_ROUTE +
             `?tripId=${model}`);
     }
 
