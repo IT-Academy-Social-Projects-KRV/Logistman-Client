@@ -1,5 +1,5 @@
 import instance from "./configurations/configurations";
-import { TRIPS_URL } from "../constants/api/urls";
+import {TRIP_URL, TRIPS_URL} from "../constants/api/urls";
 
 export default class tripsService {
     static create(model) {
@@ -18,10 +18,14 @@ export default class tripsService {
              &PageSize=${paginationFilterModel.pageSize}`);
     }
 
+    static getUserTripInfo(){
+        return instance.get(TRIP_URL);
+    }
+
     static deleteRouteById(model) {
         return instance.delete(TRIPS_URL.DELETE + `?TripId=${model}`);
     }
-    
+
     static getById(model){
         return instance.get(TRIPS_URL.GET_BY_ID +
             `?tripId=${model}`);

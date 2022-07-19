@@ -1,4 +1,5 @@
 export const offerRoles = {
     SENDER: "SENDER",
-    RECIPIENT: "RECIPIENT"
+    RECIPIENT: "RECIPIENT",
+    DRIVER: "DRIVER"
 }

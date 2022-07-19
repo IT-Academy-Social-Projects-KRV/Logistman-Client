@@ -42,7 +42,8 @@ export const OFFERS_URLS = {
     DELETE: OFFERS_URL + "/delete",
     GET_TO_CONFIRM: OFFERS_URL + "/to-confirm",
     CONFIRM_GOODS_TRANSFER: OFFERS_URL + "/confirm-goods-transfer",
-    GET_BY_NEAR_ROUTE: OFFERS_URL + "/near-route"
+    GET_BY_NEAR_ROUTE: OFFERS_URL + "/near-route",
+    DRIVER_TO_CONFIRM: OFFERS_URL + "/driver-to-confirm"
 };
 
 export const TRIPS_URL = {
@@ -51,7 +52,8 @@ export const TRIPS_URL = {
     GET_ROUTES_BY_USER: TRIP_URL + "/my-routes",
     DELETE: TRIP_URL + "/delete",
     GET_BY_ID: TRIP_URL + "/by-id",
-    MANAGE: TRIP_URL + "/manage"
+    MANAGE: TRIP_URL + "/manage",
+    GET_TRIP_INFO: TRIP_URL + "/info-by-user"
 };
 
 export const INVITES_URLS = {
