@@ -18,15 +18,19 @@ export default class carsService {
              &PageSize=${paginationFilterModel.pageSize}&email=${email}`);
     }
 
-    static verify(vin) {
-        return instance.post(CARS_URLS.VERIFY, vin);
+    static verify(model) {
+        return instance.post(CARS_URLS.VERIFY, model);
     }
 
-    static unverify(vin) {
-        return instance.post(CARS_URLS.UNVERIFY, vin);
+    static unverify(model) {
+        return instance.post(CARS_URLS.UNVERIFY, model);
     }
 
     static getUserVerified() {
         return instance.get(CARS_URLS.GET_USER_VERIFIED);
+    }
+
+    static deleteById(model) {
+        return instance.delete(CARS_URLS.DELETE + `?carId=${model}`);
     }
 }

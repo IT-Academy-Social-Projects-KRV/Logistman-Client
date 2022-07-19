@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Button, Modal, Table} from "antd";
-import {getOffersNearRout} from "../../../services/offers";
+import {getOffersNearRoute} from "../../../services/offers";
 import {offerRoles} from "../../../constants/offerRoles";
 
 function AddNearOfferModal(props) {

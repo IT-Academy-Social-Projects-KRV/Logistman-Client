@@ -146,7 +146,7 @@ export async function confirmEmailAsync(token) {
             () => {
                 errorMessage(
                     authenticationMessages.SEND_EMAIL_CONFIRMATION_FAILED,
-                    authenticationMessages.EMAIL_CONFIRMATION
+                    authenticationMessages.EMAIL_ALREADY_CONFIRIMED
                 );
             })
         .catch(() => {

@@ -4,5 +4,7 @@ export const offersMessages = Object.freeze ({
     CREATE_OFFER_FAILED: "Failed  to create an offer!",
     TIME_INTERVAL_INCORRECT: "Time interval must be minimum 12 hours between start date and expiration date!",
     NOT_VALID_GOOD_WEIGHT_MESSAGE: "Negative values cannot be entered in this field!",
-    CONFIRM_OFFER_FAILED: "Confirm offer failed"
+    CONFIRM_OFFER_FAILED: "Confirm offer failed",
+    DELETE_OFFER_FAILED: "Failed to delete the offer!",
+    EMPTY_FIELD: "The field cannot be empty!"
 });

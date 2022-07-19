@@ -4,6 +4,8 @@ import { generalMessages } from "../constants/messages/general";
 import usersService from "../api/users";
 import { checkIsUserRoleValid } from "./authentication";
 import { statusCode } from "../constants/statusCodes";
+import { logout } from "../reduxActions/auth";
+import { store } from "../store";
 
 export function getUserProfileInfo() {
     return usersService
@@ -131,4 +133,38 @@ export async function getAllUsers(paginationFilterModel) {
                 generalMessages.SOMETHING_WENT_WRONG
             );
         });
+}
+
+export async function deleteUser() {
+    await usersService
+    .deleteUser()
+    .then(
+        (response) => {
+            console.log(response.status);
+            successMessage(
+                generalMessages.DELETE_SUCCESSFULLY,
+                1000
+            );
+            store.dispatch(logout());
+        },
+        (err) => {
+            if(err.response.status === statusCode.FORBIDDEN) {
+                errorMessage(
+                    userMessages.DELETE_USER_FAILED,
+                    userMessages.DELETE_USER_FORBIDDEN
+                );
+            }
+            else {
+                errorMessage(
+                    userMessages.DELETE_USER_FAILED,
+                    generalMessages.SOMETHING_WENT_WRONG
+                );
+            }
+        })
+    .catch(() => {
+        errorMessage(
+            userMessages.DELETE_USER_FAILED,
+            generalMessages.SOMETHING_WENT_WRONG
+        );
+    });
 }

@@ -22,6 +22,10 @@ export default class tripsService {
         return instance.get(TRIP_URL);
     }
 
+    static deleteRouteById(model) {
+        return instance.delete(TRIPS_URL.DELETE + `?TripId=${model}`);
+    }
+
     static getById(model){
         return instance.get(TRIPS_URL.GET_BY_ID +
             `?tripId=${model}`);

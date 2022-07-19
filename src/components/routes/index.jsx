@@ -7,12 +7,12 @@ import { Pagination } from 'antd';
 import { paginationDefaultFilter } from "../../constants/pagination";
 import { customPageSizeOptions } from "../../constants/pagination";
 
-function RoutesPage() {
+let paginationFilterModel = {
+    pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
+    pageSize: paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE
+}
 
-    let paginationFilterModel = {
-        pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
-        pageSize: paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE
-    }
+function RoutesPage() {
 
     const [routes, setRoutes] = useState();
 

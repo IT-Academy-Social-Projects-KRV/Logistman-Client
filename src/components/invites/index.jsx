@@ -3,20 +3,21 @@ import Header from "../navigation/header";
 import { Pagination, Result } from 'antd';
 import { paginationDefaultFilter } from "../../constants/pagination";
 import { customPageSizeOptions } from "../../constants/pagination";
-import DriversInvite from "./driversInvite";
-import { getDriversInvites } from "../../services/invites";
+import Invite from "./invite";
+import { getInvites } from "../../services/invites";
 
-function DriversInvitesPage() {
-    let paginationFilterModel = {
-        pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
-        pageSize: paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE
-    };
+let paginationFilterModel = {
+    pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
+    pageSize: paginationDefaultFilter.DEFAULT_LARGE_PAGE_SIZE
+}
+
+function InvitesPage() {
 
     const [invites, setInvites] = useState();
 
     useEffect( () => {
         async function fetchData(){
-            setInvites(await getDriversInvites(paginationFilterModel));
+            setInvites(await getInvites(paginationFilterModel));
         }
 
         fetchData();
@@ -26,19 +27,19 @@ function DriversInvitesPage() {
         paginationFilterModel.pageNumber = page;
         paginationFilterModel.pageSize = pageSize;
 
-        setInvites(await getDriversInvites(paginationFilterModel));
+        setInvites(await getInvites(paginationFilterModel));
     };
 
     return (
-        <div className="userDriversInvitesBody">
+        <div className="userInvitesBody">
             <Header />
 
-            <p className="title">My drivers invites</p>
+            <p className="title">My invites</p>
 
             {invites != null ?
                 <div className="invites-container">
                     {invites.items.map((invite) =>
-                        <DriversInvite data={invite} />
+                        <Invite data={invite} />
                     )}
 
                     <Pagination
@@ -60,4 +61,4 @@ function DriversInvitesPage() {
     );
 }
 
-export default DriversInvitesPage;
+export default InvitesPage;

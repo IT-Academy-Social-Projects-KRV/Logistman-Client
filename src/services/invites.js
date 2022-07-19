@@ -4,9 +4,9 @@ import invitesService from './../api/invites';
 import { statusCode } from './../constants/statusCodes';
 import { invitesMessages } from './../constants/messages/invites';
 
-export function getDriversInvites(model) {
+export function getInvites(model) {
     return invitesService
-        .getDriversInvites(model)
+        .getInvites(model)
         .then(
             (response) => {
                 if (response.status === statusCode.NO_CONTENT) {

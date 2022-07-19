@@ -79,6 +79,11 @@
             }
         }
 
+        .buttonsBlock {
+            display: flex;
+            justify-content: right;
+        }
+
         .createTripButton {
             background-color: $body_color;
             border: none;

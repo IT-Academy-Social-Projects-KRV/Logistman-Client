@@ -39,6 +39,7 @@ export const OFFERS_URLS = {
     CREATE: OFFERS_URL + "/create",
     GET_ONE_BY_USER: OFFERS_URL + "/user-offer",
     GET_BY_USER: OFFERS_URL,
+    DELETE: OFFERS_URL + "/delete",
     GET_TO_CONFIRM: OFFERS_URL + "/to-confirm",
     CONFIRM_GOODS_TRANSFER: OFFERS_URL + "/confirm-goods-transfer",
     GET_BY_NEAR_ROUTE: OFFERS_URL + "/near-route",
@@ -49,13 +50,14 @@ export const TRIPS_URL = {
     CREATE: TRIP_URL + "/create",
     GET_ALL_ROUTES: TRIP_URL + "/routes",
     GET_ROUTES_BY_USER: TRIP_URL + "/my-routes",
+    DELETE: TRIP_URL + "/delete",
     GET_BY_ID: TRIP_URL + "/by-id",
     MANAGE: TRIP_URL + "/manage",
     GET_TRIP_INFO: TRIP_URL + "/info-by-user"
 };
 
 export const INVITES_URLS = {
-    GET_DRIVERS_INVITES: INVITES_URL,
+    GET_INVITES: INVITES_URL,
     MANAGE: INVITES_URL + "/manage"
 };
 
@@ -63,7 +65,8 @@ export const USERS_URLS = {
     PROFILE_INFO: USER_URL + "/user-info",
     EDIT: USER_URL + "/edit-info",
     FULL_NAME: USER_URL + "/user-full-name",
-    GET_ALL_USERS: USER_URL 
+    GET_ALL_USERS: USER_URL,
+    DELETE: USER_URL + "/delete"
 };
 
 export const LOGIST_URLS = {

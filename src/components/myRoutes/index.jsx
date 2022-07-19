@@ -7,14 +7,18 @@ import { paginationDefaultFilter } from "../../constants/pagination";
 import { customPageSizeOptions } from "../../constants/pagination";
 import MyRoute from "./myRoute";
 
+let paginationFilterModel = {
+    pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
+    pageSize: paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE
+}
+
 function MyRoutesPage() {
 
-    let paginationFilterModel = {
-        pageNumber: paginationDefaultFilter.DEFAULT_PAGE_NUMBER,
-        pageSize: paginationDefaultFilter.DEFAULT_SMALL_PAGE_SIZE
-    }
-
     const [routes, setRoutes] = useState();
+
+    const updateRoutes = async() => {
+        setRoutes(await getAllRoutesByUser(paginationFilterModel));
+    }
 
     useEffect( () => {
         async function fetchData(){
@@ -40,7 +44,10 @@ function MyRoutesPage() {
             {routes != null ?
                 <div className="my-routes-container">
                     {routes.items.map((route) =>
-                        <MyRoute data={route} />
+                        <MyRoute
+                            data={route}
+                            updateRoute={() => updateRoutes()}
+                        />
                     )}
 
                     <Pagination
@@ -55,7 +62,7 @@ function MyRoutesPage() {
                 :
                 <Result
                     status="404"
-                    title="There is no any created routes."
+                    title="There are no routes created."
                 />
             }
         </div>

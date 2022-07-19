@@ -34,8 +34,8 @@ export const menuItems = {
         },
         {
             itemIcon: invites_icon,
-            itemText: "My drivers' invites",
-            itemLink: "/drivers-invites"
+            itemText: "My invites",
+            itemLink: "/invites"
         },
         {
             itemIcon: route_icon,

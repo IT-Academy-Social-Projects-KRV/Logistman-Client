@@ -16,6 +16,10 @@ export default class offersService {
              &PageSize=${paginationFilterModel.pageSize}`);
     }
 
+    static deleteById(model) {
+        return instance.delete(OFFERS_URLS.DELETE + `?offerId=${model}`);
+    }
+
     static getToConfirm(paginationFilterModel) {
         return instance.get(OFFERS_URLS.GET_TO_CONFIRM +
             `?PageNumber=${paginationFilterModel.pageNumber}
