@@ -30,7 +30,7 @@ export default class offersService {
         return instance.post(OFFERS_URLS.CONFIRM_GOODS_TRANSFER, model);
     }
     
-    static getOffersNearRout(model) {
+    static getOffersNearRoute(model) {
         return instance.get(OFFERS_URLS.GET_BY_NEAR_ROUTE +
             `?tripId=${model}`);
     }

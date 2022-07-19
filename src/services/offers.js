@@ -63,25 +63,25 @@ export function createOffer(values, history, point) {
 }
 
 export async function deleteById(id) {
-  await offersService
-    .deleteById(id)
-    .then(
-      () => {
-        successMessage(generalMessages.DELETE_SUCCESSFULLY, 1500);
-      },
-      () => {
-        errorMessage(
-          offersMessages.DELETE_OFFER_FAILED,
-          generalMessages.SOMETHING_WENT_WRONG
-        );
-      }
-    )
-    .catch(() => {
-      errorMessage(
-        offersMessages.DELETE_OFFER_FAILED,
-        generalMessages.SOMETHING_WENT_WRONG
-      );
-    });
+    await offersService
+        .deleteById(id)
+        .then(
+            () => {
+                successMessage(generalMessages.DELETE_SUCCESSFULLY, 1500);
+            },
+            () => {
+                errorMessage(
+                    offersMessages.DELETE_OFFER_FAILED,
+                    generalMessages.SOMETHING_WENT_WRONG
+                );
+            }
+        )
+        .catch(() => {
+            errorMessage(
+                offersMessages.DELETE_OFFER_FAILED,
+                generalMessages.SOMETHING_WENT_WRONG
+            );
+        });
 }
 
 export async function getOffersToConfirm(paginationFilterModel) {
@@ -106,13 +106,13 @@ export async function getOffersToConfirm(paginationFilterModel) {
             errorMessage(
                 offersMessages.LOAD_USER_OFFERS_FAILED,
                 generalMessages.SOMETHING_WENT_WRONG
-    );
-  });
+            );
+        });
 }
 
-export async function getOffersNearRout(routId) {
+export async function getOffersNearRoute(routId) {
     return offersService
-        .getOffersNearRout(routId)
+        .getOffersNearRoute(routId)
         .then(
             async (response) => {
 
@@ -133,11 +133,15 @@ export async function getOffersNearRout(routId) {
         });
 }
 
-export async function getDriverConfirmGoodsDelivery(tripId){
+export async function getDriverConfirmGoodsDelivery(tripId) {
     return offersService
         .getDriverConfirmGoodsDelivery(tripId)
         .then(
             async (response) => {
+                if (response.status === statusCode.NO_CONTENT) {
+
+                    return null;
+                }
 
                 return await response.data;
             },
@@ -156,11 +160,12 @@ export async function getDriverConfirmGoodsDelivery(tripId){
         });
 }
 
-export async function confirmGoodsTransfer(model){
+export async function confirmGoodsTransfer(model) {
     return offersService
         .confirmGoodsTransfer(model)
         .then(
-            async () => {},
+            async () => {
+            },
             () => {
                 errorMessage(
                     offersMessages.CONFIRM_OFFER_FAILED,

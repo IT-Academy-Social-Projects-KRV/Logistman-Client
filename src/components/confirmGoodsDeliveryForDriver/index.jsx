@@ -37,7 +37,9 @@ function ConfirmGoodsDeliveryForDriver() {
                         <div>
                             { offers != null && offers.length != 0 ?
                                 offers.map((item, iter) => {
-                                    if (iter == 1 && !item.isAnsweredByDriver) {
+                                    if (offers.length == 2 &&
+                                        offers[0].isAnsweredByDriver == true &&
+                                        offers[1].isAnsweredByDriver == false) {
 
                                         return (
                                             <ConfirmOffers
@@ -48,7 +50,8 @@ function ConfirmGoodsDeliveryForDriver() {
                                                 offerData={item}
                                                 key={item.id}/>
                                         );
-                                    } else if (offers.length == 1) {
+                                    } else
+                                    if (offers.length == 1) {
 
                                         return (
                                             <ConfirmOffers
@@ -82,7 +85,7 @@ function ConfirmGoodsDeliveryForDriver() {
                                 :
                                 <Result
                                     status="404"
-                                    title="There is no offers information."
+                                    title="There is no offers to confirm."
                                 />
                             }
                         </div>
